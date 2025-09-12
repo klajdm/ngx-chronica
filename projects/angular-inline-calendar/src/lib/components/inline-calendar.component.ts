@@ -1,69 +1,110 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { 
-  CalendarDate, 
-  CalendarMonth, 
-  CalendarConfig, 
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import {
+  CalendarMonth,
+  CalendarConfig,
   CalendarEvent,
-  DEFAULT_CALENDAR_CONFIG 
-} from '../models/calendar.models';
-import { CalendarService } from '../services/calendar.service';
+  DEFAULT_CALENDAR_CONFIG,
+} from "../models/calendar.models";
+import { CalendarService } from "../services/calendar.service";
 
 @Component({
-  selector: 'aic-inline-calendar',
+  selector: "aic-inline-calendar",
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="aic-calendar" [class]="'aic-theme-' + (config.theme || 'light')">
+    <div
+      class="aic-calendar"
+      [class]="'aic-theme-' + (config.theme || 'light')"
+    >
       <!-- Header with navigation and dropdowns -->
       <div class="aic-header">
-        <button 
-          class="aic-nav-button" 
+        <button
+          class="aic-nav-button"
           (click)="previousMonth()"
           [disabled]="isPreviousMonthDisabled()"
           type="button"
-          aria-label="Previous month">
-          &#8249;
+          aria-label="Previous month"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-left-icon lucide-chevron-left"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
         </button>
-        
+
         <div class="aic-month-year-selectors">
           <select
             class="aic-month-select"
             [ngModel]="currentMonth.month"
             (ngModelChange)="changeMonth($event)"
-            aria-label="Select month">
-            <option *ngFor="let monthName of monthNames; let i = index" [value]="i">
+            aria-label="Select month"
+          >
+            <option
+              *ngFor="let monthName of monthNames; let i = index"
+              [value]="i"
+            >
               {{ monthName }}
             </option>
           </select>
-          
+
           <select
             class="aic-year-select"
             [ngModel]="currentMonth.year"
             (ngModelChange)="changeYear($event)"
-            aria-label="Select year">
+            aria-label="Select year"
+          >
             <option *ngFor="let year of yearRange" [value]="year">
               {{ year }}
             </option>
           </select>
         </div>
-        
-        <button 
-          class="aic-nav-button" 
+
+        <button
+          class="aic-nav-button"
           (click)="nextMonth()"
           [disabled]="isNextMonthDisabled()"
           type="button"
-          aria-label="Next month">
-          &#8250;
+          aria-label="Next month"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-right-icon lucide-chevron-right"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
         </button>
       </div>
 
       <!-- Day names header -->
       <div class="aic-day-names">
-        <div 
-          class="aic-day-name" 
-          *ngFor="let dayName of dayNames">
+        <div class="aic-day-name" *ngFor="let dayName of dayNames">
           {{ dayName }}
         </div>
       </div>
@@ -71,13 +112,13 @@ import { CalendarService } from '../services/calendar.service';
       <!-- Calendar grid -->
       <div class="aic-calendar-grid">
         <!-- Empty cells for days before the first day of month -->
-        <div 
-          *ngFor="let _ of getFirstDayOffset()" 
-          class="aic-date aic-empty">
-        </div>
-        
+        <div
+          *ngFor="let _ of getFirstDayOffset()"
+          class="aic-date aic-empty"
+        ></div>
+
         <!-- Days of month -->
-        <div 
+        <div
           *ngFor="let day of getDaysInMonth()"
           class="aic-date aic-clickable"
           [class.aic-today]="isToday(day)"
@@ -88,13 +129,14 @@ import { CalendarService } from '../services/calendar.service';
           (keydown.space)="selectDate(day)"
           tabindex="0"
           role="button"
-          [attr.aria-label]="'Select date ' + day">
+          [attr.aria-label]="'Select date ' + day"
+        >
           {{ day }}
         </div>
       </div>
     </div>
   `,
-  styleUrls: ['./inline-calendar.component.css']
+  styleUrls: ["./inline-calendar.component.css"],
 })
 export class InlineCalendarComponent implements OnInit, OnChanges {
   @Input() selectedDate: Date | null = null;
@@ -124,7 +166,7 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['config'] || changes['selectedDate']) {
+    if (changes["config"] || changes["selectedDate"]) {
       this.initializeCalendar();
     }
   }
@@ -133,16 +175,32 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     const now = new Date();
     const month = this.initialMonth ?? now.getMonth();
     const year = this.initialYear ?? now.getFullYear();
-    
+
     this.dayNames = this.calendarService.getDayNames(this.config);
-    this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                      'July', 'August', 'September', 'October', 'November', 'December'];
+    this.monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     this.generateMonth(year, month);
   }
 
   private generateMonth(year: number, month: number): void {
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
-    
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      year,
+      month,
+      this.config
+    );
+
     // Mark selected date if it exists
     if (this.selectedDate) {
       this.updateSelectedDate();
@@ -152,9 +210,12 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   private updateSelectedDate(): void {
     if (!this.selectedDate) return;
 
-    this.currentMonth.weeks.forEach(week => {
-      week.dates.forEach(date => {
-        date.isSelected = this.calendarService.isSameDate(date.date, this.selectedDate!);
+    this.currentMonth.weeks.forEach((week) => {
+      week.dates.forEach((date) => {
+        date.isSelected = this.calendarService.isSameDate(
+          date.date,
+          this.selectedDate!
+        );
       });
     });
   }
@@ -163,14 +224,18 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   selectDate(day: number): void {
     if (this.isDateDisabled(day)) return;
 
-    const selectedDate = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const selectedDate = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month,
+      day
+    );
     this.selectedDate = selectedDate;
 
     // Emit events
     this.dateSelected.emit(new Date(selectedDate));
     this.calendarEvent.emit({
-      type: 'dateSelect',
-      date: new Date(selectedDate)
+      type: "dateSelect",
+      date: new Date(selectedDate),
     });
   }
 
@@ -179,9 +244,9 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     this.generateMonth(this.currentMonth.year, monthIndex);
     this.monthChanged.emit({ month: monthIndex, year: this.currentMonth.year });
     this.calendarEvent.emit({
-      type: 'monthChange',
+      type: "monthChange",
       month: monthIndex,
-      year: this.currentMonth.year
+      year: this.currentMonth.year,
     });
   }
 
@@ -190,9 +255,9 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     this.generateMonth(year, this.currentMonth.month);
     this.monthChanged.emit({ month: this.currentMonth.month, year });
     this.calendarEvent.emit({
-      type: 'yearChange',
+      type: "yearChange",
       month: this.currentMonth.month,
-      year
+      year,
     });
   }
 
@@ -238,21 +303,21 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   // Check if a date is disabled
   isDateDisabled(day: number): boolean {
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
-    
+
     if (this.config.minDate && date < this.config.minDate) {
       return true;
     }
-    
+
     if (this.config.maxDate && date > this.config.maxDate) {
       return true;
     }
-    
+
     if (this.config.disabledDates) {
-      return this.config.disabledDates.some(disabledDate => 
+      return this.config.disabledDates.some((disabledDate) =>
         this.calendarService.isSameDate(date, disabledDate)
       );
     }
-    
+
     return false;
   }
 
@@ -260,16 +325,16 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     if (this.isPreviousMonthDisabled()) return;
 
     const prev = this.calendarService.getPreviousMonth(
-      this.currentMonth.month, 
+      this.currentMonth.month,
       this.currentMonth.year
     );
-    
+
     this.generateMonth(prev.year, prev.month);
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
-      type: 'monthChange',
+      type: "monthChange",
       month: prev.month,
-      year: prev.year
+      year: prev.year,
     });
   }
 
@@ -277,34 +342,50 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     if (this.isNextMonthDisabled()) return;
 
     const next = this.calendarService.getNextMonth(
-      this.currentMonth.month, 
+      this.currentMonth.month,
       this.currentMonth.year
     );
-    
+
     this.generateMonth(next.year, next.month);
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
-      type: 'monthChange',
+      type: "monthChange",
       month: next.month,
-      year: next.year
+      year: next.year,
     });
   }
 
   isPreviousMonthDisabled(): boolean {
     if (!this.config.minDate) return false;
-    
-    const firstDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month, 1);
-    const firstDayOfPreviousMonth = new Date(this.currentMonth.year, this.currentMonth.month - 1, 1);
-    
+
+    const firstDayOfCurrentMonth = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month,
+      1
+    );
+    const firstDayOfPreviousMonth = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month - 1,
+      1
+    );
+
     return firstDayOfPreviousMonth < this.config.minDate;
   }
 
   isNextMonthDisabled(): boolean {
     if (!this.config.maxDate) return false;
-    
-    const lastDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month + 1, 0);
-    const lastDayOfNextMonth = new Date(this.currentMonth.year, this.currentMonth.month + 2, 0);
-    
+
+    const lastDayOfCurrentMonth = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month + 1,
+      0
+    );
+    const lastDayOfNextMonth = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month + 2,
+      0
+    );
+
     return lastDayOfNextMonth > this.config.maxDate;
   }
 }
