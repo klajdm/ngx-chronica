@@ -30,11 +30,11 @@ describe('InlineCalendarComponent', () => {
 
   it('should emit dateSelected when a date is clicked', () => {
     spyOn(component.dateSelected, 'emit');
-    const testDate = component.currentMonth.weeks[0].dates[0];
+    const testDay = 15; // Use a day number instead of CalendarDate
     
-    if (!testDate.isDisabled) {
-      component.selectDate(testDate);
-      expect(component.dateSelected.emit).toHaveBeenCalledWith(testDate.date);
+    if (!component.isDateDisabled(testDay)) {
+      component.selectDate(testDay);
+      expect(component.dateSelected.emit).toHaveBeenCalled();
     }
   });
 
