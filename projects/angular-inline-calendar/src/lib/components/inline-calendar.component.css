@@ -159,84 +159,72 @@
 
 /* Dark theme */
 .aic-theme-dark {
-  background: #2d2d2d;
-  border-color: #444;
+  background: #1f2937;
+  border-color: #374151;
   color: #ffffff;
-}
-
-.aic-theme-dark .aic-header {
-  background: #3d3d3d;
-  border-bottom-color: #444;
-}
-
-.aic-theme-dark .aic-month {
-  color: #ffffff;
-}
-
-.aic-theme-dark .aic-year {
-  color: #ccc;
 }
 
 .aic-theme-dark .aic-nav-button {
-  color: #ccc;
+  color: #9ca3af;
 }
 
 .aic-theme-dark .aic-nav-button:hover:not(:disabled) {
-  background: #4d4d4d;
+  background: #374151;
   color: #ffffff;
 }
 
 .aic-theme-dark .aic-nav-button:disabled {
-  color: #666;
+  color: #4b5563;
 }
 
-.aic-theme-dark .aic-day-names {
-  background: #3d3d3d;
-  border-bottom-color: #444;
-}
-
-.aic-theme-dark .aic-day-name {
-  color: #ccc;
-}
-
-.aic-theme-dark .aic-calendar-grid {
-  background: #2d2d2d;
-}
-
-.aic-theme-dark .aic-date {
-  border-color: #444;
-}
-
-.aic-theme-dark .aic-date-number {
+.aic-theme-dark .aic-month-select,
+.aic-theme-dark .aic-year-select {
+  background: #374151;
+  border-color: #4b5563;
   color: #ffffff;
 }
 
-.aic-theme-dark .aic-date.aic-clickable:hover {
-  background: #3d3d3d;
+.aic-theme-dark .aic-month-select:hover,
+.aic-theme-dark .aic-year-select:hover {
+  border-color: #6b7280;
+}
+
+.aic-theme-dark .aic-month-select:focus,
+.aic-theme-dark .aic-year-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.aic-theme-dark .aic-month-select option,
+.aic-theme-dark .aic-year-select option {
+  background: #374151;
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-day-name {
+  color: #60a5fa;
+}
+
+.aic-theme-dark .aic-date {
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-date.aic-clickable:hover:not(.aic-selected) {
+  background: #374151;
 }
 
 .aic-theme-dark .aic-date.aic-today {
-  background: #1a237e;
-}
-
-.aic-theme-dark .aic-date.aic-today .aic-date-number {
-  color: #64b5f6;
+  font-weight: 700;
+  color: #60a5fa;
 }
 
 .aic-theme-dark .aic-date.aic-selected {
-  background: #1976d2;
+  background: #3b82f6;
+  color: #ffffff;
 }
 
-.aic-theme-dark .aic-date.aic-other-month .aic-date-number {
-  color: #666;
-}
-
-.aic-theme-dark .aic-date.aic-weekend .aic-date-number {
-  color: #f48fb1;
-}
-
-.aic-theme-dark .aic-date.aic-weekend.aic-other-month .aic-date-number {
-  color: #4d4d4d;
+.aic-theme-dark .aic-date.aic-disabled {
+  color: #4b5563;
 }
 
 /* Responsive adjustments */
