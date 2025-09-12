@@ -1,0 +1,275 @@
+/* Base calendar styles */
+.aic-calendar {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  user-select: none;
+  width: 280px;
+}
+
+/* Header styles */
+.aic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.aic-nav-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.aic-nav-button:hover:not(:disabled) {
+  background: #e9ecef;
+  color: #333;
+}
+
+.aic-nav-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.aic-month-year {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+}
+
+.aic-month {
+  font-size: 16px;
+  color: #333;
+}
+
+.aic-year {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Day names header */
+.aic-day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #f1f3f4;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.aic-day-name {
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+}
+
+/* Calendar grid */
+.aic-calendar-grid {
+  background: #ffffff;
+}
+
+.aic-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.aic-date {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+}
+
+.aic-date:last-child {
+  border-right: none;
+}
+
+.aic-week:last-child .aic-date {
+  border-bottom: none;
+}
+
+.aic-date-number {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Date states */
+.aic-date.aic-clickable {
+  cursor: pointer;
+}
+
+.aic-date.aic-clickable:hover {
+  background: #f8f9fa;
+}
+
+.aic-date.aic-today {
+  background: #e3f2fd;
+}
+
+.aic-date.aic-today .aic-date-number {
+  color: #1976d2;
+  font-weight: 700;
+}
+
+.aic-date.aic-selected {
+  background: #1976d2;
+}
+
+.aic-date.aic-selected .aic-date-number {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.aic-date.aic-disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.aic-date.aic-disabled:hover {
+  background: transparent;
+}
+
+.aic-date.aic-other-month .aic-date-number {
+  color: #bbb;
+}
+
+.aic-date.aic-weekend .aic-date-number {
+  color: #d32f2f;
+}
+
+.aic-date.aic-weekend.aic-other-month .aic-date-number {
+  color: #ffcdd2;
+}
+
+/* Dark theme */
+.aic-theme-dark {
+  background: #2d2d2d;
+  border-color: #444;
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-header {
+  background: #3d3d3d;
+  border-bottom-color: #444;
+}
+
+.aic-theme-dark .aic-month {
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-year {
+  color: #ccc;
+}
+
+.aic-theme-dark .aic-nav-button {
+  color: #ccc;
+}
+
+.aic-theme-dark .aic-nav-button:hover:not(:disabled) {
+  background: #4d4d4d;
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-nav-button:disabled {
+  color: #666;
+}
+
+.aic-theme-dark .aic-day-names {
+  background: #3d3d3d;
+  border-bottom-color: #444;
+}
+
+.aic-theme-dark .aic-day-name {
+  color: #ccc;
+}
+
+.aic-theme-dark .aic-calendar-grid {
+  background: #2d2d2d;
+}
+
+.aic-theme-dark .aic-date {
+  border-color: #444;
+}
+
+.aic-theme-dark .aic-date-number {
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-date.aic-clickable:hover {
+  background: #3d3d3d;
+}
+
+.aic-theme-dark .aic-date.aic-today {
+  background: #1a237e;
+}
+
+.aic-theme-dark .aic-date.aic-today .aic-date-number {
+  color: #64b5f6;
+}
+
+.aic-theme-dark .aic-date.aic-selected {
+  background: #1976d2;
+}
+
+.aic-theme-dark .aic-date.aic-other-month .aic-date-number {
+  color: #666;
+}
+
+.aic-theme-dark .aic-date.aic-weekend .aic-date-number {
+  color: #f48fb1;
+}
+
+.aic-theme-dark .aic-date.aic-weekend.aic-other-month .aic-date-number {
+  color: #4d4d4d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 320px) {
+  .aic-calendar {
+    width: 100%;
+    min-width: 280px;
+  }
+  
+  .aic-date-number {
+    font-size: 12px;
+  }
+  
+  .aic-month {
+    font-size: 14px;
+  }
+}
+
+/* Animation for month transitions */
+.aic-calendar-grid {
+  transition: opacity 0.2s ease;
+}
+
+/* Focus styles for accessibility */
+.aic-nav-button:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+.aic-date:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: -2px;
+}

@@ -1,0 +1,69 @@
+{
+  "name": "angular-inline-calendar",
+  "version": "1.0.0",
+  "description": "A lightweight, customizable inline calendar component for Angular applications",
+  "main": "dist/angular-inline-calendar/index.js",
+  "types": "dist/angular-inline-calendar/index.d.ts",
+  "files": [
+    "dist/angular-inline-calendar",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "ng build angular-inline-calendar",
+    "build:watch": "ng build angular-inline-calendar --watch",
+    "test": "ng test angular-inline-calendar",
+    "lint": "ng lint angular-inline-calendar",
+    "pack": "npm run build && npm pack dist/angular-inline-calendar",
+    "publish:npm": "npm run build && npm publish dist/angular-inline-calendar"
+  },
+  "keywords": [
+    "angular",
+    "calendar",
+    "inline",
+    "date-picker",
+    "component",
+    "ui"
+  ],
+  "author": "Klajdi Murataj <klajdimurati3@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klajdm/angular-inline-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/klajdm/angular-inline-calendar/issues"
+  },
+  "homepage": "https://github.com/klajdm/angular-inline-calendar#readme",
+  "peerDependencies": {
+    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0",
+    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.17",
+    "@angular/animations": "^17.0.0",
+    "@angular/cli": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/forms": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@types/jasmine": "~4.3.0",
+    "@types/node": "^18.7.0",
+    "jasmine-core": "~4.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^17.0.0",
+    "typescript": "~5.2.0",
+    "zone.js": "^0.14.10"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
