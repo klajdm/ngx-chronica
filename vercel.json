@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm run build:app",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": "angular",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

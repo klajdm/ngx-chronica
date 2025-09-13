@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build": "ng build nga-inline-calendar",
+    "build:app": "ng build angular-inline-calendar --configuration=production",
     "build:watch": "ng build nga-inline-calendar --watch",
     "test": "ng test nga-inline-calendar",
     "lint": "ng lint nga-inline-calendar",
