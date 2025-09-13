@@ -113,7 +113,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
-  padding-bottom: 20px; /* Add space for Today button */
+  padding-bottom: 28px; /* Add space for Today button */
 }
 
 .nga-date {
@@ -139,6 +139,11 @@
 
 .nga-date.nga-clickable:hover:not(.nga-selected) {
   background: #f3f4f6;
+}
+
+.nga-date.nga-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .nga-date.nga-today {
@@ -305,11 +310,6 @@
 }
 
 /* Focus styles for accessibility */
-.nga-nav-button:focus {
-  outline: 2px solid #1976d2;
-  outline-offset: 2px;
-}
-
 .nga-date:focus {
   outline: 2px solid #1976d2;
   outline-offset: -2px;

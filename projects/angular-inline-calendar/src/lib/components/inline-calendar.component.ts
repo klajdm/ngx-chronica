@@ -6,9 +6,10 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  forwardRef,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import {
   CalendarMonth,
   CalendarConfig,
@@ -21,6 +22,13 @@ import { CalendarService } from "../services/calendar.service";
   selector: "nga-inline-calendar",
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InlineCalendarComponent),
+      multi: true,
+    },
+  ],
   template: `
     <div
       class="nga-calendar"
@@ -148,7 +156,7 @@ import { CalendarService } from "../services/calendar.service";
   `,
   styleUrls: ["./inline-calendar.component.css"],
 })
-export class InlineCalendarComponent implements OnInit, OnChanges {
+export class InlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() initialMonth?: number;
@@ -157,6 +165,11 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
   @Output() calendarEvent = new EventEmitter<CalendarEvent>();
+
+  // ControlValueAccessor properties
+  private onChange = (value: Date | null) => {};
+  private onTouched = () => {};
+  disabled = false;
 
   currentMonth!: CalendarMonth;
   dayNames: string[] = [];
@@ -236,7 +249,7 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
 
   // New method to handle day selection with the updated template
   selectDate(day: number): void {
-    if (this.isDateDisabled(day)) return;
+    if (this.isDateDisabled(day) || this.disabled) return;
 
     // Ensure we don't exceed the actual days in the current month
     const daysInCurrentMonth = new Date(
@@ -252,6 +265,10 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
       validDay
     );
     this.selectedDate = selectedDate;
+
+    // Call ControlValueAccessor callbacks
+    this.onChange(selectedDate);
+    this.onTouched();
 
     // Emit events
     this.dateSelected.emit(new Date(selectedDate));
@@ -324,6 +341,8 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
 
   // Check if a date is disabled
   isDateDisabled(day: number): boolean {
+    if (this.disabled) return true;
+    
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
 
     if (this.config.minDate && date < this.config.minDate) {
@@ -424,5 +443,25 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
       month: today.getMonth(),
       year: today.getFullYear(),
     });
+  }
+
+  // ControlValueAccessor implementation
+  writeValue(value: Date | null): void {
+    this.selectedDate = value;
+    if (this.currentMonth) {
+      this.updateSelectedDate();
+    }
+  }
+
+  registerOnChange(fn: (value: Date | null) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 }
