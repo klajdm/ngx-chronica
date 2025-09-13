@@ -50,8 +50,3 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
-
-# Demo application (not part of npm package - keep locally for development)
-/src/
-angular.json  
-tsconfig.app.json
