@@ -1,21 +1,21 @@
 {
-  "name": "angular-inline-calendar",
+  "name": "nga-inline-calendar",
   "version": "1.0.0",
   "description": "A lightweight, customizable inline calendar component for Angular applications",
-  "main": "dist/angular-inline-calendar/index.js",
-  "types": "dist/angular-inline-calendar/index.d.ts",
+  "main": "dist/nga-inline-calendar/index.js",
+  "types": "dist/nga-inline-calendar/index.d.ts",
   "files": [
-    "dist/angular-inline-calendar",
+    "dist/nga-inline-calendar",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "ng build angular-inline-calendar",
-    "build:watch": "ng build angular-inline-calendar --watch",
-    "test": "ng test angular-inline-calendar",
-    "lint": "ng lint angular-inline-calendar",
-    "pack": "npm run build && npm pack dist/angular-inline-calendar",
-    "publish:npm": "npm run build && npm publish dist/angular-inline-calendar"
+    "build": "ng build nga-inline-calendar",
+    "build:watch": "ng build nga-inline-calendar --watch",
+    "test": "ng test nga-inline-calendar",
+    "lint": "ng lint nga-inline-calendar",
+    "pack": "npm run build && npm pack dist/nga-inline-calendar",
+    "publish:npm": "npm run build && npm publish dist/nga-inline-calendar"
   },
   "keywords": [
     "angular",

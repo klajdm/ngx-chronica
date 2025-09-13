@@ -9,7 +9,7 @@ import {
 import {
   InlineCalendarComponent,
   CalendarConfig,
-} from "projects/angular-inline-calendar/src/public-api";
+} from "projects/nga-inline-calendar/src/public-api";
 
 @Component({
   selector: "app-root",
@@ -34,7 +34,10 @@ import {
       <div class="global-theme-selector">
         <label>
           Global Color Theme:
-          <select [(ngModel)]="globalColorTheme" (change)="updateGlobalColorTheme()">
+          <select
+            [(ngModel)]="globalColorTheme"
+            (change)="updateGlobalColorTheme()"
+          >
             <option value="blue">Blue (Default)</option>
             <option value="green">Green</option>
             <option value="purple">Purple</option>
@@ -222,7 +225,7 @@ import {
       <footer class="demo-footer">
         <p>
           <strong>Installation:</strong>
-          <code>npm install angular-inline-calendar</code>
+          <code>npm install nga-inline-calendar</code>
         </p>
         <p>
           <strong>Usage:</strong> Import
@@ -238,21 +241,21 @@ export class AppComponent {
   // Basic calendar
   basicSelectedDate: Date | null = new Date();
   basicConfig: CalendarConfig = {
-    colorTheme: 'blue',
+    colorTheme: "blue",
   };
 
   // Dark theme calendar
   darkSelectedDate: Date | null = null;
   darkConfig: CalendarConfig = {
     theme: "dark",
-    colorTheme: 'blue',
+    colorTheme: "blue",
   };
 
   // Monday first calendar
   mondaySelectedDate: Date | null = null;
   mondayConfig: CalendarConfig = {
     firstDayOfWeek: 1,
-    colorTheme: 'blue',
+    colorTheme: "blue",
   };
 
   // Restricted calendar
@@ -264,7 +267,7 @@ export class AppComponent {
       new Date(2024, 11, 25), // Christmas
       new Date(2024, 0, 1), // New Year
     ],
-    colorTheme: 'blue',
+    colorTheme: "blue",
   };
 
   // Interactive calendar
@@ -273,7 +276,7 @@ export class AppComponent {
     theme: "light",
     firstDayOfWeek: 0,
     showAdjacentMonths: true,
-    colorTheme: 'blue',
+    colorTheme: "blue",
   };
   interactiveConfigCopy: CalendarConfig = { ...this.interactiveConfig };
   eventLog: string[] = [];
@@ -284,17 +287,17 @@ export class AppComponent {
   ]);
   templateFormDate: Date | null = null;
   reactiveFormConfig: CalendarConfig = {
-    theme: 'light',
+    theme: "light",
     showTodayButton: true,
-    colorTheme: 'blue',
+    colorTheme: "blue",
   };
   templateFormConfig: CalendarConfig = {
-    theme: 'dark',
-    colorTheme: 'blue',
+    theme: "dark",
+    colorTheme: "blue",
   };
 
   // Global color theme
-  globalColorTheme: string = 'blue';
+  globalColorTheme: string = "blue";
 
   onBasicDateSelected(date: Date) {
     this.basicSelectedDate = date;
@@ -354,14 +357,35 @@ export class AppComponent {
   // Global color theme method
   updateGlobalColorTheme() {
     // Update all calendar configs to use the new global color theme
-    this.basicConfig = { ...this.basicConfig, colorTheme: this.globalColorTheme as any };
-    this.darkConfig = { ...this.darkConfig, colorTheme: this.globalColorTheme as any };
-    this.mondayConfig = { ...this.mondayConfig, colorTheme: this.globalColorTheme as any };
-    this.restrictedConfig = { ...this.restrictedConfig, colorTheme: this.globalColorTheme as any };
-    this.interactiveConfig = { ...this.interactiveConfig, colorTheme: this.globalColorTheme as any };
+    this.basicConfig = {
+      ...this.basicConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
+    this.darkConfig = {
+      ...this.darkConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
+    this.mondayConfig = {
+      ...this.mondayConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
+    this.restrictedConfig = {
+      ...this.restrictedConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
+    this.interactiveConfig = {
+      ...this.interactiveConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
     this.interactiveConfigCopy = { ...this.interactiveConfig };
-    this.reactiveFormConfig = { ...this.reactiveFormConfig, colorTheme: this.globalColorTheme as any };
-    this.templateFormConfig = { ...this.templateFormConfig, colorTheme: this.globalColorTheme as any };
+    this.reactiveFormConfig = {
+      ...this.reactiveFormConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
+    this.templateFormConfig = {
+      ...this.templateFormConfig,
+      colorTheme: this.globalColorTheme as any,
+    };
   }
 
   private addToEventLog(message: string) {

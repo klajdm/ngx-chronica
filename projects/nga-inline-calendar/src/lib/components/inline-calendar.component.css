@@ -1,20 +1,22 @@
-/* Base calendar styles */
 .nga-calendar {
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
   overflow: hidden;
   user-select: none;
   width: 320px;
   padding: 16px;
+  --nga-primary: #3b82f6;
+  --nga-primary-hover: #2563eb;
+  --nga-primary-light: #dbeafe;
+  --nga-primary-dark: #1d4ed8;
+  --nga-accent: #60a5fa;
+  --nga-focus: rgba(59,130,246,.2);
 }
 
-/* Header styles */
 .nga-header {
   display: flex;
   align-items: center;
@@ -32,7 +34,7 @@
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 6px;
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   min-width: 40px;
   height: 32px;
   display: flex;
@@ -44,7 +46,6 @@
   background: #f3f4f6;
   color: #374151;
 }
-
 .nga-nav-button:disabled {
   color: #d1d5db;
   cursor: not-allowed;
@@ -57,16 +58,15 @@
   flex: 1;
 }
 
-.nga-month-select,
-.nga-year-select {
+.nga-month-select,.nga-year-select {
   border: 1px solid #d1d5db;
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 14px;
-  background: #ffffff;
+  background: #fff;
   color: #374151;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   height: 32px;
 }
 
@@ -79,22 +79,18 @@
   width: 80px;
 }
 
-.nga-month-select:hover,
-.nga-year-select:hover {
+.nga-month-select:hover,.nga-year-select:hover {
   border-color: #9ca3af;
 }
-
-.nga-month-select:focus,
-.nga-year-select:focus {
+.nga-month-select:focus,.nga-year-select:focus {
   outline: none;
   border-color: var(--nga-primary);
   box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
-/* Day names header */
 .nga-day-names {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7,1fr);
   margin-bottom: 4px;
   gap: 4px;
 }
@@ -108,12 +104,11 @@
   text-transform: uppercase;
 }
 
-/* Calendar grid */
 .nga-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7,1fr);
   gap: 4px;
-  padding-bottom: 28px; /* Add space for Today button */
+  padding-bottom: 28px;
 }
 
 .nga-date {
@@ -124,7 +119,7 @@
   justify-content: center;
   border-radius: 50%;
   font-size: 14px;
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   position: relative;
 }
 
@@ -132,7 +127,6 @@
   visibility: hidden;
 }
 
-/* Date states */
 .nga-date.nga-clickable {
   cursor: pointer;
 }
@@ -142,35 +136,27 @@
 }
 
 .nga-date.nga-disabled {
-  opacity: 0.4;
+  opacity: .4;
   cursor: not-allowed;
+  color: #9ca3af;
 }
-
 .nga-date.nga-today {
   font-weight: 700;
 }
-
 .nga-date.nga-selected {
   background: var(--nga-primary);
-  color: #ffffff;
+  color: #fff;
   font-weight: 700;
-}
-
-.nga-date.nga-disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-  color: #9ca3af;
 }
 
 .nga-date.nga-disabled:hover {
   background: transparent;
 }
 
-/* Dark theme */
 .nga-theme-dark {
   background: #1f2937;
   border-color: #374151;
-  color: #ffffff;
+  color: #fff;
 }
 
 .nga-theme-dark .nga-nav-button {
@@ -179,35 +165,26 @@
 
 .nga-theme-dark .nga-nav-button:hover:not(:disabled) {
   background: #374151;
-  color: #ffffff;
+  color: #fff;
 }
-
 .nga-theme-dark .nga-nav-button:disabled {
   color: #4b5563;
 }
-
-.nga-theme-dark .nga-month-select,
-.nga-theme-dark .nga-year-select {
+.nga-theme-dark .nga-month-select,.nga-theme-dark .nga-year-select {
   background: #374151;
   border-color: #4b5563;
-  color: #ffffff;
+  color: #fff;
 }
-
-.nga-theme-dark .nga-month-select:hover,
-.nga-theme-dark .nga-year-select:hover {
+.nga-theme-dark .nga-month-select:hover,.nga-theme-dark .nga-year-select:hover {
   border-color: #6b7280;
 }
-
-.nga-theme-dark .nga-month-select:focus,
-.nga-theme-dark .nga-year-select:focus {
+.nga-theme-dark .nga-month-select:focus,.nga-theme-dark .nga-year-select:focus {
   border-color: var(--nga-primary);
   box-shadow: 0 0 0 3px var(--nga-focus);
 }
-
-.nga-theme-dark .nga-month-select option,
-.nga-theme-dark .nga-year-select option {
+.nga-theme-dark .nga-month-select option,.nga-theme-dark .nga-year-select option {
   background: #374151;
-  color: #ffffff;
+  color: #fff;
 }
 
 .nga-theme-dark .nga-day-name {
@@ -215,35 +192,29 @@
 }
 
 .nga-theme-dark .nga-date {
-  color: #ffffff;
+  color: #fff;
 }
-
 .nga-theme-dark .nga-date.nga-clickable:hover:not(.nga-selected) {
   background: #374151;
 }
-
 .nga-theme-dark .nga-date.nga-today {
   font-weight: 700;
   color: var(--nga-accent);
 }
-
 .nga-theme-dark .nga-date.nga-selected {
   background: var(--nga-primary);
-  color: #ffffff;
+  color: #fff;
 }
-
 .nga-theme-dark .nga-date.nga-disabled {
   color: #4b5563;
 }
 
-/* Today button */
 .nga-today-button-container {
   position: absolute;
   bottom: 8px;
   right: 8px;
   z-index: 10;
 }
-
 .nga-today-button {
   background: var(--nga-primary);
   color: white;
@@ -253,63 +224,48 @@
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   outline: none;
 }
-
 .nga-today-button:hover {
   background: var(--nga-primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px var(--nga-focus);
 }
-
 .nga-today-button:focus {
   box-shadow: 0 0 0 3px var(--nga-focus);
 }
-
 .nga-today-button:active {
   transform: translateY(0);
   box-shadow: 0 1px 2px var(--nga-focus);
 }
-
-/* Dark theme Today button */
-
 .nga-theme-dark .nga-today-button {
   background: var(--nga-primary);
-  color: #ffffff;
+  color: #fff;
 }
-
 .nga-theme-dark .nga-today-button:hover {
   background: var(--nga-primary-hover);
   box-shadow: 0 2px 4px var(--nga-focus);
 }
-
 .nga-theme-dark .nga-today-button:focus {
   box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
-/* Responsive adjustments */
-@media (max-width: 320px) {
+@media (max-width:320px) {
   .nga-calendar {
     width: 100%;
     min-width: 280px;
   }
-
   .nga-date-number {
     font-size: 12px;
   }
-
   .nga-month {
     font-size: 14px;
   }
 }
-
-/* Animation for month transitions */
 .nga-calendar-grid {
-  transition: opacity 0.2s ease;
+  transition: opacity .2s ease;
 }
-
-/* Focus styles for accessibility */
 .nga-date:focus {
   outline: 2px solid var(--nga-primary);
   outline-offset: -2px;

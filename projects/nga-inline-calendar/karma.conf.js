@@ -27,7 +27,7 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require("path").join(
         __dirname,
-        "../../coverage/angular-inline-calendar"
+        "../../coverage/nga-inline-calendar"
       ),
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }],
