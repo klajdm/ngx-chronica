@@ -15,6 +15,7 @@ import {
   CalendarConfig,
   CalendarEvent,
   DEFAULT_CALENDAR_CONFIG,
+  COLOR_THEMES,
 } from "../models/calendar.models";
 import { CalendarService } from "../services/calendar.service";
 
@@ -33,6 +34,8 @@ import { CalendarService } from "../services/calendar.service";
     <div
       class="nga-calendar"
       [class]="'nga-theme-' + (config.theme || 'light')"
+      [attr.data-color-theme]="config.colorTheme || 'blue'"
+      [style]="getColorThemeStyles()"
     >
       <!-- Header with navigation and dropdowns -->
       <div class="nga-header">
@@ -463,5 +466,20 @@ export class InlineCalendarComponent implements OnInit, OnChanges, ControlValueA
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  // Get CSS custom properties for color theming
+  getColorThemeStyles(): { [key: string]: string } {
+    const colorTheme = this.config.colorTheme || 'blue';
+    const colors = COLOR_THEMES[colorTheme];
+    
+    return {
+      '--nga-primary': colors.primary,
+      '--nga-primary-hover': colors.primaryHover,
+      '--nga-primary-light': colors.primaryLight,
+      '--nga-primary-dark': colors.primaryDark,
+      '--nga-accent': colors.accent,
+      '--nga-focus': colors.focus
+    };
   }
 }

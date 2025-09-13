@@ -87,8 +87,8 @@
 .nga-month-select:focus,
 .nga-year-select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--nga-primary);
+  box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
 /* Day names header */
@@ -104,7 +104,7 @@
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  color: #3b82f6;
+  color: var(--nga-accent);
   text-transform: uppercase;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .nga-date.nga-selected {
-  background: #3b82f6;
+  background: var(--nga-primary);
   color: #ffffff;
   font-weight: 700;
 }
@@ -200,8 +200,8 @@
 
 .nga-theme-dark .nga-month-select:focus,
 .nga-theme-dark .nga-year-select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  border-color: var(--nga-primary);
+  box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
 .nga-theme-dark .nga-month-select option,
@@ -211,7 +211,7 @@
 }
 
 .nga-theme-dark .nga-day-name {
-  color: #60a5fa;
+  color: var(--nga-accent);
 }
 
 .nga-theme-dark .nga-date {
@@ -224,11 +224,11 @@
 
 .nga-theme-dark .nga-date.nga-today {
   font-weight: 700;
-  color: #60a5fa;
+  color: var(--nga-accent);
 }
 
 .nga-theme-dark .nga-date.nga-selected {
-  background: #3b82f6;
+  background: var(--nga-primary);
   color: #ffffff;
 }
 
@@ -245,7 +245,7 @@
 }
 
 .nga-today-button {
-  background: #3b82f6;
+  background: var(--nga-primary);
   color: white;
   border: none;
   border-radius: 6px;
@@ -258,34 +258,34 @@
 }
 
 .nga-today-button:hover {
-  background: #2563eb;
+  background: var(--nga-primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 4px var(--nga-focus);
 }
 
 .nga-today-button:focus {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
 .nga-today-button:active {
   transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 1px 2px var(--nga-focus);
 }
 
 /* Dark theme Today button */
 
 .nga-theme-dark .nga-today-button {
-  background: #3b82f6;
+  background: var(--nga-primary);
   color: #ffffff;
 }
 
 .nga-theme-dark .nga-today-button:hover {
-  background: #2563eb;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.4);
+  background: var(--nga-primary-hover);
+  box-shadow: 0 2px 4px var(--nga-focus);
 }
 
 .nga-theme-dark .nga-today-button:focus {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
 /* Responsive adjustments */
@@ -311,6 +311,6 @@
 
 /* Focus styles for accessibility */
 .nga-date:focus {
-  outline: 2px solid #1976d2;
+  outline: 2px solid var(--nga-primary);
   outline-offset: -2px;
 }
