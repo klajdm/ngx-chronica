@@ -18,18 +18,18 @@ import {
 import { CalendarService } from "../services/calendar.service";
 
 @Component({
-  selector: "aic-inline-calendar",
+  selector: "nga-inline-calendar",
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
     <div
-      class="aic-calendar"
-      [class]="'aic-theme-' + (config.theme || 'light')"
+      class="nga-calendar"
+      [class]="'nga-theme-' + (config.theme || 'light')"
     >
       <!-- Header with navigation and dropdowns -->
-      <div class="aic-header">
+      <div class="nga-header">
         <button
-          class="aic-nav-button"
+          class="nga-nav-button"
           (click)="previousMonth()"
           [disabled]="isPreviousMonthDisabled()"
           type="button"
@@ -51,9 +51,9 @@ import { CalendarService } from "../services/calendar.service";
           </svg>
         </button>
 
-        <div class="aic-month-year-selectors">
+        <div class="nga-month-year-selectors">
           <select
-            class="aic-month-select"
+            class="nga-month-select"
             [ngModel]="currentMonth.month"
             (ngModelChange)="changeMonth($event)"
             aria-label="Select month"
@@ -67,7 +67,7 @@ import { CalendarService } from "../services/calendar.service";
           </select>
 
           <select
-            class="aic-year-select"
+            class="nga-year-select"
             [ngModel]="currentMonth.year"
             (ngModelChange)="changeYear($event)"
             aria-label="Select year"
@@ -79,7 +79,7 @@ import { CalendarService } from "../services/calendar.service";
         </div>
 
         <button
-          class="aic-nav-button"
+          class="nga-nav-button"
           (click)="nextMonth()"
           [disabled]="isNextMonthDisabled()"
           type="button"
@@ -103,27 +103,27 @@ import { CalendarService } from "../services/calendar.service";
       </div>
 
       <!-- Day names header -->
-      <div class="aic-day-names">
-        <div class="aic-day-name" *ngFor="let dayName of dayNames">
+      <div class="nga-day-names">
+        <div class="nga-day-name" *ngFor="let dayName of dayNames">
           {{ dayName }}
         </div>
       </div>
 
       <!-- Calendar grid -->
-      <div class="aic-calendar-grid">
+      <div class="nga-calendar-grid">
         <!-- Empty cells for days before the first day of month -->
         <div
           *ngFor="let _ of getFirstDayOffset()"
-          class="aic-date aic-empty"
+          class="nga-date nga-empty"
         ></div>
 
         <!-- Days of month -->
         <div
           *ngFor="let day of getDaysInMonth()"
-          class="aic-date aic-clickable"
-          [class.aic-today]="isToday(day)"
-          [class.aic-selected]="isSelectedDate(day)"
-          [class.aic-disabled]="isDateDisabled(day)"
+          class="nga-date nga-clickable"
+          [class.nga-today]="isToday(day)"
+          [class.nga-selected]="isSelectedDate(day)"
+          [class.nga-disabled]="isDateDisabled(day)"
           (click)="selectDate(day)"
           (keydown.enter)="selectDate(day)"
           (keydown.space)="selectDate(day)"
@@ -136,11 +136,11 @@ import { CalendarService } from "../services/calendar.service";
       </div>
 
       <!-- Today button - positioned at bottom right -->
-      <div class="aic-today-button-container" *ngIf="config.showTodayButton !== false">
-        <button 
-          class="aic-today-button"
-          (click)="goToToday()"
-          type="button">
+      <div
+        class="nga-today-button-container"
+        *ngIf="config.showTodayButton !== false"
+      >
+        <button class="nga-today-button" (click)="goToToday()" type="button">
           Today
         </button>
       </div>
@@ -239,7 +239,11 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     if (this.isDateDisabled(day)) return;
 
     // Ensure we don't exceed the actual days in the current month
-    const daysInCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month + 1, 0).getDate();
+    const daysInCurrentMonth = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month + 1,
+      0
+    ).getDate();
     const validDay = Math.min(day, daysInCurrentMonth);
 
     const selectedDate = new Date(
@@ -411,7 +415,10 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     const today = new Date();
     this.generateMonth(today.getFullYear(), today.getMonth());
     this.selectDate(today.getDate());
-    this.monthChanged.emit({ month: today.getMonth(), year: today.getFullYear() });
+    this.monthChanged.emit({
+      month: today.getMonth(),
+      year: today.getFullYear(),
+    });
     this.calendarEvent.emit({
       type: "monthChange",
       month: today.getMonth(),
