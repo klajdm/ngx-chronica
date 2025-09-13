@@ -1,0 +1,212 @@
+<div class="container">
+  <header class="header">
+    <h1>Angular Inline Calendar</h1>
+    <p>
+      A lightweight, customizable inline calendar component for Angular
+      applications
+    </p>
+  </header>
+
+  <!-- Global Color Theme Selector -->
+  <div class="global-theme-selector">
+    <label>
+      Global Color Theme:
+      <select
+        [(ngModel)]="globalColorTheme"
+        (change)="updateGlobalColorTheme()"
+      >
+        <option value="blue">Blue (Default)</option>
+        <option value="green">Green</option>
+        <option value="purple">Purple</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="teal">Teal</option>
+        <option value="pink">Pink</option>
+        <option value="indigo">Indigo</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="grid">
+    <!-- Basic Calendar -->
+    <div class="card">
+      <h2>Basic Calendar</h2>
+      <nga-inline-calendar
+        [selectedDate]="basicSelectedDate"
+        [config]="basicConfig"
+        (dateSelected)="onBasicDateSelected($event)"
+      >
+      </nga-inline-calendar>
+      <div class="selected-date" *ngIf="basicSelectedDate">
+        Selected: {{ basicSelectedDate | date : "fullDate" }}
+      </div>
+    </div>
+
+    <!-- Dark Theme Calendar -->
+    <div class="card">
+      <h2>Dark Theme</h2>
+      <nga-inline-calendar
+        [selectedDate]="darkSelectedDate"
+        [config]="darkConfig"
+        (dateSelected)="onDarkDateSelected($event)"
+      >
+      </nga-inline-calendar>
+      <div class="selected-date" *ngIf="darkSelectedDate">
+        Selected: {{ darkSelectedDate | date : "fullDate" }}
+      </div>
+    </div>
+
+    <!-- Monday First Calendar -->
+    <div class="card">
+      <h2>Monday First</h2>
+      <nga-inline-calendar
+        [selectedDate]="mondaySelectedDate"
+        [config]="mondayConfig"
+        (dateSelected)="onMondayDateSelected($event)"
+      >
+      </nga-inline-calendar>
+      <div class="selected-date" *ngIf="mondaySelectedDate">
+        Selected: {{ mondaySelectedDate | date : "fullDate" }}
+      </div>
+    </div>
+
+    <!-- Restricted Calendar -->
+    <div class="card">
+      <h2>Date Restrictions</h2>
+      <p class="description">
+        Min: {{ restrictedConfig.minDate | date : "shortDate" }}<br />
+        Max: {{ restrictedConfig.maxDate | date : "shortDate" }}
+      </p>
+      <nga-inline-calendar
+        [selectedDate]="restrictedSelectedDate"
+        [config]="restrictedConfig"
+        (dateSelected)="onRestrictedDateSelected($event)"
+      >
+      </nga-inline-calendar>
+      <div class="selected-date" *ngIf="restrictedSelectedDate">
+        Selected: {{ restrictedSelectedDate | date : "fullDate" }}
+      </div>
+    </div>
+
+    <!-- Reactive Forms -->
+    <div class="card">
+      <h2>Reactive Forms</h2>
+      <nga-inline-calendar
+        [formControl]="reactiveFormControl"
+        [config]="reactiveFormConfig"
+      >
+      </nga-inline-calendar>
+      <div class="form-info">
+        <p>
+          <strong>Value:</strong>
+          {{ reactiveFormControl.value | date : "shortDate" }}
+        </p>
+        <p><strong>Valid:</strong> {{ reactiveFormControl.valid }}</p>
+        <div *ngIf="reactiveFormControl.errors?.['required']" class="error">
+          Date is required
+        </div>
+      </div>
+      <div class="form-actions">
+        <button (click)="toggleReactiveDisabled()">
+          {{ reactiveFormControl.disabled ? "Enable" : "Disable" }}
+        </button>
+        <button (click)="clearReactiveForm()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Template-driven Forms -->
+    <div class="card">
+      <h2>Template-driven Forms</h2>
+      <nga-inline-calendar
+        [(ngModel)]="templateFormDate"
+        name="templateDate"
+        [config]="templateFormConfig"
+      >
+      </nga-inline-calendar>
+      <div class="form-info">
+        <p>
+          <strong>Value:</strong>
+          {{ templateFormDate | date : "shortDate" }}
+        </p>
+      </div>
+      <div class="form-actions">
+        <button (click)="setTemplateToday()">Set Today</button>
+        <button (click)="clearTemplateForm()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Interactive Configuration -->
+    <div class="card full-width">
+      <h2>Interactive Configuration</h2>
+      <div class="config-controls">
+        <label>
+          Theme:
+          <select
+            [(ngModel)]="interactiveConfig.theme"
+            (change)="updateInteractiveConfig()"
+          >
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+
+        <label>
+          First Day of Week:
+          <select
+            [(ngModel)]="interactiveConfig.firstDayOfWeek"
+            (change)="updateInteractiveConfig()"
+          >
+            <option [value]="0">Sunday</option>
+            <option [value]="1">Monday</option>
+            <option [value]="2">Tuesday</option>
+            <option [value]="3">Wednesday</option>
+            <option [value]="4">Thursday</option>
+            <option [value]="5">Friday</option>
+            <option [value]="6">Saturday</option>
+          </select>
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            [(ngModel)]="interactiveConfig.showAdjacentMonths"
+            (change)="updateInteractiveConfig()"
+          />
+          Show Adjacent Months
+        </label>
+      </div>
+
+      <nga-inline-calendar
+        [selectedDate]="interactiveSelectedDate"
+        [config]="interactiveConfigCopy"
+        (dateSelected)="onInteractiveDateSelected($event)"
+        (monthChanged)="onMonthChanged($event)"
+      >
+      </nga-inline-calendar>
+
+      <div class="selected-date" *ngIf="interactiveSelectedDate">
+        Selected: {{ interactiveSelectedDate | date : "fullDate" }}
+      </div>
+
+      <div class="event-log">
+        <h3>Event Log:</h3>
+        <div class="log-entries">
+          <div *ngFor="let event of eventLog" class="log-entry">
+            {{ event }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="demo-footer">
+    <p>
+      <strong>Installation:</strong>
+      <code>npm install nga-inline-calendar</code>
+    </p>
+    <p>
+      <strong>Usage:</strong> Import <code>InlineCalendarComponent</code> and
+      add <code>&lt;nga-inline-calendar&gt;</code> to your template
+    </p>
+  </footer>
+</div>

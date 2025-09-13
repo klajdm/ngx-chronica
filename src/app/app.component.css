@@ -39,7 +39,7 @@
   font-size: 12px;
   margin-top: 4px;
 }
-.demo-container {
+.container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -47,7 +47,7 @@
     Ubuntu, Cantarell, sans-serif;
 }
 
-.demo-header {
+.header {
   text-align: center;
   margin-bottom: 40px;
   padding: 40px 20px;
@@ -56,26 +56,26 @@
   border-radius: 12px;
 }
 
-.demo-header h1 {
+.header h1 {
   margin: 0 0 10px 0;
   font-size: 2.5rem;
   font-weight: 700;
 }
 
-.demo-header p {
+.header p {
   margin: 0;
   font-size: 1.2rem;
   opacity: 0.9;
 }
 
-.demo-grid {
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
   margin-bottom: 40px;
 }
 
-.demo-card {
+.card {
   background: white;
   border-radius: 12px;
   padding: 24px;
@@ -83,23 +83,23 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.demo-card:hover {
+.card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-.demo-card.full-width {
+.card.full-width {
   grid-column: 1 / -1;
 }
 
-.demo-card h2 {
+.card h2 {
   margin: 0 0 16px 0;
   color: #333;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
-.demo-description {
+.description {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 16px;
@@ -203,24 +203,24 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .demo-container {
+  .container {
     padding: 15px;
   }
 
-  .demo-header {
+  .header {
     padding: 30px 15px;
   }
 
-  .demo-header h1 {
+  .header h1 {
     font-size: 2rem;
   }
 
-  .demo-grid {
+  .grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  .demo-card {
+  .card {
     padding: 20px;
   }
 
@@ -235,16 +235,16 @@
 }
 
 /* Dark theme adjustments for demo cards containing dark calendars */
-.demo-card:has(aic-inline-calendar[ng-reflect-config*="dark"]) {
+.card:has(aic-inline-calendar[ng-reflect-config*="dark"]) {
   background: #2d2d2d;
   color: white;
 }
 
-.demo-card:has(aic-inline-calendar[ng-reflect-config*="dark"]) h2 {
+.card:has(aic-inline-calendar[ng-reflect-config*="dark"]) h2 {
   color: white;
 }
 
-.demo-card:has(aic-inline-calendar[ng-reflect-config*="dark"]) .selected-date {
+.card:has(aic-inline-calendar[ng-reflect-config*="dark"]) .selected-date {
   background: #3d3d3d;
   color: #ccc;
   border-left-color: #64b5f6;
