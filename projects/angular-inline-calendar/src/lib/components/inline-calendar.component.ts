@@ -134,6 +134,16 @@ import { CalendarService } from "../services/calendar.service";
           {{ day }}
         </div>
       </div>
+
+      <!-- Today button - positioned at bottom right -->
+      <div class="aic-today-button-container" *ngIf="config.showTodayButton !== false">
+        <button 
+          class="aic-today-button"
+          (click)="goToToday()"
+          type="button">
+          Today
+        </button>
+      </div>
     </div>
   `,
   styleUrls: ["./inline-calendar.component.css"],
@@ -166,8 +176,12 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["config"] || changes["selectedDate"]) {
+    if (changes["config"]) {
       this.initializeCalendar();
+    }
+    if (changes["selectedDate"] && !changes["selectedDate"].firstChange) {
+      // Only update selected date display, don't reinitialize calendar
+      this.updateSelectedDate();
     }
   }
 
@@ -224,10 +238,14 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
   selectDate(day: number): void {
     if (this.isDateDisabled(day)) return;
 
+    // Ensure we don't exceed the actual days in the current month
+    const daysInCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month + 1, 0).getDate();
+    const validDay = Math.min(day, daysInCurrentMonth);
+
     const selectedDate = new Date(
       this.currentMonth.year,
       this.currentMonth.month,
-      day
+      validDay
     );
     this.selectedDate = selectedDate;
 
@@ -387,5 +405,17 @@ export class InlineCalendarComponent implements OnInit, OnChanges {
     );
 
     return lastDayOfNextMonth > this.config.maxDate;
+  }
+
+  goToToday(): void {
+    const today = new Date();
+    this.generateMonth(today.getFullYear(), today.getMonth());
+    this.selectDate(today.getDate());
+    this.monthChanged.emit({ month: today.getMonth(), year: today.getFullYear() });
+    this.calendarEvent.emit({
+      type: "monthChange",
+      month: today.getMonth(),
+      year: today.getFullYear(),
+    });
   }
 }

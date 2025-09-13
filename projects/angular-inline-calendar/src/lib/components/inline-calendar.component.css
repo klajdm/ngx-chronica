@@ -1,10 +1,13 @@
 /* Base calendar styles */
 .aic-calendar {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   user-select: none;
   width: 320px;
@@ -110,6 +113,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
+  padding-bottom: 20px; /* Add space for Today button */
 }
 
 .aic-date {
@@ -227,17 +231,69 @@
   color: #4b5563;
 }
 
+/* Today button */
+.aic-today-button-container {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10;
+}
+
+.aic-today-button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.aic-today-button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.aic-today-button:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.aic-today-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Dark theme Today button */
+
+.aic-theme-dark .aic-today-button {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.aic-theme-dark .aic-today-button:hover {
+  background: #2563eb;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.4);
+}
+
+.aic-theme-dark .aic-today-button:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
 /* Responsive adjustments */
 @media (max-width: 320px) {
   .aic-calendar {
     width: 100%;
     min-width: 280px;
   }
-  
+
   .aic-date-number {
     font-size: 12px;
   }
-  
+
   .aic-month {
     font-size: 14px;
   }

@@ -26,6 +26,7 @@ export interface CalendarConfig {
   firstDayOfWeek?: number; // 0 = Sunday, 1 = Monday, etc.
   showWeekNumbers?: boolean;
   showAdjacentMonths?: boolean;
+  showTodayButton?: boolean; // Show/hide Today button
   minDate?: Date;
   maxDate?: Date;
   disabledDates?: Date[];
@@ -45,6 +46,7 @@ export const DEFAULT_CALENDAR_CONFIG: CalendarConfig = {
   firstDayOfWeek: 0,
   showWeekNumbers: false,
   showAdjacentMonths: true,
+  showTodayButton: true,
   theme: 'light'
 };
 
