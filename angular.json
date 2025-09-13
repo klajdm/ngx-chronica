@@ -42,7 +42,7 @@
         }
       }
     },
-    "demo-app": {
+    "angular-inline-calendar": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -56,7 +56,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo-app",
+            "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
