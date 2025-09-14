@@ -2,6 +2,10 @@
 
 A lightweight, customizable inline calendar component for Angular applications.
 
+## Demo
+
+🚀 **[View Live Demo](https://nga-inline-calendar.vercel.app/)**
+
 ## Features
 
 - 🗓️ **Inline Calendar Display** - Clean, compact calendar that fits inline with your content
@@ -242,6 +246,7 @@ Each theme includes coordinated colors for primary, hover, accent, and focus sta
 - Angular 17+
 - Angular 18+
 - Angular 19+
+- Angular 20+
 
 ## Contributing
 
