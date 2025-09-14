@@ -242,6 +242,7 @@ Each theme includes coordinated colors for primary, hover, accent, and focus sta
 - Angular 17+
 - Angular 18+
 - Angular 19+
+- Angular 20+
 
 ## Contributing
 
