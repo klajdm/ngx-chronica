@@ -8,7 +8,7 @@ A lightweight, customizable inline calendar component for Angular applications.
 
 ## Features
 
-- 🗓️ **Inline Calendar Display** - Clean, compact calendar that fits inline with your content
+- 🗓️ **Dual Display Modes** - Popup mode with custom triggers or always-visible inline display
 - 🎨 **Customizable Themes** - Light, dark, and auto themes with 8 beautiful color schemes
 - 🌈 **Color Theming** - Blue, Green, Purple, Red, Orange, Teal, Pink, and Indigo color themes
 - 📱 **Responsive Design** - Works on desktop and mobile devices
@@ -19,6 +19,7 @@ A lightweight, customizable inline calendar component for Angular applications.
 - 🎯 **TypeScript Support** - Full TypeScript definitions included
 - ♿ **Accessibility** - ARIA compliant and keyboard navigable
 - 🎛️ **Today Button** - Optional quick navigation to current date
+- 🎨 **Custom Triggers** - Style popup triggers however you want with full content projection
 
 ## Installation
 
@@ -28,7 +29,14 @@ npm install nga-inline-calendar
 
 ## Usage
 
-### Standalone Component (Angular 14+)
+### Display Modes
+
+The calendar supports two display modes:
+
+- **Popup Mode** (default): Calendar appears in a popup when trigger is clicked
+- **Inline Mode**: Calendar is always visible inline with your content
+
+### Popup Mode (Default)
 
 ```typescript
 import { Component } from "@angular/core";
@@ -39,12 +47,35 @@ import { InlineCalendarComponent } from "nga-inline-calendar";
   standalone: true,
   imports: [InlineCalendarComponent],
   template: `
+    <!-- Popup with custom trigger -->
     <nga-inline-calendar
       [selectedDate]="selectedDate"
       [config]="calendarConfig"
       (dateSelected)="onDateSelected($event)"
       (monthChanged)="onMonthChanged($event)"
     >
+      <div class="date-trigger">
+        <span class="date-display">
+          {{
+            selectedDate
+              ? (selectedDate | date : "EEEE, MMMM d, y")
+              : "Select a date"
+          }}
+        </span>
+        <svg
+          class="calendar-icon"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+      </div>
     </nga-inline-calendar>
   `,
 })
@@ -67,6 +98,26 @@ export class ExampleComponent {
   onMonthChanged(event: { month: number; year: number }) {
     console.log("Month changed:", event);
   }
+}
+```
+
+### Inline Mode
+
+```typescript
+@Component({
+  template: `
+    <!-- Always visible inline calendar -->
+    <nga-inline-calendar
+      [selectedDate]="selectedDate"
+      [config]="calendarConfig"
+      [displayMode]="'inline'"
+      (dateSelected)="onDateSelected($event)"
+    >
+    </nga-inline-calendar>
+  `,
+})
+export class InlineExampleComponent {
+  // Same component logic as above
 }
 ```
 
@@ -113,12 +164,13 @@ interface CalendarConfig {
 
 ## Input Properties
 
-| Property       | Type             | Default                   | Description                     |
-| -------------- | ---------------- | ------------------------- | ------------------------------- |
-| `selectedDate` | `Date \| null`   | `null`                    | Currently selected date         |
-| `config`       | `CalendarConfig` | `DEFAULT_CALENDAR_CONFIG` | Calendar configuration          |
-| `initialMonth` | `number`         | Current month             | Initial month to display (0-11) |
-| `initialYear`  | `number`         | Current year              | Initial year to display         |
+| Property       | Type                  | Default                   | Description                     |
+| -------------- | --------------------- | ------------------------- | ------------------------------- |
+| `selectedDate` | `Date \| null`        | `null`                    | Currently selected date         |
+| `config`       | `CalendarConfig`      | `DEFAULT_CALENDAR_CONFIG` | Calendar configuration          |
+| `displayMode`  | `'popup' \| 'inline'` | `'popup'`                 | Display mode of the calendar    |
+| `initialMonth` | `number`              | Current month             | Initial month to display (0-11) |
+| `initialYear`  | `number`              | Current year              | Initial year to display         |
 
 ## Output Events
 
@@ -130,10 +182,30 @@ interface CalendarConfig {
 
 ## Examples
 
-### Basic Usage
+### Basic Popup Usage
 
 ```html
+<!-- Simple popup with default trigger -->
 <nga-inline-calendar></nga-inline-calendar>
+```
+
+### Custom Popup Trigger
+
+```html
+<nga-inline-calendar
+  [selectedDate]="date"
+  (dateSelected)="onDateSelected($event)"
+>
+  <button class="custom-trigger">
+    📅 {{ date ? (date | date : 'shortDate') : 'Pick a date' }}
+  </button>
+</nga-inline-calendar>
+```
+
+### Basic Inline Usage
+
+```html
+<nga-inline-calendar [displayMode]="'inline'"></nga-inline-calendar>
 ```
 
 ### With Date Restrictions
@@ -179,15 +251,41 @@ export class MyComponent {
 ```
 
 ```html
-<nga-inline-calendar [formControl]="dateControl"></nga-inline-calendar>
+<!-- Popup mode -->
+<nga-inline-calendar [formControl]="dateControl">
+  <input
+    type="text"
+    [value]="dateControl.value | date : 'shortDate'"
+    placeholder="Select date"
+    readonly
+  />
+</nga-inline-calendar>
+
+<!-- Inline mode -->
+<nga-inline-calendar
+  [formControl]="dateControl"
+  [displayMode]="'inline'"
+></nga-inline-calendar>
 ```
 
 #### Template-driven Forms
 
 ```html
+<!-- Popup mode -->
+<nga-inline-calendar [(ngModel)]="selectedDate" name="calendarDate">
+  <div class="form-field">
+    <label>Birth Date:</label>
+    <span class="date-value">
+      {{ selectedDate ? (selectedDate | date : 'mediumDate') : 'Not selected' }}
+    </span>
+  </div>
+</nga-inline-calendar>
+
+<!-- Inline mode -->
 <nga-inline-calendar
   [(ngModel)]="selectedDate"
   name="calendarDate"
+  [displayMode]="'inline'"
 ></nga-inline-calendar>
 ```
 
@@ -212,6 +310,32 @@ nga-inline-calendar {
   --nga-primary-dark: #1d4ed8;
   --nga-accent: #60a5fa;
   --nga-focus: rgba(59, 130, 246, 0.2);
+}
+```
+
+### Custom Trigger Styling
+
+For popup mode, you can style the trigger content however you like:
+
+```css
+.date-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.date-trigger:hover {
+  border-color: var(--nga-primary);
+}
+
+.calendar-icon {
+  color: #6b7280;
 }
 ```
 
