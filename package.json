@@ -14,6 +14,7 @@
     "build:app": "ng build angular-inline-calendar --configuration=production",
     "build:watch": "ng build nga-inline-calendar --watch",
     "test": "ng test nga-inline-calendar",
+    "test:ci": "ng test nga-inline-calendar --browsers=ChromeHeadlessCI --watch=false --code-coverage",
     "lint": "ng lint nga-inline-calendar",
     "pack": "npm run build && npm pack dist/nga-inline-calendar",
     "publish:npm": "npm run build && npm publish dist/nga-inline-calendar"
