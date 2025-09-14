@@ -1,0 +1,29 @@
+{
+  "name": "nga-inline-calendar",
+  "version": "1.1.1",
+  "description": "A lightweight, customizable inline calendar component for Angular applications",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "angular",
+    "calendar",
+    "inline",
+    "date-picker",
+    "component",
+    "ui"
+  ],
+  "author": "Klajdi Murataj <klajdimurati3@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klajdm/nga-inline-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/klajdm/nga-inline-calendar/issues"
+  },
+  "homepage": "https://nga-inline-calendar.vercel.app",
+  "peerDependencies": {
+    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
+  }
+}
