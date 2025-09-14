@@ -21,8 +21,17 @@ export interface CalendarWeek {
   dates: CalendarDate[];
 }
 
+export interface CalendarLocale {
+  monthNames: string[];
+  dayNames: string[];
+  dayNamesShort: string[];
+  todayLabel: string;
+  weekStartsOn: number;
+  dateFormat: string;
+}
+
 export interface CalendarConfig {
-  locale?: string;
+  locale?: CalendarLocale | string;
   firstDayOfWeek?: number; // 0 = Sunday, 1 = Monday, etc.
   showWeekNumbers?: boolean;
   showAdjacentMonths?: boolean;
@@ -41,6 +50,131 @@ export interface CalendarEvent {
   month?: number;
   year?: number;
 }
+
+// Predefined locale configurations
+export const CALENDAR_LOCALES: { [key: string]: CalendarLocale } = {
+  'en-US': {
+    monthNames: [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    todayLabel: 'Today',
+    weekStartsOn: 0,
+    dateFormat: 'MM/dd/yyyy'
+  },
+  'en-GB': {
+    monthNames: [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    todayLabel: 'Today',
+    weekStartsOn: 1,
+    dateFormat: 'dd/MM/yyyy'
+  },
+  'es-ES': {
+    monthNames: [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+    todayLabel: 'Hoy',
+    weekStartsOn: 1,
+    dateFormat: 'dd/MM/yyyy'
+  },
+  'fr-FR': {
+    monthNames: [
+      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+    ],
+    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+    todayLabel: 'Aujourd\'hui',
+    weekStartsOn: 1,
+    dateFormat: 'dd/MM/yyyy'
+  },
+  'de-DE': {
+    monthNames: [
+      'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+      'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+    ],
+    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    dayNamesShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    todayLabel: 'Heute',
+    weekStartsOn: 1,
+    dateFormat: 'dd.MM.yyyy'
+  },
+  'it-IT': {
+    monthNames: [
+      'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+      'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'
+    ],
+    dayNames: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+    todayLabel: 'Oggi',
+    weekStartsOn: 1,
+    dateFormat: 'dd/MM/yyyy'
+  },
+  'pt-BR': {
+    monthNames: [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ],
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    todayLabel: 'Hoje',
+    weekStartsOn: 0,
+    dateFormat: 'dd/MM/yyyy'
+  },
+  'ru-RU': {
+    monthNames: [
+      'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+    ],
+    dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+    dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+    todayLabel: 'Сегодня',
+    weekStartsOn: 1,
+    dateFormat: 'dd.MM.yyyy'
+  },
+  'ja-JP': {
+    monthNames: [
+      '1月', '2月', '3月', '4月', '5月', '6月',
+      '7月', '8月', '9月', '10月', '11月', '12月'
+    ],
+    dayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+    dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
+    todayLabel: '今日',
+    weekStartsOn: 0,
+    dateFormat: 'yyyy/MM/dd'
+  },
+  'zh-CN': {
+    monthNames: [
+      '一月', '二月', '三月', '四月', '五月', '六月',
+      '七月', '八月', '九月', '十月', '十一月', '十二月'
+    ],
+    dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+    dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],
+    todayLabel: '今天',
+    weekStartsOn: 1,
+    dateFormat: 'yyyy/MM/dd'
+  },
+  'ar-SA': {
+    monthNames: [
+      'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+    ],
+    dayNames: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+    dayNamesShort: ['أحد', 'اثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت'],
+    todayLabel: 'اليوم',
+    weekStartsOn: 6,
+    dateFormat: 'dd/MM/yyyy'
+  }
+};
 
 export const DEFAULT_CALENDAR_CONFIG: CalendarConfig = {
   locale: "en-US",

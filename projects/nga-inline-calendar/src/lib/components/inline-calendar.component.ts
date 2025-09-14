@@ -18,8 +18,10 @@ import {
   CalendarMonth,
   CalendarConfig,
   CalendarEvent,
+  CalendarLocale,
   DEFAULT_CALENDAR_CONFIG,
   COLOR_THEMES,
+  CALENDAR_LOCALES,
 } from "../models/calendar.models";
 import { CalendarService } from "../services/calendar.service";
 
@@ -156,7 +158,7 @@ import { CalendarService } from "../services/calendar.service";
         *ngIf="config.showTodayButton !== false"
       >
         <button class="nga-today-button" (click)="goToToday()" type="button">
-          Today
+          {{ getCurrentLocale().todayLabel }}
         </button>
       </div>
     </div>
@@ -168,6 +170,7 @@ export class InlineCalendarComponent
 {
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
+  @Input() locale: CalendarLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
@@ -206,7 +209,7 @@ export class InlineCalendarComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["config"]) {
+    if (changes["config"] || changes["locale"]) {
       this.initializeCalendar();
     }
     if (changes["selectedDate"] && !changes["selectedDate"].firstChange) {
@@ -220,21 +223,9 @@ export class InlineCalendarComponent
     const month = this.initialMonth ?? now.getMonth();
     const year = this.initialYear ?? now.getFullYear();
 
-    this.dayNames = this.calendarService.getDayNames(this.config);
-    this.monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
+    const currentLocale = this.getCurrentLocale();
+    this.dayNames = this.getDayNamesFromLocale(currentLocale);
+    this.monthNames = currentLocale.monthNames;
     this.generateMonth(year, month);
   }
 
@@ -504,5 +495,41 @@ export class InlineCalendarComponent
       "--nga-accent": colors.accent,
       "--nga-focus": colors.focus,
     };
+  }
+
+  // Get current locale configuration
+  getCurrentLocale(): CalendarLocale {
+    if (typeof this.locale === 'string') {
+      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
+    }
+    return this.locale;
+  }
+
+  // Get day names from locale, respecting firstDayOfWeek
+  private getDayNamesFromLocale(locale: CalendarLocale): string[] {
+    const firstDayOfWeek = this.config.firstDayOfWeek ?? locale.weekStartsOn;
+    const dayNames = [...locale.dayNamesShort];
+    
+    // Rotate array to start with the configured first day of week
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      dayNames.push(dayNames.shift()!);
+    }
+    
+    return dayNames;
+  }
+
+  // Format date according to locale
+  formatDate(date: Date): string {
+    const locale = this.getCurrentLocale();
+    const format = locale.dateFormat;
+    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return format
+      .replace('yyyy', year.toString())
+      .replace('MM', month)
+      .replace('dd', day);
   }
 }
