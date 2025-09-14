@@ -7,6 +7,8 @@ import {
   OnChanges,
   SimpleChanges,
   forwardRef,
+  ChangeDetectorRef,
+  HostListener,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
@@ -37,12 +39,34 @@ import { CalendarService } from "../services/calendar.service";
     },
   ],
   template: `
-    <div
-      class="nga-calendar"
-      [class]="'nga-theme-' + (config.theme || 'light')"
-      [attr.data-color-theme]="config.colorTheme || 'blue'"
-      [style]="getColorThemeStyles()"
-    >
+    <div class="nga-calendar-container">
+      <!-- Trigger element for popup mode -->
+      <div 
+        *ngIf="displayMode === 'popup'"
+        class="nga-trigger"
+        (click)="togglePopup()"
+        (keydown.enter)="togglePopup()"
+        (keydown.space)="togglePopup(); $event.preventDefault()"
+        tabindex="0"
+        role="button"
+        [attr.aria-expanded]="isPopupOpen"
+        aria-haspopup="true"
+      >
+        <ng-content></ng-content>
+      </div>
+
+      <!-- Calendar content -->
+      <div
+        class="nga-calendar"
+        [class]="'nga-theme-' + (config.theme || 'light')"
+        [attr.data-color-theme]="config.colorTheme || 'blue'"
+        [style]="getColorThemeStyles()"
+        [class.nga-popup]="displayMode === 'popup'"
+        [class.nga-popup-open]="displayMode === 'popup' && isPopupOpen"
+        [class.nga-inline]="displayMode === 'inline'"
+        *ngIf="displayMode === 'inline' || (displayMode === 'popup' && isPopupOpen)"
+        (click)="$event.stopPropagation()"
+      >
       <!-- Header with navigation and dropdowns -->
       <div class="nga-header">
         <button
@@ -71,13 +95,14 @@ import { CalendarService } from "../services/calendar.service";
         <div class="nga-month-year-selectors">
           <select
             class="nga-month-select"
-            [ngModel]="currentMonth.month"
-            (ngModelChange)="changeMonth($event)"
+            [value]="currentMonth.month"
+            (change)="changeMonth(+$any($event.target).value)"
             aria-label="Select month"
           >
             <option
               *ngFor="let monthName of monthNames; let i = index"
               [value]="i"
+              [selected]="i === currentMonth.month"
             >
               {{ monthName }}
             </option>
@@ -85,11 +110,15 @@ import { CalendarService } from "../services/calendar.service";
 
           <select
             class="nga-year-select"
-            [ngModel]="currentMonth.year"
-            (ngModelChange)="changeYear($event)"
+            [value]="currentMonth.year"
+            (change)="changeYear(+$any($event.target).value)"
             aria-label="Select year"
           >
-            <option *ngFor="let year of yearRange" [value]="year">
+            <option
+              *ngFor="let year of yearRange"
+              [value]="year"
+              [selected]="year === currentMonth.year"
+            >
               {{ year }}
             </option>
           </select>
@@ -152,7 +181,7 @@ import { CalendarService } from "../services/calendar.service";
         </div>
       </div>
 
-      <!-- Today button - positioned at bottom right -->
+      <!-- Today button - positioned at bottom of calendar -->
       <div
         class="nga-today-button-container"
         *ngIf="config.showTodayButton !== false"
@@ -160,6 +189,7 @@ import { CalendarService } from "../services/calendar.service";
         <button class="nga-today-button" (click)="goToToday()" type="button">
           {{ getCurrentLocale().todayLabel }}
         </button>
+      </div>
       </div>
     </div>
   `,
@@ -170,9 +200,11 @@ export class InlineCalendarComponent
 {
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
-  @Input() locale: CalendarLocale | string = 'en-US';
+  @Input() locale: CalendarLocale | string = "en-US";
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
+  @Input() displayMode: 'popup' | 'inline' = 'popup'; // Default to popup mode
+  @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
@@ -187,21 +219,25 @@ export class InlineCalendarComponent
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
+  isPopupOpen = false;
 
-  constructor(private calendarService: CalendarService) {
+  constructor(
+    private calendarService: CalendarService,
+    private cdr: ChangeDetectorRef
+  ) {
     // Initialize with current year range
     this.updateYearRange(new Date().getFullYear());
   }
 
   private updateYearRange(centerYear: number): void {
-    // mutate the existing array in-place to avoid breaking bindings in the select
+    // Create new array to avoid reference issues with Angular change detection
     const start = centerYear - 10;
     const end = centerYear + 10;
-    // Resize array if necessary
-    this.yearRange.length = 0;
+    const newYearRange: number[] = [];
     for (let year = start; year <= end; year++) {
-      this.yearRange.push(year);
+      newYearRange.push(year);
     }
+    this.yearRange = newYearRange;
   }
 
   ngOnInit(): void {
@@ -226,10 +262,25 @@ export class InlineCalendarComponent
     const currentLocale = this.getCurrentLocale();
     this.dayNames = this.getDayNamesFromLocale(currentLocale);
     this.monthNames = currentLocale.monthNames;
-    this.generateMonth(year, month);
+
+    // Update year range first, then generate month without additional year range update
+    this.updateYearRange(year);
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      year,
+      month,
+      this.config
+    );
+
+    // Mark selected date if it exists
+    if (this.selectedDate) {
+      this.updateSelectedDate();
+    }
   }
 
   private generateMonth(year: number, month: number): void {
+    // Ensure year range includes the target year before generating month
+    this.updateYearRange(year);
+
     this.currentMonth = this.calendarService.generateCalendarMonth(
       year,
       month,
@@ -284,11 +335,35 @@ export class InlineCalendarComponent
       type: "dateSelect",
       date: new Date(selectedDate),
     });
+
+    // Close popup after date selection
+    if (this.displayMode === 'popup') {
+      this.closePopup();
+    }
   }
 
   // Method to change month via dropdown
   changeMonth(monthIndex: number): void {
-    this.generateMonth(this.currentMonth.year, monthIndex);
+    // Ensure monthIndex is a valid number
+    if (typeof monthIndex !== "number" || monthIndex < 0 || monthIndex > 11) {
+      return;
+    }
+
+    // Update currentMonth directly without calling generateMonth to avoid year range updates
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      this.currentMonth.year,
+      monthIndex,
+      this.config
+    );
+
+    // Mark selected date if it exists
+    if (this.selectedDate) {
+      this.updateSelectedDate();
+    }
+
+    // Force change detection to ensure dropdown stays in sync
+    this.cdr.detectChanges();
+
     this.monthChanged.emit({ month: monthIndex, year: this.currentMonth.year });
     this.calendarEvent.emit({
       type: "monthChange",
@@ -305,7 +380,20 @@ export class InlineCalendarComponent
 
     // Update year range first (mutates in-place) then update calendar
     this.updateYearRange(numericYear);
-    this.generateMonth(numericYear, this.currentMonth.month);
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      numericYear,
+      this.currentMonth.month,
+      this.config
+    );
+
+    // Mark selected date if it exists
+    if (this.selectedDate) {
+      this.updateSelectedDate();
+    }
+
+    // Force change detection to ensure dropdown stays in sync
+    this.cdr.detectChanges();
+
     this.monthChanged.emit({
       month: this.currentMonth.month,
       year: numericYear,
@@ -387,7 +475,24 @@ export class InlineCalendarComponent
       this.currentMonth.year
     );
 
-    this.generateMonth(prev.year, prev.month);
+    // Update year range to include the new year if needed
+    this.updateYearRange(prev.year);
+
+    // Update currentMonth directly to avoid additional year range calls
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      prev.year,
+      prev.month,
+      this.config
+    );
+
+    // Mark selected date if it exists
+    if (this.selectedDate) {
+      this.updateSelectedDate();
+    }
+
+    // Force change detection to ensure dropdown stays in sync
+    this.cdr.detectChanges();
+
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
       type: "monthChange",
@@ -404,7 +509,24 @@ export class InlineCalendarComponent
       this.currentMonth.year
     );
 
-    this.generateMonth(next.year, next.month);
+    // Update year range to include the new year if needed
+    this.updateYearRange(next.year);
+
+    // Update currentMonth directly to avoid additional year range calls
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      next.year,
+      next.month,
+      this.config
+    );
+
+    // Mark selected date if it exists
+    if (this.selectedDate) {
+      this.updateSelectedDate();
+    }
+
+    // Force change detection to ensure dropdown stays in sync
+    this.cdr.detectChanges();
+
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
       type: "monthChange",
@@ -449,16 +571,33 @@ export class InlineCalendarComponent
 
   goToToday(): void {
     const today = new Date();
-    this.generateMonth(today.getFullYear(), today.getMonth());
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
+
+    // Update year range to include today's year if it's not in current range
+    this.updateYearRange(todayYear);
+
+    // Update currentMonth directly to avoid additional year range calls
+    this.currentMonth = this.calendarService.generateCalendarMonth(
+      todayYear,
+      todayMonth,
+      this.config
+    );
+
+    // Select today's date
     this.selectDate(today.getDate());
+
+    // Force change detection to ensure dropdown stays in sync
+    this.cdr.detectChanges();
+
     this.monthChanged.emit({
-      month: today.getMonth(),
-      year: today.getFullYear(),
+      month: todayMonth,
+      year: todayYear,
     });
     this.calendarEvent.emit({
       type: "monthChange",
-      month: today.getMonth(),
-      year: today.getFullYear(),
+      month: todayMonth,
+      year: todayYear,
     });
   }
 
@@ -499,8 +638,8 @@ export class InlineCalendarComponent
 
   // Get current locale configuration
   getCurrentLocale(): CalendarLocale {
-    if (typeof this.locale === 'string') {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
+    if (typeof this.locale === "string") {
+      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES["en-US"];
     }
     return this.locale;
   }
@@ -509,12 +648,12 @@ export class InlineCalendarComponent
   private getDayNamesFromLocale(locale: CalendarLocale): string[] {
     const firstDayOfWeek = this.config.firstDayOfWeek ?? locale.weekStartsOn;
     const dayNames = [...locale.dayNamesShort];
-    
+
     // Rotate array to start with the configured first day of week
     for (let i = 0; i < firstDayOfWeek; i++) {
       dayNames.push(dayNames.shift()!);
     }
-    
+
     return dayNames;
   }
 
@@ -522,14 +661,44 @@ export class InlineCalendarComponent
   formatDate(date: Date): string {
     const locale = this.getCurrentLocale();
     const format = locale.dateFormat;
-    
+
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
     return format
-      .replace('yyyy', year.toString())
-      .replace('MM', month)
-      .replace('dd', day);
+      .replace("yyyy", year.toString())
+      .replace("MM", month)
+      .replace("dd", day);
   }
+
+  // Popup functionality methods
+  togglePopup(): void {
+    if (this.displayMode === 'popup') {
+      this.isPopupOpen = !this.isPopupOpen;
+      if (this.isPopupOpen && this.selectedDate) {
+        // When opening popup, navigate to the selected date's month/year
+        this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+      }
+    }
+  }
+
+  closePopup(): void {
+    if (this.displayMode === 'popup') {
+      this.isPopupOpen = false;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    if (this.displayMode === 'popup' && this.isPopupOpen) {
+      const target = event.target as HTMLElement;
+      const calendarContainer = target.closest('.nga-calendar-container');
+      
+      if (!calendarContainer) {
+        this.closePopup();
+      }
+    }
+  }
+
 }

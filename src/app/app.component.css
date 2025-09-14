@@ -39,6 +39,160 @@
   font-size: 12px;
   margin-top: 4px;
 }
+
+/* Popup trigger styles */
+.date-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 200px;
+}
+
+.date-trigger:hover {
+  border-color: #3b82f6;
+  background: #f8fafc;
+}
+
+.date-trigger:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.date-display {
+  flex: 1;
+  font-size: 14px;
+  color: #374151;
+}
+
+.calendar-icon {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.dark-trigger {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.dark-trigger .date-display {
+  color: #f9fafb;
+}
+
+.dark-trigger:hover {
+  border-color: #60a5fa;
+  background: #111827;
+}
+
+/* Custom button trigger */
+.custom-date-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  background: #f9fafb;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  transition: all 0.2s ease;
+  min-width: 160px;
+}
+
+.custom-date-button:hover {
+  border-color: #3b82f6;
+  background: #ffffff;
+}
+
+.custom-date-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.button-text {
+  flex: 1;
+  text-align: left;
+}
+
+.button-arrow {
+  color: #6b7280;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+/* Form trigger styles */
+.form-date-trigger {
+  padding: 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.form-date-trigger:hover {
+  border-color: #3b82f6;
+}
+
+.form-date-trigger.error {
+  border-color: #dc2626;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.form-date-display {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Input-like trigger */
+.input-like-trigger {
+  position: relative;
+  display: inline-block;
+}
+
+.date-input {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.date-input:hover {
+  border-color: #3b82f6;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -124,7 +278,7 @@
 .description {
   font-size: 0.9rem;
   color: #666;
-  margin-bottom: 16px;
+  margin: 16px 0px 16px 0px;
   line-height: 1.4;
 }
 

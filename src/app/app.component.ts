@@ -30,17 +30,16 @@ export class AppComponent {
     colorTheme: "blue",
   };
 
+  // Inline calendar
+  inlineSelectedDate: Date | null = null;
+  inlineConfig: CalendarConfig = {
+    colorTheme: "blue",
+  };
+
   // Dark theme calendar
   darkSelectedDate: Date | null = null;
   darkConfig: CalendarConfig = {
     theme: "dark",
-    colorTheme: "blue",
-  };
-
-  // Monday first calendar
-  mondaySelectedDate: Date | null = null;
-  mondayConfig: CalendarConfig = {
-    firstDayOfWeek: 1,
     colorTheme: "blue",
   };
 
@@ -49,10 +48,6 @@ export class AppComponent {
   restrictedConfig: CalendarConfig = {
     minDate: new Date(2024, 0, 1), // January 1, 2024
     maxDate: new Date(2024, 11, 31), // December 31, 2024
-    disabledDates: [
-      new Date(2024, 11, 25), // Christmas
-      new Date(2024, 0, 1), // New Year
-    ],
     colorTheme: "blue",
   };
 
@@ -90,14 +85,14 @@ export class AppComponent {
     console.log("Basic calendar date selected:", date);
   }
 
+  onInlineeDateSelected(date: Date) {
+    this.inlineSelectedDate = date;
+    console.log("Inline calendar date selected:", date);
+  }
+
   onDarkDateSelected(date: Date) {
     this.darkSelectedDate = date;
     console.log("Dark theme calendar date selected:", date);
-  }
-
-  onMondayDateSelected(date: Date) {
-    this.mondaySelectedDate = date;
-    console.log("Monday first calendar date selected:", date);
   }
 
   onRestrictedDateSelected(date: Date) {
@@ -147,12 +142,12 @@ export class AppComponent {
       ...this.basicConfig,
       colorTheme: this.globalColorTheme as any,
     };
-    this.darkConfig = {
-      ...this.darkConfig,
+    this.inlineConfig = {
+      ...this.inlineConfig,
       colorTheme: this.globalColorTheme as any,
     };
-    this.mondayConfig = {
-      ...this.mondayConfig,
+    this.darkConfig = {
+      ...this.darkConfig,
       colorTheme: this.globalColorTheme as any,
     };
     this.restrictedConfig = {
