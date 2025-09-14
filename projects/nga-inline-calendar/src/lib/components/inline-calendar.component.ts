@@ -186,9 +186,17 @@ export class InlineCalendarComponent
   yearRange: number[] = [];
 
   constructor(private calendarService: CalendarService) {
-    // Generate a range of years (current year ± 10 years)
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear - 10; year <= currentYear + 10; year++) {
+    // Initialize with current year range
+    this.updateYearRange(new Date().getFullYear());
+  }
+
+  private updateYearRange(centerYear: number): void {
+    // mutate the existing array in-place to avoid breaking bindings in the select
+    const start = centerYear - 10;
+    const end = centerYear + 10;
+    // Resize array if necessary
+    this.yearRange.length = 0;
+    for (let year = start; year <= end; year++) {
       this.yearRange.push(year);
     }
   }
@@ -299,13 +307,22 @@ export class InlineCalendarComponent
   }
 
   // Method to change year via dropdown
-  changeYear(year: number): void {
-    this.generateMonth(year, this.currentMonth.month);
-    this.monthChanged.emit({ month: this.currentMonth.month, year });
+  changeYear(year: number | string): void {
+    // Ensure we have a number (template select may pass string)
+    const numericYear = typeof year === "string" ? parseInt(year, 10) : year;
+    if (Number.isNaN(numericYear)) return;
+
+    // Update year range first (mutates in-place) then update calendar
+    this.updateYearRange(numericYear);
+    this.generateMonth(numericYear, this.currentMonth.month);
+    this.monthChanged.emit({
+      month: this.currentMonth.month,
+      year: numericYear,
+    });
     this.calendarEvent.emit({
       type: "yearChange",
       month: this.currentMonth.month,
-      year,
+      year: numericYear,
     });
   }
 
