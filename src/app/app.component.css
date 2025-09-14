@@ -48,12 +48,34 @@
 }
 
 .header {
+  position: relative;
   text-align: center;
   margin-bottom: 40px;
   padding: 40px 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border-radius: 12px;
+}
+
+.star-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: transparent;
+  color: white;
+  text-decoration: none;
+  font-size: 10px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.star-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .header h1 {
@@ -180,24 +202,10 @@
   border-bottom: none;
 }
 
-.demo-footer {
+.footer {
   text-align: center;
-  padding: 30px 20px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  border: 1px solid #e9ecef;
-}
-
-.demo-footer p {
-  margin: 10px 0;
-  color: #495057;
-}
-
-.demo-footer code {
-  background: #e9ecef;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-family: "Courier New", monospace;
+  padding: 10px;
+  font-size: small;
   color: #495057;
 }
 

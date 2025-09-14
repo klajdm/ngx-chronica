@@ -1,6 +1,6 @@
 {
   "name": "nga-inline-calendar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A lightweight, customizable inline calendar component for Angular applications",
   "main": "dist/nga-inline-calendar/index.js",
   "types": "dist/nga-inline-calendar/index.d.ts",
@@ -37,8 +37,8 @@
   },
   "homepage": "https://nga-inline-calendar.vercel.app",
   "peerDependencies": {
-    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.17",
