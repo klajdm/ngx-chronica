@@ -31,7 +31,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klajdm/nga-inline-calendar.git"
+    "url": "https://github.com/klajdm/nga-inline-calendar.git"
   },
   "bugs": {
     "url": "https://github.com/klajdm/nga-inline-calendar/issues"
