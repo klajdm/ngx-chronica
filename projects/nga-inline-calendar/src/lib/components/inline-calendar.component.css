@@ -1,23 +1,37 @@
 .nga-calendar {
   position: relative;
-  font-family: var(--nga-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
+  font-family: var(
+    --nga-font-family,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif
+  );
   border: var(--nga-border-width, 1px) solid var(--nga-border-color, #e5e7eb);
   border-radius: var(--nga-border-radius, 8px);
   background: var(--nga-background, #fff);
-  box-shadow: var(--nga-shadow, 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06));
+  box-shadow: var(
+    --nga-shadow,
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06)
+  );
   overflow: hidden;
   user-select: none;
   width: var(--nga-width, 320px);
   padding: var(--nga-spacing, 16px);
-  
+
   /* Color theme variables */
   --nga-primary: #3b82f6;
   --nga-primary-hover: #2563eb;
   --nga-primary-light: #dbeafe;
   --nga-primary-dark: #1d4ed8;
   --nga-accent: #60a5fa;
-  --nga-focus: rgba(59,130,246,.2);
-  
+  --nga-focus: rgba(59, 130, 246, 0.2);
+
   /* Layout variables */
   --nga-font-family: inherit;
   --nga-font-size: 14px;
@@ -25,7 +39,7 @@
   --nga-font-weight: 400;
   --nga-font-weight-bold: 600;
   --nga-line-height: 1.5;
-  
+
   /* Spacing variables */
   --nga-spacing: 16px;
   --nga-spacing-xs: 4px;
@@ -33,7 +47,7 @@
   --nga-spacing-md: 12px;
   --nga-spacing-lg: 16px;
   --nga-spacing-xl: 24px;
-  
+
   /* Border variables */
   --nga-border-radius: 8px;
   --nga-border-radius-sm: 4px;
@@ -42,31 +56,34 @@
   --nga-border-radius-full: 50%;
   --nga-border-width: 1px;
   --nga-border-color: #e5e7eb;
-  
+
   /* Shadow variables */
-  --nga-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
-  --nga-shadow-sm: 0 1px 2px 0 rgba(0,0,0,.05);
-  --nga-shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
-  --nga-shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
-  
+  --nga-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --nga-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --nga-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --nga-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
   /* Size variables */
   --nga-width: 320px;
   --nga-min-width: 280px;
   --nga-date-size: 32px;
   --nga-button-height: 32px;
-  
+
   /* Color variables */
   --nga-background: #fff;
   --nga-text-color: #374151;
   --nga-text-color-light: #6b7280;
   --nga-text-color-muted: #9ca3af;
   --nga-text-color-disabled: #d1d5db;
-  
+
   /* Interactive states */
   --nga-hover-background: #f3f4f6;
   --nga-active-background: #e5e7eb;
   --nga-disabled-opacity: 0.4;
-  
+
   /* Transition variables */
   --nga-transition: all 0.2s ease;
   --nga-transition-fast: all 0.15s ease;
@@ -90,7 +107,7 @@
   cursor: pointer;
   padding: var(--nga-spacing-sm, 8px) var(--nga-spacing-md, 12px);
   border-radius: var(--nga-border-radius-md, 6px);
-  transition: var(--nga-transition, all .2s ease);
+  transition: var(--nga-transition, all 0.2s ease);
   min-width: 40px;
   height: var(--nga-button-height, 32px);
   display: flex;
@@ -114,7 +131,8 @@
   flex: 1;
 }
 
-.nga-month-select,.nga-year-select {
+.nga-month-select,
+.nga-year-select {
   border: var(--nga-border-width, 1px) solid var(--nga-border-color, #d1d5db);
   border-radius: var(--nga-border-radius-md, 6px);
   padding: var(--nga-spacing-xs, 4px) var(--nga-spacing-sm, 8px);
@@ -122,7 +140,7 @@
   background: var(--nga-background, #fff);
   color: var(--nga-text-color, #374151);
   cursor: pointer;
-  transition: var(--nga-transition, all .2s ease);
+  transition: var(--nga-transition, all 0.2s ease);
   height: var(--nga-button-height, 32px);
 }
 
@@ -135,10 +153,12 @@
   width: 80px;
 }
 
-.nga-month-select:hover,.nga-year-select:hover {
+.nga-month-select:hover,
+.nga-year-select:hover {
   border-color: #9ca3af;
 }
-.nga-month-select:focus,.nga-year-select:focus {
+.nga-month-select:focus,
+.nga-year-select:focus {
   outline: none;
   border-color: var(--nga-primary);
   box-shadow: 0 0 0 3px var(--nga-focus);
@@ -146,7 +166,7 @@
 
 .nga-day-names {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
+  grid-template-columns: repeat(7, 1fr);
   margin-bottom: 4px;
   gap: 4px;
 }
@@ -162,9 +182,8 @@
 
 .nga-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
-  gap: 4px;
-  padding-bottom: 28px;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--nga-spacing-xs, 4px);
 }
 
 .nga-date {
@@ -175,7 +194,7 @@
   justify-content: center;
   border-radius: var(--nga-border-radius-full, 50%);
   font-size: var(--nga-font-size, 14px);
-  transition: var(--nga-transition, all .2s ease);
+  transition: var(--nga-transition, all 0.2s ease);
   position: relative;
 }
 
@@ -192,7 +211,7 @@
 }
 
 .nga-date.nga-disabled {
-  opacity: var(--nga-disabled-opacity, .4);
+  opacity: var(--nga-disabled-opacity, 0.4);
   cursor: not-allowed;
   color: var(--nga-text-color-muted, #9ca3af);
 }
@@ -226,19 +245,23 @@
 .nga-theme-dark .nga-nav-button:disabled {
   color: #4b5563;
 }
-.nga-theme-dark .nga-month-select,.nga-theme-dark .nga-year-select {
+.nga-theme-dark .nga-month-select,
+.nga-theme-dark .nga-year-select {
   background: #374151;
   border-color: #4b5563;
   color: #fff;
 }
-.nga-theme-dark .nga-month-select:hover,.nga-theme-dark .nga-year-select:hover {
+.nga-theme-dark .nga-month-select:hover,
+.nga-theme-dark .nga-year-select:hover {
   border-color: #6b7280;
 }
-.nga-theme-dark .nga-month-select:focus,.nga-theme-dark .nga-year-select:focus {
+.nga-theme-dark .nga-month-select:focus,
+.nga-theme-dark .nga-year-select:focus {
   border-color: var(--nga-primary);
   box-shadow: 0 0 0 3px var(--nga-focus);
 }
-.nga-theme-dark .nga-month-select option,.nga-theme-dark .nga-year-select option {
+.nga-theme-dark .nga-month-select option,
+.nga-theme-dark .nga-year-select option {
   background: #374151;
   color: #fff;
 }
@@ -266,22 +289,25 @@
 }
 
 .nga-today-button-container {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  z-index: 10;
+  display: flex;
+  justify-content: end;
+  margin-top: var(--nga-spacing-md, 12px);
+  padding-top: var(--nga-spacing-sm, 8px);
+  border-top: var(--nga-border-width, 1px) solid
+    var(--nga-border-color, #e5e7eb);
 }
 .nga-today-button {
   background: var(--nga-primary);
   color: white;
   border: none;
   border-radius: var(--nga-border-radius-md, 6px);
-  padding: var(--nga-spacing-xs, 6px) var(--nga-spacing-lg, 16px);
+  padding: var(--nga-spacing-sm, 8px) var(--nga-spacing-lg, 16px);
   font-size: var(--nga-font-size-small, 12px);
   font-weight: var(--nga-font-weight, 500);
   cursor: pointer;
-  transition: var(--nga-transition, all .2s ease);
+  transition: var(--nga-transition, all 0.2s ease);
   outline: none;
+  min-width: 80px;
 }
 .nga-today-button:hover {
   background: var(--nga-primary-hover);
@@ -307,7 +333,7 @@
   box-shadow: 0 0 0 3px var(--nga-focus);
 }
 
-@media (max-width:320px) {
+@media (max-width: 320px) {
   .nga-calendar {
     width: 100%;
     min-width: var(--nga-min-width, 280px);
@@ -320,7 +346,7 @@
   }
 }
 .nga-calendar-grid {
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
 .nga-date:focus {
   outline: 2px solid var(--nga-primary);
