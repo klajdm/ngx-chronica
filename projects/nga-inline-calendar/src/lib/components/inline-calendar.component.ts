@@ -152,7 +152,7 @@ import { CalendarService } from "../services/calendar.service";
         </div>
       </div>
 
-      <!-- Today button - positioned at bottom right -->
+      <!-- Today button - positioned at bottom of calendar -->
       <div
         class="nga-today-button-container"
         *ngIf="config.showTodayButton !== false"
@@ -449,16 +449,21 @@ export class InlineCalendarComponent
 
   goToToday(): void {
     const today = new Date();
-    this.generateMonth(today.getFullYear(), today.getMonth());
+    const todayYear = today.getFullYear();
+    
+    // Update year range to include today's year if it's not in current range
+    this.updateYearRange(todayYear);
+    
+    this.generateMonth(todayYear, today.getMonth());
     this.selectDate(today.getDate());
     this.monthChanged.emit({
       month: today.getMonth(),
-      year: today.getFullYear(),
+      year: todayYear,
     });
     this.calendarEvent.emit({
       type: "monthChange",
       month: today.getMonth(),
-      year: today.getFullYear(),
+      year: todayYear,
     });
   }
 
