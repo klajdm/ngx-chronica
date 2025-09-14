@@ -1,6 +1,6 @@
 {
   "name": "nga-inline-calendar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A lightweight, customizable inline calendar component for Angular applications",
   "main": "dist/nga-inline-calendar/index.js",
   "types": "dist/nga-inline-calendar/index.d.ts",

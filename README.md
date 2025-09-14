@@ -257,24 +257,3 @@ Contributions are welcome! Please read our contributing guidelines and submit pu
 ## License
 
 MIT License - see LICENSE file for details.
-
-## Changelog
-
-### v1.1.0
-
-- ✨ **Color Theming System** - Added 8 beautiful color themes (blue, green, purple, red, orange, teal, pink, indigo)
-- 🎨 **CSS Custom Properties** - Modern theming system using CSS variables
-- 📝 **Forms Integration** - Full support for Angular Reactive and Template-driven forms
-- 🎛️ **Today Button** - Added optional quick navigation to current date
-- 🔧 **Enhanced Configuration** - New `colorTheme` and `showTodayButton` options
-- 🌐 **Angular 18/19 Support** - Updated peer dependencies for latest Angular versions
-- ♿ **Improved Accessibility** - Better focus management and ARIA compliance
-- 🐛 **Dark Mode Fixes** - Fixed color theming in dark mode
-
-### v1.0.0
-
-- Initial release
-- Basic inline calendar functionality
-- Theme support (light/dark)
-- Date restrictions
-- Internationalization support

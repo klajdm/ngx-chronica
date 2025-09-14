@@ -9,7 +9,11 @@ import {
   forwardRef,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import {
+  FormsModule,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from "@angular/forms";
 import {
   CalendarMonth,
   CalendarConfig,
@@ -159,7 +163,9 @@ import { CalendarService } from "../services/calendar.service";
   `,
   styleUrls: ["./inline-calendar.component.css"],
 })
-export class InlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class InlineCalendarComponent
+  implements OnInit, OnChanges, ControlValueAccessor
+{
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() initialMonth?: number;
@@ -345,7 +351,7 @@ export class InlineCalendarComponent implements OnInit, OnChanges, ControlValueA
   // Check if a date is disabled
   isDateDisabled(day: number): boolean {
     if (this.disabled) return true;
-    
+
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
 
     if (this.config.minDate && date < this.config.minDate) {
@@ -470,16 +476,16 @@ export class InlineCalendarComponent implements OnInit, OnChanges, ControlValueA
 
   // Get CSS custom properties for color theming
   getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
+    const colorTheme = this.config.colorTheme || "blue";
     const colors = COLOR_THEMES[colorTheme];
-    
+
     return {
-      '--nga-primary': colors.primary,
-      '--nga-primary-hover': colors.primaryHover,
-      '--nga-primary-light': colors.primaryLight,
-      '--nga-primary-dark': colors.primaryDark,
-      '--nga-accent': colors.accent,
-      '--nga-focus': colors.focus
+      "--nga-primary": colors.primary,
+      "--nga-primary-hover": colors.primaryHover,
+      "--nga-primary-light": colors.primaryLight,
+      "--nga-primary-dark": colors.primaryDark,
+      "--nga-accent": colors.accent,
+      "--nga-focus": colors.focus,
     };
   }
 }
