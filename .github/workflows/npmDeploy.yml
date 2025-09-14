@@ -26,5 +26,8 @@ jobs:
         run: npm install -g npm@latest
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm run test:ci --if-present
+      - name: Run tests in CI mode
+        run: npm run test:ci --if-present
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
       - run: npm publish dist/nga-inline-calendar --access public --provenance
