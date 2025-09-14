@@ -2,13 +2,6 @@
 
 A lightweight, customizable inline calendar component for Angular applications.
 
-## Project Structure
-
-This repository contains:
-
-- **Library**: `projects/nga-inline-calendar/` - The actual npm package
-- **Demo App**: `src/` - Development demo application
-
 ## Features
 
 - 🗓️ **Inline Calendar Display** - Clean, compact calendar that fits inline with your content
