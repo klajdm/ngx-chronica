@@ -290,7 +290,7 @@
 
 .nga-today-button-container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: var(--nga-spacing-md, 12px);
   padding-top: var(--nga-spacing-sm, 8px);
   border-top: var(--nga-border-width, 1px) solid
