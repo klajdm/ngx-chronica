@@ -30,4 +30,7 @@ jobs:
         run: npm run test:ci --if-present
         env:
           CHROME_BIN: /usr/bin/google-chrome
-      - run: npm publish dist/nga-inline-calendar --access public --provenance
+      - name: Publish to npm
+        run: |
+          cd dist/nga-inline-calendar
+          npm publish --access public --provenance
