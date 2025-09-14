@@ -26,5 +26,5 @@ jobs:
         run: npm install -g npm@latest
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm test --if-present
+      - run: npm run test:ci --if-present
       - run: npm publish dist/nga-inline-calendar --access public --provenance

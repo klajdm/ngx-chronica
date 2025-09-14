@@ -35,5 +35,15 @@ module.exports = function (config) {
     reporters: ["progress", "kjhtml"],
     browsers: ["ChromeHeadless"],
     restartOnFileChange: true,
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox',
+          '--disable-web-security',
+          '--disable-features=VizDisplayCompositor'
+        ]
+      }
+    },
   });
 };
