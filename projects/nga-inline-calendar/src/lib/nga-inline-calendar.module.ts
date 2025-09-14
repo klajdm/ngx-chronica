@@ -6,4 +6,4 @@ import { InlineCalendarComponent } from "./components/inline-calendar.component"
   imports: [CommonModule, InlineCalendarComponent],
   exports: [InlineCalendarComponent],
 })
-export class AngularInlineCalendarModule {}
+export class InlineCalendarModule {}
