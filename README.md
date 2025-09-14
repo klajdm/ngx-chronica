@@ -2,6 +2,10 @@
 
 A lightweight, customizable inline calendar component for Angular applications.
 
+## Demo
+
+🚀 **[View Live Demo](https://nga-inline-calendar.vercel.app/)**
+
 ## Features
 
 - 🗓️ **Inline Calendar Display** - Clean, compact calendar that fits inline with your content
