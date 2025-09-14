@@ -74,10 +74,10 @@ export class ExampleComponent {
 
 ```typescript
 import { NgModule } from "@angular/core";
-import { AngularInlineCalendarModule } from "nga-inline-calendar";
+import { InlineCalendarModule } from "nga-inline-calendar";
 
 @NgModule({
-  imports: [AngularInlineCalendarModule],
+  imports: [InlineCalendarModule],
   // ... other module configuration
 })
 export class AppModule {}
