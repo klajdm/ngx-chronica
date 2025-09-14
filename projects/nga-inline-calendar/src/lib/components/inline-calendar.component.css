@@ -1,73 +1,129 @@
 .nga-calendar {
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+  font-family: var(--nga-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
+  border: var(--nga-border-width, 1px) solid var(--nga-border-color, #e5e7eb);
+  border-radius: var(--nga-border-radius, 8px);
+  background: var(--nga-background, #fff);
+  box-shadow: var(--nga-shadow, 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06));
   overflow: hidden;
   user-select: none;
-  width: 320px;
-  padding: 16px;
+  width: var(--nga-width, 320px);
+  padding: var(--nga-spacing, 16px);
+  
+  /* Color theme variables */
   --nga-primary: #3b82f6;
   --nga-primary-hover: #2563eb;
   --nga-primary-light: #dbeafe;
   --nga-primary-dark: #1d4ed8;
   --nga-accent: #60a5fa;
   --nga-focus: rgba(59,130,246,.2);
+  
+  /* Layout variables */
+  --nga-font-family: inherit;
+  --nga-font-size: 14px;
+  --nga-font-size-small: 12px;
+  --nga-font-weight: 400;
+  --nga-font-weight-bold: 600;
+  --nga-line-height: 1.5;
+  
+  /* Spacing variables */
+  --nga-spacing: 16px;
+  --nga-spacing-xs: 4px;
+  --nga-spacing-sm: 8px;
+  --nga-spacing-md: 12px;
+  --nga-spacing-lg: 16px;
+  --nga-spacing-xl: 24px;
+  
+  /* Border variables */
+  --nga-border-radius: 8px;
+  --nga-border-radius-sm: 4px;
+  --nga-border-radius-md: 6px;
+  --nga-border-radius-lg: 8px;
+  --nga-border-radius-full: 50%;
+  --nga-border-width: 1px;
+  --nga-border-color: #e5e7eb;
+  
+  /* Shadow variables */
+  --nga-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+  --nga-shadow-sm: 0 1px 2px 0 rgba(0,0,0,.05);
+  --nga-shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+  --nga-shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
+  
+  /* Size variables */
+  --nga-width: 320px;
+  --nga-min-width: 280px;
+  --nga-date-size: 32px;
+  --nga-button-height: 32px;
+  
+  /* Color variables */
+  --nga-background: #fff;
+  --nga-text-color: #374151;
+  --nga-text-color-light: #6b7280;
+  --nga-text-color-muted: #9ca3af;
+  --nga-text-color-disabled: #d1d5db;
+  
+  /* Interactive states */
+  --nga-hover-background: #f3f4f6;
+  --nga-active-background: #e5e7eb;
+  --nga-disabled-opacity: 0.4;
+  
+  /* Transition variables */
+  --nga-transition: all 0.2s ease;
+  --nga-transition-fast: all 0.15s ease;
+  --nga-transition-slow: all 0.3s ease;
 }
 
 .nga-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
-  gap: 4px;
+  margin-bottom: var(--nga-spacing-sm, 8px);
+  gap: var(--nga-spacing-xs, 4px);
 }
 
 .nga-nav-button {
   background: none;
   border: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: #6b7280;
+  font-size: var(--nga-font-size-lg, 18px);
+  font-weight: var(--nga-font-weight-bold, bold);
+  color: var(--nga-text-color-light, #6b7280);
   cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: all .2s ease;
+  padding: var(--nga-spacing-sm, 8px) var(--nga-spacing-md, 12px);
+  border-radius: var(--nga-border-radius-md, 6px);
+  transition: var(--nga-transition, all .2s ease);
   min-width: 40px;
-  height: 32px;
+  height: var(--nga-button-height, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .nga-nav-button:hover:not(:disabled) {
-  background: #f3f4f6;
-  color: #374151;
+  background: var(--nga-hover-background, #f3f4f6);
+  color: var(--nga-text-color, #374151);
 }
 .nga-nav-button:disabled {
-  color: #d1d5db;
+  color: var(--nga-text-color-disabled, #d1d5db);
   cursor: not-allowed;
 }
 
 .nga-month-year-selectors {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--nga-spacing-xs, 4px);
   flex: 1;
 }
 
 .nga-month-select,.nga-year-select {
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 14px;
-  background: #fff;
-  color: #374151;
+  border: var(--nga-border-width, 1px) solid var(--nga-border-color, #d1d5db);
+  border-radius: var(--nga-border-radius-md, 6px);
+  padding: var(--nga-spacing-xs, 4px) var(--nga-spacing-sm, 8px);
+  font-size: var(--nga-font-size, 14px);
+  background: var(--nga-background, #fff);
+  color: var(--nga-text-color, #374151);
   cursor: pointer;
-  transition: all .2s ease;
-  height: 32px;
+  transition: var(--nga-transition, all .2s ease);
+  height: var(--nga-button-height, 32px);
 }
 
 .nga-month-select {
@@ -112,14 +168,14 @@
 }
 
 .nga-date {
-  height: 32px;
-  width: 32px;
+  height: var(--nga-date-size, 32px);
+  width: var(--nga-date-size, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  font-size: 14px;
-  transition: all .2s ease;
+  border-radius: var(--nga-border-radius-full, 50%);
+  font-size: var(--nga-font-size, 14px);
+  transition: var(--nga-transition, all .2s ease);
   position: relative;
 }
 
@@ -132,21 +188,21 @@
 }
 
 .nga-date.nga-clickable:hover:not(.nga-selected) {
-  background: #f3f4f6;
+  background: var(--nga-hover-background, #f3f4f6);
 }
 
 .nga-date.nga-disabled {
-  opacity: .4;
+  opacity: var(--nga-disabled-opacity, .4);
   cursor: not-allowed;
-  color: #9ca3af;
+  color: var(--nga-text-color-muted, #9ca3af);
 }
 .nga-date.nga-today {
-  font-weight: 700;
+  font-weight: var(--nga-font-weight-bold, 700);
 }
 .nga-date.nga-selected {
   background: var(--nga-primary);
   color: #fff;
-  font-weight: 700;
+  font-weight: var(--nga-font-weight-bold, 700);
 }
 
 .nga-date.nga-disabled:hover {
@@ -219,12 +275,12 @@
   background: var(--nga-primary);
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 6px 16px;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: var(--nga-border-radius-md, 6px);
+  padding: var(--nga-spacing-xs, 6px) var(--nga-spacing-lg, 16px);
+  font-size: var(--nga-font-size-small, 12px);
+  font-weight: var(--nga-font-weight, 500);
   cursor: pointer;
-  transition: all .2s ease;
+  transition: var(--nga-transition, all .2s ease);
   outline: none;
 }
 .nga-today-button:hover {
@@ -254,13 +310,13 @@
 @media (max-width:320px) {
   .nga-calendar {
     width: 100%;
-    min-width: 280px;
+    min-width: var(--nga-min-width, 280px);
   }
   .nga-date-number {
-    font-size: 12px;
+    font-size: var(--nga-font-size-small, 12px);
   }
   .nga-month {
-    font-size: 14px;
+    font-size: var(--nga-font-size, 14px);
   }
 }
 .nga-calendar-grid {
