@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
+  HostListener,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
@@ -38,12 +39,34 @@ import { CalendarService } from "../services/calendar.service";
     },
   ],
   template: `
-    <div
-      class="nga-calendar"
-      [class]="'nga-theme-' + (config.theme || 'light')"
-      [attr.data-color-theme]="config.colorTheme || 'blue'"
-      [style]="getColorThemeStyles()"
-    >
+    <div class="nga-calendar-container">
+      <!-- Trigger element for popup mode -->
+      <div 
+        *ngIf="displayMode === 'popup'"
+        class="nga-trigger"
+        (click)="togglePopup()"
+        (keydown.enter)="togglePopup()"
+        (keydown.space)="togglePopup(); $event.preventDefault()"
+        tabindex="0"
+        role="button"
+        [attr.aria-expanded]="isPopupOpen"
+        aria-haspopup="true"
+      >
+        <ng-content></ng-content>
+      </div>
+
+      <!-- Calendar content -->
+      <div
+        class="nga-calendar"
+        [class]="'nga-theme-' + (config.theme || 'light')"
+        [attr.data-color-theme]="config.colorTheme || 'blue'"
+        [style]="getColorThemeStyles()"
+        [class.nga-popup]="displayMode === 'popup'"
+        [class.nga-popup-open]="displayMode === 'popup' && isPopupOpen"
+        [class.nga-inline]="displayMode === 'inline'"
+        *ngIf="displayMode === 'inline' || (displayMode === 'popup' && isPopupOpen)"
+        (click)="$event.stopPropagation()"
+      >
       <!-- Header with navigation and dropdowns -->
       <div class="nga-header">
         <button
@@ -167,6 +190,7 @@ import { CalendarService } from "../services/calendar.service";
           {{ getCurrentLocale().todayLabel }}
         </button>
       </div>
+      </div>
     </div>
   `,
   styleUrls: ["./inline-calendar.component.css"],
@@ -179,6 +203,8 @@ export class InlineCalendarComponent
   @Input() locale: CalendarLocale | string = "en-US";
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
+  @Input() displayMode: 'popup' | 'inline' = 'popup'; // Default to popup mode
+  @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
@@ -193,6 +219,7 @@ export class InlineCalendarComponent
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
+  isPopupOpen = false;
 
   constructor(
     private calendarService: CalendarService,
@@ -308,6 +335,11 @@ export class InlineCalendarComponent
       type: "dateSelect",
       date: new Date(selectedDate),
     });
+
+    // Close popup after date selection
+    if (this.displayMode === 'popup') {
+      this.closePopup();
+    }
   }
 
   // Method to change month via dropdown
@@ -639,4 +671,34 @@ export class InlineCalendarComponent
       .replace("MM", month)
       .replace("dd", day);
   }
+
+  // Popup functionality methods
+  togglePopup(): void {
+    if (this.displayMode === 'popup') {
+      this.isPopupOpen = !this.isPopupOpen;
+      if (this.isPopupOpen && this.selectedDate) {
+        // When opening popup, navigate to the selected date's month/year
+        this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+      }
+    }
+  }
+
+  closePopup(): void {
+    if (this.displayMode === 'popup') {
+      this.isPopupOpen = false;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    if (this.displayMode === 'popup' && this.isPopupOpen) {
+      const target = event.target as HTMLElement;
+      const calendarContainer = target.closest('.nga-calendar-container');
+      
+      if (!calendarContainer) {
+        this.closePopup();
+      }
+    }
+  }
+
 }

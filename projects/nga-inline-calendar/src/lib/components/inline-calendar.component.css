@@ -352,3 +352,80 @@
   outline: 2px solid var(--nga-primary);
   outline-offset: -2px;
 }
+
+/* Popup mode styles */
+.nga-calendar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.nga-trigger {
+  cursor: pointer;
+  display: inline-block;
+  min-width: 0;
+}
+
+.nga-trigger:focus {
+  outline: 2px solid var(--nga-primary);
+  outline-offset: 2px;
+  border-radius: var(--nga-border-radius-sm, 4px);
+}
+
+.nga-calendar.nga-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999; /* High z-index to appear above other elements */
+  margin-top: var(--nga-spacing-xs, 4px);
+  background: var(--nga-background, #ffffff);
+  border: 1px solid var(--nga-border-color, #e5e7eb);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+}
+
+/* Dark theme popup specific styles */
+.nga-calendar.nga-popup.nga-theme-dark {
+  background: #1f2937;
+  border-color: #374151;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--nga-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2));
+}
+
+.nga-calendar.nga-inline {
+  position: static;
+  display: block;
+}
+
+/* Auto positioning for popup */
+.nga-calendar.nga-popup.nga-position-top {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: var(--nga-spacing-xs, 4px);
+}
+
+/* Responsive popup positioning */
+@media (max-width: 640px) {
+  .nga-calendar.nga-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
+  }
+}
+
+/* Animation for popup */
+.nga-calendar.nga-popup {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.nga-calendar.nga-popup.nga-popup-open {
+  opacity: 1;
+  transform: translateY(0);
+}
