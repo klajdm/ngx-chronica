@@ -47,26 +47,61 @@
   </div>
 
   <div class="grid">
-    <!-- Basic Calendar -->
+    <!-- Basic Popup Calendar (Default) -->
     <div class="card">
-      <h2>Basic Calendar</h2>
+      <h2>Default Popup Calendar</h2>
       <nga-inline-calendar
         [selectedDate]="basicSelectedDate"
         [config]="basicConfig"
         (dateSelected)="onBasicDateSelected($event)"
       >
+        <div class="date-trigger">
+          <span class="date-display">
+            {{
+              basicSelectedDate
+                ? (basicSelectedDate | date : "EEEE, MMMM d, y")
+                : "Select a date"
+            }}
+          </span>
+          <svg
+            class="calendar-icon"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
       </nga-inline-calendar>
-      <div class="selected-date" *ngIf="basicSelectedDate">
-        Selected: {{ basicSelectedDate | date : "fullDate" }}
-      </div>
     </div>
 
+    <!-- Inline Calendar -->
+    <div class="card">
+      <h2>Inline Calendar</h2>
+      <nga-inline-calendar
+        [selectedDate]="inlineSelectedDate"
+        [config]="inlineConfig"
+        [displayMode]="'inline'"
+        (dateSelected)="onInlineeDateSelected($event)"
+      >
+      </nga-inline-calendar>
+      <div class="selected-date" *ngIf="inlineSelectedDate">
+        Selected: {{ inlineSelectedDate | date : "fullDate" }}
+      </div>
+    </div>
     <!-- Dark Theme Calendar -->
     <div class="card">
       <h2>Dark Theme</h2>
       <nga-inline-calendar
         [selectedDate]="darkSelectedDate"
         [config]="darkConfig"
+        [displayMode]="'inline'"
         (dateSelected)="onDarkDateSelected($event)"
       >
       </nga-inline-calendar>
@@ -75,33 +110,20 @@
       </div>
     </div>
 
-    <!-- Monday First Calendar -->
-    <div class="card">
-      <h2>Monday First</h2>
-      <nga-inline-calendar
-        [selectedDate]="mondaySelectedDate"
-        [config]="mondayConfig"
-        (dateSelected)="onMondayDateSelected($event)"
-      >
-      </nga-inline-calendar>
-      <div class="selected-date" *ngIf="mondaySelectedDate">
-        Selected: {{ mondaySelectedDate | date : "fullDate" }}
-      </div>
-    </div>
-
     <!-- Restricted Calendar -->
     <div class="card">
       <h2>Date Restrictions</h2>
+      <nga-inline-calendar
+        [selectedDate]="restrictedSelectedDate"
+        [config]="restrictedConfig"
+        [displayMode]="'inline'"
+        (dateSelected)="onRestrictedDateSelected($event)"
+      >
+      </nga-inline-calendar>
       <p class="description">
         Min: {{ restrictedConfig.minDate | date : "shortDate" }}<br />
         Max: {{ restrictedConfig.maxDate | date : "shortDate" }}
       </p>
-      <nga-inline-calendar
-        [selectedDate]="restrictedSelectedDate"
-        [config]="restrictedConfig"
-        (dateSelected)="onRestrictedDateSelected($event)"
-      >
-      </nga-inline-calendar>
       <div class="selected-date" *ngIf="restrictedSelectedDate">
         Selected: {{ restrictedSelectedDate | date : "fullDate" }}
       </div>
@@ -113,6 +135,7 @@
       <nga-inline-calendar
         [formControl]="reactiveFormControl"
         [config]="reactiveFormConfig"
+        [displayMode]="'inline'"
       >
       </nga-inline-calendar>
       <div class="form-info">
@@ -140,6 +163,7 @@
         [(ngModel)]="templateFormDate"
         name="templateDate"
         [config]="templateFormConfig"
+        [displayMode]="'inline'"
       >
       </nga-inline-calendar>
       <div class="form-info">
@@ -198,6 +222,7 @@
       <nga-inline-calendar
         [selectedDate]="interactiveSelectedDate"
         [config]="interactiveConfigCopy"
+        [displayMode]="'inline'"
         (dateSelected)="onInteractiveDateSelected($event)"
         (monthChanged)="onMonthChanged($event)"
       >
