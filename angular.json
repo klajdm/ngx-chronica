@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nga-inline-calendar": {
+    "ngx-chronica": {
       "projectType": "library",
-      "root": "projects/nga-inline-calendar",
-      "sourceRoot": "projects/nga-inline-calendar/src",
+      "root": "projects/chronica",
+      "sourceRoot": "projects/chronica/src",
       "prefix": "aic",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/nga-inline-calendar/ng-package.json"
+            "project": "projects/chronica/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/nga-inline-calendar/tsconfig.lib.prod.json"
+              "tsConfig": "projects/chronica/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/nga-inline-calendar/tsconfig.lib.json"
+              "tsConfig": "projects/chronica/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,7 +27,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/nga-inline-calendar/tsconfig.spec.json",
+            "tsConfig": "projects/chronica/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
@@ -35,14 +35,14 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/nga-inline-calendar/**/*.ts",
-              "projects/nga-inline-calendar/**/*.html"
+              "projects/chronica/**/*.ts",
+              "projects/chronica/**/*.html"
             ]
           }
         }
       }
     },
-    "angular-inline-calendar": {
+    "chronica": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -72,11 +72,6 @@
                   "type": "initial",
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "8kb",
-                  "maximumError": "9kb"
                 }
               ],
               "outputHashing": "all"
@@ -96,10 +91,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-inline-calendar:build:production"
+              "buildTarget": "chronica:build:production"
             },
             "development": {
-              "buildTarget": "angular-inline-calendar:build:development"
+              "buildTarget": "chronica:build:development"
             }
           },
           "defaultConfiguration": "development"
