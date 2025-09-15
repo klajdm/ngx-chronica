@@ -1,7 +1,7 @@
-.nga-calendar {
+.chronica-calendar {
   position: relative;
   font-family: var(
-    --nga-font-family,
+    --chronica-font-family,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -11,403 +11,399 @@
     Cantarell,
     sans-serif
   );
-  border: var(--nga-border-width, 1px) solid var(--nga-border-color, #e5e7eb);
-  border-radius: var(--nga-border-radius, 8px);
-  background: var(--nga-background, #fff);
+  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
+  border-radius: var(--chronica-border-radius, 8px);
+  background: var(--chronica-background, #fff);
   box-shadow: var(
-    --nga-shadow,
+    --chronica-shadow,
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06)
   );
   overflow: hidden;
   user-select: none;
-  width: var(--nga-width, 320px);
-  padding: var(--nga-spacing, 16px);
+  width: var(--chronica-width, 320px);
+  padding: var(--chronica-spacing, 16px);
 
   /* Color theme variables */
-  --nga-primary: #3b82f6;
-  --nga-primary-hover: #2563eb;
-  --nga-primary-light: #dbeafe;
-  --nga-primary-dark: #1d4ed8;
-  --nga-accent: #60a5fa;
-  --nga-focus: rgba(59, 130, 246, 0.2);
+  --chronica-primary: #3b82f6;
+  --chronica-primary-hover: #2563eb;
+  --chronica-primary-light: #dbeafe;
+  --chronica-primary-dark: #1d4ed8;
+  --chronica-accent: #60a5fa;
+  --chronica-focus: rgba(59, 130, 246, 0.2);
 
   /* Layout variables */
-  --nga-font-family: inherit;
-  --nga-font-size: 14px;
-  --nga-font-size-small: 12px;
-  --nga-font-weight: 400;
-  --nga-font-weight-bold: 600;
-  --nga-line-height: 1.5;
+  --chronica-font-family: inherit;
+  --chronica-font-size: 14px;
+  --chronica-font-size-small: 12px;
+  --chronica-font-weight: 400;
+  --chronica-font-weight-bold: 600;
+  --chronica-line-height: 1.5;
 
   /* Spacing variables */
-  --nga-spacing: 16px;
-  --nga-spacing-xs: 4px;
-  --nga-spacing-sm: 8px;
-  --nga-spacing-md: 12px;
-  --nga-spacing-lg: 16px;
-  --nga-spacing-xl: 24px;
+  --chronica-spacing: 16px;
+  --chronica-spacing-xs: 4px;
+  --chronica-spacing-sm: 8px;
+  --chronica-spacing-md: 12px;
+  --chronica-spacing-lg: 16px;
+  --chronica-spacing-xl: 24px;
 
   /* Border variables */
-  --nga-border-radius: 8px;
-  --nga-border-radius-sm: 4px;
-  --nga-border-radius-md: 6px;
-  --nga-border-radius-lg: 8px;
-  --nga-border-radius-full: 50%;
-  --nga-border-width: 1px;
-  --nga-border-color: #e5e7eb;
+  --chronica-border-radius: 8px;
+  --chronica-border-radius-sm: 4px;
+  --chronica-border-radius-md: 6px;
+  --chronica-border-radius-lg: 8px;
+  --chronica-border-radius-full: 50%;
+  --chronica-border-width: 1px;
+  --chronica-border-color: #e5e7eb;
 
   /* Shadow variables */
-  --nga-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  --chronica-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --nga-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --nga-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  --chronica-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --chronica-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --nga-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  --chronica-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
   /* Size variables */
-  --nga-width: 320px;
-  --nga-min-width: 280px;
-  --nga-date-size: 32px;
-  --nga-button-height: 32px;
+  --chronica-width: 320px;
+  --chronica-min-width: 280px;
+  --chronica-date-size: 32px;
+  --chronica-button-height: 32px;
 
   /* Color variables */
-  --nga-background: #fff;
-  --nga-text-color: #374151;
-  --nga-text-color-light: #6b7280;
-  --nga-text-color-muted: #9ca3af;
-  --nga-text-color-disabled: #d1d5db;
+  --chronica-background: #fff;
+  --chronica-text-color: #374151;
+  --chronica-text-color-light: #6b7280;
+  --chronica-text-color-muted: #9ca3af;
+  --chronica-text-color-disabled: #d1d5db;
 
   /* Interactive states */
-  --nga-hover-background: #f3f4f6;
-  --nga-active-background: #e5e7eb;
-  --nga-disabled-opacity: 0.4;
+  --chronica-hover-background: #f3f4f6;
+  --chronica-active-background: #e5e7eb;
+  --chronica-disabled-opacity: 0.4;
 
   /* Transition variables */
-  --nga-transition: all 0.2s ease;
-  --nga-transition-fast: all 0.15s ease;
-  --nga-transition-slow: all 0.3s ease;
+  --chronica-transition: all 0.2s ease;
+  --chronica-transition-fast: all 0.15s ease;
+  --chronica-transition-slow: all 0.3s ease;
 }
 
-.nga-header {
+.chronica-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--nga-spacing-sm, 8px);
-  gap: var(--nga-spacing-xs, 4px);
+  margin-bottom: var(--chronica-spacing-sm, 8px);
+  gap: var(--chronica-spacing-xs, 4px);
 }
 
-.nga-nav-button {
+.chronica-nav-button {
   background: none;
   border: none;
-  font-size: var(--nga-font-size-lg, 18px);
-  font-weight: var(--nga-font-weight-bold, bold);
-  color: var(--nga-text-color-light, #6b7280);
+  font-size: var(--chronica-font-size-lg, 18px);
+  font-weight: var(--chronica-font-weight-bold, bold);
+  color: var(--chronica-text-color-light, #6b7280);
   cursor: pointer;
-  padding: var(--nga-spacing-sm, 8px) var(--nga-spacing-md, 12px);
-  border-radius: var(--nga-border-radius-md, 6px);
-  transition: var(--nga-transition, all 0.2s ease);
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-md, 12px);
+  border-radius: var(--chronica-border-radius-md, 6px);
+  transition: var(--chronica-transition, all 0.2s ease);
   min-width: 40px;
-  height: var(--nga-button-height, 32px);
+  height: var(--chronica-button-height, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.nga-nav-button:hover:not(:disabled) {
-  background: var(--nga-hover-background, #f3f4f6);
-  color: var(--nga-text-color, #374151);
+.chronica-nav-button:hover:not(:disabled) {
+  background: var(--chronica-hover-background, #f3f4f6);
+  color: var(--chronica-text-color, #374151);
 }
-.nga-nav-button:disabled {
-  color: var(--nga-text-color-disabled, #d1d5db);
+.chronica-nav-button:disabled {
+  color: var(--chronica-text-color-disabled, #d1d5db);
   cursor: not-allowed;
 }
 
-.nga-month-year-selectors {
+.chronica-month-year-selectors {
   display: flex;
   align-items: center;
-  gap: var(--nga-spacing-xs, 4px);
+  gap: var(--chronica-spacing-xs, 4px);
   flex: 1;
 }
 
-.nga-month-select,
-.nga-year-select {
-  border: var(--nga-border-width, 1px) solid var(--nga-border-color, #d1d5db);
-  border-radius: var(--nga-border-radius-md, 6px);
-  padding: var(--nga-spacing-xs, 4px) var(--nga-spacing-sm, 8px);
-  font-size: var(--nga-font-size, 14px);
-  background: var(--nga-background, #fff);
-  color: var(--nga-text-color, #374151);
+.chronica-month-select,
+.chronica-year-select {
+  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #d1d5db);
+  border-radius: var(--chronica-border-radius-md, 6px);
+  padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
+  font-size: var(--chronica-font-size, 14px);
+  background: var(--chronica-background, #fff);
+  color: var(--chronica-text-color, #374151);
   cursor: pointer;
-  transition: var(--nga-transition, all 0.2s ease);
-  height: var(--nga-button-height, 32px);
+  transition: var(--chronica-transition, all 0.2s ease);
+  height: var(--chronica-button-height, 32px);
 }
 
-.nga-month-select {
+.chronica-month-select {
   flex: 1;
   max-width: 120px;
 }
 
-.nga-year-select {
+.chronica-year-select {
   width: 80px;
 }
 
-.nga-month-select:hover,
-.nga-year-select:hover {
+.chronica-month-select:hover,
+.chronica-year-select:hover {
   border-color: #9ca3af;
 }
-.nga-month-select:focus,
-.nga-year-select:focus {
+.chronica-month-select:focus,
+.chronica-year-select:focus {
   outline: none;
-  border-color: var(--nga-primary);
-  box-shadow: 0 0 0 3px var(--nga-focus);
+  border-color: var(--chronica-primary);
+  box-shadow: 0 0 0 3px var(--chronica-focus);
 }
 
-.nga-day-names {
+.chronica-day-names {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-bottom: 4px;
   gap: 4px;
 }
 
-.nga-day-name {
+.chronica-day-name {
   padding: 4px;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  color: var(--nga-accent);
+  color: var(--chronica-accent);
   text-transform: uppercase;
 }
 
-.nga-calendar-grid {
+.chronica-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--nga-spacing-xs, 4px);
+  gap: var(--chronica-spacing-xs, 4px);
 }
 
-.nga-date {
-  height: var(--nga-date-size, 32px);
-  width: var(--nga-date-size, 32px);
+.chronica-date {
+  height: var(--chronica-date-size, 32px);
+  width: var(--chronica-date-size, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--nga-border-radius-full, 50%);
-  font-size: var(--nga-font-size, 14px);
-  transition: var(--nga-transition, all 0.2s ease);
+  border-radius: var(--chronica-border-radius-full, 50%);
+  font-size: var(--chronica-font-size, 14px);
+  transition: var(--chronica-transition, all 0.2s ease);
   position: relative;
 }
 
-.nga-date.nga-empty {
+.chronica-date.chronica-empty {
   visibility: hidden;
 }
 
-.nga-date.nga-clickable {
+.chronica-date.chronica-clickable {
   cursor: pointer;
 }
 
-.nga-date.nga-clickable:hover:not(.nga-selected) {
-  background: var(--nga-hover-background, #f3f4f6);
+.chronica-date.chronica-clickable:hover:not(.chronica-selected) {
+  background: var(--chronica-hover-background, #f3f4f6);
 }
 
-.nga-date.nga-disabled {
-  opacity: var(--nga-disabled-opacity, 0.4);
+.chronica-date.chronica-disabled {
+  opacity: var(--chronica-disabled-opacity, 0.4);
   cursor: not-allowed;
-  color: var(--nga-text-color-muted, #9ca3af);
+  color: var(--chronica-text-color-muted, #9ca3af);
 }
-.nga-date.nga-today {
-  font-weight: var(--nga-font-weight-bold, 700);
+.chronica-date.chronica-today {
+  font-weight: var(--chronica-font-weight-bold, 700);
 }
-.nga-date.nga-selected {
-  background: var(--nga-primary);
+.chronica-date.chronica-selected {
+  background: var(--chronica-primary);
   color: #fff;
-  font-weight: var(--nga-font-weight-bold, 700);
+  font-weight: var(--chronica-font-weight-bold, 700);
 }
 
-.nga-date.nga-disabled:hover {
+.chronica-date.chronica-disabled:hover {
   background: transparent;
 }
 
-.nga-theme-dark {
+.chronica-theme-dark {
   background: #1f2937;
   border-color: #374151;
   color: #fff;
 }
 
-.nga-theme-dark .nga-nav-button {
+.chronica-theme-dark .chronica-nav-button {
   color: #9ca3af;
 }
 
-.nga-theme-dark .nga-nav-button:hover:not(:disabled) {
+.chronica-theme-dark .chronica-nav-button:hover:not(:disabled) {
   background: #374151;
   color: #fff;
 }
-.nga-theme-dark .nga-nav-button:disabled {
+.chronica-theme-dark .chronica-nav-button:disabled {
   color: #4b5563;
 }
-.nga-theme-dark .nga-month-select,
-.nga-theme-dark .nga-year-select {
+.chronica-theme-dark .chronica-month-select,
+.chronica-theme-dark .chronica-year-select {
   background: #374151;
   border-color: #4b5563;
   color: #fff;
 }
-.nga-theme-dark .nga-month-select:hover,
-.nga-theme-dark .nga-year-select:hover {
+.chronica-theme-dark .chronica-month-select:hover,
+.chronica-theme-dark .chronica-year-select:hover {
   border-color: #6b7280;
 }
-.nga-theme-dark .nga-month-select:focus,
-.nga-theme-dark .nga-year-select:focus {
-  border-color: var(--nga-primary);
-  box-shadow: 0 0 0 3px var(--nga-focus);
+.chronica-theme-dark .chronica-month-select:focus,
+.chronica-theme-dark .chronica-year-select:focus {
+  border-color: var(--chronica-primary);
+  box-shadow: 0 0 0 3px var(--chronica-focus);
 }
-.nga-theme-dark .nga-month-select option,
-.nga-theme-dark .nga-year-select option {
+.chronica-theme-dark .chronica-month-select option,
+.chronica-theme-dark .chronica-year-select option {
   background: #374151;
   color: #fff;
 }
 
-.nga-theme-dark .nga-day-name {
-  color: var(--nga-accent);
+.chronica-theme-dark .chronica-day-name {
+  color: var(--chronica-accent);
 }
 
-.nga-theme-dark .nga-date {
+.chronica-theme-dark .chronica-date {
   color: #fff;
 }
-.nga-theme-dark .nga-date.nga-clickable:hover:not(.nga-selected) {
+.chronica-theme-dark .chronica-date.chronica-clickable:hover:not(.chronica-selected) {
   background: #374151;
 }
-.nga-theme-dark .nga-date.nga-today {
+.chronica-theme-dark .chronica-date.chronica-today {
   font-weight: 700;
-  color: var(--nga-accent);
+  color: var(--chronica-accent);
 }
-.nga-theme-dark .nga-date.nga-selected {
-  background: var(--nga-primary);
+.chronica-theme-dark .chronica-date.chronica-selected {
+  background: var(--chronica-primary);
   color: #fff;
 }
-.nga-theme-dark .nga-date.nga-disabled {
+.chronica-theme-dark .chronica-date.chronica-disabled {
   color: #4b5563;
 }
 
-.nga-today-button-container {
+.chronica-today-button-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: var(--nga-spacing-md, 12px);
-  padding-top: var(--nga-spacing-sm, 8px);
-  border-top: var(--nga-border-width, 1px) solid
-    var(--nga-border-color, #e5e7eb);
+  margin-top: var(--chronica-spacing-md, 12px);
+  padding-top: var(--chronica-spacing-sm, 8px);
+  border-top: var(--chronica-border-width, 1px) solid
+    var(--chronica-border-color, #e5e7eb);
 }
-.nga-today-button {
-  background: var(--nga-primary);
+.chronica-today-button {
+  background: var(--chronica-primary);
   color: white;
   border: none;
-  border-radius: var(--nga-border-radius-md, 6px);
-  padding: var(--nga-spacing-sm, 8px) var(--nga-spacing-lg, 16px);
-  font-size: var(--nga-font-size-small, 12px);
-  font-weight: var(--nga-font-weight, 500);
+  border-radius: var(--chronica-border-radius-md, 6px);
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-lg, 16px);
+  font-size: var(--chronica-font-size-small, 12px);
+  font-weight: var(--chronica-font-weight, 500);
   cursor: pointer;
-  transition: var(--nga-transition, all 0.2s ease);
+  transition: var(--chronica-transition, all 0.2s ease);
   outline: none;
   min-width: 80px;
 }
-.nga-today-button:hover {
-  background: var(--nga-primary-hover);
+.chronica-today-button:hover {
+  background: var(--chronica-primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--nga-focus);
+  box-shadow: 0 2px 4px var(--chronica-focus);
 }
-.nga-today-button:focus {
-  box-shadow: 0 0 0 3px var(--nga-focus);
+.chronica-today-button:focus {
+  box-shadow: 0 0 0 3px var(--chronica-focus);
 }
-.nga-today-button:active {
+.chronica-today-button:active {
   transform: translateY(0);
-  box-shadow: 0 1px 2px var(--nga-focus);
+  box-shadow: 0 1px 2px var(--chronica-focus);
 }
-.nga-theme-dark .nga-today-button {
-  background: var(--nga-primary);
+.chronica-theme-dark .chronica-today-button {
+  background: var(--chronica-primary);
   color: #fff;
 }
-.nga-theme-dark .nga-today-button:hover {
-  background: var(--nga-primary-hover);
-  box-shadow: 0 2px 4px var(--nga-focus);
+.chronica-theme-dark .chronica-today-button:hover {
+  background: var(--chronica-primary-hover);
+  box-shadow: 0 2px 4px var(--chronica-focus);
 }
-.nga-theme-dark .nga-today-button:focus {
-  box-shadow: 0 0 0 3px var(--nga-focus);
+.chronica-theme-dark .chronica-today-button:focus {
+  box-shadow: 0 0 0 3px var(--chronica-focus);
 }
 
 @media (max-width: 320px) {
-  .nga-calendar {
+  .chronica-calendar {
     width: 100%;
-    min-width: var(--nga-min-width, 280px);
+    min-width: var(--chronica-min-width, 280px);
   }
-  .nga-date-number {
-    font-size: var(--nga-font-size-small, 12px);
+  .chronica-date-number {
+    font-size: var(--chronica-font-size-small, 12px);
   }
-  .nga-month {
-    font-size: var(--nga-font-size, 14px);
+  .chronica-month {
+    font-size: var(--chronica-font-size, 14px);
   }
 }
-.nga-calendar-grid {
+.chronica-calendar-grid {
   transition: opacity 0.2s ease;
 }
-.nga-date:focus {
-  outline: 2px solid var(--nga-primary);
+.chronica-date:focus {
+  outline: 2px solid var(--chronica-primary);
   outline-offset: -2px;
 }
 
 /* Popup mode styles */
-.nga-calendar-container {
+.chronica-calendar-container {
   position: relative;
   display: inline-block;
 }
 
-.nga-trigger {
+.chronica-trigger {
   cursor: pointer;
   display: inline-block;
   min-width: 0;
 }
 
-.nga-trigger:focus {
-  outline: 2px solid var(--nga-primary);
+.chronica-trigger:focus {
+  outline: 2px solid var(--chronica-primary);
   outline-offset: 2px;
-  border-radius: var(--nga-border-radius-sm, 4px);
+  border-radius: var(--chronica-border-radius-sm, 4px);
 }
 
-.nga-calendar.nga-popup {
+.chronica-calendar.chronica-popup {
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 9999; /* High z-index to appear above other elements */
-  margin-top: var(--nga-spacing-xs, 4px);
-  background: var(--nga-background, #ffffff);
-  border: 1px solid var(--nga-border-color, #e5e7eb);
+  margin-top: var(--chronica-spacing-xs, 4px);
+  background: var(--chronica-background, #ffffff);
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 280px;
 }
 
 /* Dark theme popup specific styles */
-.nga-calendar.nga-popup.nga-theme-dark {
+.chronica-calendar.chronica-popup.chronica-theme-dark {
   background: #1f2937;
   border-color: #374151;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  box-shadow: var(--nga-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2));
+  box-shadow: var(--chronica-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2));
 }
 
-.nga-calendar.nga-inline {
-  position: static;
-  display: block;
-}
 
 /* Auto positioning for popup */
-.nga-calendar.nga-popup.nga-position-top {
+.chronica-calendar.chronica-popup.chronica-position-top {
   top: auto;
   bottom: 100%;
   margin-top: 0;
-  margin-bottom: var(--nga-spacing-xs, 4px);
+  margin-bottom: var(--chronica-spacing-xs, 4px);
 }
 
 /* Responsive popup positioning */
 @media (max-width: 640px) {
-  .nga-calendar.nga-popup {
+  .chronica-calendar.chronica-popup {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -419,13 +415,13 @@
 }
 
 /* Animation for popup */
-.nga-calendar.nga-popup {
+.chronica-calendar.chronica-popup {
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 
-.nga-calendar.nga-popup.nga-popup-open {
+.chronica-calendar.chronica-popup.chronica-popup-open {
   opacity: 1;
   transform: translateY(0);
 }
