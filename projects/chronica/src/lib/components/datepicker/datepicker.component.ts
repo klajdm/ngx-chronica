@@ -28,7 +28,7 @@ import {
 import { ChronicaService } from "../../services/chronica.service";
 
 @Component({
-  selector: "nga-inline-calendar",
+  selector: "chronica-datepicker",
   standalone: true,
   imports: [CommonModule, FormsModule],
   providers: [
@@ -38,163 +38,7 @@ import { ChronicaService } from "../../services/chronica.service";
       multi: true,
     },
   ],
-  template: `
-    <div class="nga-calendar-container">
-      <!-- Trigger element for popup mode -->
-      <div
-        *ngIf="displayMode === 'popup'"
-        class="nga-trigger"
-        (click)="togglePopup()"
-        (keydown.enter)="togglePopup()"
-        (keydown.space)="togglePopup(); $event.preventDefault()"
-        tabindex="0"
-        role="button"
-        [attr.aria-expanded]="isPopupOpen"
-        aria-haspopup="true"
-      >
-        <ng-content></ng-content>
-      </div>
-
-      <!-- Calendar content -->
-      <div
-        class="nga-calendar"
-        [class]="'nga-theme-' + (config.theme || 'light')"
-        [attr.data-color-theme]="config.colorTheme || 'blue'"
-        [style]="getColorThemeStyles()"
-        [class.nga-popup]="displayMode === 'popup'"
-        [class.nga-popup-open]="displayMode === 'popup' && isPopupOpen"
-        [class.nga-inline]="displayMode === 'inline'"
-        *ngIf="
-          displayMode === 'inline' || (displayMode === 'popup' && isPopupOpen)
-        "
-        (click)="$event.stopPropagation()"
-      >
-        <!-- Header with navigation and dropdowns -->
-        <div class="nga-header">
-          <button
-            class="nga-nav-button"
-            (click)="previousMonth()"
-            [disabled]="isPreviousMonthDisabled()"
-            type="button"
-            aria-label="Previous month"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-chevron-left-icon lucide-chevron-left"
-            >
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-          </button>
-
-          <div class="nga-month-year-selectors">
-            <select
-              class="nga-month-select"
-              [value]="currentMonth.month"
-              (change)="changeMonth(+$any($event.target).value)"
-              aria-label="Select month"
-            >
-              <option
-                *ngFor="let monthName of monthNames; let i = index"
-                [value]="i"
-                [selected]="i === currentMonth.month"
-              >
-                {{ monthName }}
-              </option>
-            </select>
-
-            <select
-              class="nga-year-select"
-              [value]="currentMonth.year"
-              (change)="changeYear(+$any($event.target).value)"
-              aria-label="Select year"
-            >
-              <option
-                *ngFor="let year of yearRange"
-                [value]="year"
-                [selected]="year === currentMonth.year"
-              >
-                {{ year }}
-              </option>
-            </select>
-          </div>
-
-          <button
-            class="nga-nav-button"
-            (click)="nextMonth()"
-            [disabled]="isNextMonthDisabled()"
-            type="button"
-            aria-label="Next month"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-chevron-right-icon lucide-chevron-right"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
-          </button>
-        </div>
-
-        <!-- Day names header -->
-        <div class="nga-day-names">
-          <div class="nga-day-name" *ngFor="let dayName of dayNames">
-            {{ dayName }}
-          </div>
-        </div>
-
-        <!-- Calendar grid -->
-        <div class="nga-calendar-grid">
-          <!-- Empty cells for days before the first day of month -->
-          <div
-            *ngFor="let _ of getFirstDayOffset()"
-            class="nga-date nga-empty"
-          ></div>
-
-          <!-- Days of month -->
-          <div
-            *ngFor="let day of getDaysInMonth()"
-            class="nga-date nga-clickable"
-            [class.nga-today]="isToday(day)"
-            [class.nga-selected]="isSelectedDate(day)"
-            [class.nga-disabled]="isDateDisabled(day)"
-            (click)="selectDate(day)"
-            (keydown.enter)="selectDate(day)"
-            (keydown.space)="selectDate(day)"
-            tabindex="0"
-            role="button"
-            [attr.aria-label]="'Select date ' + day"
-          >
-            {{ day }}
-          </div>
-        </div>
-
-        <!-- Today button - positioned at bottom of calendar -->
-        <div
-          class="nga-today-button-container"
-          *ngIf="config.showTodayButton !== false"
-        >
-          <button class="nga-today-button" (click)="goToToday()" type="button">
-            {{ getCurrentLocale().todayLabel }}
-          </button>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: "./datepicker.component.html",
   styleUrls: ["./datepicker.component.css"],
 })
 export class ChronicaDatepickerComponent
@@ -205,7 +49,6 @@ export class ChronicaDatepickerComponent
   @Input() locale: CalendarLocale | string = "en-US";
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
-  @Input() displayMode: "popup" | "inline" = "popup"; // Default to popup mode
   @Input() popupPosition: "bottom" | "top" | "auto" = "auto";
 
   @Output() dateSelected = new EventEmitter<Date>();
@@ -339,9 +182,7 @@ export class ChronicaDatepickerComponent
     });
 
     // Close popup after date selection
-    if (this.displayMode === "popup") {
-      this.closePopup();
-    }
+    this.closePopup();
   }
 
   // Method to change month via dropdown
@@ -629,12 +470,12 @@ export class ChronicaDatepickerComponent
     const colors = COLOR_THEMES[colorTheme];
 
     return {
-      "--nga-primary": colors.primary,
-      "--nga-primary-hover": colors.primaryHover,
-      "--nga-primary-light": colors.primaryLight,
-      "--nga-primary-dark": colors.primaryDark,
-      "--nga-accent": colors.accent,
-      "--nga-focus": colors.focus,
+      "--chronica-primary": colors.primary,
+      "--chronica-primary-hover": colors.primaryHover,
+      "--chronica-primary-light": colors.primaryLight,
+      "--chronica-primary-dark": colors.primaryDark,
+      "--chronica-accent": colors.accent,
+      "--chronica-focus": colors.focus,
     };
   }
 
@@ -676,29 +517,25 @@ export class ChronicaDatepickerComponent
 
   // Popup functionality methods
   togglePopup(): void {
-    if (this.displayMode === "popup") {
-      this.isPopupOpen = !this.isPopupOpen;
-      if (this.isPopupOpen && this.selectedDate) {
-        // When opening popup, navigate to the selected date's month/year
-        this.generateMonth(
-          this.selectedDate.getFullYear(),
-          this.selectedDate.getMonth()
-        );
-      }
+    this.isPopupOpen = !this.isPopupOpen;
+    if (this.isPopupOpen && this.selectedDate) {
+      // When opening popup, navigate to the selected date's month/year
+      this.generateMonth(
+        this.selectedDate.getFullYear(),
+        this.selectedDate.getMonth()
+      );
     }
   }
 
   closePopup(): void {
-    if (this.displayMode === "popup") {
-      this.isPopupOpen = false;
-    }
+    this.isPopupOpen = false;
   }
 
   @HostListener("document:click", ["$event"])
   onDocumentClick(event: Event): void {
-    if (this.displayMode === "popup" && this.isPopupOpen) {
+    if (this.isPopupOpen) {
       const target = event.target as HTMLElement;
-      const calendarContainer = target.closest(".nga-calendar-container");
+      const calendarContainer = target.closest(".chronica-calendar-container");
 
       if (!calendarContainer) {
         this.closePopup();
