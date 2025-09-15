@@ -1,7 +1,7 @@
 <div class="container">
   <header class="header">
     <a
-      href="https://github.com/klajdm/nga-inline-calendar"
+      href="https://github.com/klajdm/ngx-chronica"
       target="_blank"
       rel="noopener"
       class="star-button"
@@ -19,7 +19,7 @@
       </svg>
       Star
     </a>
-    <h1>Angular Inline Calendar</h1>
+    <h1>Chronica Calendar</h1>
     <p>
       A lightweight, customizable inline calendar component for Angular
       applications
@@ -50,7 +50,7 @@
     <!-- Basic Popup Calendar (Default) -->
     <div class="card">
       <h2>Default Popup Calendar</h2>
-      <nga-inline-calendar
+      <chronica-datepicker
         [selectedDate]="basicSelectedDate"
         [config]="basicConfig"
         (dateSelected)="onBasicDateSelected($event)"
@@ -78,19 +78,18 @@
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
         </div>
-      </nga-inline-calendar>
+      </chronica-datepicker>
     </div>
 
     <!-- Inline Calendar -->
     <div class="card">
       <h2>Inline Calendar</h2>
-      <nga-inline-calendar
+      <chronica-inline-calendar
         [selectedDate]="inlineSelectedDate"
         [config]="inlineConfig"
-        [displayMode]="'inline'"
         (dateSelected)="onInlineeDateSelected($event)"
       >
-      </nga-inline-calendar>
+      </chronica-inline-calendar>
       <div class="selected-date" *ngIf="inlineSelectedDate">
         Selected: {{ inlineSelectedDate | date : "fullDate" }}
       </div>
@@ -98,13 +97,12 @@
     <!-- Dark Theme Calendar -->
     <div class="card">
       <h2>Dark Theme</h2>
-      <nga-inline-calendar
+      <chronica-inline-calendar
         [selectedDate]="darkSelectedDate"
         [config]="darkConfig"
-        [displayMode]="'inline'"
         (dateSelected)="onDarkDateSelected($event)"
       >
-      </nga-inline-calendar>
+      </chronica-inline-calendar>
       <div class="selected-date" *ngIf="darkSelectedDate">
         Selected: {{ darkSelectedDate | date : "fullDate" }}
       </div>
@@ -113,13 +111,12 @@
     <!-- Restricted Calendar -->
     <div class="card">
       <h2>Date Restrictions</h2>
-      <nga-inline-calendar
+      <chronica-inline-calendar
         [selectedDate]="restrictedSelectedDate"
         [config]="restrictedConfig"
-        [displayMode]="'inline'"
         (dateSelected)="onRestrictedDateSelected($event)"
       >
-      </nga-inline-calendar>
+      </chronica-inline-calendar>
       <p class="description">
         Min: {{ restrictedConfig.minDate | date : "shortDate" }}<br />
         Max: {{ restrictedConfig.maxDate | date : "shortDate" }}
@@ -132,12 +129,11 @@
     <!-- Reactive Forms -->
     <div class="card">
       <h2>Reactive Forms</h2>
-      <nga-inline-calendar
+      <chronica-inline-calendar
         [formControl]="reactiveFormControl"
         [config]="reactiveFormConfig"
-        [displayMode]="'inline'"
       >
-      </nga-inline-calendar>
+      </chronica-inline-calendar>
       <div class="form-info">
         <p>
           <strong>Value:</strong>
@@ -159,13 +155,12 @@
     <!-- Template-driven Forms -->
     <div class="card">
       <h2>Template-driven Forms</h2>
-      <nga-inline-calendar
+      <chronica-inline-calendar
         [(ngModel)]="templateFormDate"
         name="templateDate"
         [config]="templateFormConfig"
-        [displayMode]="'inline'"
       >
-      </nga-inline-calendar>
+      </chronica-inline-calendar>
       <div class="form-info">
         <p>
           <strong>Value:</strong>
@@ -219,14 +214,13 @@
         </label>
       </div>
 
-      <nga-inline-calendar
+      <chronica-inline-calendar
         [selectedDate]="interactiveSelectedDate"
         [config]="interactiveConfigCopy"
-        [displayMode]="'inline'"
         (dateSelected)="onInteractiveDateSelected($event)"
         (monthChanged)="onMonthChanged($event)"
       >
-      </nga-inline-calendar>
+      </chronica-inline-calendar>
 
       <div class="selected-date" *ngIf="interactiveSelectedDate">
         Selected: {{ interactiveSelectedDate | date : "fullDate" }}
@@ -248,14 +242,14 @@
       <div class="compact-version">Angular 20.0.0</div>
       <div class="compact-links">
         <a
-          href="https://github.com/klajdm/nga-inline-calendar/blob/main/LICENSE"
+          href="https://github.com/klajdm/ngx-chronica/blob/main/LICENSE"
           target="_blank"
           rel="noopener"
           >MIT license</a
         >
         -
         <a
-          href="https://github.com/klajdm/nga-inline-calendar"
+          href="https://github.com/klajdm/ngx-chronica"
           target="_blank"
           rel="noopener"
           >Source</a

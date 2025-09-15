@@ -4,7 +4,7 @@ A lightweight, customizable inline calendar component for Angular applications.
 
 ## Demo
 
-🚀 **[View Live Demo](https://chronica.vercel.app/)**
+🚀 **[View Live Demo](https://ngx-ngx-chronica.vercel.app/)**
 
 ## Features
 
@@ -48,7 +48,7 @@ import { InlineCalendarComponent } from "nga-inline-calendar";
   imports: [InlineCalendarComponent],
   template: `
     <!-- Popup with custom trigger -->
-    <nga-inline-calendar
+    <chronica-datepicker
       [selectedDate]="selectedDate"
       [config]="calendarConfig"
       (dateSelected)="onDateSelected($event)"
@@ -76,7 +76,7 @@ import { InlineCalendarComponent } from "nga-inline-calendar";
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
       </div>
-    </nga-inline-calendar>
+    </chronica-datepicker>
   `,
 })
 export class ExampleComponent {
@@ -107,13 +107,13 @@ export class ExampleComponent {
 @Component({
   template: `
     <!-- Always visible inline calendar -->
-    <nga-inline-calendar
+    <chronica-datepicker
       [selectedDate]="selectedDate"
       [config]="calendarConfig"
       [displayMode]="'inline'"
       (dateSelected)="onDateSelected($event)"
     >
-    </nga-inline-calendar>
+    </chronica-datepicker>
   `,
 })
 export class InlineExampleComponent {
@@ -125,7 +125,7 @@ export class InlineExampleComponent {
 
 ```typescript
 import { NgModule } from "@angular/core";
-import { InlineCalendarModule } from "nga-inline-calendar";
+import { InlineCalendarModule } from "chronica-datepicker";
 
 @NgModule({
   imports: [InlineCalendarModule],
@@ -186,26 +186,26 @@ interface CalendarConfig {
 
 ```html
 <!-- Simple popup with default trigger -->
-<nga-inline-calendar></nga-inline-calendar>
+<chronica-datepicker></chronica-datepicker>
 ```
 
 ### Custom Popup Trigger
 
 ```html
-<nga-inline-calendar
+<chronica-datepicker
   [selectedDate]="date"
   (dateSelected)="onDateSelected($event)"
 >
   <button class="custom-trigger">
     📅 {{ date ? (date | date : 'shortDate') : 'Pick a date' }}
   </button>
-</nga-inline-calendar>
+</chronica-datepicker>
 ```
 
 ### Basic Inline Usage
 
 ```html
-<nga-inline-calendar [displayMode]="'inline'"></nga-inline-calendar>
+<chronica-datepicker [displayMode]="'inline'"></chronica-datepicker>
 ```
 
 ### With Date Restrictions
@@ -252,41 +252,41 @@ export class MyComponent {
 
 ```html
 <!-- Popup mode -->
-<nga-inline-calendar [formControl]="dateControl">
+<chronica-datepicker [formControl]="dateControl">
   <input
     type="text"
     [value]="dateControl.value | date : 'shortDate'"
     placeholder="Select date"
     readonly
   />
-</nga-inline-calendar>
+</chronica-datepicker>
 
 <!-- Inline mode -->
-<nga-inline-calendar
+<chronica-datepicker
   [formControl]="dateControl"
   [displayMode]="'inline'"
-></nga-inline-calendar>
+></chronica-datepicker>
 ```
 
 #### Template-driven Forms
 
 ```html
 <!-- Popup mode -->
-<nga-inline-calendar [(ngModel)]="selectedDate" name="calendarDate">
+<chronica-datepicker [(ngModel)]="selectedDate" name="calendarDate">
   <div class="form-field">
     <label>Birth Date:</label>
     <span class="date-value">
       {{ selectedDate ? (selectedDate | date : 'mediumDate') : 'Not selected' }}
     </span>
   </div>
-</nga-inline-calendar>
+</chronica-datepicker>
 
 <!-- Inline mode -->
-<nga-inline-calendar
+<chronica-datepicker
   [(ngModel)]="selectedDate"
   name="calendarDate"
   [displayMode]="'inline'"
-></nga-inline-calendar>
+></chronica-datepicker>
 ```
 
 ### Monday as First Day of Week
@@ -302,7 +302,7 @@ calendarConfig = {
 The component comes with built-in CSS that uses CSS custom properties for theming. The color theme is automatically applied, but you can override specific colors if needed:
 
 ```css
-nga-inline-calendar {
+chronica-datepicker {
   /* Color theme variables (automatically set by colorTheme config) */
   --nga-primary: #3b82f6;
   --nga-primary-hover: #2563eb;

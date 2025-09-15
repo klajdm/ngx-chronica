@@ -7,7 +7,7 @@
   "keywords": [
     "angular",
     "angular-calendar",
-    "angular-inline-calendar",
+    "chronica",
     "calendar",
     "inline-calendar",
     "inline",
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/klajdm/ngx-chronica/issues"
   },
-  "homepage": "https://chronica.vercel.app",
+  "homepage": "https://ngx-chronica.vercel.app",
   "peerDependencies": {
     "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
     "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"

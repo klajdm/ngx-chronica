@@ -96,10 +96,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-inline-calendar:build:production"
+              "buildTarget": "chronica:build:production"
             },
             "development": {
-              "buildTarget": "angular-inline-calendar:build:development"
+              "buildTarget": "chronica:build:development"
             }
           },
           "defaultConfiguration": "development"
