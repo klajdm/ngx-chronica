@@ -3,6 +3,7 @@
  */
 
 export * from "./lib/components/datepicker/datepicker.component";
+export * from "./lib/components/inline-calendar/inline-calendar.component";
 export * from "./lib/services/chronica.service";
 export * from "./lib/models/chronica.models";
 export * from "./lib/chronica.module";

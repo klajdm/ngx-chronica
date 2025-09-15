@@ -1,0 +1,225 @@
+/* Chronica Inline Calendar Styles */
+.chronica-inline-calendar {
+  --chronica-primary: #3b82f6;
+  --chronica-primary-hover: #2563eb;
+  --chronica-primary-light: #dbeafe;
+  --chronica-primary-dark: #1d4ed8;
+  --chronica-accent: #60a5fa;
+  --chronica-focus: rgba(59, 130, 246, 0.2);
+  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 320px;
+  user-select: none;
+}
+
+/* Dark Theme */
+.chronica-inline-calendar.chronica-dark {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+/* Header */
+.chronica-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.chronica-nav-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chronica-nav-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.chronica-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chronica-dark .chronica-nav-btn:hover:not(:disabled) {
+  background: #374151;
+  color: #f9fafb;
+}
+
+.chronica-month-year {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+}
+
+.chronica-month {
+  font-size: 16px;
+  color: #111827;
+}
+
+.chronica-year {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.chronica-dark .chronica-month {
+  color: #f9fafb;
+}
+
+.chronica-dark .chronica-year {
+  color: #9ca3af;
+}
+
+/* Today Button */
+.chronica-today-section {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.chronica-today-btn {
+  background: var(--chronica-primary-light);
+  color: var(--chronica-primary-dark);
+  border: 1px solid var(--chronica-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chronica-today-btn:hover:not(:disabled) {
+  background: var(--chronica-primary);
+  color: white;
+}
+
+.chronica-today-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Calendar Grid */
+.chronica-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.chronica-day-header {
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+.chronica-dark .chronica-day-header {
+  background: #374151;
+  color: #9ca3af;
+}
+
+.chronica-date-cell {
+  background: white;
+  border: none;
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
+  background: #f3f4f6;
+}
+
+.chronica-date-cell:focus {
+  outline: 2px solid var(--chronica-focus);
+  outline-offset: -2px;
+}
+
+.chronica-date-cell.chronica-today {
+  background: var(--chronica-primary-light);
+  color: var(--chronica-primary-dark);
+  font-weight: 600;
+}
+
+.chronica-date-cell.chronica-selected {
+  background: var(--chronica-primary);
+  color: white;
+  font-weight: 600;
+}
+
+.chronica-date-cell.chronica-selected:hover {
+  background: var(--chronica-primary-hover);
+}
+
+.chronica-date-cell.chronica-disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+  background: #f9fafb;
+}
+
+.chronica-date-cell.chronica-other-month {
+  color: #9ca3af;
+}
+
+.chronica-date-cell.chronica-weekend {
+  color: #ef4444;
+}
+
+/* Dark theme date cells */
+.chronica-dark .chronica-date-cell {
+  background: #1f2937;
+  color: #f9fafb;
+}
+
+.chronica-dark .chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
+  background: #374151;
+}
+
+.chronica-dark .chronica-date-cell.chronica-disabled {
+  color: #4b5563;
+  background: #111827;
+}
+
+.chronica-dark .chronica-date-cell.chronica-other-month {
+  color: #6b7280;
+}
+
+.chronica-dark .chronica-date-cell.chronica-weekend {
+  color: #f87171;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .chronica-inline-calendar {
+    max-width: 100%;
+    padding: 12px;
+  }
+  
+  .chronica-date-cell {
+    min-height: 28px;
+    font-size: 13px;
+  }
+}

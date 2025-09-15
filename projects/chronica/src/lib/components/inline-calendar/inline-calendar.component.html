@@ -1,0 +1,54 @@
+<div class="chronica-inline-calendar" [ngStyle]="getColorThemeStyles()" [class.chronica-dark]="config.theme === 'dark'">
+  <!-- Calendar Header -->
+  <div class="chronica-header">
+    <button type="button" class="chronica-nav-btn" (click)="previousMonth()" [disabled]="disabled">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15,18 9,12 15,6"></polyline>
+      </svg>
+    </button>
+    
+    <div class="chronica-month-year">
+      <span class="chronica-month">{{ currentMonth.name }}</span>
+      <span class="chronica-year">{{ currentMonth.year }}</span>
+    </div>
+    
+    <button type="button" class="chronica-nav-btn" (click)="nextMonth()" [disabled]="disabled">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9,18 15,12 9,6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Today Button -->
+  <div class="chronica-today-section" *ngIf="config.showTodayButton">
+    <button type="button" class="chronica-today-btn" (click)="goToToday()" [disabled]="disabled">
+      {{ getCurrentLocale().todayLabel }}
+    </button>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="chronica-calendar-grid">
+    <!-- Day Headers -->
+    <div class="chronica-day-header" *ngFor="let dayName of dayNames">
+      {{ dayName }}
+    </div>
+
+    <!-- Calendar Dates -->
+    <ng-container *ngFor="let week of currentMonth.weeks">
+      <button 
+        type="button"
+        class="chronica-date-cell"
+        *ngFor="let date of week.dates"
+        [class.chronica-today]="date.isToday"
+        [class.chronica-selected]="date.isSelected"
+        [class.chronica-disabled]="date.isDisabled"
+        [class.chronica-other-month]="!date.isInCurrentMonth"
+        [class.chronica-weekend]="date.isWeekend"
+        [disabled]="date.isDisabled || disabled"
+        (click)="selectDate(date)"
+      >
+        {{ date.day }}
+      </button>
+    </ng-container>
+  </div>
+</div>
