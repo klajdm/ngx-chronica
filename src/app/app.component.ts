@@ -7,9 +7,9 @@ import {
   Validators,
 } from "@angular/forms";
 import {
-  InlineCalendarComponent,
+  ChronicaDatepickerComponent,
   CalendarConfig,
-} from "projects/nga-inline-calendar/src/public-api";
+} from "projects/chronica/src/public-api";
 
 @Component({
   selector: "app-root",
@@ -18,7 +18,7 @@ import {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    InlineCalendarComponent,
+    ChronicaDatepickerComponent,
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],

@@ -2,7 +2,7 @@
 
 # Source files (only dist should be published)
 src/
-projects/nga-inline-calendar/src/
+projects/chronica/src/
 angular.json
 tsconfig.json
 tsconfig.app.json

@@ -32,5 +32,5 @@ jobs:
           CHROME_BIN: /usr/bin/google-chrome
       - name: Publish to npm
         run: |
-          cd dist/nga-inline-calendar
+          cd dist/chronica
           npm publish --access public --provenance
