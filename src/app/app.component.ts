@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import {
   ChronicaDatepickerComponent,
+  ChronicaInlineCalendarComponent,
   CalendarConfig,
 } from "projects/chronica/src/public-api";
 
@@ -19,6 +20,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     ChronicaDatepickerComponent,
+    ChronicaInlineCalendarComponent,
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
