@@ -6,8 +6,8 @@
   --chronica-primary-dark: #1d4ed8;
   --chronica-accent: #60a5fa;
   --chronica-focus: rgba(59, 130, 246, 0.2);
-  
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -85,30 +85,45 @@
   color: #9ca3af;
 }
 
-/* Today Button */
-.chronica-today-section {
-  text-align: center;
-  margin-bottom: 16px;
+/* Today Button - styled to match datepicker */
+.chronica-today-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
 }
 
-.chronica-today-btn {
-  background: var(--chronica-primary-light);
-  color: var(--chronica-primary-dark);
-  border: 1px solid var(--chronica-primary);
-  padding: 6px 12px;
+.chronica-today-button {
+  background: var(--chronica-primary);
+  color: white;
+  border: none;
+  padding: 6px 16px;
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  outline: none;
+  min-width: 80px;
 }
 
-.chronica-today-btn:hover:not(:disabled) {
-  background: var(--chronica-primary);
-  color: white;
+.chronica-today-button:hover {
+  background: var(--chronica-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--chronica-focus);
 }
 
-.chronica-today-btn:disabled {
+.chronica-today-button:focus {
+  box-shadow: 0 0 0 3px var(--chronica-focus);
+}
+
+.chronica-today-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px var(--chronica-focus);
+}
+
+.chronica-today-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -125,28 +140,30 @@
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--chronica-accent);
   background: #f9fafb;
 }
 
 .chronica-dark .chronica-day-header {
   background: #374151;
-  color: #9ca3af;
+  color: var(--chronica-accent);
 }
 
 .chronica-date-cell {
   background: white;
   border: none;
-  padding: 8px 4px;
+  padding: 0;
   text-align: center;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
-  min-height: 32px;
+  height: 32px;
+  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 50%;
 }
 
 .chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
@@ -154,20 +171,18 @@
 }
 
 .chronica-date-cell:focus {
-  outline: 2px solid var(--chronica-focus);
+  outline: 2px solid var(--chronica-primary);
   outline-offset: -2px;
 }
 
 .chronica-date-cell.chronica-today {
-  background: var(--chronica-primary-light);
-  color: var(--chronica-primary-dark);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .chronica-date-cell.chronica-selected {
   background: var(--chronica-primary);
-  color: white;
-  font-weight: 600;
+  color: white !important;
+  font-weight: 700;
 }
 
 .chronica-date-cell.chronica-selected:hover {
@@ -175,9 +190,13 @@
 }
 
 .chronica-date-cell.chronica-disabled {
-  color: #d1d5db;
+  opacity: 0.4;
   cursor: not-allowed;
-  background: #f9fafb;
+  color: #9ca3af;
+}
+
+.chronica-date-cell.chronica-disabled:hover {
+  background: transparent;
 }
 
 .chronica-date-cell.chronica-other-month {
@@ -191,16 +210,44 @@
 /* Dark theme date cells */
 .chronica-dark .chronica-date-cell {
   background: #1f2937;
-  color: #f9fafb;
+  color: #fff;
 }
 
-.chronica-dark .chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
+.chronica-dark
+  .chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
   background: #374151;
+}
+
+.chronica-dark .chronica-date-cell.chronica-today {
+  font-weight: 700;
+  color: var(--chronica-accent);
+}
+
+.chronica-dark .chronica-date-cell.chronica-selected {
+  background: var(--chronica-primary);
+  color: white !important;
 }
 
 .chronica-dark .chronica-date-cell.chronica-disabled {
   color: #4b5563;
-  background: #111827;
+}
+
+.chronica-dark .chronica-today-button {
+  background: var(--chronica-primary);
+  color: #fff;
+}
+
+.chronica-dark .chronica-today-button:hover {
+  background: var(--chronica-primary-hover);
+  box-shadow: 0 2px 4px var(--chronica-focus);
+}
+
+.chronica-dark .chronica-today-button:focus {
+  box-shadow: 0 0 0 3px var(--chronica-focus);
+}
+
+.chronica-dark .chronica-today-button-container {
+  border-top-color: #374151;
 }
 
 .chronica-dark .chronica-date-cell.chronica-other-month {
@@ -217,7 +264,7 @@
     max-width: 100%;
     padding: 12px;
   }
-  
+
   .chronica-date-cell {
     min-height: 28px;
     font-size: 13px;
