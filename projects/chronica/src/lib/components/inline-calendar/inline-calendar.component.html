@@ -19,13 +19,6 @@
     </button>
   </div>
 
-  <!-- Today Button -->
-  <div class="chronica-today-section" *ngIf="config.showTodayButton">
-    <button type="button" class="chronica-today-btn" (click)="goToToday()" [disabled]="disabled">
-      {{ getCurrentLocale().todayLabel }}
-    </button>
-  </div>
-
   <!-- Calendar Grid -->
   <div class="chronica-calendar-grid">
     <!-- Day Headers -->
@@ -50,5 +43,12 @@
         {{ date.day }}
       </button>
     </ng-container>
+  </div>
+
+  <!-- Today button - positioned at bottom of calendar -->
+  <div class="chronica-today-button-container" *ngIf="config.showTodayButton !== false">
+    <button class="chronica-today-button" (click)="goToToday()" type="button" [disabled]="disabled">
+      {{ getCurrentLocale().todayLabel }}
+    </button>
   </div>
 </div>
