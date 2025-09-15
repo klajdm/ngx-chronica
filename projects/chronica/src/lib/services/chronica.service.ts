@@ -7,12 +7,12 @@ import {
   DEFAULT_CALENDAR_CONFIG,
   MONTH_NAMES,
   DAY_NAMES_SHORT,
-} from "../models/calendar.models";
+} from "../models/chronica.models";
 
 @Injectable({
   providedIn: "root",
 })
-export class CalendarService {
+export class ChronicaService {
   constructor() {}
 
   /**

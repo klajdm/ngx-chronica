@@ -24,8 +24,8 @@ import {
   DEFAULT_CALENDAR_CONFIG,
   COLOR_THEMES,
   CALENDAR_LOCALES,
-} from "../models/calendar.models";
-import { CalendarService } from "../services/calendar.service";
+} from "../../models/chronica.models";
+import { ChronicaService } from "../../services/chronica.service";
 
 @Component({
   selector: "nga-inline-calendar",
@@ -34,14 +34,14 @@ import { CalendarService } from "../services/calendar.service";
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InlineCalendarComponent),
+      useExisting: forwardRef(() => ChronicaDatepickerComponent),
       multi: true,
     },
   ],
   template: `
     <div class="nga-calendar-container">
       <!-- Trigger element for popup mode -->
-      <div 
+      <div
         *ngIf="displayMode === 'popup'"
         class="nga-trigger"
         (click)="togglePopup()"
@@ -64,138 +64,140 @@ import { CalendarService } from "../services/calendar.service";
         [class.nga-popup]="displayMode === 'popup'"
         [class.nga-popup-open]="displayMode === 'popup' && isPopupOpen"
         [class.nga-inline]="displayMode === 'inline'"
-        *ngIf="displayMode === 'inline' || (displayMode === 'popup' && isPopupOpen)"
+        *ngIf="
+          displayMode === 'inline' || (displayMode === 'popup' && isPopupOpen)
+        "
         (click)="$event.stopPropagation()"
       >
-      <!-- Header with navigation and dropdowns -->
-      <div class="nga-header">
-        <button
-          class="nga-nav-button"
-          (click)="previousMonth()"
-          [disabled]="isPreviousMonthDisabled()"
-          type="button"
-          aria-label="Previous month"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-left-icon lucide-chevron-left"
+        <!-- Header with navigation and dropdowns -->
+        <div class="nga-header">
+          <button
+            class="nga-nav-button"
+            (click)="previousMonth()"
+            [disabled]="isPreviousMonthDisabled()"
+            type="button"
+            aria-label="Previous month"
           >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
-        </button>
-
-        <div class="nga-month-year-selectors">
-          <select
-            class="nga-month-select"
-            [value]="currentMonth.month"
-            (change)="changeMonth(+$any($event.target).value)"
-            aria-label="Select month"
-          >
-            <option
-              *ngFor="let monthName of monthNames; let i = index"
-              [value]="i"
-              [selected]="i === currentMonth.month"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-chevron-left-icon lucide-chevron-left"
             >
-              {{ monthName }}
-            </option>
-          </select>
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
 
-          <select
-            class="nga-year-select"
-            [value]="currentMonth.year"
-            (change)="changeYear(+$any($event.target).value)"
-            aria-label="Select year"
-          >
-            <option
-              *ngFor="let year of yearRange"
-              [value]="year"
-              [selected]="year === currentMonth.year"
+          <div class="nga-month-year-selectors">
+            <select
+              class="nga-month-select"
+              [value]="currentMonth.month"
+              (change)="changeMonth(+$any($event.target).value)"
+              aria-label="Select month"
             >
-              {{ year }}
-            </option>
-          </select>
-        </div>
+              <option
+                *ngFor="let monthName of monthNames; let i = index"
+                [value]="i"
+                [selected]="i === currentMonth.month"
+              >
+                {{ monthName }}
+              </option>
+            </select>
 
-        <button
-          class="nga-nav-button"
-          (click)="nextMonth()"
-          [disabled]="isNextMonthDisabled()"
-          type="button"
-          aria-label="Next month"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-right-icon lucide-chevron-right"
+            <select
+              class="nga-year-select"
+              [value]="currentMonth.year"
+              (change)="changeYear(+$any($event.target).value)"
+              aria-label="Select year"
+            >
+              <option
+                *ngFor="let year of yearRange"
+                [value]="year"
+                [selected]="year === currentMonth.year"
+              >
+                {{ year }}
+              </option>
+            </select>
+          </div>
+
+          <button
+            class="nga-nav-button"
+            (click)="nextMonth()"
+            [disabled]="isNextMonthDisabled()"
+            type="button"
+            aria-label="Next month"
           >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Day names header -->
-      <div class="nga-day-names">
-        <div class="nga-day-name" *ngFor="let dayName of dayNames">
-          {{ dayName }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-chevron-right-icon lucide-chevron-right"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
         </div>
-      </div>
 
-      <!-- Calendar grid -->
-      <div class="nga-calendar-grid">
-        <!-- Empty cells for days before the first day of month -->
-        <div
-          *ngFor="let _ of getFirstDayOffset()"
-          class="nga-date nga-empty"
-        ></div>
+        <!-- Day names header -->
+        <div class="nga-day-names">
+          <div class="nga-day-name" *ngFor="let dayName of dayNames">
+            {{ dayName }}
+          </div>
+        </div>
 
-        <!-- Days of month -->
+        <!-- Calendar grid -->
+        <div class="nga-calendar-grid">
+          <!-- Empty cells for days before the first day of month -->
+          <div
+            *ngFor="let _ of getFirstDayOffset()"
+            class="nga-date nga-empty"
+          ></div>
+
+          <!-- Days of month -->
+          <div
+            *ngFor="let day of getDaysInMonth()"
+            class="nga-date nga-clickable"
+            [class.nga-today]="isToday(day)"
+            [class.nga-selected]="isSelectedDate(day)"
+            [class.nga-disabled]="isDateDisabled(day)"
+            (click)="selectDate(day)"
+            (keydown.enter)="selectDate(day)"
+            (keydown.space)="selectDate(day)"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="'Select date ' + day"
+          >
+            {{ day }}
+          </div>
+        </div>
+
+        <!-- Today button - positioned at bottom of calendar -->
         <div
-          *ngFor="let day of getDaysInMonth()"
-          class="nga-date nga-clickable"
-          [class.nga-today]="isToday(day)"
-          [class.nga-selected]="isSelectedDate(day)"
-          [class.nga-disabled]="isDateDisabled(day)"
-          (click)="selectDate(day)"
-          (keydown.enter)="selectDate(day)"
-          (keydown.space)="selectDate(day)"
-          tabindex="0"
-          role="button"
-          [attr.aria-label]="'Select date ' + day"
+          class="nga-today-button-container"
+          *ngIf="config.showTodayButton !== false"
         >
-          {{ day }}
+          <button class="nga-today-button" (click)="goToToday()" type="button">
+            {{ getCurrentLocale().todayLabel }}
+          </button>
         </div>
-      </div>
-
-      <!-- Today button - positioned at bottom of calendar -->
-      <div
-        class="nga-today-button-container"
-        *ngIf="config.showTodayButton !== false"
-      >
-        <button class="nga-today-button" (click)="goToToday()" type="button">
-          {{ getCurrentLocale().todayLabel }}
-        </button>
-      </div>
       </div>
     </div>
   `,
-  styleUrls: ["./inline-calendar.component.css"],
+  styleUrls: ["./datepicker.component.css"],
 })
-export class InlineCalendarComponent
+export class ChronicaDatepickerComponent
   implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() selectedDate: Date | null = null;
@@ -203,8 +205,8 @@ export class InlineCalendarComponent
   @Input() locale: CalendarLocale | string = "en-US";
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
-  @Input() displayMode: 'popup' | 'inline' = 'popup'; // Default to popup mode
-  @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
+  @Input() displayMode: "popup" | "inline" = "popup"; // Default to popup mode
+  @Input() popupPosition: "bottom" | "top" | "auto" = "auto";
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
@@ -222,7 +224,7 @@ export class InlineCalendarComponent
   isPopupOpen = false;
 
   constructor(
-    private calendarService: CalendarService,
+    private calendarService: ChronicaService,
     private cdr: ChangeDetectorRef
   ) {
     // Initialize with current year range
@@ -337,7 +339,7 @@ export class InlineCalendarComponent
     });
 
     // Close popup after date selection
-    if (this.displayMode === 'popup') {
+    if (this.displayMode === "popup") {
       this.closePopup();
     }
   }
@@ -674,31 +676,33 @@ export class InlineCalendarComponent
 
   // Popup functionality methods
   togglePopup(): void {
-    if (this.displayMode === 'popup') {
+    if (this.displayMode === "popup") {
       this.isPopupOpen = !this.isPopupOpen;
       if (this.isPopupOpen && this.selectedDate) {
         // When opening popup, navigate to the selected date's month/year
-        this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+        this.generateMonth(
+          this.selectedDate.getFullYear(),
+          this.selectedDate.getMonth()
+        );
       }
     }
   }
 
   closePopup(): void {
-    if (this.displayMode === 'popup') {
+    if (this.displayMode === "popup") {
       this.isPopupOpen = false;
     }
   }
 
-  @HostListener('document:click', ['$event'])
+  @HostListener("document:click", ["$event"])
   onDocumentClick(event: Event): void {
-    if (this.displayMode === 'popup' && this.isPopupOpen) {
+    if (this.displayMode === "popup" && this.isPopupOpen) {
       const target = event.target as HTMLElement;
-      const calendarContainer = target.closest('.nga-calendar-container');
-      
+      const calendarContainer = target.closest(".nga-calendar-container");
+
       if (!calendarContainer) {
         this.closePopup();
       }
     }
   }
-
 }

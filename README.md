@@ -4,7 +4,7 @@ A lightweight, customizable inline calendar component for Angular applications.
 
 ## Demo
 
-🚀 **[View Live Demo](https://nga-inline-calendar.vercel.app/)**
+🚀 **[View Live Demo](https://chronica.vercel.app/)**
 
 ## Features
 
@@ -24,7 +24,7 @@ A lightweight, customizable inline calendar component for Angular applications.
 ## Installation
 
 ```bash
-npm install nga-inline-calendar
+npm install ngx-chronica
 ```
 
 ## Usage

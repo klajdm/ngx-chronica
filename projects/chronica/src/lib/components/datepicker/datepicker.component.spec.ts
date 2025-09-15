@@ -1,49 +1,48 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { InlineCalendarComponent } from './inline-calendar.component';
-import { CalendarService } from '../services/calendar.service';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ChronicaDatepickerComponent } from "./datepicker.component";
+import { ChronicaService } from "../../services/chronica.service";
 
-describe('InlineCalendarComponent', () => {
-  let component: InlineCalendarComponent;
-  let fixture: ComponentFixture<InlineCalendarComponent>;
+describe("InlineCalendarComponent", () => {
+  let component: ChronicaDatepickerComponent;
+  let fixture: ComponentFixture<ChronicaDatepickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InlineCalendarComponent],
-      providers: [CalendarService]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(InlineCalendarComponent);
+      imports: [ChronicaDatepickerComponent],
+      providers: [ChronicaService],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ChronicaDatepickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with current month', () => {
+  it("should initialize with current month", () => {
     const now = new Date();
     expect(component.currentMonth.month).toBe(now.getMonth());
     expect(component.currentMonth.year).toBe(now.getFullYear());
   });
 
-  it('should emit dateSelected when a date is clicked', () => {
-    spyOn(component.dateSelected, 'emit');
+  it("should emit dateSelected when a date is clicked", () => {
+    spyOn(component.dateSelected, "emit");
     const testDay = 15; // Use a day number instead of CalendarDate
-    
+
     if (!component.isDateDisabled(testDay)) {
       component.selectDate(testDay);
       expect(component.dateSelected.emit).toHaveBeenCalled();
     }
   });
 
-  it('should navigate to previous month', () => {
+  it("should navigate to previous month", () => {
     const initialMonth = component.currentMonth.month;
     const initialYear = component.currentMonth.year;
-    
+
     component.previousMonth();
-    
+
     if (initialMonth === 0) {
       expect(component.currentMonth.month).toBe(11);
       expect(component.currentMonth.year).toBe(initialYear - 1);
@@ -53,12 +52,12 @@ describe('InlineCalendarComponent', () => {
     }
   });
 
-  it('should navigate to next month', () => {
+  it("should navigate to next month", () => {
     const initialMonth = component.currentMonth.month;
     const initialYear = component.currentMonth.year;
-    
+
     component.nextMonth();
-    
+
     if (initialMonth === 11) {
       expect(component.currentMonth.month).toBe(0);
       expect(component.currentMonth.year).toBe(initialYear + 1);
