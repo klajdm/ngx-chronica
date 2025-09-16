@@ -8,10 +8,16 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
-  HostListener,
+  ViewContainerRef,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  TemplateRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   CalendarMonth,
   CalendarConfig,
@@ -37,7 +43,9 @@ import { ChronicaService } from '../../services/chronica.service';
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.css'],
 })
-export class ChronicaDatepickerComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class ChronicaDatepickerComponent
+  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+{
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: CalendarLocale | string = 'en-US';
@@ -59,10 +67,16 @@ export class ChronicaDatepickerComponent implements OnInit, OnChanges, ControlVa
   monthNames: string[] = [];
   yearRange: number[] = [];
   isPopupOpen = false;
+  private overlayRef: OverlayRef | null = null;
+
+  @ViewChild('calendarTemplate', { static: true }) calendarTemplate!: TemplateRef<any>;
 
   constructor(
     private calendarService: ChronicaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private overlay: Overlay,
+    private viewContainerRef: ViewContainerRef,
+    private elementRef: ElementRef
   ) {
     // Initialize with current year range
     this.updateYearRange(new Date().getFullYear());
@@ -476,28 +490,75 @@ export class ChronicaDatepickerComponent implements OnInit, OnChanges, ControlVa
     return format.replace('yyyy', year.toString()).replace('MM', month).replace('dd', day);
   }
 
+  ngOnDestroy(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
+  }
+
   // Popup functionality methods
   togglePopup(): void {
-    this.isPopupOpen = !this.isPopupOpen;
-    if (this.isPopupOpen && this.selectedDate) {
+    if (this.isPopupOpen) {
+      this.closePopup();
+    } else {
+      this.openPopup();
+    }
+  }
+
+  private openPopup(): void {
+    if (this.overlayRef) {
+      return;
+    }
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy: this.overlay
+        .position()
+        .flexibleConnectedTo(this.elementRef)
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+            offsetY: 14,
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom',
+            offsetY: -14,
+          },
+        ]),
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    });
+
+    this.overlayRef = this.overlay.create(overlayConfig);
+
+    // Create and attach the template portal
+    const portal = new TemplatePortal(this.calendarTemplate, this.viewContainerRef);
+    this.overlayRef.attach(portal);
+
+    this.isPopupOpen = true;
+
+    if (this.selectedDate) {
       // When opening popup, navigate to the selected date's month/year
       this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
     }
+
+    // Close popup when backdrop is clicked
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
+    });
   }
 
   closePopup(): void {
-    this.isPopupOpen = false;
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: Event): void {
-    if (this.isPopupOpen) {
-      const target = event.target as HTMLElement;
-      const calendarContainer = target.closest('.chronica-calendar-container');
-
-      if (!calendarContainer) {
-        this.closePopup();
-      }
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
     }
+    this.isPopupOpen = false;
   }
 }
