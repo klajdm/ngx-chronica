@@ -1,381 +1,525 @@
-<section class="max-w-6xl mx-auto py-8 px-4">
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900">Time Picker</h1>
-    <p class="text-gray-600 mt-2 text-lg">
-      Interactive time picker component for selecting hours, minutes, and seconds. Supports both 12-hour and 24-hour formats
-      with customizable intervals and restrictions.
+<div class="max-w-6xl mx-auto p-5">
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Time Picker Component</h1>
+    <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+      Interactive time picker component for selecting hours, minutes, and seconds. Supports both
+      12-hour and 24-hour formats with customizable intervals and restrictions. Perfect for
+      appointment scheduling, meeting setup, and time-sensitive applications.
     </p>
   </div>
 
-  <!-- Basic Time Picker (24-hour) -->
   <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Basic Time Picker (24-hour)</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;chronica-time-picker
+    <!-- Demo 1: Basic Time Picker (24-hour) -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Basic Time Picker (24-hour)</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Simple 24-hour time picker with hours and minutes. Click the input to open the time
+        selection popup.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-time-picker
+          [(ngModel)]="basicSelectedTime"
+          [config]="basicConfig"
+          placeholder="Select time"
+          (timeChange)="onBasicTimeChanged($event)"
+        ></chronica-time-picker>
+
+        <div
+          class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
+          *ngIf="basicSelectedTime"
+        >
+          <strong class="text-blue-800">Selected:</strong>
+          <span class="text-blue-700">{{ formatTimeDisplay(basicSelectedTime, true, false) }}</span
+          ><br />
+          <strong class="text-blue-800">Minutes since midnight:</strong>
+          <span class="text-blue-700">{{ getTimeInMinutes(basicSelectedTime) }}</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
   [(ngModel)]="basicSelectedTime"
-  [config]="basicConfig"
-  (timeChange)="onBasicTimeChanged($event)"
-&gt;&lt;/chronica-time-picker&gt;</code></pre>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border mt-2"
-        ><code class="language-typescript">basicConfig = &#123;
-  format24Hour: true,
-  showSeconds: false
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Simple 24-hour time picker with hours and minutes. Click the input to open the time selection popup.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Select Time</label>
-          <chronica-time-picker
-            [(ngModel)]="basicSelectedTime"
-            [config]="basicConfig"
-            (timeChange)="onBasicTimeChanged($event)"
-          ></chronica-time-picker>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="basicSelectedTime">
-            Selected: {{ formatTimeDisplay(basicSelectedTime, true, false) }}
-          </p>
-        </div>
+  [config]="&#123;
+    format24Hour: true,
+    showSeconds: false,
+    colorTheme: 'blue'
+  &#125;"
+  placeholder="Select time"
+  (timeChange)="onBasicTimeChanged($event)"&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
       </div>
     </div>
-  </div>
 
-  <!-- 12-Hour Format -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">12-Hour Format with AM/PM</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;chronica-time-picker
+    <!-- Demo 2: 12-Hour Format with AM/PM -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. 12-Hour Format with AM/PM</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        12-hour format with AM/PM selection. Perfect for user-friendly time input in everyday
+        applications.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-time-picker
+          [(ngModel)]="twelveHourTime"
+          [config]="twelveHourConfig"
+          placeholder="Select time (12-hour format)"
+          (timeChange)="onTwelveHourTimeChanged($event)"
+        ></chronica-time-picker>
+
+        <div
+          class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400"
+          *ngIf="twelveHourTime"
+        >
+          <strong class="text-purple-800">Selected:</strong>
+          <span class="text-purple-700">{{ formatTimeDisplay(twelveHourTime, false, false) }}</span
+          ><br />
+          <strong class="text-purple-800">24-hour format:</strong>
+          <span class="text-purple-700">{{ formatTimeDisplay(twelveHourTime, true, false) }}</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
   [(ngModel)]="twelveHourTime"
-  [config]="twelveHourConfig"
-  (timeChange)="onTwelveHourTimeChanged($event)"
-&gt;&lt;/chronica-time-picker&gt;</code></pre>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border mt-2"
-        ><code class="language-typescript">twelveHourConfig = &#123;
-  format24Hour: false,
-  colorTheme: 'purple'
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          12-hour format with AM/PM selection. Perfect for user-friendly time input.
-        </p>
+  [config]="&#123;
+    format24Hour: false,
+    colorTheme: 'purple'
+  &#125;"
+  placeholder="Select time (12-hour format)"&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
       </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Select Time (12-hour)</label>
+    </div>
+
+    <!-- Demo 3: Time Picker with Seconds -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Precision Time with Seconds</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Precise time selection including seconds. Useful for scheduling, time tracking, and
+        scientific applications.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-time-picker
+          [(ngModel)]="timeWithSeconds"
+          [config]="secondsConfig"
+          placeholder="Select time with seconds"
+          (timeChange)="onTimeWithSecondsChanged($event)"
+        ></chronica-time-picker>
+
+        <div
+          class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
+          *ngIf="timeWithSeconds"
+        >
+          <strong class="text-green-800">Selected:</strong>
+          <span class="text-green-700">{{ formatTimeDisplay(timeWithSeconds, true, true) }}</span
+          ><br />
+          <strong class="text-green-800">Total seconds since midnight:</strong>
+          <span class="text-green-700">{{
+            getTimeInMinutes(timeWithSeconds) * 60 + (timeWithSeconds.seconds || 0)
+          }}</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
+  [(ngModel)]="timeWithSeconds"
+  [config]="&#123;
+    format24Hour: true,
+    showSeconds: true,
+    colorTheme: 'green'
+  &#125;"
+  placeholder="Select time with seconds"&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 4: Time Range Restrictions -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Business Hours Restrictions</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Restrict time selection to business hours or specific time ranges. Perfect for appointment
+        booking systems.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-time-picker
+          [(ngModel)]="restrictedTime"
+          [config]="restrictedConfig"
+          [minTime]="minTime"
+          [maxTime]="maxTime"
+          placeholder="Business hours only (9:00 - 17:30)"
+          (timeChange)="onRestrictedTimeChanged($event)"
+        ></chronica-time-picker>
+
+        <div
+          class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400"
+          *ngIf="restrictedTime"
+        >
+          <strong class="text-orange-800">Selected:</strong>
+          <span class="text-orange-700">{{ formatTimeDisplay(restrictedTime, true, false) }}</span
+          ><br />
+          <strong class="text-orange-800">Within business hours:</strong>
+          <span class="text-orange-700">✅ Valid</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
+  [(ngModel)]="restrictedTime"
+  [config]="&#123;
+    format24Hour: true,
+    colorTheme: 'orange'
+  &#125;"
+  [minTime]="&#123; hours: 9, minutes: 0 &#125;"
+  [maxTime]="&#123; hours: 17, minutes: 30 &#125;"&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 5: Form Integration -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Form Integration</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Seamless integration with Angular forms using ngModel and ControlValueAccessor pattern.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <form #timeForm="ngForm">
+          <label for="meetingTime" class="block text-sm font-medium text-gray-700 mb-2"
+            >Meeting Time:</label
+          >
           <chronica-time-picker
-            [(ngModel)]="twelveHourTime"
-            [config]="twelveHourConfig"
-            (timeChange)="onTwelveHourTimeChanged($event)"
+            name="meetingTime"
+            [(ngModel)]="formSelectedTime"
+            [config]="formConfig"
+            placeholder="Select meeting time"
+            [required]="true"
+            (timeChange)="onFormTimeChanged($event)"
           ></chronica-time-picker>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="twelveHourTime">
-            Selected: {{ formatTimeDisplay(twelveHourTime, false, false) }}
-          </p>
+
+          <div class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400">
+            <strong class="text-indigo-800">Form Valid:</strong>
+            <span class="text-indigo-700">{{ timeForm.valid ? '✅' : '❌' }}</span
+            ><br />
+            <strong class="text-indigo-800">Form Value:</strong>
+            <span class="text-indigo-700">{{ formSelectedTime | json }}</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
+  name="meetingTime"
+  [(ngModel)]="formSelectedTime"
+  [config]="&#123;
+    format24Hour: false,
+    colorTheme: 'indigo'
+  &#125;"
+  required&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 6: Custom Step Intervals -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Custom Step Intervals</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Customize minute and second intervals for specific use cases like appointment scheduling or
+        time tracking.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-time-picker
+          [(ngModel)]="customStepTime"
+          [config]="customStepConfig"
+          placeholder="Custom intervals (15min, 30sec)"
+          (timeChange)="onCustomStepTimeChanged($event)"
+        ></chronica-time-picker>
+
+        <div class="mt-4 p-3 bg-red-50 rounded-md border-l-4 border-red-400" *ngIf="customStepTime">
+          <strong class="text-red-800">Selected:</strong>
+          <span class="text-red-700">{{ formatTimeDisplay(customStepTime, true, true) }}</span
+          ><br />
+          <strong class="text-red-800">Step intervals:</strong>
+          <span class="text-red-700">15-minute, 30-second blocks</span>
         </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
+  [(ngModel)]="customStepTime"
+  [config]="&#123;
+    format24Hour: true,
+    showSeconds: true,
+    minuteStep: 15,
+    secondStep: 30,
+    colorTheme: 'red'
+  &#125;"&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 7: Dark Theme -->
+    <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
+      <h3 class="text-xl font-semibold text-white mb-2">7. Dark Theme</h3>
+      <p class="text-gray-300 mb-5 leading-relaxed">
+        Modern dark theme with teal accent for night-time applications and dark mode interfaces.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
+        <chronica-time-picker
+          [(ngModel)]="darkThemeTime"
+          [config]="darkThemeConfig"
+          placeholder="Select time (dark theme)"
+          (timeChange)="onDarkThemeTimeChanged($event)"
+        ></chronica-time-picker>
+
+        <div
+          class="mt-4 p-3 bg-teal-900 bg-opacity-30 rounded-md border-l-4 border-teal-400"
+          *ngIf="darkThemeTime"
+        >
+          <strong class="text-teal-200">Selected:</strong>
+          <span class="text-teal-100">{{ formatTimeDisplay(darkThemeTime, true, false) }}</span
+          ><br />
+          <strong class="text-teal-200">Theme:</strong>
+          <span class="text-teal-100">Dark mode with teal accent</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-time-picker
+  [(ngModel)]="darkThemeTime"
+  [config]="&#123;
+    theme: 'dark',
+    colorTheme: 'teal',
+    format24Hour: true
+  &#125;"&gt;
+&lt;/chronica-time-picker&gt;</code></pre>
       </div>
     </div>
   </div>
 
-  <!-- Time Picker with Seconds -->
+  <!-- Configuration Options -->
   <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Time Picker with Seconds</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">secondsConfig = &#123;
-  format24Hour: true,
-  showSeconds: true,
-  colorTheme: 'green'
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Precise time selection including seconds. Useful for scheduling and time tracking applications.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Select Time with Seconds</label>
-          <chronica-time-picker
-            [(ngModel)]="timeWithSeconds"
-            [config]="secondsConfig"
-            (timeChange)="onTimeWithSecondsChanged($event)"
-          ></chronica-time-picker>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="timeWithSeconds">
-            Selected: {{ formatTimeDisplay(timeWithSeconds, true, true) }}
-          </p>
-        </div>
-      </div>
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
+
+    <div class="overflow-x-auto mt-5">
+      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Property
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Default
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >format24Hour</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">true</td>
+            <td class="p-3 text-gray-600">
+              Use 24-hour format (true) or 12-hour with AM/PM (false)
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >showSeconds</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">Include seconds selection in the time picker</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >minuteStep</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">number</td>
+            <td class="p-3 text-gray-600">1</td>
+            <td class="p-3 text-gray-600">
+              Step interval for minutes (e.g., 15 for 15-min blocks)
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >secondStep</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">number</td>
+            <td class="p-3 text-gray-600">1</td>
+            <td class="p-3 text-gray-600">Step interval for seconds</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >minTime</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">TimeValue</td>
+            <td class="p-3 text-gray-600">null</td>
+            <td class="p-3 text-gray-600">Minimum selectable time</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >maxTime</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">TimeValue</td>
+            <td class="p-3 text-gray-600">null</td>
+            <td class="p-3 text-gray-600">Maximum selectable time</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >colorTheme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'blue'</td>
+            <td class="p-3 text-gray-600">
+              Color theme: blue, purple, green, red, orange, teal, pink, indigo
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >theme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'light'</td>
+            <td class="p-3 text-gray-600">UI theme: light or dark</td>
+          </tr>
+          <tr>
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >placeholder</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'Select time'</td>
+            <td class="p-3 text-gray-600">Placeholder text for the time input field</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Time Restrictions -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Time Range Restrictions</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">restrictedConfig = &#123;
-  format24Hour: true,
-  colorTheme: 'orange'
-&#125;;
-minTime = &#123; hours: 9, minutes: 0 &#125;; // 9:00 AM
-maxTime = &#123; hours: 17, minutes: 30 &#125;; // 5:30 PM</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Restrict time selection to business hours or specific time ranges.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Business Hours Only (9:00 - 17:30)</label>
-          <chronica-time-picker
-            [(ngModel)]="restrictedTime"
-            [config]="restrictedConfig"
-            [minTime]="minTime"
-            [maxTime]="maxTime"
-            (timeChange)="onRestrictedTimeChanged($event)"
-          ></chronica-time-picker>
-          <p class="text-xs text-gray-500 mt-2">Only times between 9:00 AM and 5:30 PM are selectable</p>
-          <p class="text-xs text-gray-500 mt-1" *ngIf="restrictedTime">
-            Selected: {{ formatTimeDisplay(restrictedTime, true, false) }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Form Integration -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Form Integration</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;form&gt;
-  &lt;div class="form-group"&gt;
-    &lt;label&gt;Meeting Time&lt;/label&gt;
-    &lt;chronica-time-picker
-      [(ngModel)]="formSelectedTime"
-      [config]="formConfig"
-      name="meetingTime"
-    &gt;&lt;/chronica-time-picker&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Seamless integration with Angular forms using ngModel or reactive forms.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <form class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Meeting Time</label>
-              <chronica-time-picker
-                [(ngModel)]="formSelectedTime"
-                [config]="formConfig"
-                name="meetingTime"
-                (timeChange)="onFormTimeChanged($event)"
-              ></chronica-time-picker>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Meeting Notes</label>
-              <textarea
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                rows="3"
-                placeholder="Add meeting agenda and notes..."
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              Schedule Meeting
-            </button>
-          </form>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="formSelectedTime">
-            Form Value: {{ formatTimeDisplay(formSelectedTime, false, false) }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Custom Step Intervals -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Custom Step Intervals</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">customStepConfig = &#123;
-  format24Hour: true,
-  showSeconds: true,
-  minuteStep: 15, // 15-minute intervals
-  secondStep: 30, // 30-second intervals
-  colorTheme: 'red'
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Customize minute and second intervals for specific use cases like appointment scheduling.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Custom Intervals (15min, 30sec)</label>
-          <chronica-time-picker
-            [(ngModel)]="customStepTime"
-            [config]="customStepConfig"
-            (timeChange)="onCustomStepTimeChanged($event)"
-          ></chronica-time-picker>
-          <p class="text-xs text-gray-500 mt-2">Minutes in 15-minute steps, seconds in 30-second steps</p>
-          <p class="text-xs text-gray-500 mt-1" *ngIf="customStepTime">
-            Selected: {{ formatTimeDisplay(customStepTime, true, true) }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dark Theme -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Dark Theme</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">darkThemeConfig = &#123;
-  theme: 'dark',
-  colorTheme: 'teal',
-  format24Hour: true
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Dark theme variant with teal accent color. Perfect for dark mode applications.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-gray-900">
-          <label class="block text-sm font-medium text-gray-300 mb-2">Select Time (Dark Theme)</label>
-          <chronica-time-picker
-            [(ngModel)]="darkThemeTime"
-            [config]="darkThemeConfig"
-            (timeChange)="onDarkThemeTimeChanged($event)"
-          ></chronica-time-picker>
-          <p class="text-xs text-gray-400 mt-2" *ngIf="darkThemeTime">
-            Selected: {{ formatTimeDisplay(darkThemeTime, true, false) }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Features Summary -->
-  <div class="bg-blue-50 rounded-lg p-6">
-    <h2 class="text-xl font-semibold mb-4 text-blue-900">Key Features</h2>
-    <div class="grid md:grid-cols-2 gap-4">
-      <ul class="space-y-2 text-sm text-blue-800">
+  <!-- Key Features -->
+  <div class="bg-blue-50 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-blue-900">Key Features</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <ul class="space-y-3 text-sm text-blue-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          12-hour and 24-hour format support
+          <span class="font-medium">12-hour and 24-hour format support</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Optional seconds selection
+          <span class="font-medium">Optional seconds selection for precision timing</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Customizable minute/second intervals
+          <span class="font-medium">Customizable minute/second step intervals</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Min/max time restrictions
+          <span class="font-medium">Min/max time restrictions for business hours</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Popup-based time selection interface</span>
         </li>
       </ul>
-      <ul class="space-y-2 text-sm text-blue-800">
+      <ul class="space-y-3 text-sm text-blue-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Angular forms integration (ngModel & Reactive)
+          <span class="font-medium">Angular forms integration (ngModel & Reactive)</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Multiple color themes & dark mode
+          <span class="font-medium">Multiple color themes & dark mode support</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Keyboard navigation & accessibility
+          <span class="font-medium">Quick actions (Now, Clear) for convenience</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Quick actions (Now, Clear)
+          <span class="font-medium">Responsive design for mobile and desktop</span>
         </li>
       </ul>
     </div>
   </div>
-</section>
+</div>
