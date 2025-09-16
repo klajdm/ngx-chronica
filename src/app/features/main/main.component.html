@@ -1,26 +1,29 @@
-<div class="flex min-h-screen bg-gray-50">
-  <!-- Sidebar -->
-  <div class="fixed inset-y-0 left-0 z-50">
-    <app-sidebar></app-sidebar>
-  </div>
+<div class="h-screen bg-gray-50 flex flex-col">
+  <!-- Header at the very top -->
+  <header class="z-40 bg-white shadow-sm border-b border-gray-200">
+    <app-header></app-header>
+  </header>
 
-  <!-- Main Content Area -->
-  <div class="flex-1 ml-60">
-    <!-- Header -->
-    <header class="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
-      <app-header></app-header>
-    </header>
+  <!-- Main layout with sidebar and content; use overflow-hidden so only main scrolls -->
+  <div class="flex-1 flex overflow-hidden">
+    <!-- Sidebar (fixed) -->
+    <aside class="w-60 bg-white border-r border-gray-200 overflow-hidden">
+      <app-sidebar></app-sidebar>
+    </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6 bg-white min-h-[calc(100vh-theme(spacing.16))]">
-      <div class="max-w-4xl mx-auto">
-        <router-outlet></router-outlet>
-      </div>
-    </main>
+    <!-- Main Content Column -->
+    <div class="flex-1 overflow-auto">
+      <!-- Scrollable main content -->
+      <main class="p-6 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
 
-    <!-- Footer -->
-    <footer class="mt-auto bg-white border-t border-gray-200">
-      <app-footer></app-footer>
-    </footer>
+      <!-- Footer (scrolls with content) -->
+      <footer class="bg-white border-t border-gray-200">
+        <app-footer></app-footer>
+      </footer>
+    </div>
   </div>
 </div>
