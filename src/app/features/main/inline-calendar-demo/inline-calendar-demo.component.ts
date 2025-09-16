@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'app-inline-calendar-demo',
+  selector: "app-inline-calendar-demo",
   standalone: true,
   imports: [CommonModule],
-  template: `<h2>Inline Calendar Demo</h2><p>Demo content coming soon.</p>`
+  templateUrl: "./inline-calendar-demo.component.html",
 })
 export class InlineCalendarDemoComponent {}
