@@ -1,5 +1,33 @@
 {
-    "cSpell.words": [
-        "Chronica"
-    ]
+  "angular.enable-strict-mode-prompt": false,
+  "editor.colorDecorators": true,
+  "editor.suggest.showColors": true,
+  "eslint.format.enable": true,
+  "eslint.options": {
+    "extensions": [".ts", ".html", ".json", ".js"]
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
+    "editor.formatOnSave": true
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "cSpell.words": [],
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "terminal.integrated.suggest.enabled": true
 }

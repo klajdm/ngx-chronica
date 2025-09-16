@@ -1,12 +1,9 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('../app/features/main/main.component').then(
-        (m) => m.MainComponent
-      ),
+    loadComponent: () => import('../app/features/main/main.component').then((m) => m.MainComponent),
     children: [
       {
         path: '',
@@ -16,7 +13,7 @@ export const routes: Routes = [
           import('../app/features/main/introduction/introduction.component').then(
             (m) => m.IntroductionComponent
           ),
-        title: 'Introduction',
+        title: 'Introduction | Angular Chronica',
       },
       {
         path: 'start',
@@ -24,7 +21,7 @@ export const routes: Routes = [
           import('./features/main/getting-started/getting-started.component').then(
             (m) => m.GettingStartedComponent
           ),
-        title: 'Getting Started',
+        title: 'Getting Started | Angular Chronica',
       },
       {
         path: 'components/datepicker',
@@ -32,7 +29,7 @@ export const routes: Routes = [
           import('./features/main/datepicker-demo/datepicker-demo.component').then(
             (m) => m.DatepickerDemoComponent
           ),
-        title: 'Datepicker',
+        title: 'Datepicker | Angular Chronica',
       },
       {
         path: 'components/inline-calendar',
@@ -40,24 +37,20 @@ export const routes: Routes = [
           import('./features/main/inline-calendar-demo/inline-calendar-demo.component').then(
             (m) => m.InlineCalendarDemoComponent
           ),
-        title: 'Inline Calendar',
+        title: 'Inline Calendar | Angular Chronica',
       },
       {
         path: 'license',
         loadComponent: () =>
-          import('./features/main/license/license.component').then(
-            (m) => m.LicenseComponent
-          ),
-        title: 'License',
+          import('./features/main/license/license.component').then((m) => m.LicenseComponent),
+        title: 'License | Angular Chronica',
       },
     ],
   },
   {
     path: '**',
     loadComponent: () =>
-      import('../app/features/not-found/not-found.component').then(
-        (m) => m.NotFoundComponent
-      ),
+      import('../app/features/not-found/not-found.component').then((m) => m.NotFoundComponent),
     title: 'Not Found',
   },
 ];

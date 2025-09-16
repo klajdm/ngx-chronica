@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { ChronicaDatepickerComponent } from "./datepicker.component";
-import { ChronicaService } from "../../services/chronica.service";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChronicaDatepickerComponent } from './datepicker.component';
+import { ChronicaService } from '../../services/chronica.service';
 
-describe("InlineCalendarComponent", () => {
+describe('InlineCalendarComponent', () => {
   let component: ChronicaDatepickerComponent;
   let fixture: ComponentFixture<ChronicaDatepickerComponent>;
 
@@ -17,18 +17,18 @@ describe("InlineCalendarComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should initialize with current month", () => {
+  it('should initialize with current month', () => {
     const now = new Date();
     expect(component.currentMonth.month).toBe(now.getMonth());
     expect(component.currentMonth.year).toBe(now.getFullYear());
   });
 
-  it("should emit dateSelected when a date is clicked", () => {
-    spyOn(component.dateSelected, "emit");
+  it('should emit dateSelected when a date is clicked', () => {
+    spyOn(component.dateSelected, 'emit');
     const testDay = 15; // Use a day number instead of CalendarDate
 
     if (!component.isDateDisabled(testDay)) {
@@ -37,7 +37,7 @@ describe("InlineCalendarComponent", () => {
     }
   });
 
-  it("should navigate to previous month", () => {
+  it('should navigate to previous month', () => {
     const initialMonth = component.currentMonth.month;
     const initialYear = component.currentMonth.year;
 
@@ -52,7 +52,7 @@ describe("InlineCalendarComponent", () => {
     }
   });
 
-  it("should navigate to next month", () => {
+  it('should navigate to next month', () => {
     const initialMonth = component.currentMonth.month;
     const initialYear = component.currentMonth.year;
 
