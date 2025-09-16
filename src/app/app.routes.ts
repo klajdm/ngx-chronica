@@ -32,6 +32,14 @@ export const routes: Routes = [
         title: 'Datepicker | Angular Chronica',
       },
       {
+        path: 'components/date-range',
+        loadComponent: () =>
+          import('./features/main/date-range-demo/date-range-demo.component').then(
+            (m) => m.DateRangeDemoComponent
+          ),
+        title: 'Date Range | Angular Chronica',
+      },
+      {
         path: 'components/inline-calendar',
         loadComponent: () =>
           import('./features/main/inline-calendar-demo/inline-calendar-demo.component').then(
