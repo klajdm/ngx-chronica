@@ -91,89 +91,16 @@
         <span class="text-sm font-medium text-gray-500">ngx-chronica Calendar</span>
       </div>
 
-      <!-- Calendar Preview -->
+      <!-- Calendar Preview: use the real ChronicaInlineCalendar component -->
       <div class="bg-white rounded-lg border border-gray-200 p-4 max-w-sm">
-        <div class="flex items-center justify-between mb-4">
-          <button class="p-1 hover:bg-gray-100 rounded">
-            <svg
-              class="w-4 h-4 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <h3 class="text-sm font-medium text-gray-900">September 2025</h3>
-          <button class="p-1 hover:bg-gray-100 rounded">
-            <svg
-              class="w-4 h-4 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        </div>
+        <chronica-inline-calendar
+          [selectedDate]="previewSelectedDate"
+          (dateSelected)="onPreviewDateSelected($event)"
+        ></chronica-inline-calendar>
 
-        <!-- Calendar Grid -->
-        <div class="grid grid-cols-7 gap-1 text-center text-xs">
-          <div class="py-2 text-gray-500 font-medium">Su</div>
-          <div class="py-2 text-gray-500 font-medium">Mo</div>
-          <div class="py-2 text-gray-500 font-medium">Tu</div>
-          <div class="py-2 text-gray-500 font-medium">We</div>
-          <div class="py-2 text-gray-500 font-medium">Th</div>
-          <div class="py-2 text-gray-500 font-medium">Fr</div>
-          <div class="py-2 text-gray-500 font-medium">Sa</div>
-
-          <!-- Calendar days -->
-          <div class="py-2 text-gray-400">31</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">1</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">2</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">3</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">4</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">5</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">6</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">7</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">8</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">9</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">10</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">11</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">12</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">13</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">14</div>
-          <div class="py-2 bg-blue-600 text-white rounded">15</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">16</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">17</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">18</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">19</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">20</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">21</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">22</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">23</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">24</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">25</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">26</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">27</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">28</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">29</div>
-          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">30</div>
-          <div class="py-2 text-gray-400">1</div>
-          <div class="py-2 text-gray-400">2</div>
-          <div class="py-2 text-gray-400">3</div>
-          <div class="py-2 text-gray-400">4</div>
-        </div>
+        <p class="text-xs text-gray-500 mt-2" *ngIf="previewSelectedDate">
+          Selected: {{ previewSelectedDate | date: 'mediumDate' }}
+        </p>
       </div>
     </div>
   </div>
