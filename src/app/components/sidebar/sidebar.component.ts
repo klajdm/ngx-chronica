@@ -33,6 +33,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
           route: '/components/date-range',
         },
         {
+          label: 'Time Picker',
+          route: '/components/time-picker',
+        },
+        {
           label: 'Inline calendar',
           route: '/components/inline-calendar',
         },
