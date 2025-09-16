@@ -37,6 +37,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
           route: '/components/time-picker',
         },
         {
+          label: 'Duration Picker',
+          route: '/components/duration-picker',
+        },
+        {
           label: 'Inline calendar',
           route: '/components/inline-calendar',
         },

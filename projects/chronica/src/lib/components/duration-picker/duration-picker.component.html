@@ -1,0 +1,190 @@
+<div class="chronica-duration-picker" [class]="colorThemeClass + ' ' + themeClass">
+  <!-- Input field -->
+  <div class="duration-input-container" (click)="openPopup()">
+    <input
+      type="text"
+      class="duration-input"
+      [value]="formattedDuration"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [required]="required"
+      readonly
+    />
+    <div class="duration-input-icon">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12,6 12,12 16,14" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Duration picker popup template -->
+  <ng-template #durationPickerTemplate>
+    <div class="duration-picker-popup" [class]="colorThemeClass + ' ' + themeClass">
+      <div class="duration-picker-header">
+        <h3>Select Duration</h3>
+        <button type="button" class="close-button" (click)="closePopup()">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Quick presets -->
+      <div class="duration-presets" *ngIf="config.showMinutes || config.showHours">
+        <button
+          type="button"
+          class="preset-button"
+          *ngIf="config.showMinutes"
+          (click)="setQuickDuration('minutes', 15)"
+        >
+          15 min
+        </button>
+        <button
+          type="button"
+          class="preset-button"
+          *ngIf="config.showMinutes"
+          (click)="setQuickDuration('minutes', 30)"
+        >
+          30 min
+        </button>
+        <button
+          type="button"
+          class="preset-button"
+          *ngIf="config.showHours"
+          (click)="setQuickDuration('hours', 1)"
+        >
+          1 hour
+        </button>
+        <button
+          type="button"
+          class="preset-button"
+          *ngIf="config.showHours"
+          (click)="setQuickDuration('hours', 2)"
+        >
+          2 hours
+        </button>
+        <button
+          type="button"
+          class="preset-button"
+          *ngIf="config.showHours"
+          (click)="setQuickDuration('hours', 8)"
+        >
+          8 hours
+        </button>
+        <button
+          type="button"
+          class="preset-button"
+          *ngIf="config.showDays"
+          (click)="setQuickDuration('days', 1)"
+        >
+          1 day
+        </button>
+      </div>
+
+      <!-- Duration selectors -->
+      <div class="duration-selectors">
+        <!-- Days selector -->
+        <div class="duration-column" *ngIf="config.showDays">
+          <label class="duration-label">Days</label>
+          <div class="duration-scroll-container">
+            <div
+              class="duration-option"
+              *ngFor="let day of days"
+              [class.selected]="selectedDays === day"
+              (click)="onDaysChange(day)"
+            >
+              {{ day }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Hours selector -->
+        <div class="duration-column" *ngIf="config.showHours">
+          <label class="duration-label">Hours</label>
+          <div class="duration-scroll-container">
+            <div
+              class="duration-option"
+              *ngFor="let hour of hours"
+              [class.selected]="selectedHours === hour"
+              (click)="onHoursChange(hour)"
+            >
+              {{ hour }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Minutes selector -->
+        <div class="duration-column" *ngIf="config.showMinutes">
+          <label class="duration-label">Minutes</label>
+          <div class="duration-scroll-container">
+            <div
+              class="duration-option"
+              *ngFor="let minute of minutes"
+              [class.selected]="selectedMinutes === minute"
+              (click)="onMinutesChange(minute)"
+            >
+              {{ minute }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Seconds selector -->
+        <div class="duration-column" *ngIf="config.showSeconds">
+          <label class="duration-label">Seconds</label>
+          <div class="duration-scroll-container">
+            <div
+              class="duration-option"
+              *ngFor="let second of seconds"
+              [class.selected]="selectedSeconds === second"
+              (click)="onSecondsChange(second)"
+            >
+              {{ second }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Duration summary -->
+      <div class="duration-summary" *ngIf="durationValue">
+        <div class="summary-item">
+          <span class="summary-label">Duration:</span>
+          <span class="summary-value">{{ formattedDuration }}</span>
+        </div>
+        <div class="summary-item" *ngIf="totalMinutes > 0">
+          <span class="summary-label">Total minutes:</span>
+          <span class="summary-value">{{ totalMinutes }}</span>
+        </div>
+        <div class="summary-item" *ngIf="config.showSeconds && totalSeconds > 0">
+          <span class="summary-label">Total seconds:</span>
+          <span class="summary-value">{{ totalSeconds }}</span>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="duration-actions">
+        <button type="button" class="action-button clear-button" (click)="clearDuration()">
+          Clear
+        </button>
+        <button type="button" class="action-button confirm-button" (click)="closePopup()">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
