@@ -23,8 +23,6 @@ import {
   CalendarConfig,
   CalendarLocale,
   DEFAULT_CALENDAR_CONFIG,
-  COLOR_THEMES,
-  CALENDAR_LOCALES,
 } from '../../models/chronica.models';
 
 export interface TimeValue {
@@ -56,7 +54,9 @@ export interface TimePickerConfig extends Partial<CalendarConfig> {
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.css'],
 })
-export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class ChronicaTimePickerComponent
+  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+{
   @Input() config: TimePickerConfig = {
     ...DEFAULT_CALENDAR_CONFIG,
     format24Hour: true,
@@ -87,7 +87,7 @@ export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy
   selectedMinute = 0;
   selectedSecond = 0;
   selectedPeriod: 'AM' | 'PM' = 'AM';
-  
+
   // Time lists for scrollable selection
   hours: number[] = [];
   minutes: number[] = [];
@@ -126,7 +126,7 @@ export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy
     this.hours = [];
     const maxHour = this.config.format24Hour ? 23 : 12;
     const minHour = this.config.format24Hour ? 0 : 1;
-    
+
     for (let i = minHour; i <= maxHour; i++) {
       this.hours.push(i);
     }
@@ -192,7 +192,7 @@ export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy
         this.selectedPeriod = 'PM';
       }
     }
-    
+
     this.selectedMinute = time.minutes;
     this.selectedSecond = time.seconds || 0;
   }
@@ -213,17 +213,21 @@ export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy
 
   get formattedTime(): string {
     if (!this._timeValue) return '';
-    
+
     const { hours, minutes, seconds } = this._timeValue;
-    
+
     if (this.config.format24Hour) {
       const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-      return this.config.showSeconds ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}` : timeStr;
+      return this.config.showSeconds
+        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
+        : timeStr;
     } else {
       const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
       const period = hours < 12 ? 'AM' : 'PM';
       const timeStr = `${displayHour}:${minutes.toString().padStart(2, '0')}`;
-      const fullTimeStr = this.config.showSeconds ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}` : timeStr;
+      const fullTimeStr = this.config.showSeconds
+        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
+        : timeStr;
       return `${fullTimeStr} ${period}`;
     }
   }
@@ -302,7 +306,7 @@ export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy
 
   private updateTimeValue(): void {
     let hours = this.selectedHour;
-    
+
     if (!this.config.format24Hour) {
       // Convert 12-hour to 24-hour format
       if (this.selectedPeriod === 'AM' && hours === 12) {
@@ -356,7 +360,7 @@ export class ChronicaTimePickerComponent implements OnInit, OnChanges, OnDestroy
       minutes: now.getMinutes(),
       seconds: this.config.showSeconds ? now.getSeconds() : undefined,
     };
-    
+
     this.writeValue(currentTime);
     this.onChange(currentTime);
     this.timeChange.emit(currentTime);

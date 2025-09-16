@@ -14,7 +14,6 @@ import {
   OnDestroy,
   ViewChild,
   TemplateRef,
-  ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -24,8 +23,6 @@ import {
   CalendarConfig,
   CalendarLocale,
   DEFAULT_CALENDAR_CONFIG,
-  COLOR_THEMES,
-  CALENDAR_LOCALES,
 } from '../../models/chronica.models';
 
 export interface DurationValue {
@@ -64,7 +61,6 @@ export interface DurationPickerConfig extends Partial<CalendarConfig> {
   ],
   templateUrl: './duration-picker.component.html',
   styleUrls: ['./duration-picker.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ChronicaDurationPickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
