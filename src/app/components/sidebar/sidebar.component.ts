@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 import type { MenuItem } from './menu-item.model';
 
 @Component({
@@ -8,9 +9,9 @@ import type { MenuItem } from './menu-item.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
-  styles: []
+  styles: [],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [
     {
       label: 'Introduction',
@@ -38,4 +39,57 @@ export class SidebarComponent {
       route: '/license',
     },
   ];
+  // track open/closed state for groups by label
+  openGroups: Record<string, boolean> = {};
+  private routerSub?: Subscription;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // initialize groups as closed
+    this.menuItems.forEach((m) => {
+      if (m.children) this.openGroups[m.label] = false;
+    });
+
+    // open group if current url matches a child
+    this.updateOpenStates(this.router.url);
+
+    this.routerSub = this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.updateOpenStates(ev.urlAfterRedirects);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
+  }
+
+  private updateOpenStates(url: string) {
+    this.menuItems.forEach((m) => {
+      if (m.children) {
+        const anyChildActive = m.children.some((c) => {
+          if (!c.route) return false;
+          // match exact or prefix (for nested routes)
+          return (
+            url === c.route ||
+            url.startsWith(c.route + '/') ||
+            url.startsWith(c.route + '?') ||
+            url.startsWith(c.route + '#')
+          );
+        });
+        // keep open if a child is active, otherwise leave as-is (default closed)
+        this.openGroups[m.label] = anyChildActive ? true : (this.openGroups[m.label] ?? false);
+      }
+    });
+  }
+
+  toggleGroup(label: string) {
+    this.openGroups[label] = !this.openGroups[label];
+  }
+
+  isGroupOpen(item: MenuItem): boolean {
+    if (!item.children) return false;
+    return !!this.openGroups[item.label];
+  }
 }

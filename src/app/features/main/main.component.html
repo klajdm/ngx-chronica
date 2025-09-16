@@ -1,25 +1,25 @@
 <div class="flex min-h-screen bg-gray-50">
   <!-- Sidebar -->
-  <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg border-r border-gray-200">
+  <div class="fixed inset-y-0 left-0 z-50">
     <app-sidebar></app-sidebar>
   </div>
 
   <!-- Main Content Area -->
-  <div class="flex-1 ml-64">
+  <div class="flex-1 ml-60">
     <!-- Header -->
     <header class="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
       <app-header></app-header>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6 bg-gray-50 min-h-[calc(100vh-theme(spacing.16))]">
-      <div class="max-w-7xl mx-auto">
+    <main class="flex-1 p-6 bg-white min-h-[calc(100vh-theme(spacing.16))]">
+      <div class="max-w-4xl mx-auto">
         <router-outlet></router-outlet>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-auto">
+    <footer class="mt-auto bg-white border-t border-gray-200">
       <app-footer></app-footer>
     </footer>
   </div>
