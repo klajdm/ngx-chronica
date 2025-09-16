@@ -78,8 +78,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
             url.startsWith(c.route + '#')
           );
         });
-        // keep open if a child is active, otherwise leave as-is (default closed)
-        this.openGroups[m.label] = anyChildActive ? true : (this.openGroups[m.label] ?? false);
+        // close group if no child is active, open if child is active
+        this.openGroups[m.label] = anyChildActive;
       }
     });
   }
