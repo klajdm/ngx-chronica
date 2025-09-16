@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'app-datepicker-demo',
+  selector: "app-datepicker-demo",
   standalone: true,
   imports: [CommonModule],
-  template: `<h2>Datepicker Demo</h2><p>Demo content coming soon.</p>`
+  templateUrl: "./datepicker-demo.component.html",
 })
 export class DatepickerDemoComponent {}
