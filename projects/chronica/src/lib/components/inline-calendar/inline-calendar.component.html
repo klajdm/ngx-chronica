@@ -1,19 +1,37 @@
-<div class="chronica-inline-calendar" [ngStyle]="getColorThemeStyles()" [class.chronica-dark]="config.theme === 'dark'">
+<div
+  class="chronica-inline-calendar"
+  [ngStyle]="getColorThemeStyles()"
+  [class.chronica-dark]="config.theme === 'dark'"
+>
   <!-- Calendar Header -->
   <div class="chronica-header">
     <button type="button" class="chronica-nav-btn" (click)="previousMonth()" [disabled]="disabled">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <polyline points="15,18 9,12 15,6"></polyline>
       </svg>
     </button>
-    
+
     <div class="chronica-month-year">
       <span class="chronica-month">{{ currentMonth.name }}</span>
       <span class="chronica-year">{{ currentMonth.year }}</span>
     </div>
-    
+
     <button type="button" class="chronica-nav-btn" (click)="nextMonth()" [disabled]="disabled">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <polyline points="9,18 15,12 9,6"></polyline>
       </svg>
     </button>
@@ -28,7 +46,7 @@
 
     <!-- Calendar Dates -->
     <ng-container *ngFor="let week of currentMonth.weeks">
-      <button 
+      <button
         type="button"
         class="chronica-date-cell"
         *ngFor="let date of week.dates"

@@ -1,1 +1,77 @@
-<p>introduction works!</p>
+<div class="py-8">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">ngx-chronica</h1>
+    <p class="text-lg text-gray-600 leading-relaxed">
+      A lightweight, customizable inline calendar and datepicker component for
+      <strong>Angular</strong>, plus a documentation/demo website.
+    </p>
+  </div>
+
+  <!-- Features Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Features</h2>
+    <ul class="space-y-3 text-gray-700">
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>🗓️ Dual Display Modes:</strong> Popup or always-visible inline calendar</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>🎨 Customizable Themes:</strong> Light, dark, and 8 color schemes</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>🌍 Internationalization:</strong> Locale and first day of week</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>🚫 Date Restrictions:</strong> Min/max, disabled, and highlighted dates</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>📋 Forms Integration:</strong> Reactive and template-driven forms</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span
+          ><strong>⚡ Standalone & Module Support:</strong> Use as standalone or in NgModule</span
+        >
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>♿ Accessibility:</strong> ARIA and keyboard navigation</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>💅 Prettier Formatting:</strong> Auto-format on save with Prettier</span>
+      </li>
+      <li class="flex items-start">
+        <span class="text-blue-600 mr-3">•</span>
+        <span><strong>🧩 Sidebar Navigation:</strong> Modern docs website with sidebar menu</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Quick Preview Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Quick Preview</h2>
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+      <div class="mb-4">
+        <span class="text-sm font-medium text-gray-500">ngx-chronica Calendar</span>
+      </div>
+
+      <!-- Calendar Preview: use the real ChronicaInlineCalendar component -->
+      <div class="bg-white rounded-lg border border-gray-200 p-4 max-w-sm">
+        <chronica-inline-calendar
+          [selectedDate]="previewSelectedDate"
+          (dateSelected)="onPreviewDateSelected($event)"
+        ></chronica-inline-calendar>
+
+        <p class="text-xs text-gray-500 mt-2" *ngIf="previewSelectedDate">
+          Selected: {{ previewSelectedDate | date: 'mediumDate' }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
