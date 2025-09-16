@@ -34,10 +34,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/chronica/**/*.ts",
-              "projects/chronica/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/chronica/**/*.ts", "projects/chronica/**/*.html"]
           }
         }
       }

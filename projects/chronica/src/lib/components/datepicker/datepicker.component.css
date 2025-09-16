@@ -4,15 +4,14 @@
     --chronica-font-family,
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     Roboto,
     Oxygen,
     Ubuntu,
     Cantarell,
     sans-serif
   );
-  border: var(--chronica-border-width, 1px) solid
-    var(--chronica-border-color, #e5e7eb);
+  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
   border-radius: var(--chronica-border-radius, 8px);
   background: var(--chronica-background, #fff);
   box-shadow: var(
@@ -59,13 +58,10 @@
   --chronica-border-color: #e5e7eb;
 
   /* Shadow variables */
-  --chronica-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --chronica-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --chronica-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --chronica-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --chronica-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --chronica-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --chronica-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
   /* Size variables */
   --chronica-width: 320px;
@@ -134,8 +130,7 @@
 
 .chronica-month-select,
 .chronica-year-select {
-  border: var(--chronica-border-width, 1px) solid
-    var(--chronica-border-color, #d1d5db);
+  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #d1d5db);
   border-radius: var(--chronica-border-radius-md, 6px);
   padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
   font-size: var(--chronica-font-size, 14px);
@@ -275,8 +270,7 @@
 .chronica-theme-dark .chronica-date {
   color: #fff;
 }
-.chronica-theme-dark
-  .chronica-date.chronica-clickable:hover:not(.chronica-selected) {
+.chronica-theme-dark .chronica-date.chronica-clickable:hover:not(.chronica-selected) {
   background: #374151;
 }
 .chronica-theme-dark .chronica-date.chronica-today {
@@ -296,8 +290,7 @@
   justify-content: flex-end;
   margin-top: var(--chronica-spacing-md, 12px);
   padding-top: var(--chronica-spacing-sm, 8px);
-  border-top: var(--chronica-border-width, 1px) solid
-    var(--chronica-border-color, #e5e7eb);
+  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
 }
 .chronica-today-button {
   background: var(--chronica-primary);
@@ -392,7 +385,8 @@
 .chronica-calendar.chronica-popup.chronica-theme-dark {
   background: #1f2937;
   border-color: #374151;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
     0 4px 6px -2px rgba(0, 0, 0, 0.2);
   box-shadow: var(
     --chronica-shadow-lg,
@@ -434,7 +428,9 @@
 .chronica-calendar.chronica-popup {
   opacity: 0;
   transform: translateY(-8px);
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
 }
 
 .chronica-calendar.chronica-popup.chronica-popup-open {
