@@ -27,7 +27,9 @@
   "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
   "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "cSpell.words": [],
+  "cSpell.words": [
+    "chronica"
+  ],
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "terminal.integrated.suggest.enabled": true
 }
