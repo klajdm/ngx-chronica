@@ -12,16 +12,15 @@
   >
     <ng-content></ng-content>
   </div>
+</div>
 
-  <!-- Calendar content -->
+<!-- Calendar popup template -->
+<ng-template #calendarTemplate>
   <div
-    class="chronica-calendar"
+    class="chronica-calendar chronica-popup chronica-popup-open"
     [class]="'chronica-theme-' + (config.theme || 'light')"
     [attr.data-color-theme]="config.colorTheme || 'blue'"
     [style]="getColorThemeStyles()"
-    [class.chronica-popup]="true"
-    [class.chronica-popup-open]="isPopupOpen"
-    *ngIf="isPopupOpen"
     (click)="$event.stopPropagation()"
   >
     <!-- Header with navigation and dropdowns -->
@@ -142,4 +141,4 @@
       </button>
     </div>
   </div>
-</div>
+</ng-template>
