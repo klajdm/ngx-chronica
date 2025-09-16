@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ChronicaTimePickerComponent, TimeValue, TimePickerConfig } from '../../../../../projects/chronica/src/lib/components/time-picker/time-picker.component';
+import {
+  ChronicaTimePickerComponent,
+  TimeValue,
+  TimePickerConfig,
+} from '../../../../../projects/chronica/src/lib/components/time-picker/time-picker.component';
 import {
   CalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
@@ -123,11 +127,19 @@ export class TimePickerDemoComponent {
     console.log('Dark theme time selected:', time);
   }
 
-  formatTimeDisplay(time: TimeValue | null, format24Hour: boolean = true, showSeconds: boolean = false): string {
+  onTimeChange(time: TimeValue | null, source: string): void {
+    console.log(`Time changed from ${source}:`, time);
+  }
+
+  formatTimeDisplay(
+    time: TimeValue | null,
+    format24Hour: boolean = true,
+    showSeconds: boolean = false
+  ): string {
     if (!time) return 'No time selected';
-    
+
     const { hours, minutes, seconds } = time;
-    
+
     if (format24Hour) {
       const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
       return showSeconds ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}` : timeStr;
@@ -135,7 +147,9 @@ export class TimePickerDemoComponent {
       const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
       const period = hours < 12 ? 'AM' : 'PM';
       const timeStr = `${displayHour}:${minutes.toString().padStart(2, '0')}`;
-      const fullTimeStr = showSeconds ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}` : timeStr;
+      const fullTimeStr = showSeconds
+        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
+        : timeStr;
       return `${fullTimeStr} ${period}`;
     }
   }
