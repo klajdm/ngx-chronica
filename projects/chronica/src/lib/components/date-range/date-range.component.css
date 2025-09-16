@@ -1,0 +1,414 @@
+/* Date Range Component Styles */
+.chronica-date-range-container {
+  display: inline-block;
+  min-width: 200px;
+  width: 100%;
+}
+
+/* Trigger styles */
+.chronica-date-range-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing, 12px);
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: var(--chronica-border-radius, 6px);
+  background: var(--chronica-background, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  font-family: var(
+    --chronica-font-family,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif
+  );
+}
+
+.chronica-date-range-trigger:hover:not(.chronica-disabled) {
+  border-color: var(--chronica-primary, #3b82f6);
+  box-shadow: 0 0 0 1px var(--chronica-primary, #3b82f6);
+}
+
+.chronica-date-range-trigger:focus {
+  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
+  outline-offset: 2px;
+  border-color: var(--chronica-primary, #3b82f6);
+}
+
+.chronica-date-range-trigger.chronica-disabled {
+  background-color: var(--chronica-disabled-bg, #f9fafb);
+  color: var(--chronica-disabled-text, #9ca3af);
+  cursor: not-allowed;
+  border-color: var(--chronica-disabled-border, #e5e7eb);
+}
+
+.chronica-date-range-trigger.chronica-required-error {
+  border-color: var(--chronica-error, #ef4444);
+  box-shadow: 0 0 0 1px var(--chronica-error, #ef4444);
+}
+
+.chronica-date-range-display {
+  flex: 1;
+  text-align: left;
+  font-size: var(--chronica-font-size, 14px);
+  color: var(--chronica-text, #374151);
+}
+
+.chronica-date-range-display.chronica-placeholder {
+  color: var(--chronica-placeholder, #9ca3af);
+}
+
+.chronica-calendar-icon {
+  color: var(--chronica-icon, #6b7280);
+  flex-shrink: 0;
+  margin-left: var(--chronica-spacing-xs, 4px);
+}
+
+/* Popup styles */
+.chronica-date-range-popup {
+  background: var(--chronica-background, #ffffff);
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: var(--chronica-spacing, 16px);
+  min-width: 320px;
+  max-width: 400px;
+  font-family: var(
+    --chronica-font-family,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif
+  );
+  user-select: none;
+
+  /* Color theme variables */
+  --chronica-primary: #3b82f6;
+  --chronica-primary-hover: #2563eb;
+  --chronica-primary-light: #dbeafe;
+  --chronica-primary-dark: #1d4ed8;
+  --chronica-accent: #60a5fa;
+  --chronica-focus: rgba(59, 130, 246, 0.2);
+}
+
+/* Quick select buttons */
+.chronica-quick-select {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--chronica-spacing-xs, 4px);
+  margin-bottom: var(--chronica-spacing, 12px);
+}
+
+.chronica-quick-select-btn {
+  padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: var(--chronica-border-radius-sm, 4px);
+  background: var(--chronica-background, #ffffff);
+  color: var(--chronica-text, #374151);
+  font-size: var(--chronica-font-size-sm, 12px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chronica-quick-select-btn:hover {
+  background: var(--chronica-primary-light, #dbeafe);
+  border-color: var(--chronica-primary, #3b82f6);
+  color: var(--chronica-primary-dark, #1d4ed8);
+}
+
+/* Selection status */
+.chronica-selection-status {
+  text-align: center;
+  font-size: var(--chronica-font-size, 14px);
+  font-weight: 600;
+  color: var(--chronica-primary, #3b82f6);
+  margin-bottom: var(--chronica-spacing, 12px);
+}
+
+/* Header styles (reuse from datepicker) */
+.chronica-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--chronica-spacing, 12px);
+  gap: var(--chronica-spacing-sm, 8px);
+}
+
+.chronica-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--chronica-border-radius, 6px);
+  background: transparent;
+  color: var(--chronica-text, #374151);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chronica-nav-button:hover:not(:disabled) {
+  background: var(--chronica-hover-bg, #f3f4f6);
+  color: var(--chronica-primary, #3b82f6);
+}
+
+.chronica-nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chronica-month-year-selectors {
+  display: flex;
+  gap: var(--chronica-spacing-xs, 4px);
+  flex: 1;
+  justify-content: center;
+}
+
+.chronica-month-select,
+.chronica-year-select {
+  padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: var(--chronica-border-radius-sm, 4px);
+  background: var(--chronica-background, #ffffff);
+  color: var(--chronica-text, #374151);
+  font-size: var(--chronica-font-size-sm, 12px);
+  cursor: pointer;
+}
+
+.chronica-month-select:focus,
+.chronica-year-select:focus {
+  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
+  outline-offset: 2px;
+  border-color: var(--chronica-primary, #3b82f6);
+}
+
+/* Day names */
+.chronica-day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--chronica-spacing-xs, 2px);
+  margin-bottom: var(--chronica-spacing-sm, 8px);
+}
+
+.chronica-day-name {
+  text-align: center;
+  font-size: var(--chronica-font-size-sm, 12px);
+  font-weight: 600;
+  color: var(--chronica-primary, #3b82f6);
+  padding: var(--chronica-spacing-xs, 4px);
+}
+
+/* Calendar grid */
+.chronica-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--chronica-spacing-xs, 2px);
+  margin-bottom: var(--chronica-spacing, 12px);
+}
+
+.chronica-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--chronica-border-radius, 6px);
+  font-size: var(--chronica-font-size-sm, 12px);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.chronica-date.chronica-empty {
+  pointer-events: none;
+}
+
+.chronica-date.chronica-clickable {
+  cursor: pointer;
+  color: var(--chronica-text, #374151);
+}
+
+.chronica-date.chronica-clickable:hover:not(.chronica-disabled) {
+  background: var(--chronica-hover-bg, #f3f4f6);
+  color: var(--chronica-primary, #3b82f6);
+}
+
+.chronica-date.chronica-today {
+  font-weight: 700;
+  color: var(--chronica-primary, #3b82f6);
+}
+
+.chronica-date.chronica-start-date,
+.chronica-date.chronica-end-date {
+  background: var(--chronica-primary, #3b82f6);
+  color: white;
+  font-weight: 600;
+}
+
+.chronica-date.chronica-start-date {
+  border-radius: var(--chronica-border-radius, 6px) 0 0 var(--chronica-border-radius, 6px);
+}
+
+.chronica-date.chronica-end-date {
+  border-radius: 0 var(--chronica-border-radius, 6px) var(--chronica-border-radius, 6px) 0;
+}
+
+.chronica-date.chronica-start-date.chronica-end-date {
+  border-radius: var(--chronica-border-radius, 6px);
+}
+
+.chronica-date.chronica-in-range {
+  background: var(--chronica-primary-light, #dbeafe);
+  color: var(--chronica-primary-dark, #1d4ed8);
+  border-radius: 0;
+}
+
+.chronica-date.chronica-in-hover-range {
+  background: var(--chronica-primary-light, #dbeafe);
+  color: var(--chronica-primary-dark, #1d4ed8);
+  opacity: 0.7;
+  border-radius: 0;
+}
+
+.chronica-date.chronica-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--chronica-disabled-text, #9ca3af);
+}
+
+.chronica-date:focus {
+  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
+  outline-offset: 2px;
+}
+
+/* Range footer */
+.chronica-range-footer {
+  border-top: 1px solid var(--chronica-border-color, #e5e7eb);
+  padding-top: var(--chronica-spacing, 12px);
+  margin-top: var(--chronica-spacing, 12px);
+}
+
+.chronica-range-display {
+  text-align: center;
+  margin-bottom: var(--chronica-spacing, 12px);
+}
+
+.chronica-range-dates {
+  font-size: var(--chronica-font-size, 14px);
+  font-weight: 500;
+  color: var(--chronica-text, #374151);
+  margin-bottom: var(--chronica-spacing-xs, 4px);
+}
+
+.chronica-days-count {
+  font-size: var(--chronica-font-size-sm, 12px);
+  color: var(--chronica-text-light, #6b7280);
+}
+
+.chronica-clear-btn {
+  width: 100%;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing, 12px);
+  border: 1px solid var(--chronica-error, #ef4444);
+  border-radius: var(--chronica-border-radius, 6px);
+  background: transparent;
+  color: var(--chronica-error, #ef4444);
+  font-size: var(--chronica-font-size-sm, 12px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chronica-clear-btn:hover {
+  background: var(--chronica-error, #ef4444);
+  color: white;
+}
+
+/* Dark theme styles */
+.chronica-date-range-popup.chronica-theme-dark {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.chronica-theme-dark .chronica-date-range-trigger {
+  background: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.chronica-theme-dark .chronica-date-range-display.chronica-placeholder {
+  color: #9ca3af;
+}
+
+.chronica-theme-dark .chronica-quick-select-btn {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+.chronica-theme-dark .chronica-quick-select-btn:hover {
+  background: var(--chronica-primary-dark, #1d4ed8);
+  border-color: var(--chronica-primary, #3b82f6);
+}
+
+.chronica-theme-dark .chronica-month-select,
+.chronica-theme-dark .chronica-year-select {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+.chronica-theme-dark .chronica-date.chronica-clickable {
+  color: #f9fafb;
+}
+
+.chronica-theme-dark .chronica-date.chronica-clickable:hover:not(.chronica-disabled) {
+  background: #374151;
+}
+
+.chronica-theme-dark .chronica-range-footer {
+  border-color: #374151;
+}
+
+.chronica-theme-dark .chronica-range-dates {
+  color: #f9fafb;
+}
+
+.chronica-theme-dark .chronica-days-count {
+  color: #9ca3af;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .chronica-date-range-popup {
+    min-width: 280px;
+    max-width: 300px;
+  }
+  
+  .chronica-quick-select {
+    flex-direction: column;
+    gap: var(--chronica-spacing-xs, 4px);
+  }
+  
+  .chronica-quick-select-btn {
+    width: 100%;
+  }
+  
+  .chronica-date {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+}
