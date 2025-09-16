@@ -1,0 +1,241 @@
+<div class="chronica-date-range-container">
+  <!-- Trigger element for popup mode -->
+  <div
+    class="chronica-date-range-trigger"
+    (click)="togglePopup()"
+    (keydown.enter)="togglePopup()"
+    (keydown.space)="togglePopup(); $event.preventDefault()"
+    tabindex="0"
+    role="button"
+    [attr.aria-expanded]="isPopupOpen"
+    aria-haspopup="true"
+    [attr.aria-label]="'Date range picker: ' + formattedDateRange"
+    [class.chronica-disabled]="disabled"
+    [class.chronica-required-error]="required && !dateRange.startDate && !dateRange.endDate"
+  >
+    <span
+      class="chronica-date-range-display"
+      [class.chronica-placeholder]="!dateRange.startDate && !dateRange.endDate"
+    >
+      {{ formattedDateRange }}
+    </span>
+    <svg
+      class="chronica-calendar-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Date Range popup template -->
+<ng-template #dateRangeTemplate>
+  <div
+    class="chronica-date-range-popup"
+    [class]="'chronica-theme-' + (config.theme || 'light')"
+    [attr.data-color-theme]="config.colorTheme || 'blue'"
+    [style]="getColorThemeStyles()"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Quick Select Buttons -->
+    <div class="chronica-quick-select">
+      <button 
+        class="chronica-quick-select-btn" 
+        (click)="selectThisWeek()" 
+        type="button"
+      >
+        This Week
+      </button>
+      <button 
+        class="chronica-quick-select-btn" 
+        (click)="selectToday()" 
+        type="button"
+      >
+        Today
+      </button>
+      <button 
+        class="chronica-quick-select-btn" 
+        (click)="selectThisMonth()" 
+        type="button"
+      >
+        This Month
+      </button>
+    </div>
+
+    <!-- Selection Status -->
+    <div class="chronica-selection-status">
+      <span *ngIf="isSelectingStartDate && !dateRange.startDate">
+        Choose start date
+      </span>
+      <span *ngIf="isSelectingStartDate && dateRange.startDate">
+        Choose end date
+      </span>
+      <span *ngIf="!isSelectingStartDate">
+        Choose end date
+      </span>
+    </div>
+
+    <!-- Header with navigation and dropdowns -->
+    <div class="chronica-header">
+      <button
+        class="chronica-nav-button"
+        (click)="previousMonth()"
+        [disabled]="isPreviousMonthDisabled()"
+        type="button"
+        aria-label="Previous month"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
+
+      <div class="chronica-month-year-selectors">
+        <select
+          class="chronica-month-select"
+          [value]="currentMonth.month"
+          (change)="changeMonth(+$any($event.target).value)"
+          aria-label="Select month"
+        >
+          <option
+            *ngFor="let monthName of monthNames; let i = index"
+            [value]="i"
+            [selected]="i === currentMonth.month"
+          >
+            {{ monthName }}
+          </option>
+        </select>
+
+        <select
+          class="chronica-year-select"
+          [value]="currentMonth.year"
+          (change)="changeYear(+$any($event.target).value)"
+          aria-label="Select year"
+        >
+          <option
+            *ngFor="let year of yearRange"
+            [value]="year"
+            [selected]="year === currentMonth.year"
+          >
+            {{ year }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        class="chronica-nav-button"
+        (click)="nextMonth()"
+        [disabled]="isNextMonthDisabled()"
+        type="button"
+        aria-label="Next month"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Day names header -->
+    <div class="chronica-day-names">
+      <div class="chronica-day-name" *ngFor="let dayName of dayNames">
+        {{ dayName }}
+      </div>
+    </div>
+
+    <!-- Calendar grid -->
+    <div class="chronica-calendar-grid" (mouseleave)="onDateLeave()">
+      <!-- Empty cells for days before the first day of month -->
+      <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty"></div>
+
+      <!-- Days of month -->
+      <div
+        *ngFor="let day of getDaysInMonth()"
+        class="chronica-date chronica-clickable"
+        [class.chronica-today]="isToday(day)"
+        [class.chronica-start-date]="isStartDate(day)"
+        [class.chronica-end-date]="isEndDate(day)"
+        [class.chronica-in-range]="isInRange(day)"
+        [class.chronica-in-hover-range]="isInHoverRange(day)"
+        [class.chronica-disabled]="isDayDisabled(day)"
+        (click)="selectDate(day)"
+        (mouseenter)="!isDayDisabled(day) && onDateHover(day)"
+        (keydown.enter)="selectDate(day)"
+        (keydown.space)="selectDate(day)"
+        [tabindex]="isDayDisabled(day) ? -1 : 0"
+        role="button"
+        [attr.aria-label]="
+          'Select date ' + day + 
+          (isDayDisabled(day) ? ' (disabled)' : '') +
+          (isStartDate(day) ? ' (start date)' : '') +
+          (isEndDate(day) ? ' (end date)' : '')
+        "
+        [attr.aria-disabled]="isDayDisabled(day)"
+      >
+        {{ day }}
+      </div>
+    </div>
+
+    <!-- Selected Range Footer -->
+    <div
+      *ngIf="dateRange.startDate || dateRange.endDate"
+      class="chronica-range-footer"
+    >
+      <!-- Date Range Display -->
+      <div class="chronica-range-display">
+        <div class="chronica-range-dates">
+          <span *ngIf="dateRange.startDate">
+            {{ formatDate(dateRange.startDate) }}
+          </span>
+          <span *ngIf="dateRange.startDate && dateRange.endDate"> - </span>
+          <span *ngIf="dateRange.endDate">
+            {{ formatDate(dateRange.endDate) }}
+          </span>
+        </div>
+
+        <!-- Days Count -->
+        <div *ngIf="dateRange.startDate && dateRange.endDate" class="chronica-days-count">
+          {{ getDaysDifference() }} day{{ getDaysDifference() === 1 ? "" : "s" }}
+        </div>
+      </div>
+
+      <!-- Clear Button -->
+      <button 
+        class="chronica-clear-btn" 
+        (click)="clearRange()" 
+        type="button"
+      >
+        Clear range
+      </button>
+    </div>
+  </div>
+</ng-template>
