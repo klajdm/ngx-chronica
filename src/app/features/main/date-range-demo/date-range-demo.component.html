@@ -1,350 +1,545 @@
-<section class="max-w-6xl mx-auto py-8 px-4">
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900">Date Range Picker</h1>
-    <p class="text-gray-600 mt-2 text-lg">
-      Interactive date range picker with popup calendar for selecting start and end dates. Features quick select presets,
-      range highlighting, and form integration.
+<div class="max-w-6xl mx-auto p-5">
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Date Range Picker Component</h1>
+    <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+      Interactive date range picker with popup calendar for selecting start and end dates. Features
+      quick select presets, range highlighting, form integration, and business day filtering.
+      Perfect for booking systems, project planning, and reporting periods.
     </p>
   </div>
 
-  <!-- Basic Date Range -->
   <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Basic Date Range</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;chronica-date-range
+    <!-- Demo 1: Basic Date Range -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Basic Date Range Picker</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Simple date range picker with default blue theme. Click the input to open the calendar popup
+        and select a date range.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-date-range
+          [(ngModel)]="basicSelectedRange"
+          [config]="basicConfig"
+          placeholder="Select date range"
+          (dateRangeChange)="onBasicRangeChanged($event)"
+        ></chronica-date-range>
+
+        <div
+          class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
+          *ngIf="basicSelectedRange.startDate && basicSelectedRange.endDate"
+        >
+          <strong class="text-blue-800">Selected Range:</strong>
+          <span class="text-blue-700"
+            >{{ basicSelectedRange.startDate | date: 'mediumDate' }} -
+            {{ basicSelectedRange.endDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-blue-800">Duration:</strong>
+          <span class="text-blue-700">{{ getDaysDifference(basicSelectedRange) }} days</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
   [(ngModel)]="basicSelectedRange"
-  [config]="basicConfig"
-  (dateRangeChange)="onBasicRangeChanged($event)"
-&gt;&lt;/chronica-date-range&gt;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Simple date range picker with default blue theme. Click the input to open the calendar popup and select a date range.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Select Date Range</label>
-          <chronica-date-range
-            [(ngModel)]="basicSelectedRange"
-            [config]="basicConfig"
-            (dateRangeChange)="onBasicRangeChanged($event)"
-          ></chronica-date-range>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="basicSelectedRange.startDate && basicSelectedRange.endDate">
-            Selected: {{ basicSelectedRange.startDate | date: 'mediumDate' }} - {{ basicSelectedRange.endDate | date: 'mediumDate' }}
-            ({{ getDaysDifference(basicSelectedRange) }} days)
-          </p>
-        </div>
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue'
+  &#125;"
+  placeholder="Select date range"
+  (dateRangeChange)="onBasicRangeChanged($event)"&gt;
+&lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
-  </div>
 
-  <!-- Themed Date Range -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Custom Theme</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;chronica-date-range
+    <!-- Demo 2: Custom Theme -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Custom Color Theme</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Date range picker with purple color theme. Multiple color themes are available for brand
+        consistency.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-date-range
+          [(ngModel)]="themedSelectedRange"
+          [config]="themedConfig"
+          placeholder="Select date range (purple theme)"
+          (dateRangeChange)="onThemedRangeChanged($event)"
+        ></chronica-date-range>
+
+        <div
+          class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400"
+          *ngIf="themedSelectedRange.startDate && themedSelectedRange.endDate"
+        >
+          <strong class="text-purple-800">Selected Range:</strong>
+          <span class="text-purple-700"
+            >{{ themedSelectedRange.startDate | date: 'mediumDate' }} -
+            {{ themedSelectedRange.endDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-purple-800">Duration:</strong>
+          <span class="text-purple-700">{{ getDaysDifference(themedSelectedRange) }} days</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
   [(ngModel)]="themedSelectedRange"
-  [config]="themedConfig"
-  (dateRangeChange)="onThemedRangeChanged($event)"
-&gt;&lt;/chronica-date-range&gt;</code></pre>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border mt-2"
-        ><code class="language-typescript">themedConfig = &#123;
-  theme: 'light',
-  colorTheme: 'purple'
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Date range picker with purple color theme. Multiple color themes are available.
-        </p>
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'purple'
+  &#125;"
+  placeholder="Select date range (purple theme)"&gt;
+&lt;/chronica-date-range&gt;</code></pre>
       </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Select Date Range (Purple Theme)</label
+    </div>
+
+    <!-- Demo 3: Date Range Restrictions -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Date Range Restrictions</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Restrict date selection to a specific range. Dates outside the allowed range are disabled
+        and cannot be selected.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-date-range
+          [(ngModel)]="restrictedSelectedRange"
+          [config]="restrictedConfig"
+          placeholder="Select date range (2024 only)"
+          (dateRangeChange)="onRestrictedRangeChanged($event)"
+        ></chronica-date-range>
+
+        <div
+          class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
+          *ngIf="restrictedSelectedRange.startDate && restrictedSelectedRange.endDate"
+        >
+          <strong class="text-green-800">Selected Range:</strong>
+          <span class="text-green-700"
+            >{{ restrictedSelectedRange.startDate | date: 'mediumDate' }} -
+            {{ restrictedSelectedRange.endDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-green-800">Restriction:</strong>
+          <span class="text-green-700">✅ Within allowed range (2024)</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
+  [(ngModel)]="restrictedSelectedRange"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'green',
+    minDate: new Date(2024, 0, 1),
+    maxDate: new Date(2024, 11, 31)
+  &#125;"&gt;
+&lt;/chronica-date-range&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 4: Form Integration -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Form Integration</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Seamless integration with Angular forms using ngModel and ControlValueAccessor pattern.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <form #rangeForm="ngForm">
+          <label for="projectDuration" class="block text-sm font-medium text-gray-700 mb-2"
+            >Project Duration:</label
           >
           <chronica-date-range
-            [(ngModel)]="themedSelectedRange"
-            [config]="themedConfig"
-            (dateRangeChange)="onThemedRangeChanged($event)"
+            name="projectDuration"
+            [(ngModel)]="formSelectedRange"
+            [config]="formConfig"
+            placeholder="Select project timeline"
+            [required]="true"
+            (dateRangeChange)="onFormRangeChanged($event)"
           ></chronica-date-range>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="themedSelectedRange.startDate && themedSelectedRange.endDate">
-            Selected: {{ themedSelectedRange.startDate | date: 'mediumDate' }} - {{ themedSelectedRange.endDate | date: 'mediumDate' }}
-            ({{ getDaysDifference(themedSelectedRange) }} days)
-          </p>
-        </div>
+
+          <div class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400">
+            <strong class="text-orange-800">Form Valid:</strong>
+            <span class="text-orange-700">{{ rangeForm.valid ? '✅' : '❌' }}</span
+            ><br />
+            <strong class="text-orange-800">Form Value:</strong>
+            <span class="text-orange-700">{{ formSelectedRange | json }}</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
+  name="projectDuration"
+  [(ngModel)]="formSelectedRange"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'orange'
+  &#125;"
+  required&gt;
+&lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
-  </div>
 
-  <!-- Date Range Restricted -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Date Range Restrictions</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">restrictedConfig = &#123;
-  theme: 'light',
-  colorTheme: 'green',
-  minDate: new Date(2024, 0, 1),
-  maxDate: new Date(2024, 11, 31)
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Restrict date selection to a specific range. Dates outside the range are disabled.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Select Date Range (2024 Only)</label
+    <!-- Demo 5: Business Days Only -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Business Days Only</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Disable weekends for business day selection only. Useful for project planning, scheduling,
+        and business operations.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-date-range
+          [(ngModel)]="businessDaysRange"
+          [config]="businessDaysConfig"
+          placeholder="Select business days range"
+          (dateRangeChange)="onBusinessDaysRangeChanged($event)"
+        ></chronica-date-range>
+
+        <div
+          class="mt-4 p-3 bg-red-50 rounded-md border-l-4 border-red-400"
+          *ngIf="businessDaysRange.startDate && businessDaysRange.endDate"
+        >
+          <strong class="text-red-800">Selected Range:</strong>
+          <span class="text-red-700"
+            >{{ businessDaysRange.startDate | date: 'mediumDate' }} -
+            {{ businessDaysRange.endDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-red-800">Business Days:</strong>
+          <span class="text-red-700"
+            >{{ getBusinessDaysCount(businessDaysRange) }} working days</span
           >
-          <chronica-date-range
-            [(ngModel)]="restrictedSelectedRange"
-            [config]="restrictedConfig"
-            (dateRangeChange)="onRestrictedRangeChanged($event)"
-          ></chronica-date-range>
-          <p class="text-xs text-gray-500 mt-2">Only dates in 2024 are selectable</p>
-          <p class="text-xs text-gray-500 mt-1" *ngIf="restrictedSelectedRange.startDate && restrictedSelectedRange.endDate">
-            Selected: {{ restrictedSelectedRange.startDate | date: 'mediumDate' }} - {{ restrictedSelectedRange.endDate | date: 'mediumDate' }}
-            ({{ getDaysDifference(restrictedSelectedRange) }} days)
-          </p>
         </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
+  [(ngModel)]="businessDaysRange"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'red',
+    disabledDates: this.generateWeekendDates()
+  &#125;"&gt;
+&lt;/chronica-date-range&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 6: Quick Select Presets -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Quick Select Presets</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Pre-defined date ranges for common selections like "Last 7 days", "This month", or "This
+        quarter".
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-date-range
+          [(ngModel)]="presetRange"
+          [config]="presetConfig"
+          placeholder="Select or use presets"
+          (dateRangeChange)="onPresetRangeChanged($event)"
+        ></chronica-date-range>
+
+        <div
+          class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400"
+          *ngIf="presetRange.startDate && presetRange.endDate"
+        >
+          <strong class="text-indigo-800">Selected Range:</strong>
+          <span class="text-indigo-700"
+            >{{ presetRange.startDate | date: 'mediumDate' }} -
+            {{ presetRange.endDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-indigo-800">Quick Selection:</strong>
+          <span class="text-indigo-700">{{ getPresetName(presetRange) }}</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
+  [(ngModel)]="presetRange"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'indigo',
+    showPresets: true,
+    presets: [
+      &#123; label: 'Last 7 days', range: this.getLastNDays(7) &#125;,
+      &#123; label: 'Last 30 days', range: this.getLastNDays(30) &#125;,
+      &#123; label: 'This month', range: this.getCurrentMonth() &#125;
+    ]
+  &#125;"&gt;
+&lt;/chronica-date-range&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 7: Dark Theme -->
+    <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
+      <h3 class="text-xl font-semibold text-white mb-2">7. Dark Theme</h3>
+      <p class="text-gray-300 mb-5 leading-relaxed">
+        Dark theme variant with teal accent color. Perfect for dark mode applications and night-time
+        interfaces.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
+        <chronica-date-range
+          [(ngModel)]="darkThemeRange"
+          [config]="darkThemeConfig"
+          placeholder="Select date range (dark theme)"
+          (dateRangeChange)="onDarkThemeRangeChanged($event)"
+        ></chronica-date-range>
+
+        <div
+          class="mt-4 p-3 bg-teal-900 bg-opacity-30 rounded-md border-l-4 border-teal-400"
+          *ngIf="darkThemeRange.startDate && darkThemeRange.endDate"
+        >
+          <strong class="text-teal-200">Selected Range:</strong>
+          <span class="text-teal-100"
+            >{{ darkThemeRange.startDate | date: 'mediumDate' }} -
+            {{ darkThemeRange.endDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-teal-200">Theme:</strong>
+          <span class="text-teal-100">Dark mode with teal accent</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
+  [(ngModel)]="darkThemeRange"
+  [config]="&#123;
+    theme: 'dark',
+    colorTheme: 'teal'
+  &#125;"&gt;
+&lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
   </div>
 
-  <!-- Form Integration -->
+  <!-- Configuration Options -->
   <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Form Integration</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;form&gt;
-  &lt;div class="form-group"&gt;
-    &lt;label&gt;Project Duration&lt;/label&gt;
-    &lt;chronica-date-range
-      [(ngModel)]="formSelectedRange"
-      [config]="formConfig"
-      name="projectDuration"
-    &gt;&lt;/chronica-date-range&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Seamless integration with Angular forms using ngModel or reactive forms.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <form class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Project Duration</label>
-              <chronica-date-range
-                [(ngModel)]="formSelectedRange"
-                [config]="formConfig"
-                name="projectDuration"
-                (dateRangeChange)="onFormRangeChanged($event)"
-              ></chronica-date-range>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Project Description</label>
-              <textarea
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                rows="3"
-                placeholder="Describe your project timeline and goals..."
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              Create Project
-            </button>
-          </form>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="formSelectedRange.startDate && formSelectedRange.endDate">
-            Form Value: {{ formSelectedRange.startDate | date: 'mediumDate' }} - {{ formSelectedRange.endDate | date: 'mediumDate' }}
-            ({{ getDaysDifference(formSelectedRange) }} days)
-          </p>
-        </div>
-      </div>
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
+
+    <div class="overflow-x-auto mt-5">
+      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Property
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Default
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >theme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">'light' | 'dark'</td>
+            <td class="p-3 text-gray-600">'light'</td>
+            <td class="p-3 text-gray-600">Visual theme mode</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >colorTheme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'blue'</td>
+            <td class="p-3 text-gray-600">
+              Color theme: blue, purple, green, red, orange, teal, pink, indigo
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >minDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date</td>
+            <td class="p-3 text-gray-600">null</td>
+            <td class="p-3 text-gray-600">Minimum selectable date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >maxDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date</td>
+            <td class="p-3 text-gray-600">null</td>
+            <td class="p-3 text-gray-600">Maximum selectable date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >disabledDates</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date[]</td>
+            <td class="p-3 text-gray-600">[]</td>
+            <td class="p-3 text-gray-600">Array of disabled dates</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >showPresets</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">Show quick select presets</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >presets</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">PresetRange[]</td>
+            <td class="p-3 text-gray-600">[]</td>
+            <td class="p-3 text-gray-600">Custom preset ranges</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >showTime</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">Include time selection</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >format</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'MM/dd/yyyy'</td>
+            <td class="p-3 text-gray-600">Date display format</td>
+          </tr>
+          <tr>
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >closeOnSelect</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">true</td>
+            <td class="p-3 text-gray-600">Close popup after range selection</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Business Days Only -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Business Days Only</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">businessDaysConfig = &#123;
-  theme: 'light',
-  colorTheme: 'red',
-  disabledDates: this.generateWeekendDates()
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Disable weekends for business day selection only. Useful for project planning and scheduling.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Select Business Days Range</label
-          >
-          <chronica-date-range
-            [(ngModel)]="businessDaysRange"
-            [config]="businessDaysConfig"
-            (dateRangeChange)="onBusinessDaysRangeChanged($event)"
-          ></chronica-date-range>
-          <p class="text-xs text-gray-500 mt-2">Weekends are disabled</p>
-          <p class="text-xs text-gray-500 mt-1" *ngIf="businessDaysRange.startDate && businessDaysRange.endDate">
-            Selected: {{ businessDaysRange.startDate | date: 'mediumDate' }} - {{ businessDaysRange.endDate | date: 'mediumDate' }}
-            ({{ getDaysDifference(businessDaysRange) }} days)
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dark Theme -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Dark Theme</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">darkThemeConfig = &#123;
-  theme: 'dark',
-  colorTheme: 'teal'
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Dark theme variant with teal accent color. Perfect for dark mode applications.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-gray-900">
-          <label class="block text-sm font-medium text-gray-300 mb-2"
-            >Select Date Range (Dark Theme)</label
-          >
-          <chronica-date-range
-            [(ngModel)]="darkThemeRange"
-            [config]="darkThemeConfig"
-            (dateRangeChange)="onDarkThemeRangeChanged($event)"
-          ></chronica-date-range>
-          <p class="text-xs text-gray-400 mt-2" *ngIf="darkThemeRange.startDate && darkThemeRange.endDate">
-            Selected: {{ darkThemeRange.startDate | date: 'mediumDate' }} - {{ darkThemeRange.endDate | date: 'mediumDate' }}
-            ({{ getDaysDifference(darkThemeRange) }} days)
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Features Summary -->
-  <div class="bg-blue-50 rounded-lg p-6">
-    <h2 class="text-xl font-semibold mb-4 text-blue-900">Key Features</h2>
-    <div class="grid md:grid-cols-2 gap-4">
-      <ul class="space-y-2 text-sm text-blue-800">
+  <!-- Key Features -->
+  <div class="bg-blue-50 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-blue-900">Key Features</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <ul class="space-y-3 text-sm text-blue-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Date range selection with visual feedback
+          <span class="font-medium">Date range selection with visual feedback</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Quick select presets (Today, This Week, This Month)
+          <span class="font-medium">Quick select presets for common ranges</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Hover preview for range selection
+          <span class="font-medium">Hover preview for range selection</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Min/max date restrictions
+          <span class="font-medium">Min/max date restrictions</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Business day filtering (exclude weekends)</span>
         </li>
       </ul>
-      <ul class="space-y-2 text-sm text-blue-800">
+      <ul class="space-y-3 text-sm text-blue-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Angular forms integration (ngModel & Reactive)
+          <span class="font-medium">Angular forms integration (ngModel & Reactive)</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Multiple color themes & dark mode
+          <span class="font-medium">Multiple color themes & dark mode support</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Keyboard navigation & accessibility
+          <span class="font-medium">Range highlighting with start/end markers</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Localization & internationalization
+          <span class="font-medium">Customizable date format & localization</span>
         </li>
       </ul>
     </div>
   </div>
-</section>
+</div>
