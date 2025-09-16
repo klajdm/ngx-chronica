@@ -9,13 +9,9 @@ import {
   forwardRef,
   ChangeDetectorRef,
   HostListener,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import {
-  FormsModule,
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from "@angular/forms";
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   CalendarMonth,
   CalendarConfig,
@@ -24,11 +20,11 @@ import {
   DEFAULT_CALENDAR_CONFIG,
   COLOR_THEMES,
   CALENDAR_LOCALES,
-} from "../../models/chronica.models";
-import { ChronicaService } from "../../services/chronica.service";
+} from '../../models/chronica.models';
+import { ChronicaService } from '../../services/chronica.service';
 
 @Component({
-  selector: "chronica-datepicker",
+  selector: 'chronica-datepicker',
   standalone: true,
   imports: [CommonModule, FormsModule],
   providers: [
@@ -38,18 +34,16 @@ import { ChronicaService } from "../../services/chronica.service";
       multi: true,
     },
   ],
-  templateUrl: "./datepicker.component.html",
-  styleUrls: ["./datepicker.component.css"],
+  templateUrl: './datepicker.component.html',
+  styleUrls: ['./datepicker.component.css'],
 })
-export class ChronicaDatepickerComponent
-  implements OnInit, OnChanges, ControlValueAccessor
-{
+export class ChronicaDatepickerComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
-  @Input() locale: CalendarLocale | string = "en-US";
+  @Input() locale: CalendarLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
-  @Input() popupPosition: "bottom" | "top" | "auto" = "auto";
+  @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
@@ -90,10 +84,10 @@ export class ChronicaDatepickerComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["config"] || changes["locale"]) {
+    if (changes['config'] || changes['locale']) {
       this.initializeCalendar();
     }
-    if (changes["selectedDate"] && !changes["selectedDate"].firstChange) {
+    if (changes['selectedDate'] && !changes['selectedDate'].firstChange) {
       // Only update selected date display, don't reinitialize calendar
       this.updateSelectedDate();
     }
@@ -110,11 +104,7 @@ export class ChronicaDatepickerComponent
 
     // Update year range first, then generate month without additional year range update
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(
-      year,
-      month,
-      this.config
-    );
+    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -126,11 +116,7 @@ export class ChronicaDatepickerComponent
     // Ensure year range includes the target year before generating month
     this.updateYearRange(year);
 
-    this.currentMonth = this.calendarService.generateCalendarMonth(
-      year,
-      month,
-      this.config
-    );
+    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -143,10 +129,7 @@ export class ChronicaDatepickerComponent
 
     this.currentMonth.weeks.forEach((week) => {
       week.dates.forEach((date) => {
-        date.isSelected = this.calendarService.isSameDate(
-          date.date,
-          this.selectedDate!
-        );
+        date.isSelected = this.calendarService.isSameDate(date.date, this.selectedDate!);
       });
     });
   }
@@ -163,11 +146,7 @@ export class ChronicaDatepickerComponent
     ).getDate();
     const validDay = Math.min(day, daysInCurrentMonth);
 
-    const selectedDate = new Date(
-      this.currentMonth.year,
-      this.currentMonth.month,
-      validDay
-    );
+    const selectedDate = new Date(this.currentMonth.year, this.currentMonth.month, validDay);
     this.selectedDate = selectedDate;
 
     // Call ControlValueAccessor callbacks
@@ -177,7 +156,7 @@ export class ChronicaDatepickerComponent
     // Emit events
     this.dateSelected.emit(new Date(selectedDate));
     this.calendarEvent.emit({
-      type: "dateSelect",
+      type: 'dateSelect',
       date: new Date(selectedDate),
     });
 
@@ -188,7 +167,7 @@ export class ChronicaDatepickerComponent
   // Method to change month via dropdown
   changeMonth(monthIndex: number): void {
     // Ensure monthIndex is a valid number
-    if (typeof monthIndex !== "number" || monthIndex < 0 || monthIndex > 11) {
+    if (typeof monthIndex !== 'number' || monthIndex < 0 || monthIndex > 11) {
       return;
     }
 
@@ -209,7 +188,7 @@ export class ChronicaDatepickerComponent
 
     this.monthChanged.emit({ month: monthIndex, year: this.currentMonth.year });
     this.calendarEvent.emit({
-      type: "monthChange",
+      type: 'monthChange',
       month: monthIndex,
       year: this.currentMonth.year,
     });
@@ -218,7 +197,7 @@ export class ChronicaDatepickerComponent
   // Method to change year via dropdown
   changeYear(year: number | string): void {
     // Ensure we have a number (template select may pass string)
-    const numericYear = typeof year === "string" ? parseInt(year, 10) : year;
+    const numericYear = typeof year === 'string' ? parseInt(year, 10) : year;
     if (Number.isNaN(numericYear)) return;
 
     // Update year range first (mutates in-place) then update calendar
@@ -242,7 +221,7 @@ export class ChronicaDatepickerComponent
       year: numericYear,
     });
     this.calendarEvent.emit({
-      type: "yearChange",
+      type: 'yearChange',
       month: this.currentMonth.month,
       year: numericYear,
     });
@@ -338,7 +317,7 @@ export class ChronicaDatepickerComponent
 
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
-      type: "monthChange",
+      type: 'monthChange',
       month: prev.month,
       year: prev.year,
     });
@@ -347,10 +326,7 @@ export class ChronicaDatepickerComponent
   nextMonth(): void {
     if (this.isNextMonthDisabled()) return;
 
-    const next = this.calendarService.getNextMonth(
-      this.currentMonth.month,
-      this.currentMonth.year
-    );
+    const next = this.calendarService.getNextMonth(this.currentMonth.month, this.currentMonth.year);
 
     // Update year range to include the new year if needed
     this.updateYearRange(next.year);
@@ -372,7 +348,7 @@ export class ChronicaDatepickerComponent
 
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
-      type: "monthChange",
+      type: 'monthChange',
       month: next.month,
       year: next.year,
     });
@@ -381,11 +357,7 @@ export class ChronicaDatepickerComponent
   isPreviousMonthDisabled(): boolean {
     if (!this.config.minDate) return false;
 
-    const firstDayOfCurrentMonth = new Date(
-      this.currentMonth.year,
-      this.currentMonth.month,
-      1
-    );
+    const firstDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month, 1);
     const firstDayOfPreviousMonth = new Date(
       this.currentMonth.year,
       this.currentMonth.month - 1,
@@ -398,16 +370,8 @@ export class ChronicaDatepickerComponent
   isNextMonthDisabled(): boolean {
     if (!this.config.maxDate) return false;
 
-    const lastDayOfCurrentMonth = new Date(
-      this.currentMonth.year,
-      this.currentMonth.month + 1,
-      0
-    );
-    const lastDayOfNextMonth = new Date(
-      this.currentMonth.year,
-      this.currentMonth.month + 2,
-      0
-    );
+    const lastDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month + 1, 0);
+    const lastDayOfNextMonth = new Date(this.currentMonth.year, this.currentMonth.month + 2, 0);
 
     return lastDayOfNextMonth > this.config.maxDate;
   }
@@ -438,7 +402,7 @@ export class ChronicaDatepickerComponent
       year: todayYear,
     });
     this.calendarEvent.emit({
-      type: "monthChange",
+      type: 'monthChange',
       month: todayMonth,
       year: todayYear,
     });
@@ -466,23 +430,23 @@ export class ChronicaDatepickerComponent
 
   // Get CSS custom properties for color theming
   getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || "blue";
+    const colorTheme = this.config.colorTheme || 'blue';
     const colors = COLOR_THEMES[colorTheme];
 
     return {
-      "--chronica-primary": colors.primary,
-      "--chronica-primary-hover": colors.primaryHover,
-      "--chronica-primary-light": colors.primaryLight,
-      "--chronica-primary-dark": colors.primaryDark,
-      "--chronica-accent": colors.accent,
-      "--chronica-focus": colors.focus,
+      '--chronica-primary': colors.primary,
+      '--chronica-primary-hover': colors.primaryHover,
+      '--chronica-primary-light': colors.primaryLight,
+      '--chronica-primary-dark': colors.primaryDark,
+      '--chronica-accent': colors.accent,
+      '--chronica-focus': colors.focus,
     };
   }
 
   // Get current locale configuration
   getCurrentLocale(): CalendarLocale {
-    if (typeof this.locale === "string") {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES["en-US"];
+    if (typeof this.locale === 'string') {
+      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
     }
     return this.locale;
   }
@@ -506,13 +470,10 @@ export class ChronicaDatepickerComponent
     const format = locale.dateFormat;
 
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
 
-    return format
-      .replace("yyyy", year.toString())
-      .replace("MM", month)
-      .replace("dd", day);
+    return format.replace('yyyy', year.toString()).replace('MM', month).replace('dd', day);
   }
 
   // Popup functionality methods
@@ -520,10 +481,7 @@ export class ChronicaDatepickerComponent
     this.isPopupOpen = !this.isPopupOpen;
     if (this.isPopupOpen && this.selectedDate) {
       // When opening popup, navigate to the selected date's month/year
-      this.generateMonth(
-        this.selectedDate.getFullYear(),
-        this.selectedDate.getMonth()
-      );
+      this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
     }
   }
 
@@ -531,11 +489,11 @@ export class ChronicaDatepickerComponent
     this.isPopupOpen = false;
   }
 
-  @HostListener("document:click", ["$event"])
+  @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (this.isPopupOpen) {
       const target = event.target as HTMLElement;
-      const calendarContainer = target.closest(".chronica-calendar-container");
+      const calendarContainer = target.closest('.chronica-calendar-container');
 
       if (!calendarContainer) {
         this.closePopup();

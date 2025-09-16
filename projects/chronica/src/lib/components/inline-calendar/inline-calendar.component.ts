@@ -7,13 +7,9 @@ import {
   OnChanges,
   SimpleChanges,
   forwardRef,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import {
-  FormsModule,
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from "@angular/forms";
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   CalendarMonth,
   CalendarConfig,
@@ -22,11 +18,11 @@ import {
   DEFAULT_CALENDAR_CONFIG,
   COLOR_THEMES,
   CALENDAR_LOCALES,
-} from "../../models/chronica.models";
-import { ChronicaService } from "../../services/chronica.service";
+} from '../../models/chronica.models';
+import { ChronicaService } from '../../services/chronica.service';
 
 @Component({
-  selector: "chronica-inline-calendar",
+  selector: 'chronica-inline-calendar',
   standalone: true,
   imports: [CommonModule, FormsModule],
   providers: [
@@ -36,15 +32,13 @@ import { ChronicaService } from "../../services/chronica.service";
       multi: true,
     },
   ],
-  templateUrl: "./inline-calendar.component.html",
-  styleUrl: "./inline-calendar.component.css",
+  templateUrl: './inline-calendar.component.html',
+  styleUrl: './inline-calendar.component.css',
 })
-export class ChronicaInlineCalendarComponent
-  implements OnInit, OnChanges, ControlValueAccessor
-{
+export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
-  @Input() locale: CalendarLocale | string = "en-US";
+  @Input() locale: CalendarLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
@@ -81,10 +75,10 @@ export class ChronicaInlineCalendarComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["config"] || changes["locale"]) {
+    if (changes['config'] || changes['locale']) {
       this.initializeCalendar();
     }
-    if (changes["selectedDate"] && !changes["selectedDate"].firstChange) {
+    if (changes['selectedDate'] && !changes['selectedDate'].firstChange) {
       this.updateSelectedDate();
     }
   }
@@ -99,11 +93,7 @@ export class ChronicaInlineCalendarComponent
     this.monthNames = currentLocale.monthNames;
 
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(
-      year,
-      month,
-      this.config
-    );
+    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
 
     if (this.selectedDate) {
       this.updateSelectedDate();
@@ -115,10 +105,7 @@ export class ChronicaInlineCalendarComponent
 
     this.currentMonth.weeks.forEach((week) => {
       week.dates.forEach((date) => {
-        date.isSelected = this.calendarService.isSameDate(
-          date.date,
-          this.selectedDate!
-        );
+        date.isSelected = this.calendarService.isSameDate(date.date, this.selectedDate!);
       });
     });
   }
@@ -133,7 +120,7 @@ export class ChronicaInlineCalendarComponent
 
     this.dateSelected.emit(new Date(this.selectedDate));
     this.calendarEvent.emit({
-      type: "dateSelect",
+      type: 'dateSelect',
       date: new Date(this.selectedDate),
     });
 
@@ -159,17 +146,14 @@ export class ChronicaInlineCalendarComponent
 
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
-      type: "monthChange",
+      type: 'monthChange',
       month: prev.month,
       year: prev.year,
     });
   }
 
   nextMonth(): void {
-    const next = this.calendarService.getNextMonth(
-      this.currentMonth.month,
-      this.currentMonth.year
-    );
+    const next = this.calendarService.getNextMonth(this.currentMonth.month, this.currentMonth.year);
 
     this.updateYearRange(next.year);
     this.currentMonth = this.calendarService.generateCalendarMonth(
@@ -184,7 +168,7 @@ export class ChronicaInlineCalendarComponent
 
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
-      type: "monthChange",
+      type: 'monthChange',
       month: next.month,
       year: next.year,
     });
@@ -236,22 +220,22 @@ export class ChronicaInlineCalendarComponent
   }
 
   getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || "blue";
+    const colorTheme = this.config.colorTheme || 'blue';
     const colors = COLOR_THEMES[colorTheme];
 
     return {
-      "--chronica-primary": colors.primary,
-      "--chronica-primary-hover": colors.primaryHover,
-      "--chronica-primary-light": colors.primaryLight,
-      "--chronica-primary-dark": colors.primaryDark,
-      "--chronica-accent": colors.accent,
-      "--chronica-focus": colors.focus,
+      '--chronica-primary': colors.primary,
+      '--chronica-primary-hover': colors.primaryHover,
+      '--chronica-primary-light': colors.primaryLight,
+      '--chronica-primary-dark': colors.primaryDark,
+      '--chronica-accent': colors.accent,
+      '--chronica-focus': colors.focus,
     };
   }
 
   getCurrentLocale(): CalendarLocale {
-    if (typeof this.locale === "string") {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES["en-US"];
+    if (typeof this.locale === 'string') {
+      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
     }
     return this.locale;
   }
