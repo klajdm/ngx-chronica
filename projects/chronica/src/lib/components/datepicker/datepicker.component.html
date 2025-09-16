@@ -115,10 +115,7 @@
     <!-- Calendar grid -->
     <div class="chronica-calendar-grid">
       <!-- Empty cells for days before the first day of month -->
-      <div
-        *ngFor="let _ of getFirstDayOffset()"
-        class="chronica-date chronica-empty"
-      ></div>
+      <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty"></div>
 
       <!-- Days of month -->
       <div
@@ -139,10 +136,7 @@
     </div>
 
     <!-- Today button - positioned at bottom of calendar -->
-    <div
-      class="chronica-today-button-container"
-      *ngIf="config.showTodayButton !== false"
-    >
+    <div class="chronica-today-button-container" *ngIf="config.showTodayButton !== false">
       <button class="chronica-today-button" (click)="goToToday()" type="button">
         {{ getCurrentLocale().todayLabel }}
       </button>

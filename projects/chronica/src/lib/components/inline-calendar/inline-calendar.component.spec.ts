@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChronicaInlineCalendarComponent } from "./inline-calendar.component";
+import { ChronicaInlineCalendarComponent } from './inline-calendar.component';
 
-describe("InlineCalendarComponent", () => {
+describe('InlineCalendarComponent', () => {
   let component: ChronicaInlineCalendarComponent;
   let fixture: ComponentFixture<ChronicaInlineCalendarComponent>;
 
@@ -16,7 +16,7 @@ describe("InlineCalendarComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
