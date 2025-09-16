@@ -351,9 +351,7 @@
 
 /* Popup mode styles */
 .chronica-calendar-container {
-  position: relative;
   display: inline-block;
-  z-index: 9999;
 }
 
 .chronica-trigger {
@@ -368,17 +366,14 @@
   border-radius: var(--chronica-border-radius-sm, 4px);
 }
 
+/* CDK Overlay popup styles */
 .chronica-calendar.chronica-popup {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 9999; /* Very high z-index to appear above other elements */
-  margin-top: var(--chronica-spacing-xs, 4px);
   background: var(--chronica-background, #ffffff);
   border: 1px solid var(--chronica-border-color, #e5e7eb);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 280px;
+  max-width: 320px;
 }
 
 /* Dark theme popup specific styles */
@@ -395,45 +390,20 @@
   );
 }
 
-/* Auto positioning for popup */
-.chronica-calendar.chronica-popup.chronica-position-top {
-  top: auto;
-  bottom: 100%;
-  margin-top: 0;
-  margin-bottom: var(--chronica-spacing-xs, 4px);
-}
-
-/* Responsive popup positioning */
+/* Responsive popup sizing */
 @media (max-width: 640px) {
   .chronica-calendar.chronica-popup {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    transform: none;
-    margin: 4px 0 0 0;
-    width: 100%;
+    width: 100vw;
     max-width: 320px;
     min-width: 280px;
-    z-index: 9999;
-  }
-
-  .chronica-calendar-container {
-    position: relative;
-    width: 100%;
   }
 }
 
-/* Animation for popup */
+/* Animation for CDK Overlay popup */
 .chronica-calendar.chronica-popup {
-  opacity: 0;
-  transform: translateY(-8px);
+  opacity: 1;
+  transform: translateY(0);
   transition:
     opacity 0.15s ease-out,
     transform 0.15s ease-out;
-}
-
-.chronica-calendar.chronica-popup.chronica-popup-open {
-  opacity: 1;
-  transform: translateY(0);
 }
