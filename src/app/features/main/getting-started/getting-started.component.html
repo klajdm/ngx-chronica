@@ -1,19 +1,241 @@
-<div class="prose">
-  <h1>Getting Started</h1>
+<div class="py-8">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Getting Started</h1>
+    <p class="text-lg text-gray-600 leading-relaxed">
+      Install the package and start using ngx-chronica in your Angular application.
+    </p>
+  </div>
 
-  <p>Install the library and run the demo site locally.</p>
+  <!-- Install the Package Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Install the Package</h2>
+    <p class="text-gray-700 mb-4">
+      ngx-chronica is available as the
+      <code class="bg-gray-100 px-2 py-1 rounded text-sm">ngx-chronica</code> npm package.
+    </p>
 
-  <h2>Install</h2>
-  <pre class="bg-gray-50 rounded p-3"><code>npm install ngx-chronica</code></pre>
+    <div class="bg-gray-900 rounded-lg p-4 mb-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs text-gray-400 font-medium">Terminal</span>
+        <button class="text-xs text-gray-400 hover:text-white">Copy</button>
+      </div>
+      <pre
+        class="text-green-400 text-sm"
+      ><code><span class="text-blue-400">npm</span> <span class="text-yellow-400">install</span> ngx-chronica</code></pre>
+    </div>
 
-  <h2>Basic Usage (Standalone)</h2>
-  <p>Import the standalone component and add it to your component templates.</p>
-  <pre class="bg-gray-50 rounded p-3">
-	<code class="language-ts">import &#123; InlineCalendarComponent &#125; from 'nga-inline-calendar';</code>
-	</pre>
+    <div class="bg-gray-900 rounded-lg p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs text-gray-400 font-medium">Alternative</span>
+        <button class="text-xs text-gray-400 hover:text-white">Copy</button>
+      </div>
+      <pre
+        class="text-green-400 text-sm"
+      ><code><span class="text-blue-400">yarn</span> <span class="text-yellow-400">add</span> ngx-chronica</code></pre>
+    </div>
+  </div>
 
-  <h2>Quick Example</h2>
-  <pre
-    class="bg-gray-50 rounded p-3"
-  ><code class="language-ts">&lt;chronica-datepicker&gt;&lt;/chronica-datepicker&gt;</code></pre>
+  <!-- Basic Usage Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Basic Usage</h2>
+    <p class="text-gray-700 mb-6">To add a simple date picker to your app:</p>
+
+    <div class="space-y-6">
+      <!-- Step 1 -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-3">
+          1. Import the component and styles from
+          <code class="bg-gray-100 px-2 py-1 rounded text-sm">ngx-chronica</code>:
+        </h3>
+        <div class="bg-gray-900 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-gray-400 font-medium">TypeScript</span>
+            <button class="text-xs text-gray-400 hover:text-white">Copy</button>
+          </div>
+          <pre
+            class="text-sm"
+          ><code><span class="text-purple-400">import</span> {{ '{' }} <span class="text-red-400">ChronicaDatepicker</span> {{ '}' }} <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span>;
+<span class="text-purple-400">import</span> <span class="text-green-400">'ngx-chronica/styles.css'</span>;</code></pre>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-3">
+          2. Choose a <a href="#" class="text-blue-600 hover:underline">selection mode</a> using the
+          <code class="bg-gray-100 px-2 py-1 rounded text-sm">mode</code> prop:
+        </h3>
+        <div class="bg-gray-900 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-gray-400 font-medium">Angular Template</span>
+            <button class="text-xs text-gray-400 hover:text-white">Copy</button>
+          </div>
+          <pre
+            class="text-sm"
+          ><code><span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
+  <span class="text-orange-400">mode</span>=<span class="text-green-400">"single"</span>
+  <span class="text-orange-400">[selected]</span>=<span class="text-blue-400">selectedDate</span>
+  <span class="text-orange-400">(selectedChange)</span>=<span class="text-blue-400">onDateSelect($event)</span>
+<span class="text-gray-600">&gt;&lt;/</span><span class="text-red-400">chronica-datepicker</span><span class="text-gray-600">&gt;</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-3">
+          3. Use the <code class="bg-gray-100 px-2 py-1 rounded text-sm">selected</code> and
+          <code class="bg-gray-100 px-2 py-1 rounded text-sm">selectedChange</code> props to control
+          the selected date:
+        </h3>
+        <div class="bg-gray-900 rounded-lg p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-gray-400 font-medium">Component</span>
+            <button class="text-xs text-gray-400 hover:text-white">Copy</button>
+          </div>
+          <pre
+            class="text-sm"
+          ><code><span class="text-purple-400">export</span> <span class="text-purple-400">function</span> <span class="text-yellow-400">MyDatePicker</span>() {{ '{' }}
+  <span class="text-blue-400">selectedDate</span>: <span class="text-cyan-400">Date</span> | <span class="text-cyan-400">null</span> = <span class="text-orange-400">null</span>;
+
+  <span class="text-yellow-400">onDateSelect</span>(<span class="text-blue-400">date</span>: <span class="text-cyan-400">Date</span>) {{ '{' }}
+    <span class="text-purple-400">this</span>.<span class="text-blue-400">selectedDate</span> = <span class="text-blue-400">date</span>;
+  {{ '}' }}
+
+  <span class="text-purple-400">return</span> (
+    <span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
+      <span class="text-orange-400">mode</span>=<span class="text-green-400">"single"</span>
+      <span class="text-orange-400">[selected]</span>=<span class="text-blue-400">selectedDate</span>
+      <span class="text-orange-400">(selectedChange)</span>=<span class="text-blue-400">onDateSelect</span>
+      <span class="text-orange-400">[footer]</span>=<span class="text-blue-400">selectedDate</span> ? <span class="text-green-400">`Selected: ${{ '{' }}selectedDate.toDateString(){{ '}' }}`</span> : <span class="text-green-400">"Pick a day."</span>
+    <span class="text-gray-600">/&gt;</span>
+  );
+{{ '}' }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Example Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Example</h2>
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+      <div class="mb-4">
+        <span class="text-sm font-medium text-gray-500">Live Demo</span>
+      </div>
+
+      <!-- Interactive Calendar Example -->
+      <div class="bg-white rounded-lg border border-gray-200 p-6 max-w-sm mx-auto">
+        <div class="flex items-center justify-between mb-4">
+          <button class="p-2 hover:bg-gray-100 rounded-full">
+            <svg
+              class="w-4 h-4 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <h3 class="text-lg font-medium text-gray-900">September 2025</h3>
+          <button class="p-2 hover:bg-gray-100 rounded-full">
+            <svg
+              class="w-4 h-4 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="grid grid-cols-7 gap-1 text-center text-sm mb-4">
+          <div class="py-2 text-gray-500 font-medium">Su</div>
+          <div class="py-2 text-gray-500 font-medium">Mo</div>
+          <div class="py-2 text-gray-500 font-medium">Tu</div>
+          <div class="py-2 text-gray-500 font-medium">We</div>
+          <div class="py-2 text-gray-500 font-medium">Th</div>
+          <div class="py-2 text-gray-500 font-medium">Fr</div>
+          <div class="py-2 text-gray-500 font-medium">Sa</div>
+
+          <!-- Calendar days -->
+          <div class="py-2 text-gray-400">31</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">1</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">2</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">3</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">4</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">5</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">6</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">7</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">8</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">9</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">10</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">11</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">12</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">13</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">14</div>
+          <div class="py-3 bg-blue-600 text-white rounded font-medium">15</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">16</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">17</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">18</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">19</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">20</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">21</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">22</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">23</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">24</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">25</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">26</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">27</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">28</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">29</div>
+          <div class="py-2 text-gray-900 hover:bg-blue-50 rounded cursor-pointer">30</div>
+          <div class="py-2 text-gray-400">1</div>
+          <div class="py-2 text-gray-400">2</div>
+          <div class="py-2 text-gray-400">3</div>
+          <div class="py-2 text-gray-400">4</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-sm text-gray-600 bg-gray-50 rounded p-3">
+          Selected: September 15, 2025
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Steps -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Next Steps</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors">
+        <h3 class="text-lg font-medium text-gray-900 mb-2">📚 Explore Features</h3>
+        <p class="text-gray-600 text-sm mb-4">
+          Learn about themes, localization, date restrictions, and more advanced features.
+        </p>
+        <a href="#" class="text-blue-600 hover:underline text-sm font-medium"
+          >View Documentation →</a
+        >
+      </div>
+      <div class="border border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors">
+        <h3 class="text-lg font-medium text-gray-900 mb-2">🎨 Customize Themes</h3>
+        <p class="text-gray-600 text-sm mb-4">
+          Discover the 8 built-in color schemes and learn how to create custom themes.
+        </p>
+        <a href="#" class="text-blue-600 hover:underline text-sm font-medium">Styling Guide →</a>
+      </div>
+    </div>
+  </div>
 </div>
