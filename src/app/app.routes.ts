@@ -48,6 +48,14 @@ export const routes: Routes = [
         title: 'Time Picker | Angular Chronica',
       },
       {
+        path: 'components/duration-picker',
+        loadComponent: () =>
+          import('./features/main/duration-picker-demo/duration-picker-demo.component').then(
+            (m) => m.DurationPickerDemoComponent
+          ),
+        title: 'Duration Picker | Angular Chronica',
+      },
+      {
         path: 'components/inline-calendar',
         loadComponent: () =>
           import('./features/main/inline-calendar-demo/inline-calendar-demo.component').then(
