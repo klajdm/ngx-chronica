@@ -1,14 +1,26 @@
-<div>
-  <app-sidebar></app-sidebar>
-  <div>
-    <app-header></app-header>
-    <router-outlet></router-outlet>
-    <main>
-      <app-hero></app-hero>
-      <app-features></app-features>
-      <app-examples></app-examples>
+<div class="flex min-h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg border-r border-gray-200">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 ml-64">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-200">
+      <app-header></app-header>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 bg-gray-50 min-h-[calc(100vh-theme(spacing.16))]">
+      <div class="max-w-7xl mx-auto">
+        <router-outlet></router-outlet>
+      </div>
     </main>
 
-    <app-footer></app-footer>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+      <app-footer></app-footer>
+    </footer>
   </div>
 </div>
