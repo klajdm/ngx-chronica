@@ -7,6 +7,5 @@ import { CommonModule } from "@angular/common";
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: "./app.component.html",
-  styles: [],
 })
 export class AppComponent {}
