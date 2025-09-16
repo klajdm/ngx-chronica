@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: "app-header",
+  selector: 'app-header',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./header.compoent.html",
+  templateUrl: './header.compoent.html',
 })
 export class HeaderComponent {}

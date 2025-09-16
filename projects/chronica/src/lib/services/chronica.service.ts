@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   CalendarDate,
   CalendarMonth,
@@ -7,10 +7,10 @@ import {
   DEFAULT_CALENDAR_CONFIG,
   MONTH_NAMES,
   DAY_NAMES_SHORT,
-} from "../models/chronica.models";
+} from '../models/chronica.models';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ChronicaService {
   constructor() {}
@@ -51,12 +51,7 @@ export class ChronicaService {
       const week: CalendarWeek = { dates: [] };
 
       for (let i = 0; i < 7; i++) {
-        const calendarDate = this.createCalendarDate(
-          currentDate,
-          year,
-          month,
-          config
-        );
+        const calendarDate = this.createCalendarDate(currentDate, year, month, config);
         week.dates.push(calendarDate);
         currentDate.setDate(currentDate.getDate() + 1);
       }
@@ -83,8 +78,7 @@ export class ChronicaService {
   ): CalendarDate {
     const today = this.stripTime(new Date());
     const isToday = this.isSameDate(this.stripTime(date), today);
-    const isInCurrentMonth =
-      date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    const isInCurrentMonth = date.getMonth() === currentMonth && date.getFullYear() === currentYear;
     const isWeekend = date.getDay() === 0 || date.getDay() === 6;
     const isDisabled = this.isDateDisabled(date, config);
 
@@ -107,17 +101,11 @@ export class ChronicaService {
   private isDateDisabled(date: Date, config: CalendarConfig): boolean {
     const d = this.stripTime(date);
 
-    if (
-      config.minDate &&
-      d.getTime() < this.stripTime(config.minDate).getTime()
-    ) {
+    if (config.minDate && d.getTime() < this.stripTime(config.minDate).getTime()) {
       return true;
     }
 
-    if (
-      config.maxDate &&
-      d.getTime() > this.stripTime(config.maxDate).getTime()
-    ) {
+    if (config.maxDate && d.getTime() > this.stripTime(config.maxDate).getTime()) {
       return true;
     }
 
@@ -159,17 +147,14 @@ export class ChronicaService {
   /**
    * Formats a date according to locale
    */
-  formatDate(date: Date, locale: string = "en-US"): string {
+  formatDate(date: Date, locale: string = 'en-US'): string {
     return date.toLocaleDateString(locale);
   }
 
   /**
    * Gets the previous month/year
    */
-  getPreviousMonth(
-    month: number,
-    year: number
-  ): { month: number; year: number } {
+  getPreviousMonth(month: number, year: number): { month: number; year: number } {
     if (month === 0) {
       return { month: 11, year: year - 1 };
     }

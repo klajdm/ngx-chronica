@@ -1,13 +1,16 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { ChronicaDatepickerComponent } from "../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component";
-import { CalendarConfig, DEFAULT_CALENDAR_CONFIG } from "../../../../../projects/chronica/src/lib/models/chronica.models";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChronicaDatepickerComponent } from '../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component';
+import {
+  CalendarConfig,
+  DEFAULT_CALENDAR_CONFIG,
+} from '../../../../../projects/chronica/src/lib/models/chronica.models';
 
 @Component({
-  selector: "app-getting-started",
+  selector: 'app-getting-started',
   standalone: true,
   imports: [CommonModule, ChronicaDatepickerComponent],
-  templateUrl: "./getting-started.component.html",
+  templateUrl: './getting-started.component.html',
 })
 export class GettingStartedComponent {
   // Example datepicker
@@ -15,7 +18,7 @@ export class GettingStartedComponent {
   exampleConfig: CalendarConfig = {
     ...DEFAULT_CALENDAR_CONFIG,
     theme: 'light',
-    colorTheme: 'blue'
+    colorTheme: 'blue',
   };
 
   onExampleDateSelected(date: Date): void {

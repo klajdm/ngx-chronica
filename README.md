@@ -1,4 +1,3 @@
-
 # ngx-chronica
 
 A monorepo for a lightweight, customizable inline calendar and datepicker component for Angular, plus a documentation/demo website.
@@ -18,7 +17,6 @@ A monorepo for a lightweight, customizable inline calendar and datepicker compon
 - ♿ **Accessibility**: ARIA and keyboard navigation
 - 💅 **Prettier Formatting**: Auto-format on save with Prettier
 - 🧩 **Sidebar Navigation**: Modern docs website with sidebar menu
-
 
 ## Quick Start
 
@@ -49,7 +47,7 @@ import { InlineCalendarComponent } from 'nga-inline-calendar';
     >
       <div class="date-trigger">
         <span class="date-display">
-          {{ selectedDate ? (selectedDate | date : 'EEEE, MMMM d, y') : 'Select a date' }}
+          {{ selectedDate ? (selectedDate | date: 'EEEE, MMMM d, y') : 'Select a date' }}
         </span>
       </div>
     </chronica-datepicker>
@@ -64,8 +62,12 @@ export class ExampleComponent {
     showAdjacentMonths: true,
     showTodayButton: true,
   };
-  onDateSelected(date: Date) { this.selectedDate = date; }
-  onMonthChanged(event: { month: number; year: number }) { /* ... */ }
+  onDateSelected(date: Date) {
+    this.selectedDate = date;
+  }
+  onMonthChanged(event: { month: number; year: number }) {
+    /* ... */
+  }
 }
 ```
 
@@ -85,7 +87,9 @@ export class ExampleComponent {
 export class InlineExampleComponent {
   selectedDate: Date | null = new Date();
   calendarConfig = { theme: 'light' };
-  onDateSelected(date: Date) { this.selectedDate = date; }
+  onDateSelected(date: Date) {
+    this.selectedDate = date;
+  }
 }
 ```
 
@@ -113,11 +117,11 @@ The calendar supports two display modes:
 ### Popup Mode (Default)
 
 ```typescript
-import { Component } from "@angular/core";
-import { InlineCalendarComponent } from "nga-inline-calendar";
+import { Component } from '@angular/core';
+import { InlineCalendarComponent } from 'nga-inline-calendar';
 
 @Component({
-  selector: "app-example",
+  selector: 'app-example',
   standalone: true,
   imports: [InlineCalendarComponent],
   template: `
@@ -130,11 +134,7 @@ import { InlineCalendarComponent } from "nga-inline-calendar";
     >
       <div class="date-trigger">
         <span class="date-display">
-          {{
-            selectedDate
-              ? (selectedDate | date : "EEEE, MMMM d, y")
-              : "Select a date"
-          }}
+          {{ selectedDate ? (selectedDate | date: 'EEEE, MMMM d, y') : 'Select a date' }}
         </span>
         <svg
           class="calendar-icon"
@@ -157,20 +157,20 @@ export class ExampleComponent {
   selectedDate: Date | null = new Date();
 
   calendarConfig = {
-    theme: "light",
-    colorTheme: "blue", // Available: blue, green, purple, red, orange, teal, pink, indigo
+    theme: 'light',
+    colorTheme: 'blue', // Available: blue, green, purple, red, orange, teal, pink, indigo
     firstDayOfWeek: 1, // Monday
     showAdjacentMonths: true,
     showTodayButton: true,
   };
 
   onDateSelected(date: Date) {
-    console.log("Selected date:", date);
+    console.log('Selected date:', date);
     this.selectedDate = date;
   }
 
   onMonthChanged(event: { month: number; year: number }) {
-    console.log("Month changed:", event);
+    console.log('Month changed:', event);
   }
 }
 ```
@@ -198,8 +198,8 @@ export class InlineExampleComponent {
 ### Module-based Usage
 
 ```typescript
-import { NgModule } from "@angular/core";
-import { InlineCalendarModule } from "nga-inline-calendar";
+import { NgModule } from '@angular/core';
+import { InlineCalendarModule } from 'nga-inline-calendar';
 
 @NgModule({
   imports: [InlineCalendarModule],
@@ -207,7 +207,6 @@ import { InlineCalendarModule } from "nga-inline-calendar";
 })
 export class AppModule {}
 ```
-
 
 ## Configuration Options
 
@@ -259,10 +258,7 @@ interface CalendarConfig {
 ### Custom Popup Trigger
 
 ```html
-<chronica-datepicker
-  [selectedDate]="date"
-  (dateSelected)="onDateSelected($event)"
->
+<chronica-datepicker [selectedDate]="date" (dateSelected)="onDateSelected($event)">
   <button class="custom-trigger">
     📅 {{ date ? (date | date : 'shortDate') : 'Pick a date' }}
   </button>
@@ -292,7 +288,7 @@ calendarConfig = {
 
 ```typescript
 calendarConfig = {
-  theme: "dark",
+  theme: 'dark',
 };
 ```
 
@@ -301,7 +297,7 @@ calendarConfig = {
 ```typescript
 // Available color themes: blue, green, purple, red, orange, teal, pink, indigo
 calendarConfig = {
-  colorTheme: "purple",
+  colorTheme: 'purple',
 };
 ```
 
@@ -310,7 +306,7 @@ calendarConfig = {
 #### Reactive Forms
 
 ```typescript
-import { FormControl } from "@angular/forms";
+import { FormControl } from '@angular/forms';
 
 export class MyComponent {
   dateControl = new FormControl<Date | null>(new Date());
@@ -329,10 +325,7 @@ export class MyComponent {
 </chronica-datepicker>
 
 <!-- Inline mode -->
-<chronica-datepicker
-  [formControl]="dateControl"
-  [displayMode]="'inline'"
-></chronica-datepicker>
+<chronica-datepicker [formControl]="dateControl" [displayMode]="'inline'"></chronica-datepicker>
 ```
 
 #### Template-driven Forms
@@ -363,7 +356,6 @@ calendarConfig = {
   firstDayOfWeek: 1, // Monday
 };
 ```
-
 
 ## Styling
 
@@ -430,7 +422,6 @@ Each theme includes coordinated colors for primary, hover, accent, and focus sta
 ## Contributing
 
 Contributions are welcome! Please read our contributing guidelines and submit pull requests to our repository.
-
 
 ## License
 
