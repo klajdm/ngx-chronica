@@ -283,14 +283,14 @@ export class ChronicaDurationPickerComponent
           originY: 'bottom',
           overlayX: 'start',
           overlayY: 'top',
-          offsetY: 8,
+          offsetY: 14,
         },
         {
           originX: 'start',
           originY: 'top',
           overlayX: 'start',
           overlayY: 'bottom',
-          offsetY: -8,
+          offsetY: -14,
         },
       ]);
 

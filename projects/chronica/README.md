@@ -1,4 +1,14 @@
-# Angular Inline Calendar
+<!-- Header: table layout to keep logo and title on one row in Markdown viewers that strip styles -->
+<table>
+  <tr>
+    <td valign="middle">
+      <img src="../../src/assets/images/logo.png" alt="ngx-chronica logo" width="48" height="48" />
+    </td>
+    <td valign="middle" style="padding-left:12px">
+      <h1 style="margin:0;font-size:28px;font-weight:700;">NGX-CHRONICA</h1>
+    </td>
+  </tr>
+</table>
 
 A lightweight, customizable inline calendar component for Angular applications.
 

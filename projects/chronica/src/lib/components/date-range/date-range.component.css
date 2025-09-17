@@ -1,7 +1,7 @@
 /* Date Range Component Styles */
 .chronica-date-range-container {
   display: inline-block;
-  min-width: 200px;
+  min-width: 100px;
   width: 100%;
 }
 
@@ -31,8 +31,9 @@
 }
 
 .chronica-date-range-trigger:focus {
-  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  outline-offset: 2px;
+  /* use box-shadow for a focus ring close to the border */
+  outline: none;
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
   border-color: var(--chronica-primary, #3b82f6);
 }
 
@@ -189,8 +190,8 @@
 
 .chronica-month-select:focus,
 .chronica-year-select:focus {
-  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
   border-color: var(--chronica-primary, #3b82f6);
 }
 
@@ -292,8 +293,8 @@
 }
 
 .chronica-date:focus {
-  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
 }
 
 /* Range footer */

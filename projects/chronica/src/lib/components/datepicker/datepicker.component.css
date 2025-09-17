@@ -417,7 +417,7 @@
 /* Popup mode styles */
 .chronica-calendar-container {
   display: inline-block;
-  min-width: 200px;
+  min-width: 100px;
   width: 100%;
 }
 
@@ -447,8 +447,8 @@
 }
 
 .chronica-datepicker-trigger:focus {
-  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
   border-color: var(--chronica-primary, #3b82f6);
 }
 
@@ -490,8 +490,8 @@
 }
 
 .chronica-trigger:focus {
-  outline: 2px solid var(--chronica-primary);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
   border-radius: var(--chronica-border-radius-sm, 4px);
 }
 
