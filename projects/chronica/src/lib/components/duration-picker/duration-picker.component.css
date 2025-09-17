@@ -11,24 +11,22 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  border: 2px solid var(--chronica-border-color, #e2e8f0);
-  border-radius: 8px;
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: 6px;
   background: var(--chronica-bg-color, #ffffff);
   transition: all 0.2s ease;
-}
-
-.duration-input-container:hover {
-  border-color: var(--chronica-border-hover-color, #cbd5e1);
+  min-height: 40px;
 }
 
 .duration-input-container:focus-within {
+  outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
+  outline-offset: 2px;
   border-color: var(--chronica-primary-color, #3b82f6);
-  box-shadow: 0 0 0 3px var(--chronica-primary-color-alpha, rgba(59, 130, 246, 0.1));
 }
 
 .duration-input {
   flex: 1;
-  padding: 12px 16px;
+  padding: 8px 12px;
   border: none;
   background: transparent;
   font-size: 14px;
@@ -47,7 +45,7 @@
 }
 
 .duration-input-icon {
-  padding: 0 16px;
+  padding: 0 12px;
   color: var(--chronica-text-muted-color, #9ca3af);
   display: flex;
   align-items: center;
@@ -312,48 +310,56 @@
   --chronica-primary-color: #3b82f6;
   --chronica-primary-hover-color: #2563eb;
   --chronica-primary-color-alpha: rgba(59, 130, 246, 0.1);
+  --chronica-focus: rgba(59, 130, 246, 0.2);
 }
 
 .chronica-green {
   --chronica-primary-color: #10b981;
   --chronica-primary-hover-color: #059669;
   --chronica-primary-color-alpha: rgba(16, 185, 129, 0.1);
+  --chronica-focus: rgba(16, 185, 129, 0.2);
 }
 
 .chronica-purple {
   --chronica-primary-color: #8b5cf6;
   --chronica-primary-hover-color: #7c3aed;
   --chronica-primary-color-alpha: rgba(139, 92, 246, 0.1);
+  --chronica-focus: rgba(139, 92, 246, 0.2);
 }
 
 .chronica-red {
   --chronica-primary-color: #ef4444;
   --chronica-primary-hover-color: #dc2626;
   --chronica-primary-color-alpha: rgba(239, 68, 68, 0.1);
+  --chronica-focus: rgba(239, 68, 68, 0.2);
 }
 
 .chronica-orange {
   --chronica-primary-color: #f97316;
   --chronica-primary-hover-color: #ea580c;
   --chronica-primary-color-alpha: rgba(249, 115, 22, 0.1);
+  --chronica-focus: rgba(249, 115, 22, 0.2);
 }
 
 .chronica-teal {
   --chronica-primary-color: #14b8a6;
   --chronica-primary-hover-color: #0d9488;
   --chronica-primary-color-alpha: rgba(20, 184, 166, 0.1);
+  --chronica-focus: rgba(20, 184, 166, 0.2);
 }
 
 .chronica-pink {
   --chronica-primary-color: #ec4899;
   --chronica-primary-hover-color: #db2777;
   --chronica-primary-color-alpha: rgba(236, 72, 153, 0.1);
+  --chronica-focus: rgba(236, 72, 153, 0.2);
 }
 
 .chronica-indigo {
   --chronica-primary-color: #6366f1;
   --chronica-primary-hover-color: #4f46e5;
   --chronica-primary-color-alpha: rgba(99, 102, 241, 0.1);
+  --chronica-focus: rgba(99, 102, 241, 0.2);
 }
 
 /* Responsive Design */
