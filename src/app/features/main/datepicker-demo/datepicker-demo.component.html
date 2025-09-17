@@ -1,193 +1,274 @@
-<section class="max-w-6xl mx-auto py-8 px-4">
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900">Datepicker</h1>
-    <p class="text-gray-600 mt-2 text-lg">
-      Interactive date picker with popup calendar for forms and user input. Click any input to open
-      the calendar popup.
+<div class="max-w-6xl mx-auto p-5">
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Datepicker Component</h1>
+    <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+      Interactive date picker with popup calendar for forms and user input. Available with built-in
+      input styling or custom trigger elements. Features multiple themes, date restrictions, form
+      integration, and accessibility support for modern web applications.
     </p>
   </div>
 
-  <!-- Basic Datepicker -->
   <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Basic Datepicker</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;chronica-datepicker
-  [selectedDate]="basicSelectedDate"
-  [config]="basicConfig"
-  (dateSelected)="onBasicDateSelected($event)"
-&gt;&lt;/chronica-datepicker&gt;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Simple datepicker with default blue theme. Click the input to open the calendar popup.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
-          <chronica-datepicker
-            [selectedDate]="basicSelectedDate"
-            [config]="basicConfig"
-            (dateSelected)="onBasicDateSelected($event)"
-            (monthChanged)="onMonthChanged($event)"
-          >
-            <input
-              type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              [value]="basicSelectedDate ? (basicSelectedDate | date: 'mediumDate') : ''"
-              placeholder="Select a date"
-              readonly
-            />
-          </chronica-datepicker>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="basicSelectedDate">
-            Selected: {{ basicSelectedDate | date: 'mediumDate' }}
-          </p>
+    <!-- Demo 1: Default Input Datepicker -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Default Input Datepicker</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Built-in styled input with calendar popup. Simple date picker with default blue theme and
+        consistent input styling.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datepicker
+          [selectedDate]="defaultSelectedDate"
+          [config]="defaultConfig"
+          [placeholder]="'Choose a date'"
+          (dateSelected)="onDefaultDateSelected($event)"
+        ></chronica-datepicker>
+
+        <div
+          class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
+          *ngIf="defaultSelectedDate"
+        >
+          <strong class="text-blue-800">Selected Date:</strong>
+          <span class="text-blue-700">{{ defaultSelectedDate | date: 'mediumDate' }}</span>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Themed Datepicker -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Custom Theme</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;chronica-datepicker
-  [selectedDate]="themedSelectedDate"
-  [config]="themedConfig"
-  (dateSelected)="onThemedDateSelected($event)"
-&gt;&lt;/chronica-datepicker&gt;</code></pre>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border mt-2"
-        ><code class="language-typescript">themedConfig = &#123;
-  theme: 'light',
-  colorTheme: 'purple'
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Datepicker with purple color theme. Multiple color themes are available.
-        </p>
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
+  [selectedDate]="defaultSelectedDate"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue'
+  &#125;"
+  [placeholder]="'Choose a date'"
+  (dateSelected)="onDefaultDateSelected($event)"&gt;
+&lt;/chronica-datepicker&gt;</code></pre>
       </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Select Date (Purple Theme)</label
+    </div>
+
+    <!-- Demo 2: Custom Trigger Element -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Custom Trigger Element</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Custom clickable element to trigger the calendar popup. Hide the default input and use any
+        custom element as a trigger with purple theme.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datepicker
+          [selectedDate]="customSelectedDate"
+          [config]="customConfig"
+          [hideInput]="true"
+          (dateSelected)="onCustomDateSelected($event)"
+        >
+          <div
+            class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-lg cursor-pointer hover:bg-purple-200 transition-colors"
           >
-          <chronica-datepicker
-            [selectedDate]="themedSelectedDate"
-            [config]="themedConfig"
-            (dateSelected)="onThemedDateSelected($event)"
-          >
-            <input
-              type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              [value]="themedSelectedDate ? (themedSelectedDate | date: 'mediumDate') : ''"
-              placeholder="Select a date"
-              readonly
-            />
-          </chronica-datepicker>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="themedSelectedDate">
-            Selected: {{ themedSelectedDate | date: 'mediumDate' }}
-          </p>
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            {{
+              customSelectedDate
+                ? (customSelectedDate | date: 'mediumDate')
+                : 'Select appointment date'
+            }}
+          </div>
+        </chronica-datepicker>
+
+        <div
+          class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400"
+          *ngIf="customSelectedDate"
+        >
+          <strong class="text-purple-800">Selected Date:</strong>
+          <span class="text-purple-700">{{ customSelectedDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-purple-800">Trigger:</strong>
+          <span class="text-purple-700">Custom clickable element</span>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Date Range Restricted -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Date Range Restrictions</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">restrictedConfig = &#123;
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
+  [selectedDate]="customSelectedDate"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'purple'
+  &#125;"
+  [hideInput]="true"
+  (dateSelected)="onCustomDateSelected($event)"&gt;
+  &lt;div class="custom-trigger"&gt;
+    &lt;svg&gt;...&lt;/svg&gt;
+    &#123;&#123; customSelectedDate ? 
+        (customSelectedDate | date: 'mediumDate') : 
+        'Select appointment date' &#125;&#125;
+  &lt;/div&gt;
+&lt;/chronica-datepicker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 3: Color Themes -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Multiple Color Themes</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Multiple color themes for different design needs. Choose from blue, green, purple, red,
+        orange, teal, pink, and indigo themes.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Green Theme</label>
+            <chronica-datepicker
+              [selectedDate]="greenSelectedDate"
+              [config]="greenConfig"
+              [placeholder]="'Select date (Green)'"
+              (dateSelected)="onGreenDateSelected($event)"
+            ></chronica-datepicker>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Red Theme</label>
+            <chronica-datepicker
+              [selectedDate]="redSelectedDate"
+              [config]="redConfig"
+              [placeholder]="'Select date (Red)'"
+              (dateSelected)="onRedDateSelected($event)"
+            ></chronica-datepicker>
+          </div>
+        </div>
+
+        <div
+          class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
+          *ngIf="greenSelectedDate || redSelectedDate"
+        >
+          <div *ngIf="greenSelectedDate">
+            <strong class="text-green-800">Green Theme:</strong>
+            <span class="text-green-700">{{ greenSelectedDate | date: 'mediumDate' }}</span>
+          </div>
+          <div *ngIf="redSelectedDate">
+            <strong class="text-red-800">Red Theme:</strong>
+            <span class="text-red-700">{{ redSelectedDate | date: 'mediumDate' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
+  [selectedDate]="greenSelectedDate"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'green'
+  &#125;"&gt;
+&lt;/chronica-datepicker&gt;
+
+&lt;chronica-datepicker
+  [selectedDate]="redSelectedDate"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'red'
+  &#125;"&gt;
+&lt;/chronica-datepicker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 4: Date Restrictions -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Date Restrictions</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Min/max date ranges and disabled specific dates. Restrict date selection to specific ranges
+        or disable holidays and unavailable dates.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Date Range (2024 Only)</label
+            >
+            <chronica-datepicker
+              [selectedDate]="restrictedSelectedDate"
+              [config]="restrictedConfig"
+              [placeholder]="'Select date (2024 only)'"
+              (dateSelected)="onRestrictedDateSelected($event)"
+            ></chronica-datepicker>
+            <p class="text-xs text-gray-500 mt-1">Only dates in 2024 are selectable</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Disabled Holidays</label>
+            <chronica-datepicker
+              [selectedDate]="disabledDatesSelected"
+              [config]="disabledDatesConfig"
+              [placeholder]="'Select date (holidays disabled)'"
+              (dateSelected)="onDisabledDatesSelected($event)"
+            ></chronica-datepicker>
+            <p class="text-xs text-gray-500 mt-1">Christmas, New Year, and July 4th are disabled</p>
+          </div>
+        </div>
+
+        <div
+          class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400"
+          *ngIf="restrictedSelectedDate || disabledDatesSelected"
+        >
+          <div *ngIf="restrictedSelectedDate">
+            <strong class="text-orange-800">Restricted Range:</strong>
+            <span class="text-orange-700">{{ restrictedSelectedDate | date: 'mediumDate' }}</span
+            ><br />
+            <strong class="text-orange-800">Restriction:</strong>
+            <span class="text-orange-700">✅ Within allowed range (2024)</span>
+          </div>
+          <div *ngIf="disabledDatesSelected" class="mt-2">
+            <strong class="text-red-800">Disabled Dates:</strong>
+            <span class="text-red-700">{{ disabledDatesSelected | date: 'mediumDate' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>// Date range restriction
+restrictedConfig = &#123;
   theme: 'light',
-  colorTheme: 'green',
+  colorTheme: 'orange',
   minDate: new Date(2024, 0, 1),
   maxDate: new Date(2024, 11, 31)
+&#125;;
+
+// Disabled specific dates
+disabledDatesConfig = &#123;
+  theme: 'light',
+  colorTheme: 'red',
+  disabledDates: [
+    new Date(2024, 11, 25), // Christmas
+    new Date(2024, 0, 1),   // New Year
+    new Date(2024, 6, 4)    // July 4th
+  ]
 &#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Restrict date selection to a specific range. Dates outside the range are disabled.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Select Date (2024 Only)</label
-          >
-          <chronica-datepicker
-            [selectedDate]="restrictedSelectedDate"
-            [config]="restrictedConfig"
-            (dateSelected)="onRestrictedDateSelected($event)"
-          >
-            <input
-              type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-              [value]="restrictedSelectedDate ? (restrictedSelectedDate | date: 'mediumDate') : ''"
-              placeholder="Select a date (2024 only)"
-              readonly
-            />
-          </chronica-datepicker>
-          <p class="text-xs text-gray-500 mt-2">Only dates in 2024 are selectable</p>
-          <p class="text-xs text-gray-500 mt-1" *ngIf="restrictedSelectedDate">
-            Selected: {{ restrictedSelectedDate | date: 'mediumDate' }}
-          </p>
-        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Form Integration -->
-  <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Form Integration</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-html">&lt;form&gt;
-  &lt;div class="form-group"&gt;
-    &lt;label&gt;Appointment Date&lt;/label&gt;
-    &lt;chronica-datepicker
-      [(ngModel)]="formSelectedDate"
-      [config]="formConfig"
-      name="appointmentDate"
-    &gt;&lt;/chronica-datepicker&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Seamless integration with Angular forms using ngModel or reactive forms.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <form class="space-y-4">
+    <!-- Demo 5: Form Integration -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Form Integration</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Seamless integration with Angular forms using ngModel and ControlValueAccessor pattern.
+        Perfect for forms and validation workflows.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <form #dateForm="ngForm">
+          <div class="space-y-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Appointment Date</label>
               <chronica-datepicker
                 [(ngModel)]="formSelectedDate"
                 [config]="formConfig"
+                [placeholder]="'Select appointment date'"
                 name="appointmentDate"
                 (dateSelected)="onFormDateSelected($event)"
-              >
-                <input
-                  type="text"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  [value]="formSelectedDate ? (formSelectedDate | date: 'mediumDate') : ''"
-                  placeholder="Select appointment date"
-                  readonly
-                />
-              </chronica-datepicker>
+              ></chronica-datepicker>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
@@ -203,153 +284,297 @@
             >
               Schedule Appointment
             </button>
-          </form>
-          <p class="text-xs text-gray-500 mt-2" *ngIf="formSelectedDate">
-            Form Value: {{ formSelectedDate | date: 'mediumDate' }}
-          </p>
+          </div>
+
+          <div class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400">
+            <strong class="text-indigo-800">Form Valid:</strong>
+            <span class="text-indigo-700">{{ dateForm.valid ? '✅' : '❌' }}</span
+            ><br />
+            <strong class="text-indigo-800">Form Value:</strong>
+            <span class="text-indigo-700">{{ formSelectedDate | date: 'mediumDate' }}</span>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
+  [(ngModel)]="formSelectedDate"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'indigo'
+  &#125;"
+  name="appointmentDate"
+  required&gt;
+&lt;/chronica-datepicker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 6: Dark Theme -->
+    <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
+      <h3 class="text-xl font-semibold text-white mb-2">6. Dark Theme</h3>
+      <p class="text-gray-300 mb-5 leading-relaxed">
+        Dark theme variant with teal accent color. Perfect for dark mode applications and night-time
+        interfaces with consistent styling.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
+        <chronica-datepicker
+          [selectedDate]="darkThemeDate"
+          [config]="darkThemeConfig"
+          [placeholder]="'Select date (dark theme)'"
+          (dateSelected)="onDarkThemeDateSelected($event)"
+        ></chronica-datepicker>
+
+        <div
+          class="mt-4 p-3 bg-teal-900 bg-opacity-30 rounded-md border-l-4 border-teal-400"
+          *ngIf="darkThemeDate"
+        >
+          <strong class="text-teal-200">Selected Date:</strong>
+          <span class="text-teal-100">{{ darkThemeDate | date: 'mediumDate' }}</span
+          ><br />
+          <strong class="text-teal-200">Theme:</strong>
+          <span class="text-teal-100">Dark mode with teal accent</span>
         </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
+  [selectedDate]="darkThemeDate"
+  [config]="&#123;
+    theme: 'dark',
+    colorTheme: 'teal'
+  &#125;"&gt;
+&lt;/chronica-datepicker&gt;</code></pre>
       </div>
     </div>
   </div>
 
-  <!-- Disabled Dates -->
+  <!-- Configuration Options -->
   <div class="mb-12">
-    <h2 class="text-xl font-semibold mb-4">Disabled Dates</h2>
-    <div class="grid lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-medium mb-3">Code Example</h3>
-        <pre
-          class="bg-gray-50 rounded-lg p-4 text-sm overflow-auto border"
-        ><code class="language-typescript">disabledDatesConfig = &#123;
-  theme: 'light',
-  colorTheme: 'red',
-  disabledDates: [
-    new Date(2024, 11, 25), // Christmas
-    new Date(2024, 0, 1),   // New Year
-    new Date(2024, 6, 4)    // July 4th
-  ]
-&#125;;</code></pre>
-        <p class="text-sm text-gray-600 mt-3">
-          Disable specific dates like holidays or unavailable days. Disabled dates cannot be
-          selected.
-        </p>
-      </div>
-      <div>
-        <h3 class="font-medium mb-3">Live Demo</h3>
-        <div class="p-4 border rounded-lg bg-white">
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Select Date (Holidays Disabled)</label
-          >
-          <chronica-datepicker
-            [selectedDate]="disabledDatesSelected"
-            [config]="disabledDatesConfig"
-            (dateSelected)="onDisabledDatesSelected($event)"
-          >
-            <input
-              type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-              [value]="disabledDatesSelected ? (disabledDatesSelected | date: 'mediumDate') : ''"
-              placeholder="Select a date (holidays disabled)"
-              readonly
-            />
-          </chronica-datepicker>
-          <p class="text-xs text-gray-500 mt-2">Christmas, New Year, and July 4th are disabled</p>
-          <p class="text-xs text-gray-500 mt-1" *ngIf="disabledDatesSelected">
-            Selected: {{ disabledDatesSelected | date: 'mediumDate' }}
-          </p>
-        </div>
-      </div>
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
+
+    <div class="overflow-x-auto mt-5">
+      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Property
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Default
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >selectedDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date | null</td>
+            <td class="p-3 text-gray-600">null</td>
+            <td class="p-3 text-gray-600">Currently selected date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >hideInput</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">Hide the default input and use custom trigger</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >placeholder</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'Select date'</td>
+            <td class="p-3 text-gray-600">Placeholder text for the input</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.theme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">'light' | 'dark'</td>
+            <td class="p-3 text-gray-600">'light'</td>
+            <td class="p-3 text-gray-600">Light or dark theme</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.colorTheme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'blue'</td>
+            <td class="p-3 text-gray-600">
+              Color theme: blue, green, purple, red, orange, teal, pink, indigo
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.minDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date</td>
+            <td class="p-3 text-gray-600">undefined</td>
+            <td class="p-3 text-gray-600">Minimum selectable date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.maxDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date</td>
+            <td class="p-3 text-gray-600">undefined</td>
+            <td class="p-3 text-gray-600">Maximum selectable date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.disabledDates</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date[]</td>
+            <td class="p-3 text-gray-600">[]</td>
+            <td class="p-3 text-gray-600">Array of disabled dates</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.showTodayButton</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">true</td>
+            <td class="p-3 text-gray-600">Show "Today" button in calendar</td>
+          </tr>
+          <tr>
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.firstDayOfWeek</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">number</td>
+            <td class="p-3 text-gray-600">0</td>
+            <td class="p-3 text-gray-600">First day of week (0 = Sunday, 1 = Monday)</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Features Summary -->
-  <div class="bg-blue-50 rounded-lg p-6">
-    <h2 class="text-xl font-semibold mb-4 text-blue-900">Key Features</h2>
-    <div class="grid md:grid-cols-2 gap-4">
-      <ul class="space-y-2 text-sm text-blue-800">
+  <!-- Key Features -->
+  <div class="bg-blue-50 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-blue-900">Key Features</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <ul class="space-y-3 text-sm text-blue-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Popup calendar interface
+          <span class="font-medium">Built-in styled input or custom trigger elements</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Multiple color themes
+          <span class="font-medium">Multiple color themes & dark mode support</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Date range restrictions
+          <span class="font-medium">Date range restrictions & disabled dates</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Disabled dates support
+          <span class="font-medium">Popup calendar with month/year navigation</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Today button for quick date selection</span>
         </li>
       </ul>
-      <ul class="space-y-2 text-sm text-blue-800">
+      <ul class="space-y-3 text-sm text-blue-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Angular forms integration
+          <span class="font-medium">Angular forms integration (ngModel & Reactive)</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Keyboard navigation
+          <span class="font-medium">Focus states without hover effects</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Accessibility support
+          <span class="font-medium">Customizable placeholder text</span>
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
             ></path>
           </svg>
-          Localization ready
+          <span class="font-medium">Configurable first day of week</span>
         </li>
       </ul>
     </div>
   </div>
-</section>
+</div>
