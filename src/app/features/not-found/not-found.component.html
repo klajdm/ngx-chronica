@@ -1,16 +1,26 @@
-<div class="flex">
-  <div class="flex h-screen w-full flex-col items-center justify-center">
-    <h1 class="text-4xl font-bold text-gray-800">404</h1>
-    <p class="mt-4 text-lg text-gray-600">Page Not Found 🥲</p>
-    <p class="text-md mt-4 text-gray-500">
-      If you think this is a mistake, please
+<div class="flex items-center justify-center h-screen bg-white">
+  <div class="max-w-md text-center p-6">
+    <h1 class="text-6xl font-extrabold text-gray-800">404</h1>
+    <p class="mt-4 text-xl text-gray-600">We couldn't find that page.</p>
+    <p class="mt-2 text-sm text-gray-500">It may have been moved, renamed, or never existed.</p>
+
+    <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
       <a
-        href="mailto:support@nexscheduler.com"
-        class="font-semibold text-indigo-600 underline hover:text-indigo-500"
+        routerLink="/"
+        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
       >
-        contact support </a
-      >.
+        Back to home
+      </a>
+      <a
+        routerLink="/docs"
+        class="inline-flex items-center px-4 py-2 border border-gray-200 text-gray-700 rounded-md hover:bg-gray-50"
+      >
+        Documentation
+      </a>
+    </div>
+
+    <p class="mt-6 text-xs text-gray-400">
+      If you think this is an error, open an issue on our GitHub repo.
     </p>
-    <a routerLink="/" class="mt-6 text-blue-500 hover:underline"> <- Go back </a>
   </div>
 </div>
