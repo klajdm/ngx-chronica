@@ -14,7 +14,39 @@ import {
   templateUrl: './datepicker-demo.component.html',
 })
 export class DatepickerDemoComponent {
-  // Basic datepicker
+  // Default input datepicker
+  defaultSelectedDate: Date | null = null;
+  defaultConfig: CalendarConfig = {
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'light',
+    colorTheme: 'blue',
+  };
+
+  // Custom trigger datepicker
+  customSelectedDate: Date | null = null;
+  customConfig: CalendarConfig = {
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'light',
+    colorTheme: 'purple',
+  };
+
+  // Green themed datepicker
+  greenSelectedDate: Date | null = null;
+  greenConfig: CalendarConfig = {
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'light',
+    colorTheme: 'green',
+  };
+
+  // Red themed datepicker
+  redSelectedDate: Date | null = null;
+  redConfig: CalendarConfig = {
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'light',
+    colorTheme: 'red',
+  };
+
+  // Basic datepicker (legacy)
   basicSelectedDate: Date | null = null;
   basicConfig: CalendarConfig = {
     ...DEFAULT_CALENDAR_CONFIG,
@@ -22,7 +54,7 @@ export class DatepickerDemoComponent {
     colorTheme: 'blue',
   };
 
-  // Themed datepicker
+  // Themed datepicker (legacy)
   themedSelectedDate: Date | null = null;
   themedConfig: CalendarConfig = {
     ...DEFAULT_CALENDAR_CONFIG,
@@ -35,7 +67,7 @@ export class DatepickerDemoComponent {
   restrictedConfig: CalendarConfig = {
     ...DEFAULT_CALENDAR_CONFIG,
     theme: 'light',
-    colorTheme: 'green',
+    colorTheme: 'orange',
     minDate: new Date(2024, 0, 1), // January 1, 2024
     maxDate: new Date(2024, 11, 31), // December 31, 2024
   };
@@ -61,6 +93,34 @@ export class DatepickerDemoComponent {
     ],
   };
 
+  // Dark theme datepicker
+  darkThemeDate: Date | null = null;
+  darkThemeConfig: CalendarConfig = {
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'dark',
+    colorTheme: 'teal',
+  };
+
+  onDefaultDateSelected(date: Date): void {
+    this.defaultSelectedDate = date;
+    console.log('Default date selected:', date);
+  }
+
+  onCustomDateSelected(date: Date): void {
+    this.customSelectedDate = date;
+    console.log('Custom trigger date selected:', date);
+  }
+
+  onGreenDateSelected(date: Date): void {
+    this.greenSelectedDate = date;
+    console.log('Green themed date selected:', date);
+  }
+
+  onRedDateSelected(date: Date): void {
+    this.redSelectedDate = date;
+    console.log('Red themed date selected:', date);
+  }
+
   onBasicDateSelected(date: Date): void {
     this.basicSelectedDate = date;
     console.log('Basic date selected:', date);
@@ -84,6 +144,11 @@ export class DatepickerDemoComponent {
   onDisabledDatesSelected(date: Date): void {
     this.disabledDatesSelected = date;
     console.log('Disabled dates calendar date selected:', date);
+  }
+
+  onDarkThemeDateSelected(date: Date): void {
+    this.darkThemeDate = date;
+    console.log('Dark theme date selected:', date);
   }
 
   onMonthChanged(event: { month: number; year: number }): void {
