@@ -2,7 +2,7 @@
   <!-- Header with logo and close button -->
   <div class="flex items-center px-4 py-3 border-b border-gray-200">
     <img src="assets/images/logo.png" alt="ngx-chronica" class="h-8 w-8 mr-2" />
-    <div class="font-semibold text-lg">NGX-CHRONICA</div>
+    <div class="font-semibold text-lg text-primary">NGX-CHRONICA</div>
     <button class="ml-auto p-2" (click)="onCloseClick()" aria-label="Close menu">
       <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -23,7 +23,7 @@
           <li *ngIf="!item.children">
             <a
               [routerLink]="item.route"
-              routerLinkActive="font-semibold !text-blue-600"
+              routerLinkActive="font-semibold text-primary"
               [routerLinkActiveOptions]="item.route === '/' ? { exact: true } : { exact: false }"
               class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
               (click)="onMenuItemClick()"
@@ -62,7 +62,7 @@
               <li *ngFor="let child of item.children">
                 <a
                   [routerLink]="child.route"
-                  routerLinkActive="font-semibold !text-blue-600"
+                  routerLinkActive="font-semibold text-primary"
                   class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
                   (click)="onMenuItemClick()"
                 >

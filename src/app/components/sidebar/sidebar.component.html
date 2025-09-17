@@ -6,7 +6,7 @@
           <li *ngIf="!item.children">
             <a
               [routerLink]="item.route"
-              routerLinkActive="font-semibold !text-blue-600"
+              routerLinkActive="font-semibold text-primary"
               [routerLinkActiveOptions]="item.route === '/' ? { exact: true } : { exact: false }"
               class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
             >
@@ -44,7 +44,7 @@
               <li *ngFor="let child of item.children">
                 <a
                   [routerLink]="child.route"
-                  routerLinkActive="font-semibold !text-blue-600"
+                  routerLinkActive="font-semibold text-primary"
                   class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
                 >
                   {{ child.label }}
