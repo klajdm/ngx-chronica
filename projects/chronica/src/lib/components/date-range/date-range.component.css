@@ -41,6 +41,12 @@
   border-color: var(--chronica-primary, #3b82f6);
 }
 
+.chronica-date-range-trigger:active:not(.chronica-disabled) {
+  border-color: var(--chronica-primary, #3b82f6);
+  box-shadow: 0 0 0 1px var(--chronica-primary, #3b82f6);
+  transform: translateY(0px);
+}
+
 .chronica-date-range-trigger.chronica-disabled {
   background-color: var(--chronica-disabled-bg, #f9fafb);
   color: var(--chronica-disabled-text, #9ca3af);
