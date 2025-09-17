@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+/* Project utilities: don't rely on @apply to avoid PostCSS config issues */
+.text-primary {
+	background-image: linear-gradient(to right, #ef4444, #8b5cf6); /* red-600 -> purple-600 */
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
