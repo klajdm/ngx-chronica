@@ -1,11 +1,11 @@
 <!-- Header: table layout to keep logo and title on one row in Markdown viewers that strip styles -->
-<table>
+<table border="0" cellpadding="0" cellspacing="0" style="border:none;">
   <tr>
     <td valign="middle">
-      <img src="../../src/assets/images/logo.png" alt="ngx-chronica logo" width="48" height="48" />
+  <img src="../../src/assets/images/logo.png" alt="ngx-chronica logo" width="48" height="48" style="border:none;"/>
     </td>
     <td valign="middle" style="padding-left:12px">
-      <h1 style="margin:0;font-size:28px;font-weight:700;">NGX-CHRONICA</h1>
+  <h1 style="margin:0;font-size:28px;font-weight:700;border:none;">NGX-CHRONICA</h1>
     </td>
   </tr>
 </table>
