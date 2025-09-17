@@ -199,10 +199,6 @@
   background: transparent;
 }
 
-.chronica-date-cell.chronica-other-month {
-  color: #9ca3af;
-}
-
 .chronica-date-cell.chronica-weekend {
   color: #ef4444;
 }
@@ -247,10 +243,6 @@
 
 .chronica-dark .chronica-today-button-container {
   border-top-color: #374151;
-}
-
-.chronica-dark .chronica-date-cell.chronica-other-month {
-  color: #6b7280;
 }
 
 .chronica-dark .chronica-date-cell.chronica-weekend {
