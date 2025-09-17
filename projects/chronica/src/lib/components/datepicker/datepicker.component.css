@@ -417,7 +417,7 @@
 /* Popup mode styles */
 .chronica-calendar-container {
   display: inline-block;
-  min-width: 200px;
+  min-width: 100px;
   width: 100%;
 }
 
