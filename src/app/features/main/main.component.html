@@ -1,13 +1,13 @@
 <div class="h-screen bg-white flex flex-col">
   <!-- Header at the very top -->
   <header class="z-40 shadow-sm border-b border-gray-200">
-    <app-header></app-header>
+    <app-header (toggleMobileMenu)="toggleMobileDrawer()"></app-header>
   </header>
 
   <!-- Main layout with sidebar and content; use overflow-hidden so only main scrolls -->
   <div class="flex-1 flex overflow-hidden">
-    <!-- Sidebar (fixed) -->
-    <aside class="w-60 border-r border-gray-200 overflow-hidden">
+    <!-- Sidebar (fixed) - hidden on small screens, visible on lg+ -->
+    <aside class="hidden lg:block w-60 border-r border-gray-200 overflow-hidden">
       <app-sidebar></app-sidebar>
     </aside>
 
@@ -25,5 +25,30 @@
         <app-footer></app-footer>
       </footer>
     </div>
+  </div>
+
+  <!-- Mobile Drawer Sidebar (pure Tailwind off-canvas) -->
+  <div
+    *ngIf="mobileDrawerVisible"
+    class="fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-in-out"
+    [class.pointer-events-none]="!mobileDrawerOpen"
+    [class.pointer-events-auto]="mobileDrawerOpen"
+  >
+    <!-- backdrop with animation -->
+    <div
+      class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out"
+      [class.opacity-0]="!mobileDrawerOpen"
+      [class.opacity-50]="mobileDrawerOpen"
+      (click)="closeMobileDrawer()"
+    ></div>
+
+    <!-- panel with slide animation -->
+    <aside
+      class="relative z-50 w-64 max-w-full h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
+      [class.-translate-x-full]="!mobileDrawerOpen"
+      [class.translate-x-0]="mobileDrawerOpen"
+    >
+      <app-mobile-menu (closeMenu)="closeMobileDrawer()"></app-mobile-menu>
+    </aside>
   </div>
 </div>
