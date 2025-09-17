@@ -1,4 +1,7 @@
-# Angular Inline Calendar
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+  <img src="../../src/assets/images/logo.png" alt="ngx-chronica logo" style="height:48px;width:48px;" />
+  <h1 style="margin:0;font-size:28px;font-weight:700;background:linear-gradient(90deg,#f97316,#6366f1);-webkit-background-clip:text;background-clip:text;color:transparent;">NGX-CHRONICA</h1>
+</div>
 
 A lightweight, customizable inline calendar component for Angular applications.
 
