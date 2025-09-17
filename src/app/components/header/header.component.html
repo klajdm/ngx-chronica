@@ -1,7 +1,24 @@
 <div class="px-4 sm:px-6 lg:px-8">
-  <div class="flex justify-between items-center h-16">
-    <!-- Logo with gradient -->
-    <div class="flex items-center">
+  <div class="flex items-center h-16">
+    <!-- Hamburger for mobile -->
+    <button
+      class="lg:hidden flex items-center justify-center mr-2 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md z-50 bg-white"
+      aria-label="Open menu"
+      (click)="onToggleMobileMenu()"
+      style="position: relative; z-index: 9999"
+    >
+      <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
+
+    <!-- Logo centered on mobile, left on desktop -->
+    <div class="flex-1 flex justify-center lg:justify-start items-center">
       <a routerLink="/" class="flex items-center">
         <img src="assets/images/logo.png" alt="ngx-chronica logo" class="h-12 w-12 mr-3" />
         <h1
@@ -12,9 +29,8 @@
       </a>
     </div>
 
-    <!-- Support and GitHub Links -->
-    <div class="flex items-center space-x-6">
-      <!-- Support Link -->
+    <!-- Support and GitHub Links (desktop only) -->
+    <div class="hidden lg:flex items-center space-x-6">
       <a
         href="https://github.com/klajdm/ngx-chronica/discussions"
         class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
@@ -29,8 +45,6 @@
           />
         </svg>
       </a>
-
-      <!-- GitHub Link -->
       <a
         href="https://github.com/klajdm/ngx-chronica"
         target="_blank"
@@ -46,23 +60,6 @@
           />
         </svg>
       </a>
-    </div>
-
-    <!-- Mobile menu button -->
-    <div class="md:hidden">
-      <button
-        type="button"
-        class="text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 p-2 rounded-md"
-      >
-        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
     </div>
   </div>
 </div>
