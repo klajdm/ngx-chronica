@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 interface MenuItem {
   label: string;
@@ -13,7 +14,7 @@ interface MenuItem {
   templateUrl: './mobile-menu.component.html',
   imports: [RouterModule, CommonModule],
 })
-export class MobileMenuComponent {
+export class MobileMenuComponent implements OnInit, OnDestroy {
   // Output event to close the mobile menu
   @Output() closeMenu = new EventEmitter<void>();
 
@@ -60,11 +61,28 @@ export class MobileMenuComponent {
   // track open/closed state for groups by label
   openGroups: Record<string, boolean> = {};
 
-  constructor() {
+  private routerSub?: Subscription;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
     // initialize groups as closed
     this.menuItems.forEach((m) => {
       if (m.children) this.openGroups[m.label] = false;
     });
+
+    // open group if current url matches a child
+    this.updateOpenStates(this.router.url);
+
+    this.routerSub = this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.updateOpenStates(ev.urlAfterRedirects);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
   }
 
   toggleGroup(label: string) {
@@ -74,6 +92,23 @@ export class MobileMenuComponent {
   isGroupOpen(item: MenuItem): boolean {
     if (!item.children) return false;
     return !!this.openGroups[item.label];
+  }
+
+  private updateOpenStates(url: string) {
+    this.menuItems.forEach((m) => {
+      if (m.children) {
+        const anyChildActive = m.children.some((c) => {
+          if (!c.route) return false;
+          return (
+            url === c.route ||
+            url.startsWith(c.route + '/') ||
+            url.startsWith(c.route + '?') ||
+            url.startsWith(c.route + '#')
+          );
+        });
+        this.openGroups[m.label] = anyChildActive;
+      }
+    });
   }
 
   onMenuItemClick() {
