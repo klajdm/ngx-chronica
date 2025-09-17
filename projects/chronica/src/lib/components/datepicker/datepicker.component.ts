@@ -52,6 +52,8 @@ export class ChronicaDatepickerComponent
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
   @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
+  @Input() hideInput: boolean = false;
+  @Input() placeholder: string = 'Select date';
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
@@ -455,6 +457,24 @@ export class ChronicaDatepickerComponent
       '--chronica-accent': colors.accent,
       '--chronica-focus': colors.focus,
     };
+  }
+
+  // Get theme class for styling
+  get themeClass(): string {
+    return this.config.theme === 'dark' ? 'chronica-dark' : 'chronica-light';
+  }
+
+  // Get color theme class for styling
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
+
+  // Get formatted date for display
+  get formattedDate(): string {
+    if (!this.selectedDate) {
+      return this.placeholder;
+    }
+    return this.formatDate(this.selectedDate);
   }
 
   // Get current locale configuration
