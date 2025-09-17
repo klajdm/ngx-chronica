@@ -37,7 +37,10 @@
               </svg>
             </button>
 
-            <ul *ngIf="isGroupOpen(item)" class="ml-4 mt-1 space-y-1">
+            <ul
+              *ngIf="isGroupOpen(item)"
+              class="mt-1 space-y-1 rounded-lg bg-gray-50 shadow-sm p-2 mx-1"
+            >
               <li *ngFor="let child of item.children">
                 <a
                   [routerLink]="child.route"

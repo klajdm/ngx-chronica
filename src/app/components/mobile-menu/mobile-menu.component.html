@@ -2,7 +2,11 @@
   <!-- Header with logo and close button -->
   <div class="flex items-center px-4 py-3 border-b border-gray-200">
     <img src="assets/images/logo.png" alt="ngx-chronica" class="h-8 w-8 mr-2" />
-    <div class="font-semibold text-lg">ngx-chronica</div>
+    <div
+      class="font-semibold text-lg bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+    >
+      ngx-chronica
+    </div>
     <button class="ml-auto p-2" (click)="onCloseClick()" aria-label="Close menu">
       <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -55,7 +59,10 @@
               </svg>
             </button>
 
-            <ul *ngIf="isGroupOpen(item)" class="ml-4 mt-1 space-y-1">
+            <ul
+              *ngIf="isGroupOpen(item)"
+              class="mt-1 space-y-1 rounded-lg bg-gray-50 shadow-sm p-2 mx-1"
+            >
               <li *ngFor="let child of item.children">
                 <a
                   [routerLink]="child.route"
@@ -75,16 +82,36 @@
 
   <!-- Footer with support links -->
   <div class="border-t border-gray-200 p-4">
-    <a
-      href="https://github.com/klajdm/ngx-chronica/discussions"
-      class="block text-gray-700 mb-2 hover:text-blue-700"
-      >Support</a
-    >
-    <a
-      href="https://github.com/klajdm/ngx-chronica"
-      target="_blank"
-      class="block text-gray-700 hover:text-blue-700"
-      >GitHub Source</a
-    >
+    <div class="flex items-center justify-between">
+      <a
+        href="https://github.com/klajdm/ngx-chronica/discussions"
+        class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
+      >
+        Support
+        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          />
+        </svg>
+      </a>
+      <a
+        href="https://github.com/klajdm/ngx-chronica"
+        target="_blank"
+        class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
+      >
+        GitHub
+        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          />
+        </svg>
+      </a>
+    </div>
   </div>
 </div>
