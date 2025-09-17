@@ -30,11 +30,6 @@
   );
 }
 
-.chronica-date-range-trigger:hover:not(.chronica-disabled) {
-  border-color: var(--chronica-primary, #3b82f6);
-  box-shadow: 0 0 0 1px var(--chronica-primary, #3b82f6);
-}
-
 .chronica-date-range-trigger:focus {
   outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
   outline-offset: 2px;
