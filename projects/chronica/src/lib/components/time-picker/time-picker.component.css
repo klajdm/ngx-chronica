@@ -18,11 +18,6 @@
   transition: all 0.2s ease;
 }
 
-.time-input-container:hover {
-  border-color: var(--chronica-primary-color, #3b82f6);
-  box-shadow: 0 0 0 1px var(--chronica-primary-color, #3b82f6);
-}
-
 .time-input-container:focus-within {
   outline: 2px solid var(--chronica-focus, rgba(59, 130, 246, 0.2));
   outline-offset: 2px;
