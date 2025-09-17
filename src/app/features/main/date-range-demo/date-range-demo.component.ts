@@ -39,9 +39,9 @@ export class DateRangeDemoComponent {
     ...DEFAULT_CALENDAR_CONFIG,
     theme: 'light',
     colorTheme: 'green',
-    minDate: new Date(2024, 0, 1), // January 1, 2024
-    maxDate: new Date(2024, 11, 31), // December 31, 2024
   };
+  restrictedMinDate = new Date(2024, 0, 1); // January 1, 2024
+  restrictedMaxDate = new Date(2024, 11, 31); // December 31, 2024
 
   // Form integration date range
   formSelectedRange: DateRange = {

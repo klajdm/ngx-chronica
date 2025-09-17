@@ -72,8 +72,8 @@
 
 /* Popup styles */
 .chronica-date-range-popup {
-  background: var(--chronica-background, #ffffff);
-  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  background: var(--chronica-popup-bg, var(--chronica-background, #ffffff));
+  border: 1px solid var(--chronica-popup-border, var(--chronica-border-color, #e5e7eb));
   border-radius: 8px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   padding: var(--chronica-spacing, 16px);
@@ -242,11 +242,13 @@
 .chronica-date.chronica-clickable:hover:not(.chronica-disabled) {
   background: var(--chronica-hover-bg, #f3f4f6);
   color: var(--chronica-primary, #3b82f6);
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-today {
   font-weight: 700;
   color: var(--chronica-primary, #3b82f6);
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-start-date,
@@ -254,31 +256,32 @@
   background: var(--chronica-primary, #3b82f6);
   color: white;
   font-weight: 600;
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-start-date {
-  border-radius: var(--chronica-border-radius, 6px) 0 0 var(--chronica-border-radius, 6px);
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-end-date {
-  border-radius: 0 var(--chronica-border-radius, 6px) var(--chronica-border-radius, 6px) 0;
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-start-date.chronica-end-date {
-  border-radius: var(--chronica-border-radius, 6px);
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-in-range {
   background: var(--chronica-primary-light, #dbeafe);
   color: var(--chronica-primary-dark, #1d4ed8);
-  border-radius: 0;
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-in-hover-range {
   background: var(--chronica-primary-light, #dbeafe);
   color: var(--chronica-primary-dark, #1d4ed8);
   opacity: 0.7;
-  border-radius: 0;
+  border-radius: 50%;
 }
 
 .chronica-date.chronica-disabled {
@@ -334,60 +337,59 @@
   color: white;
 }
 
-/* Dark theme styles */
-.chronica-date-range-popup.chronica-theme-dark {
-  background: #1f2937;
-  border-color: #374151;
-  color: #f9fafb;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+/* Dark Theme */
+.chronica-dark {
+  --chronica-background: #1f2937;
+  --chronica-text: #f9fafb;
+  --chronica-placeholder: #9ca3af;
+  --chronica-border-color: #374151;
+  --chronica-border-hover-color: #4b5563;
+  --chronica-icon: #9ca3af;
+  --chronica-popup-bg: #1f2937;
+  --chronica-popup-border: #374151;
+  --chronica-header-bg: #111827;
+  --chronica-footer-bg: #111827;
+  --chronica-hover-bg: #374151;
+  --chronica-disabled-bg: #374151;
+  --chronica-disabled-text: #6b7280;
+  --chronica-disabled-border: #4b5563;
 }
 
-.chronica-theme-dark .chronica-date-range-trigger {
-  background: #1f2937;
-  border-color: #374151;
-  color: #f9fafb;
+/* Color Theme Variations */
+.chronica-blue {
+  --chronica-primary: #3b82f6;
+  --chronica-primary-dark: #2563eb;
+  --chronica-focus: rgba(59, 130, 246, 0.2);
 }
 
-.chronica-theme-dark .chronica-date-range-display.chronica-placeholder {
-  color: #9ca3af;
+.chronica-green {
+  --chronica-primary: #10b981;
+  --chronica-primary-dark: #059669;
+  --chronica-focus: rgba(16, 185, 129, 0.2);
 }
 
-.chronica-theme-dark .chronica-quick-select-btn {
-  background: #374151;
-  border-color: #4b5563;
-  color: #f9fafb;
+.chronica-purple {
+  --chronica-primary: #8b5cf6;
+  --chronica-primary-dark: #7c3aed;
+  --chronica-focus: rgba(139, 92, 246, 0.2);
 }
 
-.chronica-theme-dark .chronica-quick-select-btn:hover {
-  background: var(--chronica-primary-dark, #1d4ed8);
-  border-color: var(--chronica-primary, #3b82f6);
+.chronica-red {
+  --chronica-primary: #ef4444;
+  --chronica-primary-dark: #dc2626;
+  --chronica-focus: rgba(239, 68, 68, 0.2);
 }
 
-.chronica-theme-dark .chronica-month-select,
-.chronica-theme-dark .chronica-year-select {
-  background: #374151;
-  border-color: #4b5563;
-  color: #f9fafb;
+.chronica-orange {
+  --chronica-primary: #f97316;
+  --chronica-primary-dark: #ea580c;
+  --chronica-focus: rgba(249, 115, 22, 0.2);
 }
 
-.chronica-theme-dark .chronica-date.chronica-clickable {
-  color: #f9fafb;
-}
-
-.chronica-theme-dark .chronica-date.chronica-clickable:hover:not(.chronica-disabled) {
-  background: #374151;
-}
-
-.chronica-theme-dark .chronica-range-footer {
-  border-color: #374151;
-}
-
-.chronica-theme-dark .chronica-range-dates {
-  color: #f9fafb;
-}
-
-.chronica-theme-dark .chronica-days-count {
-  color: #9ca3af;
+.chronica-teal {
+  --chronica-primary: #14b8a6;
+  --chronica-primary-dark: #0d9488;
+  --chronica-focus: rgba(20, 184, 166, 0.2);
 }
 
 /* Responsive styles */

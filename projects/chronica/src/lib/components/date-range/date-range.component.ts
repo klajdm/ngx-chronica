@@ -49,7 +49,9 @@ export interface DateRange {
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.css'],
 })
-export class ChronicaDateRangeComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class ChronicaDateRangeComponent
+  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+{
   @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: CalendarLocale | string = 'en-US';
   @Input() placeholder = 'Select date range';
@@ -173,12 +175,8 @@ export class ChronicaDateRangeComponent implements OnInit, OnChanges, OnDestroy,
     }
 
     const locale = this.getCurrentLocale();
-    const startStr = this._dateRange.startDate
-      ? this.formatDate(this._dateRange.startDate)
-      : '';
-    const endStr = this._dateRange.endDate 
-      ? this.formatDate(this._dateRange.endDate) 
-      : '';
+    const startStr = this._dateRange.startDate ? this.formatDate(this._dateRange.startDate) : '';
+    const endStr = this._dateRange.endDate ? this.formatDate(this._dateRange.endDate) : '';
 
     if (startStr && endStr) {
       return `${startStr} - ${endStr}`;
@@ -233,10 +231,10 @@ export class ChronicaDateRangeComponent implements OnInit, OnChanges, OnDestroy,
     });
 
     this.overlayRef = this.overlay.create(overlayConfig);
-    
+
     const portal = new TemplatePortal(this.dateRangeTemplate, this.viewContainerRef);
     this.overlayRef.attach(portal);
-    
+
     this.isPopupOpen = true;
 
     // Set calendar to show the month of start date or current month
@@ -319,7 +317,11 @@ export class ChronicaDateRangeComponent implements OnInit, OnChanges, OnDestroy,
   isPreviousMonthDisabled(): boolean {
     if (!this.minDate) return false;
     const firstDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month, 1);
-    const firstDayOfPreviousMonth = new Date(this.currentMonth.year, this.currentMonth.month - 1, 1);
+    const firstDayOfPreviousMonth = new Date(
+      this.currentMonth.year,
+      this.currentMonth.month - 1,
+      1
+    );
     return firstDayOfPreviousMonth < this.minDate;
   }
 
@@ -514,5 +516,13 @@ export class ChronicaDateRangeComponent implements OnInit, OnChanges, OnDestroy,
     const day = String(date.getDate()).padStart(2, '0');
 
     return format.replace('yyyy', year.toString()).replace('MM', month).replace('dd', day);
+  }
+
+  get themeClass(): string {
+    return `chronica-${this.config.theme || 'light'}`;
+  }
+
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
   }
 }

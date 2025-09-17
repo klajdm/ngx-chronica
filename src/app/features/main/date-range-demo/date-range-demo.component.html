@@ -106,6 +106,8 @@
         <chronica-date-range
           [(ngModel)]="restrictedSelectedRange"
           [config]="restrictedConfig"
+          [minDate]="restrictedMinDate"
+          [maxDate]="restrictedMaxDate"
           placeholder="Select date range (2024 only)"
           (dateRangeChange)="onRestrictedRangeChanged($event)"
         ></chronica-date-range>
@@ -129,10 +131,10 @@
   [(ngModel)]="restrictedSelectedRange"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'green',
-    minDate: new Date(2024, 0, 1),
-    maxDate: new Date(2024, 11, 31)
-  &#125;"&gt;
+    colorTheme: 'green'
+  &#125;"
+  [minDate]="new Date(2024, 0, 1)"
+  [maxDate]="new Date(2024, 11, 31)"&gt;
 &lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
