@@ -14,7 +14,7 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './getting-started.component.html',
 })
 export class GettingStartedComponent {
-  private readonly themeService = inject(ThemeService);
+  private readonly _themeService = inject(ThemeService);
 
   // Example datepicker
   exampleSelectedDate: Date | null = new Date(2025, 8, 15); // September 15, 2025
@@ -22,7 +22,7 @@ export class GettingStartedComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 

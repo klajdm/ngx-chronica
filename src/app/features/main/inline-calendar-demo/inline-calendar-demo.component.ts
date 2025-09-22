@@ -15,7 +15,7 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './inline-calendar-demo.component.html',
 })
 export class InlineCalendarDemoComponent {
-  private readonly themeService = inject(ThemeService);
+  private readonly _themeService = inject(ThemeService);
 
   // Basic inline calendar
   basicSelectedDate: Date | null = null;
@@ -23,7 +23,7 @@ export class InlineCalendarDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 
@@ -33,7 +33,7 @@ export class InlineCalendarDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showTodayButton: false,
     })
   );
@@ -44,7 +44,7 @@ export class InlineCalendarDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       minDate: new Date(2024, 0, 1),
       maxDate: new Date(2024, 11, 31),
     })
@@ -56,7 +56,7 @@ export class InlineCalendarDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       disabledDates: this.generateWeekendDates(),
     })
   );
@@ -67,33 +67,28 @@ export class InlineCalendarDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 
   onBasicDateSelected(date: Date): void {
     this.basicSelectedDate = date;
-    console.log('Basic inline calendar date selected:', date);
   }
 
   onCompactDateSelected(date: Date): void {
     this.compactSelectedDate = date;
-    console.log('Compact inline calendar date selected:', date);
   }
 
   onRestrictedDateSelected(date: Date): void {
     this.restrictedSelectedDate = date;
-    console.log('Restricted inline calendar date selected:', date);
   }
 
   onWeekendDisabledSelected(date: Date): void {
     this.weekendDisabledSelected = date;
-    console.log('Weekend disabled calendar date selected:', date);
   }
 
   onPreSelectedDateSelected(date: Date): void {
     this.preSelectedDate = date;
-    console.log('Pre-selected calendar date selected:', date);
   }
 
   onMonthChanged(event: { month: number; year: number }): void {
