@@ -20,42 +20,155 @@
     <!-- Logo centered on mobile, left on desktop -->
     <div class="flex-1 flex justify-start items-center">
       <a routerLink="/" class="flex items-center">
-        <img src="assets/images/logo.png" alt="ngx-chronica logo" class="h-12 w-12 mr-3" />
-        <h1 class="text-2xl font-bold text-primary">NGX-CHRONICA</h1>
+        <img
+          src="assets/images/logo.png"
+          alt="ngx-chronica logo"
+          class="h-10 w-10 md:h-12 md:w-12 mr-3"
+        />
+        <h1 class="text-xl md:text-2xl font-bold text-primary">NGX-CHRONICA</h1>
       </a>
     </div>
 
-    <!-- Support and GitHub Links (desktop only) -->
-    <div class="hidden lg:flex items-center space-x-6">
-      <a
-        href="https://github.com/klajdm/ngx-chronica/discussions"
-        class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
-      >
-        Support
-        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
+    <!-- Theme Selector (always visible) and Desktop Links -->
+    <div class="flex items-center lg:space-x-6">
+      <!-- Theme Selector -->
+      <div class="relative theme-selector">
+        <button
+          (click)="toggleThemeDropdown()"
+          class="flex items-center space-x-2 px-2 py-2 lg:px-3 text-gray-600 hover:text-gray-900 text-sm font-medium rounded-md hover:bg-gray-100 transition-colors"
+          [attr.aria-expanded]="isThemeDropdownOpen()"
+          aria-haspopup="true"
+          aria-label="Select color theme"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          />
-        </svg>
-      </a>
-      <a
-        href="https://github.com/klajdm/ngx-chronica"
-        target="_blank"
-        class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
-      >
-        GitHub
-        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          />
-        </svg>
-      </a>
+            class="lucide lucide-paint-bucket-icon lucide-paint-bucket lg:w-5 lg:h-5"
+          >
+            <path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z" />
+            <path d="m5 2 5 5" />
+            <path d="M2 13h15" />
+            <path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z" />
+          </svg>
+
+          <!-- Current theme color indicator -->
+          <div
+            class="w-3 h-3 rounded-full border border-gray-300"
+            [style.background-color]="currentThemeOption().color"
+          ></div>
+
+          <!-- Dropdown arrow - hidden on mobile to save space -->
+          <svg
+            class="w-3 h-3 transition-transform duration-200 hidden sm:block"
+            [class.rotate-180]="isThemeDropdownOpen()"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        @if (isThemeDropdownOpen()) {
+          <div
+            class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50 py-2"
+            role="menu"
+            aria-label="Color theme options"
+          >
+            <div class="px-3 py-2 border-b border-gray-100">
+              <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                Color Theme
+              </div>
+            </div>
+
+            @for (themeOption of themeOptions; track themeOption.value) {
+              <button
+                (click)="selectTheme(themeOption.value)"
+                class="w-full px-3 py-2 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
+                [class.bg-blue-50]="currentTheme() === themeOption.value"
+                [class.text-blue-700]="currentTheme() === themeOption.value"
+                role="menuitem"
+              >
+                <!-- Theme color indicator -->
+                <div
+                  class="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0"
+                  [style.background-color]="themeOption.color"
+                ></div>
+
+                <!-- Theme details -->
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium">{{ themeOption.label }}</div>
+                  <div class="text-xs text-gray-500 truncate">{{ themeOption.description }}</div>
+                </div>
+
+                <!-- Selected indicator -->
+                @if (currentTheme() === themeOption.value) {
+                  <svg
+                    class="w-4 h-4 text-blue-600 flex-shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                }
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Support and GitHub Links (desktop only) -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <!-- Support Link -->
+        <a
+          href="https://github.com/klajdm/ngx-chronica/discussions"
+          class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
+        >
+          Support
+          <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        </a>
+
+        <!-- GitHub Link -->
+        <a
+          href="https://github.com/klajdm/ngx-chronica"
+          target="_blank"
+          class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
+        >
+          GitHub
+          <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </div>

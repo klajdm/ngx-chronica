@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -9,6 +9,7 @@ import {
   CalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/chronica.models';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   selector: 'app-date-range-demo',
@@ -17,29 +18,27 @@ import {
   templateUrl: './date-range-demo.component.html',
 })
 export class DateRangeDemoComponent {
+  private readonly _themeService = inject(ThemeService);
+
   // Basic date range
   basicSelectedRange: DateRange = { startDate: null, endDate: null };
-  basicConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'light',
-    colorTheme: 'blue',
-  };
-
-  // Themed date range
-  themedSelectedRange: DateRange = { startDate: null, endDate: null };
-  themedConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'light',
-    colorTheme: 'purple',
-  };
+  basicConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
 
   // Date range restricted
   restrictedSelectedRange: DateRange = { startDate: null, endDate: null };
-  restrictedConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'light',
-    colorTheme: 'green',
-  };
+  restrictedConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
   restrictedMinDate = new Date(2024, 0, 1); // January 1, 2024
   restrictedMaxDate = new Date(2024, 11, 31); // December 31, 2024
 
@@ -48,70 +47,67 @@ export class DateRangeDemoComponent {
     startDate: new Date(),
     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
   };
-  formConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'light',
-    colorTheme: 'indigo',
-  };
+  formConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
 
   // Business days only (no weekends)
   businessDaysRange: DateRange = { startDate: null, endDate: null };
-  businessDaysConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'light',
-    colorTheme: 'red',
-    disabledDates: this.generateWeekendDates(),
-  };
+  businessDaysConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+      disabledDates: this.generateWeekendDates(),
+    })
+  );
 
   // Quick select presets
   presetRange: DateRange = { startDate: null, endDate: null };
-  presetConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'light',
-    colorTheme: 'indigo',
-  };
+  presetConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
 
   // Dark theme date range
   darkThemeRange: DateRange = { startDate: null, endDate: null };
-  darkThemeConfig: CalendarConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
-    theme: 'dark',
-    colorTheme: 'teal',
-  };
+  darkThemeConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'dark',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
 
   onBasicRangeChanged(range: DateRange): void {
     this.basicSelectedRange = range;
-    console.log('Basic range selected:', range);
-  }
-
-  onThemedRangeChanged(range: DateRange): void {
-    this.themedSelectedRange = range;
-    console.log('Themed range selected:', range);
   }
 
   onRestrictedRangeChanged(range: DateRange): void {
     this.restrictedSelectedRange = range;
-    console.log('Restricted range selected:', range);
   }
 
   onFormRangeChanged(range: DateRange): void {
     this.formSelectedRange = range;
-    console.log('Form range selected:', range);
   }
 
   onBusinessDaysRangeChanged(range: DateRange): void {
     this.businessDaysRange = range;
-    console.log('Business days range selected:', range);
   }
 
   onPresetRangeChanged(range: DateRange): void {
     this.presetRange = range;
-    console.log('Preset range selected:', range);
   }
 
   onDarkThemeRangeChanged(range: DateRange): void {
     this.darkThemeRange = range;
-    console.log('Dark theme range selected:', range);
   }
 
   getDaysDifference(range: DateRange): number {
@@ -148,7 +144,6 @@ export class DateRangeDemoComponent {
       return 'Custom selection';
     }
 
-    const today = new Date();
     const startDate = new Date(range.startDate);
     const endDate = new Date(range.endDate);
 
@@ -191,14 +186,6 @@ export class DateRangeDemoComponent {
     const now = new Date();
     const startDate = new Date(now.getFullYear(), now.getMonth(), 1);
     const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    return { startDate, endDate };
-  }
-
-  private getCurrentQuarter(): DateRange {
-    const now = new Date();
-    const quarterStartMonth = Math.floor(now.getMonth() / 3) * 3;
-    const startDate = new Date(now.getFullYear(), quarterStartMonth, 1);
-    const endDate = new Date(now.getFullYear(), quarterStartMonth + 3, 0);
     return { startDate, endDate };
   }
 
