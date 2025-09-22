@@ -38,12 +38,9 @@
             (monthChanged)="onMonthChanged($event)"
           ></chronica-inline-calendar>
 
-          <div
-            class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
-            *ngIf="basicSelectedDate"
-          >
-            <strong class="text-blue-800">Selected Date:</strong>
-            <span class="text-blue-700">{{ basicSelectedDate | date: 'mediumDate' }}</span>
+          <div class="py-3" *ngIf="basicSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ basicSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>
@@ -63,7 +60,7 @@
   [selectedDate]="compactSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'orange',
+    colorTheme: 'blue',
     showTodayButton: false
   &#125;"
   (dateSelected)="onCompactDateSelected($event)"&gt;
@@ -77,12 +74,9 @@
             (dateSelected)="onCompactDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div
-            class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400"
-            *ngIf="compactSelectedDate"
-          >
-            <strong class="text-orange-800">Selected Date:</strong>
-            <span class="text-orange-700">{{ compactSelectedDate | date: 'mediumDate' }}</span>
+          <div class="py-3" *ngIf="compactSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ compactSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>
@@ -102,7 +96,7 @@
   [selectedDate]="restrictedSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'red',
+    colorTheme: 'blue',
     minDate: new Date(2024, 0, 1),
     maxDate: new Date(2024, 11, 31)
   &#125;"
@@ -117,11 +111,11 @@
             (dateSelected)="onRestrictedDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="mt-4 p-3 bg-red-50 rounded-md border-l-4 border-red-400">
-            <p class="text-red-800 text-sm">Only dates in 2024 are selectable</p>
+          <div class="py-3">
+            <p class="text-sm">Only dates in 2024 are selectable</p>
             <div *ngIf="restrictedSelectedDate">
-              <strong class="text-red-800">Selected Date:</strong>
-              <span class="text-red-700">{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
+              <strong>Selected Date: </strong>
+              <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
             </div>
           </div>
         </div>
@@ -142,7 +136,7 @@
   [selectedDate]="weekendDisabledSelected"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'purple',
+    colorTheme: 'blue',
     disabledDates: this.generateWeekendDates()
   &#125;"
   (dateSelected)="onWeekendDisabledSelected($event)"&gt;
@@ -156,13 +150,11 @@
             (dateSelected)="onWeekendDisabledSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400">
-            <p class="text-purple-800 text-sm">Weekends are disabled</p>
+          <div class="py-3">
+            <p class="text-sm">Weekends are disabled</p>
             <div *ngIf="weekendDisabledSelected">
-              <strong class="text-purple-800">Selected Date:</strong>
-              <span class="text-purple-700">{{
-                weekendDisabledSelected | date: 'mediumDate'
-              }}</span>
+              <strong>Selected Date: </strong>
+              <span>{{ weekendDisabledSelected | date: 'mediumDate' }}</span>
             </div>
           </div>
         </div>
@@ -183,7 +175,7 @@
   [selectedDate]="preSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'indigo'
+    colorTheme: 'blue'
   &#125;"
   (dateSelected)="onPreSelectedDateSelected($event)"&gt;
 &lt;/chronica-inline-calendar&gt;
@@ -199,12 +191,9 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onPreSelectedDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div
-            class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400"
-            *ngIf="preSelectedDate"
-          >
-            <strong class="text-indigo-800">Selected Date:</strong>
-            <span class="text-indigo-700">{{ preSelectedDate | date: 'mediumDate' }}</span>
+          <div class="py-3" *ngIf="preSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ preSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>
