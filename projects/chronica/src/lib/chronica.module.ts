@@ -5,9 +5,25 @@ import { ChronicaInlineCalendarComponent } from './components/inline-calendar/in
 import { ChronicaDateRangeComponent } from './components/date-range/date-range.component';
 import { ChronicaTimePickerComponent } from './components/time-picker/time-picker.component';
 import { ChronicaDurationPickerComponent } from './components/duration-picker/duration-picker.component';
+import { ChronicaDateTimePickerComponent } from '../public-api';
 
 @NgModule({
-  imports: [CommonModule, ChronicaDatepickerComponent, ChronicaInlineCalendarComponent, ChronicaDateRangeComponent, ChronicaTimePickerComponent, ChronicaDurationPickerComponent],
-  exports: [ChronicaDatepickerComponent, ChronicaInlineCalendarComponent, ChronicaDateRangeComponent, ChronicaTimePickerComponent, ChronicaDurationPickerComponent],
+  imports: [
+    CommonModule,
+    ChronicaDatepickerComponent,
+    ChronicaDateTimePickerComponent,
+    ChronicaInlineCalendarComponent,
+    ChronicaDateRangeComponent,
+    ChronicaTimePickerComponent,
+    ChronicaDurationPickerComponent,
+  ],
+  exports: [
+    ChronicaDatepickerComponent,
+    ChronicaDateTimePickerComponent,
+    ChronicaInlineCalendarComponent,
+    ChronicaDateRangeComponent,
+    ChronicaTimePickerComponent,
+    ChronicaDurationPickerComponent,
+  ],
 })
 export class ChronicaModule {}
