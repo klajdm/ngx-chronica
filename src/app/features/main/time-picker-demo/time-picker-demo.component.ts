@@ -16,7 +16,7 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './time-picker-demo.component.html',
 })
 export class TimePickerDemoComponent {
-  private readonly themeService = inject(ThemeService);
+  private readonly _themeService = inject(ThemeService);
 
   // Basic time picker (24-hour format)
   basicSelectedTime: TimeValue | null = null;
@@ -24,7 +24,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: true,
       showSeconds: false,
     })
@@ -36,7 +36,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: false,
       showSeconds: false,
     })
@@ -48,7 +48,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: true,
       showSeconds: true,
     })
@@ -60,7 +60,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: true,
       showSeconds: false,
     })
@@ -74,7 +74,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: false,
       showSeconds: false,
     })
@@ -86,7 +86,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: true,
       showSeconds: true,
       minuteStep: 15, // 15-minute intervals
@@ -100,7 +100,7 @@ export class TimePickerDemoComponent {
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'dark',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       format24Hour: true,
       showSeconds: false,
     })
@@ -108,41 +108,30 @@ export class TimePickerDemoComponent {
 
   onBasicTimeChanged(time: TimeValue | null): void {
     this.basicSelectedTime = time;
-    console.log('Basic time selected:', time);
   }
 
   onTwelveHourTimeChanged(time: TimeValue | null): void {
     this.twelveHourTime = time;
-    console.log('12-hour time selected:', time);
   }
 
   onTimeWithSecondsChanged(time: TimeValue | null): void {
     this.timeWithSeconds = time;
-    console.log('Time with seconds selected:', time);
   }
 
   onRestrictedTimeChanged(time: TimeValue | null): void {
     this.restrictedTime = time;
-    console.log('Restricted time selected:', time);
   }
 
   onFormTimeChanged(time: TimeValue | null): void {
     this.formSelectedTime = time;
-    console.log('Form time selected:', time);
   }
 
   onCustomStepTimeChanged(time: TimeValue | null): void {
     this.customStepTime = time;
-    console.log('Custom step time selected:', time);
   }
 
   onDarkThemeTimeChanged(time: TimeValue | null): void {
     this.darkThemeTime = time;
-    console.log('Dark theme time selected:', time);
-  }
-
-  onTimeChange(time: TimeValue | null, source: string): void {
-    console.log(`Time changed from ${source}:`, time);
   }
 
   formatTimeDisplay(
