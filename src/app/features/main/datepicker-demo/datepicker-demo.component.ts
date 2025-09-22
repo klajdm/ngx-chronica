@@ -1,4 +1,4 @@
-import { Component, inject, computed, effect } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChronicaDatepickerComponent } from '../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component';
@@ -15,7 +15,7 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './datepicker-demo.component.html',
 })
 export class DatepickerDemoComponent {
-  private readonly themeService = inject(ThemeService);
+  private readonly _themeService = inject(ThemeService);
 
   // Default input datepicker
   defaultSelectedDate: Date | null = null;
@@ -23,7 +23,7 @@ export class DatepickerDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 
@@ -33,7 +33,7 @@ export class DatepickerDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 
@@ -43,7 +43,7 @@ export class DatepickerDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       minDate: new Date(2024, 0, 1), // January 1, 2024
       maxDate: new Date(2024, 11, 31), // December 31, 2024
     })
@@ -55,7 +55,7 @@ export class DatepickerDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 
@@ -65,7 +65,7 @@ export class DatepickerDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       disabledDates: [
         new Date(2024, 11, 25), // Christmas
         new Date(2024, 0, 1), // New Year
@@ -80,7 +80,7 @@ export class DatepickerDemoComponent {
     (): CalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'dark',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
     })
   );
 
