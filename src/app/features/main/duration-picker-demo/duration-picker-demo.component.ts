@@ -16,7 +16,7 @@ import { ThemeService } from '../../../services/theme.service';
   templateUrl: './duration-picker-demo.component.html',
 })
 export class DurationPickerDemoComponent {
-  private readonly themeService = inject(ThemeService);
+  private readonly _themeService = inject(ThemeService);
 
   // Demo 1: Basic duration picker (hours and minutes)
   basicDuration: DurationValue | null = null;
@@ -24,7 +24,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showHours: true,
       showMinutes: true,
       allowZero: true,
@@ -37,7 +37,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showHours: true,
       showMinutes: true,
       showSeconds: true,
@@ -51,7 +51,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showDays: true,
       showHours: true,
       showMinutes: true,
@@ -66,7 +66,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showHours: true,
       showMinutes: true,
       maxHours: 24,
@@ -80,7 +80,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showHours: true,
       showMinutes: true,
       stepMinutes: 15,
@@ -94,7 +94,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showHours: true,
       showMinutes: true,
       maxHours: 12,
@@ -109,7 +109,7 @@ export class DurationPickerDemoComponent {
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'dark',
-      colorTheme: this.themeService.currentTheme(),
+      colorTheme: this._themeService.currentTheme(),
       showHours: true,
       showMinutes: true,
       allowZero: true,
