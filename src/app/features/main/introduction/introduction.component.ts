@@ -14,6 +14,5 @@ export class IntroductionComponent {
 
   onPreviewDateSelected(date: Date): void {
     this.previewSelectedDate = date;
-    console.log('Intro preview date selected:', date);
   }
 }
