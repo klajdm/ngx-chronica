@@ -19,13 +19,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="basicDuration"
-          [config]="{
-            colorTheme: 'blue',
-            theme: 'light',
-            showHours: true,
-            showMinutes: true,
-            allowZero: true,
-          }"
+          [config]="basicConfig()"
           placeholder="Select duration"
           (durationChange)="onDurationChange($event, 'Basic')"
         ></chronica-duration-picker>
@@ -67,14 +61,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="precisionDuration"
-          [config]="{
-            colorTheme: 'purple',
-            theme: 'light',
-            showHours: true,
-            showMinutes: true,
-            showSeconds: true,
-            allowZero: true,
-          }"
+          [config]="precisionConfig()"
           placeholder="Select precise duration"
           (durationChange)="onDurationChange($event, 'Precision')"
         ></chronica-duration-picker>
@@ -114,15 +101,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="projectDuration"
-          [config]="{
-            colorTheme: 'green',
-            theme: 'light',
-            showDays: true,
-            showHours: true,
-            showMinutes: true,
-            maxDays: 30,
-            allowZero: false,
-          }"
+          [config]="projectConfig()"
           placeholder="Select project duration"
           (durationChange)="onDurationChange($event, 'Project')"
         ></chronica-duration-picker>
@@ -169,13 +148,7 @@
           <chronica-duration-picker
             name="workDuration"
             [(ngModel)]="formDuration"
-            [config]="{
-              colorTheme: 'orange',
-              theme: 'light',
-              showHours: true,
-              showMinutes: true,
-              allowZero: false,
-            }"
+            [config]="formConfig()"
             placeholder="Enter work duration"
             [required]="true"
             (durationChange)="onDurationChange($event, 'Form')"

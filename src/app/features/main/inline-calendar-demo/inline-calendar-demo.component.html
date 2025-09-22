@@ -33,7 +33,7 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="basicSelectedDate"
-            [config]="basicConfig"
+            [config]="basicConfig()"
             (dateSelected)="onBasicDateSelected($event)"
             (monthChanged)="onMonthChanged($event)"
           ></chronica-inline-calendar>
@@ -49,47 +49,9 @@
       </div>
     </div>
 
-    <!-- Demo 2: Custom Theme -->
+    <!-- Demo 2: Compact Version -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Custom Color Theme</h3>
-      <p class="text-gray-600 mb-5 leading-relaxed">
-        Inline calendar with green color theme. Multiple color themes available for seamless brand
-        integration.
-      </p>
-
-      <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="themedSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'green'
-  &#125;"
-  (dateSelected)="onThemedDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
-
-        <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
-          <chronica-inline-calendar
-            [selectedDate]="themedSelectedDate"
-            [config]="themedConfig"
-            (dateSelected)="onThemedDateSelected($event)"
-          ></chronica-inline-calendar>
-
-          <div
-            class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
-            *ngIf="themedSelectedDate"
-          >
-            <strong class="text-green-800">Selected Date:</strong>
-            <span class="text-green-700">{{ themedSelectedDate | date: 'mediumDate' }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Demo 3: Compact Version -->
-    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Compact Version</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Compact Version</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Compact version without the "Today" button for minimal space usage. Perfect for tight
         layouts and mobile interfaces.
@@ -111,7 +73,7 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="compactSelectedDate"
-            [config]="compactConfig"
+            [config]="compactConfig()"
             (dateSelected)="onCompactDateSelected($event)"
           ></chronica-inline-calendar>
 
@@ -126,9 +88,9 @@
       </div>
     </div>
 
-    <!-- Demo 4: Date Range Restrictions -->
+    <!-- Demo 3: Date Range Restrictions -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Date Range Restrictions</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Date Range Restrictions</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Restrict date selection to a specific range. Dates outside the allowed range are disabled
         and cannot be selected.
@@ -151,7 +113,7 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="restrictedSelectedDate"
-            [config]="restrictedConfig"
+            [config]="restrictedConfig()"
             (dateSelected)="onRestrictedDateSelected($event)"
           ></chronica-inline-calendar>
 
@@ -166,9 +128,9 @@
       </div>
     </div>
 
-    <!-- Demo 5: Weekend Disabled -->
+    <!-- Demo 4: Weekend Disabled -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Weekend Disabled</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Weekend Disabled</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Disable weekends for business applications where only weekdays are selectable. Perfect for
         scheduling work events.
@@ -190,7 +152,7 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="weekendDisabledSelected"
-            [config]="weekendDisabledConfig"
+            [config]="weekendDisabledConfig()"
             (dateSelected)="onWeekendDisabledSelected($event)"
           ></chronica-inline-calendar>
 
@@ -207,9 +169,9 @@
       </div>
     </div>
 
-    <!-- Demo 6: Pre-selected Date -->
+    <!-- Demo 5: Pre-selected Date -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Pre-selected Date</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Pre-selected Date</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Calendar with today's date pre-selected. Useful for forms with default values and quick date
         selection workflows.
@@ -233,7 +195,7 @@ preSelectedDate: Date | null = new Date();</code></pre>
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="preSelectedDate"
-            [config]="preSelectedConfig"
+            [config]="preSelectedConfig()"
             (dateSelected)="onPreSelectedDateSelected($event)"
           ></chronica-inline-calendar>
 
