@@ -20,22 +20,19 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-date-range
           [(ngModel)]="basicSelectedRange"
-          [config]="basicConfig"
+          [config]="basicConfig()"
           placeholder="Select date range"
           (dateRangeChange)="onBasicRangeChanged($event)"
         ></chronica-date-range>
 
-        <div
-          class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
-          *ngIf="basicSelectedRange.startDate && basicSelectedRange.endDate"
-        >
-          <strong class="text-blue-800">Selected Range:</strong>
-          <span class="text-blue-700"
+        <div class="py-3" *ngIf="basicSelectedRange.startDate && basicSelectedRange.endDate">
+          <strong>Selected Range: </strong>
+          <span
             >{{ basicSelectedRange.startDate | date: 'mediumDate' }} -
             {{ basicSelectedRange.endDate | date: 'mediumDate' }}</span
           ><br />
-          <strong class="text-blue-800">Duration:</strong>
-          <span class="text-blue-700">{{ getDaysDifference(basicSelectedRange) }} days</span>
+          <strong>Duration: </strong>
+          <span>{{ getDaysDifference(basicSelectedRange) }} days</span>
         </div>
       </div>
 
@@ -52,51 +49,9 @@
       </div>
     </div>
 
-    <!-- Demo 2: Custom Theme -->
+    <!-- Demo 2: Date Range Restrictions -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Custom Color Theme</h3>
-      <p class="text-gray-600 mb-5 leading-relaxed">
-        Date range picker with purple color theme. Multiple color themes are available for brand
-        consistency.
-      </p>
-
-      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
-        <chronica-date-range
-          [(ngModel)]="themedSelectedRange"
-          [config]="themedConfig"
-          placeholder="Select date range (purple theme)"
-          (dateRangeChange)="onThemedRangeChanged($event)"
-        ></chronica-date-range>
-
-        <div
-          class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400"
-          *ngIf="themedSelectedRange.startDate && themedSelectedRange.endDate"
-        >
-          <strong class="text-purple-800">Selected Range:</strong>
-          <span class="text-purple-700"
-            >{{ themedSelectedRange.startDate | date: 'mediumDate' }} -
-            {{ themedSelectedRange.endDate | date: 'mediumDate' }}</span
-          ><br />
-          <strong class="text-purple-800">Duration:</strong>
-          <span class="text-purple-700">{{ getDaysDifference(themedSelectedRange) }} days</span>
-        </div>
-      </div>
-
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
-  [(ngModel)]="themedSelectedRange"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'purple'
-  &#125;"
-  placeholder="Select date range (purple theme)"&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
-    </div>
-
-    <!-- Demo 3: Date Range Restrictions -->
-    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Date Range Restrictions</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Date Range Restrictions</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Restrict date selection to a specific range. Dates outside the allowed range are disabled
         and cannot be selected.
@@ -105,7 +60,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-date-range
           [(ngModel)]="restrictedSelectedRange"
-          [config]="restrictedConfig"
+          [config]="restrictedConfig()"
           [minDate]="restrictedMinDate"
           [maxDate]="restrictedMaxDate"
           placeholder="Select date range (2024 only)"
@@ -113,16 +68,16 @@
         ></chronica-date-range>
 
         <div
-          class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
+          class="py-3"
           *ngIf="restrictedSelectedRange.startDate && restrictedSelectedRange.endDate"
         >
-          <strong class="text-green-800">Selected Range:</strong>
-          <span class="text-green-700"
+          <strong>Selected Range: </strong>
+          <span
             >{{ restrictedSelectedRange.startDate | date: 'mediumDate' }} -
             {{ restrictedSelectedRange.endDate | date: 'mediumDate' }}</span
           ><br />
-          <strong class="text-green-800">Restriction:</strong>
-          <span class="text-green-700">✅ Within allowed range (2024)</span>
+          <strong>Restriction: </strong>
+          <span>✅ Within allowed range (2024)</span>
         </div>
       </div>
 
@@ -131,7 +86,7 @@
   [(ngModel)]="restrictedSelectedRange"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'green'
+    colorTheme: 'blue'
   &#125;"
   [minDate]="new Date(2024, 0, 1)"
   [maxDate]="new Date(2024, 11, 31)"&gt;
@@ -139,9 +94,9 @@
       </div>
     </div>
 
-    <!-- Demo 4: Form Integration -->
+    <!-- Demo 3: Form Integration -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Form Integration</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Form Integration</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Seamless integration with Angular forms using ngModel and ControlValueAccessor pattern.
       </p>
@@ -154,18 +109,18 @@
           <chronica-date-range
             name="projectDuration"
             [(ngModel)]="formSelectedRange"
-            [config]="formConfig"
+            [config]="formConfig()"
             placeholder="Select project timeline"
             [required]="true"
             (dateRangeChange)="onFormRangeChanged($event)"
           ></chronica-date-range>
 
-          <div class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400">
-            <strong class="text-orange-800">Form Valid:</strong>
-            <span class="text-orange-700">{{ rangeForm.valid ? '✅' : '❌' }}</span
+          <div class="py-3">
+            <strong>Form Valid: </strong>
+            <span>{{ rangeForm.valid ? '✅' : '❌' }}</span
             ><br />
-            <strong class="text-orange-800">Form Value:</strong>
-            <span class="text-orange-700">{{ formSelectedRange | json }}</span>
+            <strong>Form Value: </strong>
+            <span>{{ formSelectedRange | json }}</span>
           </div>
         </form>
       </div>
@@ -176,16 +131,16 @@
   [(ngModel)]="formSelectedRange"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'orange'
+    colorTheme: 'blue'
   &#125;"
   required&gt;
 &lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
 
-    <!-- Demo 5: Business Days Only -->
+    <!-- Demo 4: Business Days Only -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Business Days Only</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Business Days Only</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Disable weekends for business day selection only. Useful for project planning, scheduling,
         and business operations.
@@ -194,24 +149,19 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-date-range
           [(ngModel)]="businessDaysRange"
-          [config]="businessDaysConfig"
+          [config]="businessDaysConfig()"
           placeholder="Select business days range"
           (dateRangeChange)="onBusinessDaysRangeChanged($event)"
         ></chronica-date-range>
 
-        <div
-          class="mt-4 p-3 bg-red-50 rounded-md border-l-4 border-red-400"
-          *ngIf="businessDaysRange.startDate && businessDaysRange.endDate"
-        >
-          <strong class="text-red-800">Selected Range:</strong>
-          <span class="text-red-700"
+        <div class="py-3" *ngIf="businessDaysRange.startDate && businessDaysRange.endDate">
+          <strong>Selected Range: </strong>
+          <span
             >{{ businessDaysRange.startDate | date: 'mediumDate' }} -
             {{ businessDaysRange.endDate | date: 'mediumDate' }}</span
           ><br />
-          <strong class="text-red-800">Business Days:</strong>
-          <span class="text-red-700"
-            >{{ getBusinessDaysCount(businessDaysRange) }} working days</span
-          >
+          <strong>Business Days:</strong>
+          <span>{{ getBusinessDaysCount(businessDaysRange) }} working days</span>
         </div>
       </div>
 
@@ -220,16 +170,16 @@
   [(ngModel)]="businessDaysRange"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'red',
+    colorTheme: 'blue',
     disabledDates: this.generateWeekendDates()
   &#125;"&gt;
 &lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
 
-    <!-- Demo 6: Quick Select Presets -->
+    <!-- Demo 5: Quick Select Presets -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Quick Select Presets</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Quick Select Presets</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Pre-defined date ranges for common selections like "Last 7 days", "This month", or "This
         quarter".
@@ -238,22 +188,19 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-date-range
           [(ngModel)]="presetRange"
-          [config]="presetConfig"
+          [config]="presetConfig()"
           placeholder="Select or use presets"
           (dateRangeChange)="onPresetRangeChanged($event)"
         ></chronica-date-range>
 
-        <div
-          class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400"
-          *ngIf="presetRange.startDate && presetRange.endDate"
-        >
-          <strong class="text-indigo-800">Selected Range:</strong>
-          <span class="text-indigo-700"
+        <div class="py-3" *ngIf="presetRange.startDate && presetRange.endDate">
+          <strong>Selected Range: </strong>
+          <span
             >{{ presetRange.startDate | date: 'mediumDate' }} -
             {{ presetRange.endDate | date: 'mediumDate' }}</span
           ><br />
-          <strong class="text-indigo-800">Quick Selection:</strong>
-          <span class="text-indigo-700">{{ getPresetName(presetRange) }}</span>
+          <strong>Quick Selection: </strong>
+          <span>{{ getPresetName(presetRange) }}</span>
         </div>
       </div>
 
@@ -262,7 +209,7 @@
   [(ngModel)]="presetRange"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'indigo',
+    colorTheme: 'blue',
     showPresets: true,
     presets: [
       &#123; label: 'Last 7 days', range: this.getLastNDays(7) &#125;,
@@ -274,33 +221,29 @@
       </div>
     </div>
 
-    <!-- Demo 7: Dark Theme -->
+    <!-- Demo 6: Dark Theme -->
     <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
-      <h3 class="text-xl font-semibold text-white mb-2">7. Dark Theme</h3>
+      <h3 class="text-xl font-semibold text-white mb-2">6. Dark Theme</h3>
       <p class="text-gray-300 mb-5 leading-relaxed">
-        Dark theme variant with teal accent color. Perfect for dark mode applications and night-time
-        interfaces.
+        Dark theme variant. Perfect for dark mode applications and night-time interfaces.
       </p>
 
       <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
         <chronica-date-range
           [(ngModel)]="darkThemeRange"
-          [config]="darkThemeConfig"
+          [config]="darkThemeConfig()"
           placeholder="Select date range (dark theme)"
           (dateRangeChange)="onDarkThemeRangeChanged($event)"
         ></chronica-date-range>
 
-        <div
-          class="mt-4 p-3 bg-teal-900 bg-opacity-30 rounded-md border-l-4 border-teal-400"
-          *ngIf="darkThemeRange.startDate && darkThemeRange.endDate"
-        >
-          <strong class="text-teal-200">Selected Range:</strong>
-          <span class="text-teal-100"
+        <div class="py-3" *ngIf="darkThemeRange.startDate && darkThemeRange.endDate">
+          <strong class="text-gray-300">Selected Range: </strong>
+          <span class="text-gray-300"
             >{{ darkThemeRange.startDate | date: 'mediumDate' }} -
             {{ darkThemeRange.endDate | date: 'mediumDate' }}</span
           ><br />
-          <strong class="text-teal-200">Theme:</strong>
-          <span class="text-teal-100">Dark mode with teal accent</span>
+          <strong class="text-gray-300">Theme: </strong>
+          <span class="text-gray-300">Dark mode</span>
         </div>
       </div>
 
@@ -309,7 +252,7 @@
   [(ngModel)]="darkThemeRange"
   [config]="&#123;
     theme: 'dark',
-    colorTheme: 'teal'
+    colorTheme: 'blue'
   &#125;"&gt;
 &lt;/chronica-date-range&gt;</code></pre>
       </div>

@@ -33,63 +33,22 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="basicSelectedDate"
-            [config]="basicConfig"
+            [config]="basicConfig()"
             (dateSelected)="onBasicDateSelected($event)"
             (monthChanged)="onMonthChanged($event)"
           ></chronica-inline-calendar>
 
-          <div
-            class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
-            *ngIf="basicSelectedDate"
-          >
-            <strong class="text-blue-800">Selected Date:</strong>
-            <span class="text-blue-700">{{ basicSelectedDate | date: 'mediumDate' }}</span>
+          <div class="py-3" *ngIf="basicSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ basicSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Demo 2: Custom Theme -->
+    <!-- Demo 2: Compact Version -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Custom Color Theme</h3>
-      <p class="text-gray-600 mb-5 leading-relaxed">
-        Inline calendar with green color theme. Multiple color themes available for seamless brand
-        integration.
-      </p>
-
-      <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="themedSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'green'
-  &#125;"
-  (dateSelected)="onThemedDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
-
-        <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
-          <chronica-inline-calendar
-            [selectedDate]="themedSelectedDate"
-            [config]="themedConfig"
-            (dateSelected)="onThemedDateSelected($event)"
-          ></chronica-inline-calendar>
-
-          <div
-            class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
-            *ngIf="themedSelectedDate"
-          >
-            <strong class="text-green-800">Selected Date:</strong>
-            <span class="text-green-700">{{ themedSelectedDate | date: 'mediumDate' }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Demo 3: Compact Version -->
-    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Compact Version</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Compact Version</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Compact version without the "Today" button for minimal space usage. Perfect for tight
         layouts and mobile interfaces.
@@ -101,7 +60,7 @@
   [selectedDate]="compactSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'orange',
+    colorTheme: 'blue',
     showTodayButton: false
   &#125;"
   (dateSelected)="onCompactDateSelected($event)"&gt;
@@ -111,24 +70,21 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="compactSelectedDate"
-            [config]="compactConfig"
+            [config]="compactConfig()"
             (dateSelected)="onCompactDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div
-            class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400"
-            *ngIf="compactSelectedDate"
-          >
-            <strong class="text-orange-800">Selected Date:</strong>
-            <span class="text-orange-700">{{ compactSelectedDate | date: 'mediumDate' }}</span>
+          <div class="py-3" *ngIf="compactSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ compactSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Demo 4: Date Range Restrictions -->
+    <!-- Demo 3: Date Range Restrictions -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Date Range Restrictions</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Date Range Restrictions</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Restrict date selection to a specific range. Dates outside the allowed range are disabled
         and cannot be selected.
@@ -140,7 +96,7 @@
   [selectedDate]="restrictedSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'red',
+    colorTheme: 'blue',
     minDate: new Date(2024, 0, 1),
     maxDate: new Date(2024, 11, 31)
   &#125;"
@@ -151,24 +107,24 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="restrictedSelectedDate"
-            [config]="restrictedConfig"
+            [config]="restrictedConfig()"
             (dateSelected)="onRestrictedDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="mt-4 p-3 bg-red-50 rounded-md border-l-4 border-red-400">
-            <p class="text-red-800 text-sm">Only dates in 2024 are selectable</p>
+          <div class="py-3">
+            <p class="text-sm">Only dates in 2024 are selectable</p>
             <div *ngIf="restrictedSelectedDate">
-              <strong class="text-red-800">Selected Date:</strong>
-              <span class="text-red-700">{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
+              <strong>Selected Date: </strong>
+              <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Demo 5: Weekend Disabled -->
+    <!-- Demo 4: Weekend Disabled -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Weekend Disabled</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Weekend Disabled</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Disable weekends for business applications where only weekdays are selectable. Perfect for
         scheduling work events.
@@ -180,7 +136,7 @@
   [selectedDate]="weekendDisabledSelected"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'purple',
+    colorTheme: 'blue',
     disabledDates: this.generateWeekendDates()
   &#125;"
   (dateSelected)="onWeekendDisabledSelected($event)"&gt;
@@ -190,26 +146,24 @@
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="weekendDisabledSelected"
-            [config]="weekendDisabledConfig"
+            [config]="weekendDisabledConfig()"
             (dateSelected)="onWeekendDisabledSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400">
-            <p class="text-purple-800 text-sm">Weekends are disabled</p>
+          <div class="py-3">
+            <p class="text-sm">Weekends are disabled</p>
             <div *ngIf="weekendDisabledSelected">
-              <strong class="text-purple-800">Selected Date:</strong>
-              <span class="text-purple-700">{{
-                weekendDisabledSelected | date: 'mediumDate'
-              }}</span>
+              <strong>Selected Date: </strong>
+              <span>{{ weekendDisabledSelected | date: 'mediumDate' }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Demo 6: Pre-selected Date -->
+    <!-- Demo 5: Pre-selected Date -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Pre-selected Date</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Pre-selected Date</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Calendar with today's date pre-selected. Useful for forms with default values and quick date
         selection workflows.
@@ -221,7 +175,7 @@
   [selectedDate]="preSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'indigo'
+    colorTheme: 'blue'
   &#125;"
   (dateSelected)="onPreSelectedDateSelected($event)"&gt;
 &lt;/chronica-inline-calendar&gt;
@@ -233,16 +187,13 @@ preSelectedDate: Date | null = new Date();</code></pre>
         <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
             [selectedDate]="preSelectedDate"
-            [config]="preSelectedConfig"
+            [config]="preSelectedConfig()"
             (dateSelected)="onPreSelectedDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div
-            class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400"
-            *ngIf="preSelectedDate"
-          >
-            <strong class="text-indigo-800">Selected Date:</strong>
-            <span class="text-indigo-700">{{ preSelectedDate | date: 'mediumDate' }}</span>
+          <div class="py-3" *ngIf="preSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ preSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>

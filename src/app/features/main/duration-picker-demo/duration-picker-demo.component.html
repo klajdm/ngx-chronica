@@ -19,26 +19,17 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="basicDuration"
-          [config]="{
-            colorTheme: 'blue',
-            theme: 'light',
-            showHours: true,
-            showMinutes: true,
-            allowZero: true,
-          }"
+          [config]="basicConfig()"
           placeholder="Select duration"
           (durationChange)="onDurationChange($event, 'Basic')"
         ></chronica-duration-picker>
 
-        <div
-          class="mt-4 p-3 bg-teal-50 rounded-md border-l-4 border-teal-400"
-          *ngIf="basicDuration"
-        >
-          <strong class="text-teal-800">Selected:</strong>
-          <span class="text-teal-700">{{ formatDuration(basicDuration) }}</span
+        <div class="py-3" *ngIf="basicDuration">
+          <strong>Selected: </strong>
+          <span>{{ formatDuration(basicDuration) }}</span
           ><br />
-          <strong class="text-teal-800">Total Minutes:</strong>
-          <span class="text-teal-700">{{ getTotalMinutes(basicDuration) }}</span>
+          <strong>Total Minutes: </strong>
+          <span>{{ getTotalMinutes(basicDuration) }}</span>
         </div>
       </div>
 
@@ -67,27 +58,17 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="precisionDuration"
-          [config]="{
-            colorTheme: 'purple',
-            theme: 'light',
-            showHours: true,
-            showMinutes: true,
-            showSeconds: true,
-            allowZero: true,
-          }"
+          [config]="precisionConfig()"
           placeholder="Select precise duration"
           (durationChange)="onDurationChange($event, 'Precision')"
         ></chronica-duration-picker>
 
-        <div
-          class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400"
-          *ngIf="precisionDuration"
-        >
-          <strong class="text-purple-800">Selected:</strong>
-          <span class="text-purple-700">{{ formatDuration(precisionDuration) }}</span
+        <div class="py-3" *ngIf="precisionDuration">
+          <strong>Selected: </strong>
+          <span>{{ formatDuration(precisionDuration) }}</span
           ><br />
-          <strong class="text-purple-800">Total Seconds:</strong>
-          <span class="text-purple-700">{{ getTotalSeconds(precisionDuration) }}</span>
+          <strong>Total Seconds: </strong>
+          <span>{{ getTotalSeconds(precisionDuration) }}</span>
         </div>
       </div>
 
@@ -95,7 +76,7 @@
         <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
   [(ngModel)]="precisionDuration"
   [config]="&#123;
-    colorTheme: 'purple',
+    colorTheme: 'blue',
     showHours: true,
     showMinutes: true,
     showSeconds: true
@@ -114,28 +95,17 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="projectDuration"
-          [config]="{
-            colorTheme: 'green',
-            theme: 'light',
-            showDays: true,
-            showHours: true,
-            showMinutes: true,
-            maxDays: 30,
-            allowZero: false,
-          }"
+          [config]="projectConfig()"
           placeholder="Select project duration"
           (durationChange)="onDurationChange($event, 'Project')"
         ></chronica-duration-picker>
 
-        <div
-          class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
-          *ngIf="projectDuration"
-        >
-          <strong class="text-green-800">Selected:</strong>
-          <span class="text-green-700">{{ formatDuration(projectDuration) }}</span
+        <div class="py-3" *ngIf="projectDuration">
+          <strong>Selected: </strong>
+          <span>{{ formatDuration(projectDuration) }}</span
           ><br />
-          <strong class="text-green-800">Total Minutes:</strong>
-          <span class="text-green-700">{{ getTotalMinutes(projectDuration) }}</span>
+          <strong>Total Minutes: </strong>
+          <span>{{ getTotalMinutes(projectDuration) }}</span>
         </div>
       </div>
 
@@ -143,7 +113,7 @@
         <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
   [(ngModel)]="projectDuration"
   [config]="&#123;
-    colorTheme: 'green',
+    colorTheme: 'blue',
     showDays: true,
     showHours: true,
     showMinutes: true,
@@ -169,24 +139,18 @@
           <chronica-duration-picker
             name="workDuration"
             [(ngModel)]="formDuration"
-            [config]="{
-              colorTheme: 'orange',
-              theme: 'light',
-              showHours: true,
-              showMinutes: true,
-              allowZero: false,
-            }"
+            [config]="formConfig()"
             placeholder="Enter work duration"
             [required]="true"
             (durationChange)="onDurationChange($event, 'Form')"
           ></chronica-duration-picker>
 
-          <div class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400">
-            <strong class="text-orange-800">Form Valid:</strong>
-            <span class="text-orange-700">{{ durationForm.valid ? '✅' : '❌' }}</span
+          <div class="py-3">
+            <strong>Form Valid: </strong>
+            <span>{{ durationForm.valid ? '✅' : '❌' }}</span
             ><br />
-            <strong class="text-orange-800">Form Value:</strong>
-            <span class="text-orange-700">{{ formDuration | json }}</span>
+            <strong>Form Value: </strong>
+            <span>{{ formDuration | json }}</span>
           </div>
         </form>
       </div>
@@ -196,7 +160,7 @@
   name="workDuration"
   [(ngModel)]="formDuration"
   [config]="&#123;
-    colorTheme: 'orange',
+    colorTheme: 'blue',
     showHours: true,
     showMinutes: true,
     allowZero: false
@@ -216,28 +180,17 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="intervalDuration"
-          [config]="{
-            colorTheme: 'teal',
-            theme: 'light',
-            showHours: true,
-            showMinutes: true,
-            stepHours: 1,
-            stepMinutes: 15,
-            allowZero: true,
-          }"
+          [config]="intervalConfig()"
           placeholder="Select duration (15-min blocks)"
           (durationChange)="onDurationChange($event, 'Interval')"
         ></chronica-duration-picker>
 
-        <div
-          class="mt-4 p-3 bg-teal-50 rounded-md border-l-4 border-teal-400"
-          *ngIf="intervalDuration"
-        >
-          <strong class="text-teal-800">Selected:</strong>
-          <span class="text-teal-700">{{ formatDuration(intervalDuration) }}</span
+        <div class="py-3" *ngIf="intervalDuration">
+          <strong>Selected: </strong>
+          <span>{{ formatDuration(intervalDuration) }}</span
           ><br />
-          <strong class="text-teal-800">Total Minutes:</strong>
-          <span class="text-teal-700">{{ getTotalMinutes(intervalDuration) }}</span>
+          <strong>Total Minutes: </strong>
+          <span>{{ getTotalMinutes(intervalDuration) }}</span>
         </div>
       </div>
 
@@ -245,7 +198,7 @@
         <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
   [(ngModel)]="intervalDuration"
   [config]="&#123;
-    colorTheme: 'teal',
+    colorTheme: 'blue',
     showHours: true,
     showMinutes: true,
     stepHours: 1,
@@ -265,29 +218,18 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-duration-picker
           [(ngModel)]="trackingDuration"
-          [config]="{
-            colorTheme: 'red',
-            theme: 'light',
-            showHours: true,
-            showMinutes: true,
-            maxHours: 12,
-            maxMinutes: 59,
-            allowZero: false,
-          }"
+          [config]="trackingConfig()"
           [maxDuration]="{ hours: 8, minutes: 0 }"
           placeholder="Track work time (max 8 hours)"
           (durationChange)="onDurationChange($event, 'Tracking')"
         ></chronica-duration-picker>
 
-        <div
-          class="mt-4 p-3 bg-red-50 rounded-md border-l-4 border-red-400"
-          *ngIf="trackingDuration"
-        >
-          <strong class="text-red-800">Selected:</strong>
-          <span class="text-red-700">{{ formatDuration(trackingDuration) }}</span
+        <div class="py-3" *ngIf="trackingDuration">
+          <strong>Selected: </strong>
+          <span>{{ formatDuration(trackingDuration) }}</span
           ><br />
-          <strong class="text-red-800">Total Minutes:</strong>
-          <span class="text-red-700">{{ getTotalMinutes(trackingDuration) }}</span>
+          <strong>Total Minutes: </strong>
+          <span>{{ getTotalMinutes(trackingDuration) }}</span>
         </div>
       </div>
 
@@ -295,7 +237,7 @@
         <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
   [(ngModel)]="trackingDuration"
   [config]="&#123;
-    colorTheme: 'red',
+    colorTheme: 'blue',
     showHours: true,
     showMinutes: true,
     maxHours: 12,
@@ -310,32 +252,23 @@
     <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
       <h3 class="text-xl font-semibold text-white mb-2">7. Dark Theme</h3>
       <p class="text-gray-300 mb-5 leading-relaxed">
-        Modern dark theme with pink accent for night-time applications.
+        Modern dark theme for night-time applications.
       </p>
 
       <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
         <chronica-duration-picker
           [(ngModel)]="darkDuration"
-          [config]="{
-            colorTheme: 'pink',
-            theme: 'dark',
-            showHours: true,
-            showMinutes: true,
-            allowZero: true,
-          }"
+          [config]="darkConfig()"
           placeholder="Select duration (dark theme)"
           (durationChange)="onDurationChange($event, 'Dark')"
         ></chronica-duration-picker>
 
-        <div
-          class="mt-4 p-3 bg-pink-900 bg-opacity-30 rounded-md border-l-4 border-pink-400"
-          *ngIf="darkDuration"
-        >
-          <strong class="text-pink-200">Selected:</strong>
-          <span class="text-pink-100">{{ formatDuration(darkDuration) }}</span
+        <div class="py-3" *ngIf="darkDuration">
+          <strong class="text-gray-300">Selected: </strong>
+          <span class="text-gray-300">{{ formatDuration(darkDuration) }}</span
           ><br />
-          <strong class="text-pink-200">Total Minutes:</strong>
-          <span class="text-pink-100">{{ getTotalMinutes(darkDuration) }}</span>
+          <strong class="text-gray-300">Total Minutes: </strong>
+          <span class="text-gray-300">{{ getTotalMinutes(darkDuration) }}</span>
         </div>
       </div>
 
@@ -343,7 +276,7 @@
         <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
   [(ngModel)]="darkDuration"
   [config]="&#123;
-    colorTheme: 'pink',
+    colorTheme: 'blue',
     theme: 'dark',
     showHours: true,
     showMinutes: true

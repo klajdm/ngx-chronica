@@ -129,7 +129,7 @@
         <label class="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
         <chronica-datepicker
           [selectedDate]="exampleSelectedDate"
-          [config]="exampleConfig"
+          [config]="exampleConfig()"
           (dateSelected)="onExampleDateSelected($event)"
         >
           <input
