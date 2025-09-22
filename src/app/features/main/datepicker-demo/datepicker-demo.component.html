@@ -25,13 +25,12 @@
           (dateSelected)="onDefaultDateSelected($event)"
         ></chronica-datepicker>
 
-        <div
-          class="mt-4 p-3 bg-blue-50 rounded-md border-l-4 border-blue-400"
-          *ngIf="defaultSelectedDate"
-        >
-          <strong class="text-blue-800">Selected Date:</strong>
-          <span class="text-blue-700">{{ defaultSelectedDate | date: 'mediumDate' }}</span>
-        </div>
+        @if (defaultSelectedDate) {
+          <div class="py-3">
+            <strong>Selected Date: </strong>
+            <span>{{ defaultSelectedDate | date: 'mediumDate' }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -63,7 +62,7 @@
           (dateSelected)="onCustomDateSelected($event)"
         >
           <div
-            class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-lg cursor-pointer hover:bg-purple-200 transition-colors"
+            class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg cursor-pointer hover:bg-blue-200 transition-colors"
           >
             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -80,16 +79,15 @@
           </div>
         </chronica-datepicker>
 
-        <div
-          class="mt-4 p-3 bg-purple-50 rounded-md border-l-4 border-purple-400"
-          *ngIf="customSelectedDate"
-        >
-          <strong class="text-purple-800">Selected Date:</strong>
-          <span class="text-purple-700">{{ customSelectedDate | date: 'mediumDate' }}</span
-          ><br />
-          <strong class="text-purple-800">Trigger:</strong>
-          <span class="text-purple-700">Custom clickable element</span>
-        </div>
+        @if (customSelectedDate) {
+          <div class="py-3">
+            <strong>Selected Date: </strong>
+            <span>{{ customSelectedDate | date: 'mediumDate' }}</span
+            ><br />
+            <strong>Trigger: </strong>
+            <span>Custom clickable element</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -97,7 +95,7 @@
   [selectedDate]="customSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'purple'
+    colorTheme: 'blue'
   &#125;"
   [hideInput]="true"
   (dateSelected)="onCustomDateSelected($event)"&gt;
@@ -145,20 +143,17 @@
           </div>
         </div>
 
-        <div
-          class="mt-4 p-3 bg-orange-50 rounded-md border-l-4 border-orange-400"
-          *ngIf="restrictedSelectedDate || disabledDatesSelected"
-        >
+        <div class="py-3" *ngIf="restrictedSelectedDate || disabledDatesSelected">
           <div *ngIf="restrictedSelectedDate">
-            <strong class="text-orange-800">Restricted Range:</strong>
-            <span class="text-orange-700">{{ restrictedSelectedDate | date: 'mediumDate' }}</span
+            <strong>Restricted Range: </strong>
+            <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span
             ><br />
-            <strong class="text-orange-800">Restriction:</strong>
-            <span class="text-orange-700">✅ Within allowed range (2024)</span>
+            <strong>Restriction: </strong>
+            <span>✅ Within allowed range (2024)</span>
           </div>
           <div *ngIf="disabledDatesSelected" class="mt-2">
-            <strong class="text-red-800">Disabled Dates:</strong>
-            <span class="text-red-700">{{ disabledDatesSelected | date: 'mediumDate' }}</span>
+            <strong>Disabled Dates: </strong>
+            <span>{{ disabledDatesSelected | date: 'mediumDate' }}</span>
           </div>
         </div>
       </div>
@@ -167,7 +162,7 @@
         <pre class="text-gray-200 text-sm"><code>// Date range restriction
 restrictedConfig = &#123;
   theme: 'light',
-  colorTheme: 'orange',
+  colorTheme: 'blue',
   minDate: new Date(2024, 0, 1),
   maxDate: new Date(2024, 11, 31)
 &#125;;
@@ -175,7 +170,7 @@ restrictedConfig = &#123;
 // Disabled specific dates
 disabledDatesConfig = &#123;
   theme: 'light',
-  colorTheme: 'red',
+  colorTheme: 'blue',
   disabledDates: [
     new Date(2024, 11, 25), // Christmas
     new Date(2024, 0, 1),   // New Year
@@ -216,18 +211,18 @@ disabledDatesConfig = &#123;
             </div>
             <button
               type="submit"
-              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Schedule Appointment
             </button>
           </div>
 
-          <div class="mt-4 p-3 bg-indigo-50 rounded-md border-l-4 border-indigo-400">
-            <strong class="text-indigo-800">Form Valid:</strong>
-            <span class="text-indigo-700">{{ dateForm.valid ? '✅' : '❌' }}</span
+          <div class="py-3">
+            <strong>Form Valid: </strong>
+            <span>{{ dateForm.valid ? '✅' : '❌' }}</span
             ><br />
-            <strong class="text-indigo-800">Form Value:</strong>
-            <span class="text-indigo-700">{{ formSelectedDate | date: 'mediumDate' }}</span>
+            <strong>Form Value: </strong>
+            <span>{{ formSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </form>
       </div>
@@ -237,7 +232,7 @@ disabledDatesConfig = &#123;
   [(ngModel)]="formSelectedDate"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'indigo'
+    colorTheme: 'blue'
   &#125;"
   name="appointmentDate"
   required&gt;
@@ -261,15 +256,12 @@ disabledDatesConfig = &#123;
           (dateSelected)="onDarkThemeDateSelected($event)"
         ></chronica-datepicker>
 
-        <div
-          class="mt-4 p-3 bg-teal-900 bg-opacity-30 rounded-md border-l-4 border-teal-400"
-          *ngIf="darkThemeDate"
-        >
-          <strong class="text-teal-200">Selected Date:</strong>
-          <span class="text-teal-100">{{ darkThemeDate | date: 'mediumDate' }}</span
+        <div class="py-3" *ngIf="darkThemeDate">
+          <strong class="text-gray-300">Selected Date: </strong>
+          <span class="text-gray-300">{{ darkThemeDate | date: 'mediumDate' }}</span
           ><br />
-          <strong class="text-teal-200">Theme:</strong>
-          <span class="text-teal-100">Dark mode with teal accent</span>
+          <strong class="text-gray-300">Theme: </strong>
+          <span class="text-gray-300">Dark mode</span>
         </div>
       </div>
 
@@ -278,7 +270,7 @@ disabledDatesConfig = &#123;
   [selectedDate]="darkThemeDate"
   [config]="&#123;
     theme: 'dark',
-    colorTheme: 'teal'
+    colorTheme: 'blue'
   &#125;"&gt;
 &lt;/chronica-datepicker&gt;</code></pre>
       </div>
