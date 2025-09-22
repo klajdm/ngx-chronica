@@ -37,26 +37,6 @@ export class DatepickerDemoComponent {
     })
   );
 
-  // Basic datepicker (legacy)
-  basicSelectedDate: Date | null = null;
-  basicConfig = computed(
-    (): CalendarConfig => ({
-      ...DEFAULT_CALENDAR_CONFIG,
-      theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
-    })
-  );
-
-  // Themed datepicker (legacy)
-  themedSelectedDate: Date | null = null;
-  themedConfig = computed(
-    (): CalendarConfig => ({
-      ...DEFAULT_CALENDAR_CONFIG,
-      theme: 'light',
-      colorTheme: this.themeService.currentTheme(),
-    })
-  );
-
   // Date range restricted datepicker
   restrictedSelectedDate: Date | null = null;
   restrictedConfig = computed(
@@ -106,45 +86,25 @@ export class DatepickerDemoComponent {
 
   onDefaultDateSelected(date: Date): void {
     this.defaultSelectedDate = date;
-    console.log('Default date selected:', date);
   }
 
   onCustomDateSelected(date: Date): void {
     this.customSelectedDate = date;
-    console.log('Custom trigger date selected:', date);
-  }
-
-  onBasicDateSelected(date: Date): void {
-    this.basicSelectedDate = date;
-    console.log('Basic date selected:', date);
-  }
-
-  onThemedDateSelected(date: Date): void {
-    this.themedSelectedDate = date;
-    console.log('Themed date selected:', date);
   }
 
   onRestrictedDateSelected(date: Date): void {
     this.restrictedSelectedDate = date;
-    console.log('Restricted date selected:', date);
   }
 
   onFormDateSelected(date: Date): void {
     this.formSelectedDate = date;
-    console.log('Form date selected:', date);
   }
 
   onDisabledDatesSelected(date: Date): void {
     this.disabledDatesSelected = date;
-    console.log('Disabled dates calendar date selected:', date);
   }
 
   onDarkThemeDateSelected(date: Date): void {
     this.darkThemeDate = date;
-    console.log('Dark theme date selected:', date);
-  }
-
-  onMonthChanged(event: { month: number; year: number }): void {
-    console.log('Month changed:', event);
   }
 }
