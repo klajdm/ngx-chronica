@@ -20,7 +20,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-datepicker
           [selectedDate]="defaultSelectedDate"
-          [config]="defaultConfig"
+          [config]="defaultConfig()"
           [placeholder]="'Choose a date'"
           (dateSelected)="onDefaultDateSelected($event)"
         ></chronica-datepicker>
@@ -58,7 +58,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-datepicker
           [selectedDate]="customSelectedDate"
-          [config]="customConfig"
+          [config]="customConfig()"
           [hideInput]="true"
           (dateSelected)="onCustomDateSelected($event)"
         >
@@ -111,73 +111,9 @@
       </div>
     </div>
 
-    <!-- Demo 3: Color Themes -->
+    <!-- Demo 3: Date Restrictions -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Multiple Color Themes</h3>
-      <p class="text-gray-600 mb-5 leading-relaxed">
-        Multiple color themes for different design needs. Choose from blue, green, purple, red,
-        orange, teal, pink, and indigo themes.
-      </p>
-
-      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
-        <div class="grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Green Theme</label>
-            <chronica-datepicker
-              [selectedDate]="greenSelectedDate"
-              [config]="greenConfig"
-              [placeholder]="'Select date (Green)'"
-              (dateSelected)="onGreenDateSelected($event)"
-            ></chronica-datepicker>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Red Theme</label>
-            <chronica-datepicker
-              [selectedDate]="redSelectedDate"
-              [config]="redConfig"
-              [placeholder]="'Select date (Red)'"
-              (dateSelected)="onRedDateSelected($event)"
-            ></chronica-datepicker>
-          </div>
-        </div>
-
-        <div
-          class="mt-4 p-3 bg-green-50 rounded-md border-l-4 border-green-400"
-          *ngIf="greenSelectedDate || redSelectedDate"
-        >
-          <div *ngIf="greenSelectedDate">
-            <strong class="text-green-800">Green Theme:</strong>
-            <span class="text-green-700">{{ greenSelectedDate | date: 'mediumDate' }}</span>
-          </div>
-          <div *ngIf="redSelectedDate">
-            <strong class="text-red-800">Red Theme:</strong>
-            <span class="text-red-700">{{ redSelectedDate | date: 'mediumDate' }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="greenSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'green'
-  &#125;"&gt;
-&lt;/chronica-datepicker&gt;
-
-&lt;chronica-datepicker
-  [selectedDate]="redSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'red'
-  &#125;"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
-    </div>
-
-    <!-- Demo 4: Date Restrictions -->
-    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Date Restrictions</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Date Restrictions</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Min/max date ranges and disabled specific dates. Restrict date selection to specific ranges
         or disable holidays and unavailable dates.
@@ -191,7 +127,7 @@
             >
             <chronica-datepicker
               [selectedDate]="restrictedSelectedDate"
-              [config]="restrictedConfig"
+              [config]="restrictedConfig()"
               [placeholder]="'Select date (2024 only)'"
               (dateSelected)="onRestrictedDateSelected($event)"
             ></chronica-datepicker>
@@ -201,7 +137,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Disabled Holidays</label>
             <chronica-datepicker
               [selectedDate]="disabledDatesSelected"
-              [config]="disabledDatesConfig"
+              [config]="disabledDatesConfig()"
               [placeholder]="'Select date (holidays disabled)'"
               (dateSelected)="onDisabledDatesSelected($event)"
             ></chronica-datepicker>
@@ -249,9 +185,9 @@ disabledDatesConfig = &#123;
       </div>
     </div>
 
-    <!-- Demo 5: Form Integration -->
+    <!-- Demo 4: Form Integration -->
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Form Integration</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Form Integration</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
         Seamless integration with Angular forms using ngModel and ControlValueAccessor pattern.
         Perfect for forms and validation workflows.
@@ -264,7 +200,7 @@ disabledDatesConfig = &#123;
               <label class="block text-sm font-medium text-gray-700 mb-2">Appointment Date</label>
               <chronica-datepicker
                 [(ngModel)]="formSelectedDate"
-                [config]="formConfig"
+                [config]="formConfig()"
                 [placeholder]="'Select appointment date'"
                 name="appointmentDate"
                 (dateSelected)="onFormDateSelected($event)"
@@ -309,9 +245,9 @@ disabledDatesConfig = &#123;
       </div>
     </div>
 
-    <!-- Demo 6: Dark Theme -->
+    <!-- Demo 5: Dark Theme -->
     <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
-      <h3 class="text-xl font-semibold text-white mb-2">6. Dark Theme</h3>
+      <h3 class="text-xl font-semibold text-white mb-2">5. Dark Theme</h3>
       <p class="text-gray-300 mb-5 leading-relaxed">
         Dark theme variant with teal accent color. Perfect for dark mode applications and night-time
         interfaces with consistent styling.
@@ -320,7 +256,7 @@ disabledDatesConfig = &#123;
       <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
         <chronica-datepicker
           [selectedDate]="darkThemeDate"
-          [config]="darkThemeConfig"
+          [config]="darkThemeConfig()"
           [placeholder]="'Select date (dark theme)'"
           (dateSelected)="onDarkThemeDateSelected($event)"
         ></chronica-datepicker>

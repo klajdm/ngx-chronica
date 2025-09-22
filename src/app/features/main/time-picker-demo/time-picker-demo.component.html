@@ -20,7 +20,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-time-picker
           [(ngModel)]="basicSelectedTime"
-          [config]="basicConfig"
+          [config]="basicConfig()"
           placeholder="Select time"
           (timeChange)="onBasicTimeChanged($event)"
         ></chronica-time-picker>
@@ -62,7 +62,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-time-picker
           [(ngModel)]="twelveHourTime"
-          [config]="twelveHourConfig"
+          [config]="twelveHourConfig()"
           placeholder="Select time (12-hour format)"
           (timeChange)="onTwelveHourTimeChanged($event)"
         ></chronica-time-picker>
@@ -102,7 +102,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-time-picker
           [(ngModel)]="timeWithSeconds"
-          [config]="secondsConfig"
+          [config]="secondsConfig()"
           placeholder="Select time with seconds"
           (timeChange)="onTimeWithSecondsChanged($event)"
         ></chronica-time-picker>
@@ -145,7 +145,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-time-picker
           [(ngModel)]="restrictedTime"
-          [config]="restrictedConfig"
+          [config]="restrictedConfig()"
           [minTime]="minTime"
           [maxTime]="maxTime"
           placeholder="Business hours only (9:00 - 17:30)"
@@ -192,7 +192,7 @@
           <chronica-time-picker
             name="meetingTime"
             [(ngModel)]="formSelectedTime"
-            [config]="formConfig"
+            [config]="formConfig()"
             placeholder="Select meeting time"
             [required]="true"
             (timeChange)="onFormTimeChanged($event)"
@@ -232,7 +232,7 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <chronica-time-picker
           [(ngModel)]="customStepTime"
-          [config]="customStepConfig"
+          [config]="customStepConfig()"
           placeholder="Custom intervals (15min, 30sec)"
           (timeChange)="onCustomStepTimeChanged($event)"
         ></chronica-time-picker>
@@ -270,7 +270,7 @@
       <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
         <chronica-time-picker
           [(ngModel)]="darkThemeTime"
-          [config]="darkThemeConfig"
+          [config]="darkThemeConfig()"
           placeholder="Select time (dark theme)"
           (timeChange)="onDarkThemeTimeChanged($event)"
         ></chronica-time-picker>
