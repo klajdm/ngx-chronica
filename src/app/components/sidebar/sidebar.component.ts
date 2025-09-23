@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import type { MenuItem } from './menu-item.model';
+import type { MenuItem } from '../models/menu-item.model';
+import { AppMenuItems } from '../models/menuItems';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,45 +13,7 @@ import type { MenuItem } from './menu-item.model';
   styles: [],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  menuItems: MenuItem[] = [
-    {
-      label: 'Introduction',
-      route: '/',
-    },
-    {
-      label: 'Getting Started',
-      route: '/start',
-    },
-    {
-      label: 'Components',
-      children: [
-        {
-          label: 'Datepicker',
-          route: '/components/datepicker',
-        },
-        {
-          label: 'Date Range',
-          route: '/components/date-range',
-        },
-        {
-          label: 'Time Picker',
-          route: '/components/time-picker',
-        },
-        {
-          label: 'Duration Picker',
-          route: '/components/duration-picker',
-        },
-        {
-          label: 'Inline calendar',
-          route: '/components/inline-calendar',
-        },
-      ],
-    },
-    {
-      label: 'License',
-      route: '/license',
-    },
-  ];
+  menuItems: MenuItem[] = AppMenuItems.items;
   // track open/closed state for groups by label
   openGroups: Record<string, boolean> = {};
   private routerSub?: Subscription;
