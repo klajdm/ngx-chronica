@@ -1,0 +1,640 @@
+<div class="max-w-6xl mx-auto">
+  <div class="text-center pt-4 lg:pt-8 mb-10">
+    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">DateTime Picker Component</h1>
+    <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+      Combined date and time picker component for comprehensive datetime selection. Features
+      integrated calendar and time picker with customizable formats, themes, and form integration.
+      Perfect for appointment scheduling, event planning, and any application requiring precise
+      datetime input with a unified interface.
+    </p>
+  </div>
+
+  <div class="mb-12">
+    <!-- Demo 1: Basic DateTime Picker (24-hour format) -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">
+        1. Basic DateTime Picker (24-hour format)
+      </h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Combined date and time picker with 24-hour format. Select both date and time in a single
+        unified interface with side-by-side calendar and time controls.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="basicSelectedDateTime"
+          [config]="basicConfig()"
+          [placeholder]="'Select date and time'"
+          (dateTimeChange)="onBasicDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        @if (basicSelectedDateTime) {
+          <div class="py-3">
+            <strong>Selected DateTime: </strong>
+            <span>{{ formatDateTimeDisplay(basicSelectedDateTime) }}</span
+            ><br />
+            <strong>Date: </strong>
+            <span>{{ basicSelectedDateTime.date | date: 'mediumDate' }}</span
+            ><br />
+            <strong>Time: </strong>
+            <span>{{ formatTimeDisplay(basicSelectedDateTime.time, true) }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [dateTimeValue]="basicSelectedDateTime"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: true,
+    showSeconds: false
+  &#125;"
+  [placeholder]="'Select date and time'"
+  (dateTimeChange)="onBasicDateTimeChanged($event)"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 2: 12-Hour Format -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. 12-Hour Format with AM/PM</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        DateTime picker configured for 12-hour time format with AM/PM selector. Ideal for
+        applications targeting users familiar with standard clock format.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="twelveHourDateTime"
+          [config]="twelveHourConfig()"
+          [placeholder]="'Select appointment time'"
+          (dateTimeChange)="onTwelveHourDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        @if (twelveHourDateTime) {
+          <div class="py-3">
+            <strong>Selected DateTime: </strong>
+            <span>{{ formatDateTimeDisplay(twelveHourDateTime) }}</span
+            ><br />
+            <strong>12-Hour Format: </strong>
+            <span>{{ formatTimeDisplay(twelveHourDateTime.time, false) }}</span
+            ><br />
+            <strong>Valid Business Hours: </strong>
+            <span
+              [class]="
+                isValidAppointmentTime(twelveHourDateTime) ? 'text-green-600' : 'text-red-600'
+              "
+            >
+              {{
+                isValidAppointmentTime(twelveHourDateTime)
+                  ? '✅ Valid'
+                  : '❌ Outside business hours'
+              }}
+            </span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [dateTimeValue]="twelveHourDateTime"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: false,
+    showSeconds: false
+  &#125;"
+  (dateTimeChange)="onTwelveHourDateTimeChanged($event)"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 3: With Seconds Display -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Precise Time with Seconds</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        DateTime picker with seconds precision for applications requiring exact timing. Includes
+        additional time column for second selection with configurable step intervals.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="dateTimeWithSeconds"
+          [config]="secondsConfig()"
+          [placeholder]="'Select precise datetime'"
+          (dateTimeChange)="onDateTimeWithSecondsChanged($event)"
+        ></chronica-datetime-picker>
+
+        @if (dateTimeWithSeconds) {
+          <div class="py-3">
+            <strong>Selected DateTime: </strong>
+            <span>{{ formatDateTimeDisplay(dateTimeWithSeconds) }}</span
+            ><br />
+            <strong>With Seconds: </strong>
+            <span>{{ formatTimeDisplay(dateTimeWithSeconds.time, true, true) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getDateTimeInMinutes(dateTimeWithSeconds) }} minutes since midnight</span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [dateTimeValue]="dateTimeWithSeconds"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: true,
+    showSeconds: true
+  &#125;"
+  (dateTimeChange)="onDateTimeWithSecondsChanged($event)"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 4: Custom Trigger Element -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">4. Custom Trigger Element</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Hide the default input and use any custom element as a trigger for the datetime picker
+        popup. Perfect for integrating with custom designs and button styles.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="customTriggerDateTime"
+          [config]="customTriggerConfig()"
+          [hideInput]="true"
+          (dateTimeChange)="onCustomTriggerDateTimeChanged($event)"
+        >
+          <div
+            class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg cursor-pointer hover:bg-blue-200 transition-colors"
+          >
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            {{
+              customTriggerDateTime
+                ? formatDateTimeDisplay(customTriggerDateTime)
+                : 'Schedule Meeting'
+            }}
+          </div>
+        </chronica-datetime-picker>
+
+        @if (customTriggerDateTime) {
+          <div class="py-3">
+            <strong>Meeting Scheduled: </strong>
+            <span>{{ formatDateTimeDisplay(customTriggerDateTime) }}</span
+            ><br />
+            <strong>Trigger: </strong>
+            <span>Custom meeting scheduler button</span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [dateTimeValue]="customTriggerDateTime"
+  [config]="config"
+  [hideInput]="true"
+  (dateTimeChange)="onCustomTriggerDateTimeChanged($event)"&gt;
+  &lt;div class="custom-trigger"&gt;
+    &lt;svg&gt;...&lt;/svg&gt;
+    &#123;&#123; customTriggerDateTime ? 
+        formatDateTimeDisplay(customTriggerDateTime) : 
+        'Schedule Meeting' &#125;&#125;
+  &lt;/div&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 5: Date Restrictions -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Date Restrictions</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        DateTime picker with date range restrictions. Limit selectable dates to specific periods for
+        booking systems, appointment scheduling, or availability-based applications.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="restrictedDateTime"
+          [config]="restrictedConfig()"
+          [placeholder]="'Select datetime (2024 only)'"
+          (dateTimeChange)="onRestrictedDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        @if (restrictedDateTime) {
+          <div class="py-3">
+            <strong>Selected DateTime: </strong>
+            <span>{{ formatDateTimeDisplay(restrictedDateTime) }}</span
+            ><br />
+            <strong>Restriction: </strong>
+            <span class="text-green-600">✅ Within allowed range (2024)</span><br />
+            <strong>Date Validation: </strong>
+            <span class="text-blue-600">Dates outside 2024 are disabled</span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>restrictedConfig = &#123;
+  theme: 'light',
+  colorTheme: 'blue',
+  format24Hour: true,
+  showSeconds: false,
+  minDate: new Date(2024, 0, 1),   // January 1, 2024
+  maxDate: new Date(2024, 11, 31)  // December 31, 2024
+&#125;;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 6: Form Integration -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">6. Form Integration</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Seamless integration with Angular forms using ngModel and ControlValueAccessor pattern.
+        Perfect for complex forms requiring datetime input with validation and data binding.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <form #datetimeForm="ngForm">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Appointment DateTime</label
+              >
+              <chronica-datetime-picker
+                [(ngModel)]="formSelectedDateTime"
+                [config]="formConfig()"
+                [placeholder]="'Select appointment datetime'"
+                name="appointmentDateTime"
+                (dateTimeChange)="onFormDateTimeChanged($event)"
+                [required]="true"
+              ></chronica-datetime-picker>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Appointment Notes</label>
+              <textarea
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                rows="3"
+                placeholder="Add any notes about your appointment..."
+                ngModel
+                name="notes"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              [disabled]="!datetimeForm.valid"
+            >
+              Schedule Appointment
+            </button>
+          </div>
+
+          <div class="py-3 mt-4 bg-gray-100 rounded-lg p-3">
+            <strong>Form Valid: </strong>
+            <span>{{ datetimeForm.valid ? '✅' : '❌' }}</span
+            ><br />
+            <strong>Form Value: </strong>
+            <span>{{ formatDateTimeDisplay(formSelectedDateTime) }}</span
+            ><br />
+            <strong>Business Hours Valid: </strong>
+            <span
+              [class]="
+                isValidAppointmentTime(formSelectedDateTime) ? 'text-green-600' : 'text-red-600'
+              "
+            >
+              {{ isValidAppointmentTime(formSelectedDateTime) ? '✅ Valid' : '❌ Outside hours' }}
+            </span>
+          </div>
+        </form>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [(ngModel)]="formSelectedDateTime"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: false
+  &#125;"
+  name="appointmentDateTime"
+  required&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 7: Dark Theme -->
+    <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
+      <h3 class="text-xl font-semibold text-white mb-2">7. Dark Theme</h3>
+      <p class="text-gray-300 mb-5 leading-relaxed">
+        Dark theme variant for datetime picker. Perfect for dark mode applications and night-time
+        interfaces with consistent styling across calendar and time controls.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-900 rounded-lg border border-gray-600">
+        <chronica-datetime-picker
+          [(ngModel)]="darkThemeDateTime"
+          [config]="darkThemeConfig()"
+          [placeholder]="'Select datetime (dark theme)'"
+          (dateTimeChange)="onDarkThemeDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        <div class="py-3" *ngIf="darkThemeDateTime">
+          <strong class="text-gray-300">Selected DateTime: </strong>
+          <span class="text-gray-300">{{ formatDateTimeDisplay(darkThemeDateTime) }}</span
+          ><br />
+          <strong class="text-gray-300">Theme: </strong>
+          <span class="text-gray-300">Dark mode with unified styling</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [dateTimeValue]="darkThemeDateTime"
+  [config]="&#123;
+    theme: 'dark',
+    colorTheme: 'blue'
+  &#125;"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Configuration Options -->
+  <div class="mb-12">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
+
+    <div class="overflow-x-auto mt-5">
+      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Property
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Default
+            </th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >dateTimeValue</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">DateTimeValue | null</td>
+            <td class="p-3 text-gray-600">null</td>
+            <td class="p-3 text-gray-600">Currently selected date and time</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >enableTimePicker</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">true</td>
+            <td class="p-3 text-gray-600">Enable/disable time selection (date-only mode)</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >format24Hour</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">true</td>
+            <td class="p-3 text-gray-600">Use 24-hour format or 12-hour with AM/PM</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >showSeconds</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">Show seconds in time selection</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >hideInput</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">Hide the default input and use custom trigger</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >placeholder</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'Select date and time'</td>
+            <td class="p-3 text-gray-600">Placeholder text for the input</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.theme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">'light' | 'dark'</td>
+            <td class="p-3 text-gray-600">'light'</td>
+            <td class="p-3 text-gray-600">Light or dark theme</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.colorTheme</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">'blue'</td>
+            <td class="p-3 text-gray-600">
+              Color theme: blue, green, purple, red, orange, teal, pink, indigo
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.minDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date</td>
+            <td class="p-3 text-gray-600">undefined</td>
+            <td class="p-3 text-gray-600">Minimum selectable date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.maxDate</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">Date</td>
+            <td class="p-3 text-gray-600">undefined</td>
+            <td class="p-3 text-gray-600">Maximum selectable date</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >minuteStep</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">number</td>
+            <td class="p-3 text-gray-600">1</td>
+            <td class="p-3 text-gray-600">Minute selection step interval</td>
+          </tr>
+          <tr>
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >secondStep</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">number</td>
+            <td class="p-3 text-gray-600">1</td>
+            <td class="p-3 text-gray-600">Second selection step interval</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Key Features -->
+  <div class="bg-blue-50 rounded-xl p-6 mb-6 lg:mb-12">
+    <h2 class="text-2xl font-semibold mb-6 text-blue-900">Key Features</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <ul class="space-y-3 text-sm text-blue-800">
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Combined date and time selection in one interface</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">24-hour and 12-hour time format support</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Optional seconds precision for exact timing</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Date-only mode with time picker disabled</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Built-in input or custom trigger elements</span>
+        </li>
+      </ul>
+      <ul class="space-y-3 text-sm text-blue-800">
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Date range restrictions and validation</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Multiple color themes & dark mode</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Angular forms integration (ngModel & Reactive)</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Responsive design for mobile and desktop</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Keyboard navigation and accessibility</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

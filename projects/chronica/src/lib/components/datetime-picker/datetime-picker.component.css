@@ -1,0 +1,614 @@
+/* DateTime Picker Component Styles */
+
+.chronica-datetime-picker {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Input Container */
+.datetime-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: 6px;
+  background: var(--chronica-bg-color, #ffffff);
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+}
+
+.datetime-input-container:focus-within,
+.datetime-input-container:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
+  border-color: var(--chronica-primary-color, #3b82f6);
+}
+
+.datetime-input-container.chronica-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--chronica-disabled-bg, #f9fafb);
+}
+
+.datetime-input-display {
+  flex: 1;
+  font-size: 14px;
+  color: var(--chronica-text-color, #1f2937);
+  cursor: pointer;
+}
+
+.datetime-input-display.chronica-placeholder {
+  color: var(--chronica-text-muted-color, #9ca3af);
+}
+
+.datetime-input-icon {
+  margin-left: 8px;
+  color: var(--chronica-text-muted-color, #9ca3af);
+  display: flex;
+  align-items: center;
+}
+
+/* Custom trigger element (when hideInput is true) */
+.datetime-trigger {
+  cursor: pointer;
+  outline: none;
+}
+
+.datetime-trigger:focus {
+  outline: 2px solid var(--chronica-primary-color, #3b82f6);
+  outline-offset: 2px;
+}
+
+/* Popup Styles */
+.datetime-picker-popup {
+  background: var(--chronica-bg-color, #ffffff);
+  border: 1px solid var(--chronica-border-color, #e2e8f0);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  min-width: 380px;
+  max-width: 480px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.datetime-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--chronica-border-color, #e2e8f0);
+  background: var(--chronica-header-bg, #f8fafc);
+}
+
+.datetime-picker-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--chronica-text-color, #1f2937);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--chronica-text-muted-color, #9ca3af);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background: var(--chronica-hover-bg, #f1f5f9);
+  color: var(--chronica-text-color, #1f2937);
+}
+
+.datetime-picker-body {
+  padding: 16px;
+}
+
+/* DateTime Controls */
+.datetime-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--chronica-text-color, #1f2937);
+  margin: 0 0 8px 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Date Picker Section */
+.date-picker-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 4px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--chronica-text-muted-color, #6b7280);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button:hover:not(:disabled) {
+  background: var(--chronica-hover-bg, #f3f4f6);
+  color: var(--chronica-text-color, #374151);
+}
+
+.nav-button:disabled {
+  color: var(--chronica-text-disabled-color, #d1d5db);
+  cursor: not-allowed;
+}
+
+.month-year-selectors {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.month-select,
+.year-select {
+  border: 1px solid var(--chronica-border-color, #d1d5db);
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  background: var(--chronica-bg-color, #fff);
+  color: var(--chronica-text-color, #374151);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 28px;
+}
+
+.month-select {
+  flex: 1;
+  max-width: 100px;
+}
+
+.year-select {
+  width: 65px;
+}
+
+.month-select:hover,
+.year-select:hover {
+  border-color: #9ca3af;
+}
+
+.month-select:focus,
+.year-select:focus {
+  outline: none;
+  border-color: var(--chronica-primary-color, #3b82f6);
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
+}
+
+.day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+  gap: 4px;
+}
+
+.day-name {
+  padding: 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--chronica-primary-color, #3b82f6);
+  text-transform: uppercase;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.date {
+  height: 28px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  color: var(--chronica-text-color, #1f2937);
+}
+
+.date.empty {
+  visibility: hidden;
+}
+
+.date.clickable {
+  cursor: pointer;
+}
+
+.date.clickable:hover:not(.selected) {
+  background: var(--chronica-hover-bg, #f3f4f6);
+}
+
+.date.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  color: var(--chronica-text-muted-color, #9ca3af);
+}
+
+.date.today {
+  font-weight: 700;
+  color: var(--chronica-primary-color, #3b82f6);
+}
+
+.date.selected {
+  background: var(--chronica-primary-color, #3b82f6);
+  color: #fff;
+  font-weight: 700;
+}
+
+.date.disabled:hover {
+  background: transparent;
+}
+
+/* Time Picker Section */
+.time-picker-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-controls {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.time-column {
+  flex: 1;
+  min-width: 40px;
+  max-width: 55px;
+}
+
+.time-column-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--chronica-text-muted-color, #9ca3af);
+  margin-bottom: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.time-scroll-container {
+  max-height: 100px;
+  overflow-y: auto;
+  border: 1px solid var(--chronica-border-color, #e2e8f0);
+  border-radius: 4px;
+  background: var(--chronica-bg-color, #ffffff);
+}
+
+.time-scroll-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.time-scroll-container::-webkit-scrollbar-track {
+  background: var(--chronica-scrollbar-track, #f1f5f9);
+}
+
+.time-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--chronica-scrollbar-thumb, #cbd5e1);
+  border-radius: 2px;
+}
+
+.time-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: var(--chronica-scrollbar-thumb-hover, #94a3b8);
+}
+
+.time-option {
+  padding: 4px 6px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--chronica-text-color, #1f2937);
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--chronica-border-light, #f1f5f9);
+}
+
+.time-option:last-child {
+  border-bottom: none;
+}
+
+.time-option:hover {
+  background: var(--chronica-hover-bg, #f8fafc);
+}
+
+.time-option.selected {
+  background: var(--chronica-primary-color, #3b82f6);
+  color: white;
+  font-weight: 600;
+}
+
+/* Footer */
+.datetime-picker-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--chronica-border-color, #e2e8f0);
+  background: var(--chronica-footer-bg, #f8fafc);
+}
+
+.action-button {
+  padding: 6px 12px;
+  border: 1px solid var(--chronica-border-color, #e2e8f0);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--chronica-bg-color, #ffffff);
+  color: var(--chronica-text-color, #1f2937);
+}
+
+.action-button:hover {
+  background: var(--chronica-hover-bg, #f1f5f9);
+}
+
+.action-button.primary {
+  background: var(--chronica-primary-color, #3b82f6);
+  color: white;
+  border-color: var(--chronica-primary-color, #3b82f6);
+}
+
+.action-button.primary:hover {
+  background: var(--chronica-primary-hover-color, #2563eb);
+  border-color: var(--chronica-primary-hover-color, #2563eb);
+}
+
+.action-button.secondary {
+  background: transparent;
+  color: var(--chronica-text-muted-color, #6b7280);
+}
+
+.action-button.secondary:hover {
+  background: var(--chronica-hover-bg, #f1f5f9);
+  color: var(--chronica-text-color, #1f2937);
+}
+
+/* Theme Variations */
+
+/* Light Theme (default) */
+.chronica-light {
+  --chronica-bg-color: #ffffff;
+  --chronica-text-color: #1f2937;
+  --chronica-text-muted-color: #6b7280;
+  --chronica-text-disabled-color: #d1d5db;
+  --chronica-border-color: #e2e8f0;
+  --chronica-border-hover-color: #cbd5e1;
+  --chronica-border-light: #f1f5f9;
+  --chronica-header-bg: #f8fafc;
+  --chronica-footer-bg: #f8fafc;
+  --chronica-hover-bg: #f1f5f9;
+  --chronica-disabled-bg: #f9fafb;
+  --chronica-scrollbar-track: #f1f5f9;
+  --chronica-scrollbar-thumb: #cbd5e1;
+  --chronica-scrollbar-thumb-hover: #94a3b8;
+}
+
+/* Dark Theme */
+.chronica-dark {
+  --chronica-bg-color: #1f2937;
+  --chronica-text-color: #f9fafb;
+  --chronica-text-muted-color: #9ca3af;
+  --chronica-text-disabled-color: #4b5563;
+  --chronica-border-color: #374151;
+  --chronica-border-hover-color: #4b5563;
+  --chronica-border-light: #374151;
+  --chronica-header-bg: #111827;
+  --chronica-footer-bg: #111827;
+  --chronica-hover-bg: #374151;
+  --chronica-disabled-bg: #374151;
+  --chronica-scrollbar-track: #374151;
+  --chronica-scrollbar-thumb: #4b5563;
+  --chronica-scrollbar-thumb-hover: #6b7280;
+}
+
+/* Dark theme specific styles for DateTime picker */
+.chronica-dark .day-name {
+  color: var(--chronica-primary-color, #3b82f6);
+}
+
+.chronica-dark .date {
+  color: #f9fafb;
+}
+
+.chronica-dark .date.clickable:hover:not(.selected) {
+  background: var(--chronica-hover-bg, #374151);
+}
+
+.chronica-dark .date.today {
+  font-weight: 700;
+  color: var(--chronica-primary-color, #3b82f6);
+}
+
+.chronica-dark .date.selected {
+  background: var(--chronica-primary-color, #3b82f6);
+  color: #fff;
+}
+
+.chronica-dark .date.disabled {
+  color: #4b5563;
+}
+
+.chronica-dark .nav-button {
+  color: #9ca3af;
+}
+
+.chronica-dark .nav-button:hover:not(:disabled) {
+  background: var(--chronica-hover-bg, #374151);
+  color: #f9fafb;
+}
+
+.chronica-dark .nav-button:disabled {
+  color: #4b5563;
+}
+
+.chronica-dark .month-select,
+.chronica-dark .year-select {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+.chronica-dark .month-select:hover,
+.chronica-dark .year-select:hover {
+  border-color: #6b7280;
+}
+
+.chronica-dark .month-select:focus,
+.chronica-dark .year-select:focus {
+  border-color: var(--chronica-primary-color, #3b82f6);
+  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
+}
+
+.chronica-dark .month-select option,
+.chronica-dark .year-select option {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* Color Theme Variations */
+.chronica-blue {
+  --chronica-primary-color: #3b82f6;
+  --chronica-primary-hover-color: #2563eb;
+  --chronica-primary-color-alpha: rgba(59, 130, 246, 0.1);
+  --chronica-focus: rgba(59, 130, 246, 0.2);
+}
+
+.chronica-green {
+  --chronica-primary-color: #10b981;
+  --chronica-primary-hover-color: #059669;
+  --chronica-primary-color-alpha: rgba(16, 185, 129, 0.1);
+  --chronica-focus: rgba(16, 185, 129, 0.2);
+}
+
+.chronica-purple {
+  --chronica-primary-color: #8b5cf6;
+  --chronica-primary-hover-color: #7c3aed;
+  --chronica-primary-color-alpha: rgba(139, 92, 246, 0.1);
+  --chronica-focus: rgba(139, 92, 246, 0.2);
+}
+
+.chronica-red {
+  --chronica-primary-color: #ef4444;
+  --chronica-primary-hover-color: #dc2626;
+  --chronica-primary-color-alpha: rgba(239, 68, 68, 0.1);
+  --chronica-focus: rgba(239, 68, 68, 0.2);
+}
+
+.chronica-orange {
+  --chronica-primary-color: #f97316;
+  --chronica-primary-hover-color: #ea580c;
+  --chronica-primary-color-alpha: rgba(249, 115, 22, 0.1);
+  --chronica-focus: rgba(249, 115, 22, 0.2);
+}
+
+.chronica-teal {
+  --chronica-primary-color: #14b8a6;
+  --chronica-primary-hover-color: #0d9488;
+  --chronica-primary-color-alpha: rgba(20, 184, 166, 0.1);
+  --chronica-focus: rgba(20, 184, 166, 0.2);
+}
+
+.chronica-pink {
+  --chronica-primary-color: #ec4899;
+  --chronica-primary-hover-color: #db2777;
+  --chronica-primary-color-alpha: rgba(236, 72, 153, 0.1);
+  --chronica-focus: rgba(236, 72, 153, 0.2);
+}
+
+.chronica-indigo {
+  --chronica-primary-color: #6366f1;
+  --chronica-primary-hover-color: #4f46e5;
+  --chronica-primary-color-alpha: rgba(99, 102, 241, 0.1);
+  --chronica-focus: rgba(99, 102, 241, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .datetime-picker-popup {
+    min-width: 300px;
+    max-width: 95vw;
+  }
+  
+  .datetime-controls {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .time-controls {
+    gap: 4px;
+  }
+  
+  .time-column {
+    min-width: 35px;
+    max-width: 50px;
+  }
+
+  .section-title {
+    font-size: 11px;
+  }
+
+  .date {
+    height: 24px;
+    width: 24px;
+    font-size: 11px;
+  }
+
+  .calendar-grid {
+    gap: 1px;
+  }
+}
+
+/* Animation for popup */
+.datetime-picker-popup {
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
