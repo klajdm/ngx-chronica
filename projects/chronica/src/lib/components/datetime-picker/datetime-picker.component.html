@@ -1,0 +1,267 @@
+<div class="chronica-datetime-picker" [class]="themeClass + ' ' + colorThemeClass">
+  <!-- DateTime Input Trigger -->
+  <div
+    *ngIf="!hideInput"
+    class="datetime-input-container"
+    (click)="openPopup()"
+    (keydown.enter)="openPopup()"
+    (keydown.space)="openPopup(); $event.preventDefault()"
+    tabindex="0"
+    role="button"
+    [attr.aria-expanded]="isPopupOpen"
+    aria-haspopup="true"
+    [attr.aria-label]="placeholder"
+    [class.chronica-disabled]="disabled"
+  >
+    <span class="datetime-input-display" [class.chronica-placeholder]="!formattedDateTime">
+      {{ formattedDateTime || placeholder }}
+    </span>
+    <div class="datetime-input-icon">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+        <circle cx="12" cy="16" r="2" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Custom trigger element (when hideInput is true) -->
+  <div
+    *ngIf="hideInput"
+    class="datetime-trigger"
+    (click)="openPopup()"
+    (keydown.enter)="openPopup()"
+    (keydown.space)="openPopup(); $event.preventDefault()"
+    tabindex="0"
+    role="button"
+    [attr.aria-expanded]="isPopupOpen"
+    aria-haspopup="true"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<!-- DateTime Picker Popup Template -->
+<ng-template #datetimePickerTemplate>
+  <div class="datetime-picker-popup" [class]="themeClass + ' ' + colorThemeClass">
+    <!-- Header -->
+    <div class="datetime-picker-header">
+      <h3 class="datetime-picker-title">Select Date & Time</h3>
+      <button
+        type="button"
+        class="close-button"
+        (click)="closePopup()"
+        aria-label="Close datetime picker"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="datetime-picker-body">
+      <!-- Date and Time Pickers Container -->
+      <div class="datetime-controls">
+        <!-- Date Picker Section -->
+        <div class="date-picker-section">
+          <h4 class="section-title">Date</h4>
+
+          <!-- Calendar Header with navigation and dropdowns -->
+          <div class="calendar-header">
+            <button
+              class="nav-button"
+              (click)="previousMonth()"
+              type="button"
+              aria-label="Previous month"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </button>
+
+            <div class="month-year-selectors">
+              <select
+                class="month-select"
+                [value]="currentMonth.month"
+                (change)="changeMonth(+$any($event.target).value)"
+                aria-label="Select month"
+              >
+                <option
+                  *ngFor="let monthName of monthNames; let i = index"
+                  [value]="i"
+                  [selected]="i === currentMonth.month"
+                >
+                  {{ monthName }}
+                </option>
+              </select>
+
+              <select
+                class="year-select"
+                [value]="currentMonth.year"
+                (change)="changeYear(+$any($event.target).value)"
+                aria-label="Select year"
+              >
+                <option
+                  *ngFor="let year of yearRange"
+                  [value]="year"
+                  [selected]="year === currentMonth.year"
+                >
+                  {{ year }}
+                </option>
+              </select>
+            </div>
+
+            <button class="nav-button" (click)="nextMonth()" type="button" aria-label="Next month">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Day names header -->
+          <div class="day-names">
+            <div class="day-name" *ngFor="let dayName of dayNames">
+              {{ dayName }}
+            </div>
+          </div>
+
+          <!-- Calendar grid -->
+          <div class="calendar-grid">
+            <!-- Empty cells for days before the first day of month -->
+            <div *ngFor="let _ of getFirstDayOffset()" class="date empty"></div>
+
+            <!-- Days of month -->
+            <div
+              *ngFor="let day of getDaysInMonth()"
+              class="date clickable"
+              [class.today]="isToday(day)"
+              [class.selected]="isSelectedDate(day)"
+              [class.disabled]="isDateDisabled(day)"
+              (click)="selectDate(day)"
+              (keydown.enter)="selectDate(day)"
+              (keydown.space)="selectDate(day)"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'Select date ' + day"
+            >
+              {{ day }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Time Picker Section -->
+        <div class="time-picker-section">
+          <h4 class="section-title">Time</h4>
+
+          <div class="time-controls">
+            <!-- Hours -->
+            <div class="time-column">
+              <label class="time-column-label">{{ config.format24Hour ? 'Hours' : 'Hour' }}</label>
+              <div class="time-scroll-container">
+                <div
+                  *ngFor="let hour of hours"
+                  class="time-option"
+                  [class.selected]="hour === selectedHour"
+                  (click)="onHourChange(hour)"
+                >
+                  {{ config.format24Hour ? hour.toString().padStart(2, '0') : hour }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Minutes -->
+            <div class="time-column">
+              <label class="time-column-label">Minutes</label>
+              <div class="time-scroll-container">
+                <div
+                  *ngFor="let minute of minutes"
+                  class="time-option"
+                  [class.selected]="minute === selectedMinute"
+                  (click)="onMinuteChange(minute)"
+                >
+                  {{ minute.toString().padStart(2, '0') }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Seconds (if enabled) -->
+            <div class="time-column" *ngIf="config.showSeconds">
+              <label class="time-column-label">Seconds</label>
+              <div class="time-scroll-container">
+                <div
+                  *ngFor="let second of seconds"
+                  class="time-option"
+                  [class.selected]="second === selectedSecond"
+                  (click)="onSecondChange(second)"
+                >
+                  {{ second.toString().padStart(2, '0') }}
+                </div>
+              </div>
+            </div>
+
+            <!-- AM/PM (if 12-hour format) -->
+            <div class="time-column" *ngIf="!config.format24Hour">
+              <label class="time-column-label">Period</label>
+              <div class="time-scroll-container">
+                <div
+                  class="time-option"
+                  [class.selected]="selectedPeriod === 'AM'"
+                  (click)="onPeriodChange('AM')"
+                >
+                  AM
+                </div>
+                <div
+                  class="time-option"
+                  [class.selected]="selectedPeriod === 'PM'"
+                  (click)="onPeriodChange('PM')"
+                >
+                  PM
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="datetime-picker-footer">
+      <button type="button" class="action-button secondary" (click)="setCurrentDateTime()">
+        Now
+      </button>
+      <button type="button" class="action-button secondary" (click)="clearDateTime()">Clear</button>
+      <button type="button" class="action-button primary" (click)="closePopup()">OK</button>
+    </div>
+  </div>
+</ng-template>

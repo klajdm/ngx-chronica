@@ -3,6 +3,8 @@ import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
+import { AppMenuItems } from '../models/menuItems';
+
 interface MenuItem {
   label: string;
   route?: string;
@@ -18,45 +20,7 @@ export class MobileMenuComponent implements OnInit, OnDestroy {
   // Output event to close the mobile menu
   @Output() closeMenu = new EventEmitter<void>();
 
-  menuItems: MenuItem[] = [
-    {
-      label: 'Introduction',
-      route: '/',
-    },
-    {
-      label: 'Getting Started',
-      route: '/start',
-    },
-    {
-      label: 'Components',
-      children: [
-        {
-          label: 'Datepicker',
-          route: '/components/datepicker',
-        },
-        {
-          label: 'Date Range',
-          route: '/components/date-range',
-        },
-        {
-          label: 'Time Picker',
-          route: '/components/time-picker',
-        },
-        {
-          label: 'Duration Picker',
-          route: '/components/duration-picker',
-        },
-        {
-          label: 'Inline calendar',
-          route: '/components/inline-calendar',
-        },
-      ],
-    },
-    {
-      label: 'License',
-      route: '/license',
-    },
-  ];
+  menuItems: MenuItem[] = AppMenuItems.items;
 
   // track open/closed state for groups by label
   openGroups: Record<string, boolean> = {};
