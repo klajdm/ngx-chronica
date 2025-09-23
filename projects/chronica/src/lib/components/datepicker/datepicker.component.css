@@ -214,6 +214,7 @@
 }
 .chronica-date.chronica-today {
   font-weight: var(--chronica-font-weight-bold, 700);
+  color: var(--chronica-accent);
 }
 .chronica-date.chronica-selected {
   background: var(--chronica-primary);
@@ -356,41 +357,49 @@
 /* Color Theme Variations */
 .chronica-blue {
   --chronica-primary: #3b82f6;
+  --chronica-accent: #60a5fa;
   --chronica-focus: rgba(59, 130, 246, 0.2);
 }
 
 .chronica-green {
   --chronica-primary: #10b981;
+  --chronica-accent: #34d399;
   --chronica-focus: rgba(16, 185, 129, 0.2);
 }
 
 .chronica-purple {
   --chronica-primary: #8b5cf6;
+  --chronica-accent: #a78bfa;
   --chronica-focus: rgba(139, 92, 246, 0.2);
 }
 
 .chronica-red {
   --chronica-primary: #ef4444;
+  --chronica-accent: #f87171;
   --chronica-focus: rgba(239, 68, 68, 0.2);
 }
 
 .chronica-orange {
   --chronica-primary: #f97316;
+  --chronica-accent: #fb923c;
   --chronica-focus: rgba(249, 115, 22, 0.2);
 }
 
 .chronica-teal {
   --chronica-primary: #14b8a6;
+  --chronica-accent: #5eead4;
   --chronica-focus: rgba(20, 184, 166, 0.2);
 }
 
 .chronica-pink {
   --chronica-primary: #ec4899;
+  --chronica-accent: #f472b6;
   --chronica-focus: rgba(236, 72, 153, 0.2);
 }
 
 .chronica-indigo {
   --chronica-primary: #6366f1;
+  --chronica-accent: #818cf8;
   --chronica-focus: rgba(99, 102, 241, 0.2);
 }
 

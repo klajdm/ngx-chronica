@@ -71,6 +71,16 @@ export class InlineCalendarDemoComponent {
     })
   );
 
+  // Dark mode calendar
+  darkModeSelectedDate: Date | null = null;
+  darkModeConfig = computed(
+    (): CalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'dark',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
+
   onBasicDateSelected(date: Date): void {
     this.basicSelectedDate = date;
   }
@@ -89,6 +99,10 @@ export class InlineCalendarDemoComponent {
 
   onPreSelectedDateSelected(date: Date): void {
     this.preSelectedDate = date;
+  }
+
+  onDarkModeSelected(date: Date): void {
+    this.darkModeSelectedDate = date;
   }
 
   onMonthChanged(event: { month: number; year: number }): void {
