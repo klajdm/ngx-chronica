@@ -20,18 +20,11 @@ import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
   ChronicaCalendarConfig,
+  ChronicaDurationValue,
   ChronicaLocale,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models/index';
 
-export interface DurationValue {
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
-}
-
-// Update: use ChronicaCalendarConfig for DurationPickerConfig
 export interface DurationPickerConfig extends Partial<ChronicaCalendarConfig> {
   showDays?: boolean;
   showHours?: boolean;
@@ -88,17 +81,17 @@ export class ChronicaDurationPickerComponent
   @Input() placeholder = 'Select duration';
   @Input() disabled = false;
   @Input() required = false;
-  @Input() minDuration: DurationValue | null = null;
-  @Input() maxDuration: DurationValue | null = null;
+  @Input() minDuration: ChronicaDurationValue | null = null;
+  @Input() maxDuration: ChronicaDurationValue | null = null;
 
-  @Output() durationChange = new EventEmitter<DurationValue | null>();
+  @Output() durationChange = new EventEmitter<ChronicaDurationValue | null>();
 
   // ControlValueAccessor properties
-  private onChange = (value: DurationValue | null) => {};
+  private onChange = (value: ChronicaDurationValue | null) => {};
   private onTouched = () => {};
 
   // Duration picker state
-  private _durationValue: DurationValue | null = null;
+  private _durationValue: ChronicaDurationValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
 
@@ -193,7 +186,7 @@ export class ChronicaDurationPickerComponent
   }
 
   // ControlValueAccessor implementation
-  writeValue(value: DurationValue | null): void {
+  writeValue(value: ChronicaDurationValue | null): void {
     if (value) {
       this._durationValue = { ...value };
       this.updateSelectedDuration(value);
@@ -204,7 +197,7 @@ export class ChronicaDurationPickerComponent
     this.cdr.detectChanges();
   }
 
-  registerOnChange(fn: (value: DurationValue | null) => void): void {
+  registerOnChange(fn: (value: ChronicaDurationValue | null) => void): void {
     this.onChange = fn;
   }
 
@@ -217,7 +210,7 @@ export class ChronicaDurationPickerComponent
     this.cdr.detectChanges();
   }
 
-  private updateSelectedDuration(duration: DurationValue): void {
+  private updateSelectedDuration(duration: ChronicaDurationValue): void {
     this.selectedDays = duration.days || 0;
     this.selectedHours = duration.hours || 0;
     this.selectedMinutes = duration.minutes || 0;
@@ -231,7 +224,7 @@ export class ChronicaDurationPickerComponent
     this.selectedSeconds = 0;
   }
 
-  get durationValue(): DurationValue | null {
+  get durationValue(): ChronicaDurationValue | null {
     return this._durationValue;
   }
 
@@ -348,7 +341,7 @@ export class ChronicaDurationPickerComponent
   }
 
   private updateDurationValue(): void {
-    const newDurationValue: DurationValue = {};
+    const newDurationValue: ChronicaDurationValue = {};
 
     if (this.config.showDays) {
       newDurationValue.days = this.selectedDays;
@@ -374,7 +367,7 @@ export class ChronicaDurationPickerComponent
     }
   }
 
-  private isDurationValid(duration: DurationValue): boolean {
+  private isDurationValid(duration: ChronicaDurationValue): boolean {
     const totalSeconds = this.calculateTotalSeconds(duration);
 
     if (this.minDuration) {
@@ -395,7 +388,7 @@ export class ChronicaDurationPickerComponent
     return true;
   }
 
-  private calculateTotalSeconds(duration: DurationValue): number {
+  private calculateTotalSeconds(duration: ChronicaDurationValue): number {
     const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
     return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
   }
@@ -407,7 +400,7 @@ export class ChronicaDurationPickerComponent
     this.closePopup();
   }
 
-  setPresetDuration(preset: DurationValue): void {
+  setPresetDuration(preset: ChronicaDurationValue): void {
     this.writeValue(preset);
     this.onChange(preset);
     this.durationChange.emit(preset);
@@ -415,7 +408,7 @@ export class ChronicaDurationPickerComponent
 
   // Common preset durations
   setQuickDuration(type: 'minutes' | 'hours' | 'days', value: number): void {
-    const preset: DurationValue = {};
+    const preset: ChronicaDurationValue = {};
 
     switch (type) {
       case 'minutes':
