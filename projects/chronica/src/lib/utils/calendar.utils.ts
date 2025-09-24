@@ -1,5 +1,11 @@
-import { ChronicaCalendarConfig, ChronicaDate, ChronicaMonth } from '../../../../../dist/chronica';
-import { CHRONICA_LOCALES, ChronicaLocale, DEFAULT_CALENDAR_CONFIG } from '../models';
+import {
+  CHRONICA_LOCALES,
+  ChronicaCalendarConfig,
+  ChronicaDate,
+  ChronicaLocale,
+  ChronicaMonth,
+  DEFAULT_CALENDAR_CONFIG,
+} from '../models';
 
 /**
  * Calendar utility functions
