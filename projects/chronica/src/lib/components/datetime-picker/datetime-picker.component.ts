@@ -13,7 +13,6 @@ import {
   ViewContainerRef,
   ChangeDetectorRef,
   forwardRef,
-  HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -31,7 +30,6 @@ import {
   DEFAULT_TIME_CONFIG,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models/index';
-// legacy TimeValue import removed — use ChronicaTimeValue from models
 
 export type DateTimeValue = ChronicaDateTimeValue;
 
@@ -585,17 +583,5 @@ export class ChronicaDateTimePickerComponent
       ...(DEFAULT_CALENDAR_CONFIG as ChronicaCalendarConfig),
       ...(this.config.calendarConfig || {}),
     };
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    if (!this.isPopupOpen) return;
-
-    switch (event.key) {
-      case 'Escape':
-        this.closePopup();
-        event.preventDefault();
-        break;
-    }
   }
 }
