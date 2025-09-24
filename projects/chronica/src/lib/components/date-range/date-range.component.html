@@ -1,7 +1,7 @@
-<div class="chronica-date-range-container" [class]="themeClass + ' ' + colorThemeClass">
+<div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- Trigger element for popup mode -->
   <div
-    class="chronica-date-range-trigger"
+    class="chronica-input-trigger"
     (click)="togglePopup()"
     (keydown.enter)="togglePopup()"
     (keydown.space)="togglePopup(); $event.preventDefault()"
@@ -14,13 +14,13 @@
     [class.chronica-required-error]="required && !dateRange.startDate && !dateRange.endDate"
   >
     <span
-      class="chronica-date-range-display"
+      class="chronica-input-display"
       [class.chronica-placeholder]="!dateRange.startDate && !dateRange.endDate"
     >
       {{ formattedDateRange }}
     </span>
     <svg
-      class="chronica-calendar-icon"
+      class="chronica-input-icon"
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="20"

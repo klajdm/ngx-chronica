@@ -1,78 +1,8 @@
 /* Import centralized variables */
 @import '../../../styles/_variables.css';
+@import '../../../styles/styles.css';
 
-/* Date Range Component Styles */
-.chronica-date-range-container {
-  display: inline-block;
-  min-width: 100px;
-  width: 100%;
-}
 
-/* Trigger styles */
-.chronica-date-range-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing, 12px);
-  border: 1px solid var(--chronica-border-color, #e5e7eb);
-  border-radius: var(--chronica-border-radius, 6px);
-  background: var(--chronica-bg-color, #ffffff);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 40px;
-  font-family: var(
-    --chronica-font-family,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    sans-serif
-  );
-}
-
-.chronica-date-range-trigger:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  border-color: var(--chronica-primary, #3b82f6);
-}
-
-.chronica-date-range-trigger:active:not(.chronica-disabled) {
-  border-color: var(--chronica-primary, #3b82f6);
-  box-shadow: 0 0 0 1px var(--chronica-primary, #3b82f6);
-  transform: translateY(0px);
-}
-
-.chronica-date-range-trigger.chronica-disabled {
-  background-color: var(--chronica-disabled-bg, #f9fafb);
-  color: var(--chronica-disabled-text, #9ca3af);
-  cursor: not-allowed;
-  border-color: var(--chronica-disabled-border, #e5e7eb);
-}
-
-.chronica-date-range-trigger.chronica-required-error {
-  border-color: var(--chronica-error, #ef4444);
-  box-shadow: 0 0 0 1px var(--chronica-error, #ef4444);
-}
-
-.chronica-date-range-display {
-  flex: 1;
-  text-align: left;
-  font-size: var(--chronica-font-size, 14px);
-  color: var(--chronica-text-color, #374151);
-}
-
-.chronica-date-range-display.chronica-placeholder {
-  color: var(--chronica-text-color-muted, #9ca3af);
-}
-
-.chronica-calendar-icon {
-  color: var(--chronica-text-color-light, #6b7280);
-  flex-shrink: 0;
-  margin-left: var(--chronica-spacing-xs, 4px);
-}
 
 /* Popup styles */
 .chronica-date-range-popup {
