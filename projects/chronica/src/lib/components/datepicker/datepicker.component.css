@@ -352,12 +352,6 @@
   min-width: 0;
 }
 
-.chronica-trigger:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  border-radius: var(--chronica-border-radius-sm, 4px);
-}
-
 /* CDK Overlay popup styles */
 .chronica-calendar.chronica-popup {
   background: var(--chronica-background, #ffffff);
