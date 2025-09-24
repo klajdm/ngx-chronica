@@ -1,12 +1,10 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  ChronicaDateRangeComponent,
-  DateRange,
-} from '../../../../../projects/chronica/src/lib/components/date-range/date-range.component';
+import { ChronicaDateRangeComponent } from '../../../../../projects/chronica/src/lib/components/date-range/date-range.component';
 import {
   ChronicaCalendarConfig,
+  ChronicaDateRange,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
@@ -21,7 +19,7 @@ export class DateRangeDemoComponent {
   private readonly _themeService = inject(ThemeService);
 
   // Basic date range
-  basicSelectedRange: DateRange = { startDate: null, endDate: null };
+  basicSelectedRange: ChronicaDateRange = { startDate: null, endDate: null };
   basicConfig = computed(
     (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -31,7 +29,7 @@ export class DateRangeDemoComponent {
   );
 
   // Date range restricted
-  restrictedSelectedRange: DateRange = { startDate: null, endDate: null };
+  restrictedSelectedRange: ChronicaDateRange = { startDate: null, endDate: null };
   restrictedConfig = computed(
     (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -43,7 +41,7 @@ export class DateRangeDemoComponent {
   restrictedMaxDate = new Date(2024, 11, 31); // December 31, 2024
 
   // Form integration date range
-  formSelectedRange: DateRange = {
+  formSelectedRange: ChronicaDateRange = {
     startDate: new Date(),
     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
   };
@@ -56,7 +54,7 @@ export class DateRangeDemoComponent {
   );
 
   // Business days only (no weekends)
-  businessDaysRange: DateRange = { startDate: null, endDate: null };
+  businessDaysRange: ChronicaDateRange = { startDate: null, endDate: null };
   businessDaysConfig = computed(
     (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -67,7 +65,7 @@ export class DateRangeDemoComponent {
   );
 
   // Quick select presets
-  presetRange: DateRange = { startDate: null, endDate: null };
+  presetRange: ChronicaDateRange = { startDate: null, endDate: null };
   presetConfig = computed(
     (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -77,7 +75,7 @@ export class DateRangeDemoComponent {
   );
 
   // Dark theme date range
-  darkThemeRange: DateRange = { startDate: null, endDate: null };
+  darkThemeRange: ChronicaDateRange = { startDate: null, endDate: null };
   darkThemeConfig = computed(
     (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -86,31 +84,31 @@ export class DateRangeDemoComponent {
     })
   );
 
-  onBasicRangeChanged(range: DateRange): void {
+  onBasicRangeChanged(range: ChronicaDateRange): void {
     this.basicSelectedRange = range;
   }
 
-  onRestrictedRangeChanged(range: DateRange): void {
+  onRestrictedRangeChanged(range: ChronicaDateRange): void {
     this.restrictedSelectedRange = range;
   }
 
-  onFormRangeChanged(range: DateRange): void {
+  onFormRangeChanged(range: ChronicaDateRange): void {
     this.formSelectedRange = range;
   }
 
-  onBusinessDaysRangeChanged(range: DateRange): void {
+  onBusinessDaysRangeChanged(range: ChronicaDateRange): void {
     this.businessDaysRange = range;
   }
 
-  onPresetRangeChanged(range: DateRange): void {
+  onPresetRangeChanged(range: ChronicaDateRange): void {
     this.presetRange = range;
   }
 
-  onDarkThemeRangeChanged(range: DateRange): void {
+  onDarkThemeRangeChanged(range: ChronicaDateRange): void {
     this.darkThemeRange = range;
   }
 
-  getDaysDifference(range: DateRange): number {
+  getDaysDifference(range: ChronicaDateRange): number {
     if (!range.startDate || !range.endDate) {
       return 0;
     }
@@ -118,7 +116,7 @@ export class DateRangeDemoComponent {
     return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
   }
 
-  getBusinessDaysCount(range: DateRange): number {
+  getBusinessDaysCount(range: ChronicaDateRange): number {
     if (!range.startDate || !range.endDate) {
       return 0;
     }
@@ -139,7 +137,7 @@ export class DateRangeDemoComponent {
     return count;
   }
 
-  getPresetName(range: DateRange): string {
+  getPresetName(range: ChronicaDateRange): string {
     if (!range.startDate || !range.endDate) {
       return 'Custom selection';
     }
@@ -175,14 +173,14 @@ export class DateRangeDemoComponent {
     return 'Custom selection';
   }
 
-  private getLastNDays(days: number): DateRange {
+  private getLastNDays(days: number): ChronicaDateRange {
     const endDate = new Date();
     const startDate = new Date();
     startDate.setDate(endDate.getDate() - days + 1);
     return { startDate, endDate };
   }
 
-  private getCurrentMonth(): DateRange {
+  private getCurrentMonth(): ChronicaDateRange {
     const now = new Date();
     const startDate = new Date(now.getFullYear(), now.getMonth(), 1);
     const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
