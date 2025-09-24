@@ -27,7 +27,7 @@ import {
   CHRONICA_COLOR_THEMES,
   CHRONICA_LOCALES,
 } from '../../models/index';
-import { ChronicaService } from '../../services/chronica.service';
+import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 
 @Component({
   selector: 'chronica-datepicker',
@@ -74,7 +74,6 @@ export class ChronicaDatepickerComponent
   @ViewChild('calendarTemplate', { static: true }) calendarTemplate!: TemplateRef<any>;
 
   constructor(
-    private calendarService: ChronicaService,
     private cdr: ChangeDetectorRef,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
@@ -120,7 +119,7 @@ export class ChronicaDatepickerComponent
 
     // Update year range first, then generate month without additional year range update
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -132,7 +131,7 @@ export class ChronicaDatepickerComponent
     // Ensure year range includes the target year before generating month
     this.updateYearRange(year);
 
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -145,7 +144,7 @@ export class ChronicaDatepickerComponent
 
     this.currentMonth.weeks.forEach((week) => {
       week.forEach((date) => {
-        date.selected = this.calendarService.isSameDate(date.date, this.selectedDate!);
+        date.selected = ChronicaCalendarUtils.isSameDate(date.date, this.selectedDate!);
       });
     });
   }
@@ -189,7 +188,7 @@ export class ChronicaDatepickerComponent
     }
 
     // Update currentMonth directly without calling generateMonth to avoid year range updates
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       this.currentMonth.year,
       monthIndex,
       this.config
@@ -219,7 +218,7 @@ export class ChronicaDatepickerComponent
 
     // Update year range first (mutates in-place) then update calendar
     this.updateYearRange(numericYear);
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       numericYear,
       this.currentMonth.month,
       this.config
@@ -299,7 +298,7 @@ export class ChronicaDatepickerComponent
 
     if (this.config.disabledDates) {
       return this.config.disabledDates.some((disabledDate) =>
-        this.calendarService.isSameDate(date, disabledDate)
+        ChronicaCalendarUtils.isSameDate(date, disabledDate)
       );
     }
 
@@ -309,7 +308,7 @@ export class ChronicaDatepickerComponent
   previousMonth(): void {
     if (this.isPreviousMonthDisabled()) return;
 
-    const prev = this.calendarService.getPreviousMonth(
+    const prev = ChronicaCalendarUtils.getPreviousMonth(
       this.currentMonth.month,
       this.currentMonth.year
     );
@@ -318,7 +317,7 @@ export class ChronicaDatepickerComponent
     this.updateYearRange(prev.year);
 
     // Update currentMonth directly to avoid additional year range calls
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       prev.year,
       prev.month,
       this.config
@@ -343,13 +342,16 @@ export class ChronicaDatepickerComponent
   nextMonth(): void {
     if (this.isNextMonthDisabled()) return;
 
-    const next = this.calendarService.getNextMonth(this.currentMonth.month, this.currentMonth.year);
+    const next = ChronicaCalendarUtils.getNextMonth(
+      this.currentMonth.month,
+      this.currentMonth.year
+    );
 
     // Update year range to include the new year if needed
     this.updateYearRange(next.year);
 
     // Update currentMonth directly to avoid additional year range calls
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       next.year,
       next.month,
       this.config
@@ -374,7 +376,6 @@ export class ChronicaDatepickerComponent
   isPreviousMonthDisabled(): boolean {
     if (!this.config.minDate) return false;
 
-    const firstDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month, 1);
     const firstDayOfPreviousMonth = new Date(
       this.currentMonth.year,
       this.currentMonth.month - 1,
@@ -387,7 +388,6 @@ export class ChronicaDatepickerComponent
   isNextMonthDisabled(): boolean {
     if (!this.config.maxDate) return false;
 
-    const lastDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month + 1, 0);
     const lastDayOfNextMonth = new Date(this.currentMonth.year, this.currentMonth.month + 2, 0);
 
     return lastDayOfNextMonth > this.config.maxDate;
@@ -402,7 +402,7 @@ export class ChronicaDatepickerComponent
     this.updateYearRange(todayYear);
 
     // Update currentMonth directly to avoid additional year range calls
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       todayYear,
       todayMonth,
       this.config

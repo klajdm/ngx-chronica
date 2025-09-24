@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ChronicaService } from '../../services/chronica.service';
 import {
   CHRONICA_COLOR_THEMES,
   CHRONICA_LOCALES,
@@ -20,6 +19,7 @@ import {
   ChronicaMonth,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models';
+import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 
 @Component({
   selector: 'chronica-inline-calendar',
@@ -56,7 +56,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   monthNames: string[] = [];
   yearRange: number[] = [];
 
-  constructor(private calendarService: ChronicaService) {
+  constructor() {
     this.updateYearRange(new Date().getFullYear());
   }
 
@@ -93,7 +93,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.monthNames = currentLocale.monthNames;
 
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
 
     if (this.selectedDate) {
       this.updateSelectedDate();
@@ -105,7 +105,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
 
     this.currentMonth.weeks.forEach((week) => {
       week.forEach((date) => {
-        date.selected = this.calendarService.isSameDate(date.date, this.selectedDate!);
+        date.selected = ChronicaCalendarUtils.isSameDate(date.date, this.selectedDate!);
       });
     });
   }
@@ -129,13 +129,13 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   }
 
   previousMonth(): void {
-    const prev = this.calendarService.getPreviousMonth(
+    const prev = ChronicaCalendarUtils.getPreviousMonth(
       this.currentMonth.month,
       this.currentMonth.year
     );
 
     this.updateYearRange(prev.year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       prev.year,
       prev.month,
       this.config
@@ -154,10 +154,13 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   }
 
   nextMonth(): void {
-    const next = this.calendarService.getNextMonth(this.currentMonth.month, this.currentMonth.year);
+    const next = ChronicaCalendarUtils.getNextMonth(
+      this.currentMonth.month,
+      this.currentMonth.year
+    );
 
     this.updateYearRange(next.year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       next.year,
       next.month,
       this.config
@@ -181,7 +184,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     const todayMonth = today.getMonth();
 
     this.updateYearRange(todayYear);
-    this.currentMonth = this.calendarService.generateCalendarMonth(
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       todayYear,
       todayMonth,
       this.config
