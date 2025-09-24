@@ -55,9 +55,7 @@
 <ng-template #calendarTemplate>
   <div
     class="chronica-calendar chronica-popup chronica-popup-open"
-    [class]="'chronica-theme-' + (config.theme || 'light')"
-    [attr.data-color-theme]="config.colorTheme || 'blue'"
-    [style]="getColorThemeStyles()"
+    [class]="colorThemeClass + ' ' + themeClass"
     (click)="$event.stopPropagation()"
   >
     <!-- Header with navigation and dropdowns -->

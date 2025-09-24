@@ -24,7 +24,6 @@ import {
   ChronicaEvent,
   ChronicaLocale,
   DEFAULT_CALENDAR_CONFIG,
-  CHRONICA_COLOR_THEMES,
   CHRONICA_LOCALES,
 } from '../../models/index';
 import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
@@ -80,18 +79,7 @@ export class ChronicaDatepickerComponent
     private elementRef: ElementRef
   ) {
     // Initialize with current year range
-    this.updateYearRange(new Date().getFullYear());
-  }
-
-  private updateYearRange(centerYear: number): void {
-    // Create new array to avoid reference issues with Angular change detection
-    const start = centerYear - 10;
-    const end = centerYear + 10;
-    const newYearRange: number[] = [];
-    for (let year = start; year <= end; year++) {
-      newYearRange.push(year);
-    }
-    this.yearRange = newYearRange;
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(new Date().getFullYear());
   }
 
   ngOnInit(): void {
@@ -118,7 +106,7 @@ export class ChronicaDatepickerComponent
     this.monthNames = currentLocale.monthNames;
 
     // Update year range first, then generate month without additional year range update
-    this.updateYearRange(year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
 
     // Mark selected date if it exists
@@ -129,7 +117,7 @@ export class ChronicaDatepickerComponent
 
   private generateMonth(year: number, month: number): void {
     // Ensure year range includes the target year before generating month
-    this.updateYearRange(year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
 
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
 
@@ -217,7 +205,7 @@ export class ChronicaDatepickerComponent
     if (Number.isNaN(numericYear)) return;
 
     // Update year range first (mutates in-place) then update calendar
-    this.updateYearRange(numericYear);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(numericYear);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       numericYear,
       this.currentMonth.month,
@@ -314,7 +302,7 @@ export class ChronicaDatepickerComponent
     );
 
     // Update year range to include the new year if needed
-    this.updateYearRange(prev.year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(prev.year);
 
     // Update currentMonth directly to avoid additional year range calls
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
@@ -348,7 +336,7 @@ export class ChronicaDatepickerComponent
     );
 
     // Update year range to include the new year if needed
-    this.updateYearRange(next.year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(next.year);
 
     // Update currentMonth directly to avoid additional year range calls
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
@@ -399,7 +387,7 @@ export class ChronicaDatepickerComponent
     const todayMonth = today.getMonth();
 
     // Update year range to include today's year if it's not in current range
-    this.updateYearRange(todayYear);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(todayYear);
 
     // Update currentMonth directly to avoid additional year range calls
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
@@ -445,24 +433,9 @@ export class ChronicaDatepickerComponent
     this.disabled = isDisabled;
   }
 
-  // Get CSS custom properties for color theming
-  getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
-    const colors = CHRONICA_COLOR_THEMES[colorTheme];
-
-    return {
-      '--chronica-primary': colors.primary,
-      '--chronica-primary-hover': colors.primaryHover,
-      '--chronica-primary-light': colors.primaryLight,
-      '--chronica-primary-dark': colors.primaryDark,
-      '--chronica-accent': colors.accent,
-      '--chronica-focus': colors.focus,
-    };
-  }
-
   // Get theme class for styling
   get themeClass(): string {
-    return this.config.theme === 'dark' ? 'chronica-dark' : 'chronica-light';
+    return `chronica-${this.config.theme || 'light'}`;
   }
 
   // Get color theme class for styling

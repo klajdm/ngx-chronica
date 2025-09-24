@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   ChronicaTimePickerComponent,
-  TimeValue,
   TimePickerConfig,
 } from '../../../../../projects/chronica/src/lib/components/time-picker/time-picker.component';
-import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/index';
+import {
+  ChronicaTimeValue,
+  DEFAULT_CALENDAR_CONFIG,
+} from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({
@@ -19,7 +21,7 @@ export class TimePickerDemoComponent {
   private readonly _themeService = inject(ThemeService);
 
   // Basic time picker (24-hour format)
-  basicSelectedTime: TimeValue | null = null;
+  basicSelectedTime: ChronicaTimeValue | null = null;
   basicConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -31,7 +33,7 @@ export class TimePickerDemoComponent {
   );
 
   // 12-hour format time picker
-  twelveHourTime: TimeValue | null = null;
+  twelveHourTime: ChronicaTimeValue | null = null;
   twelveHourConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -43,7 +45,7 @@ export class TimePickerDemoComponent {
   );
 
   // Time picker with seconds
-  timeWithSeconds: TimeValue | null = null;
+  timeWithSeconds: ChronicaTimeValue | null = null;
   secondsConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -55,7 +57,7 @@ export class TimePickerDemoComponent {
   );
 
   // Time picker with restrictions
-  restrictedTime: TimeValue | null = null;
+  restrictedTime: ChronicaTimeValue | null = null;
   restrictedConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -65,11 +67,11 @@ export class TimePickerDemoComponent {
       showSeconds: false,
     })
   );
-  minTime: TimeValue = { hours: 9, minutes: 0 }; // 9:00 AM
-  maxTime: TimeValue = { hours: 17, minutes: 30 }; // 5:30 PM
+  minTime: ChronicaTimeValue = { hours: 9, minutes: 0 }; // 9:00 AM
+  maxTime: ChronicaTimeValue = { hours: 17, minutes: 30 }; // 5:30 PM
 
   // Form integration
-  formSelectedTime: TimeValue | null = { hours: 14, minutes: 30 }; // 2:30 PM
+  formSelectedTime: ChronicaTimeValue | null = { hours: 14, minutes: 30 }; // 2:30 PM
   formConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -81,7 +83,7 @@ export class TimePickerDemoComponent {
   );
 
   // Custom step intervals
-  customStepTime: TimeValue | null = null;
+  customStepTime: ChronicaTimeValue | null = null;
   customStepConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -95,7 +97,7 @@ export class TimePickerDemoComponent {
   );
 
   // Dark theme
-  darkThemeTime: TimeValue | null = null;
+  darkThemeTime: ChronicaTimeValue | null = null;
   darkThemeConfig = computed(
     (): TimePickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -106,36 +108,36 @@ export class TimePickerDemoComponent {
     })
   );
 
-  onBasicTimeChanged(time: TimeValue | null): void {
+  onBasicTimeChanged(time: ChronicaTimeValue | null): void {
     this.basicSelectedTime = time;
   }
 
-  onTwelveHourTimeChanged(time: TimeValue | null): void {
+  onTwelveHourTimeChanged(time: ChronicaTimeValue | null): void {
     this.twelveHourTime = time;
   }
 
-  onTimeWithSecondsChanged(time: TimeValue | null): void {
+  onTimeWithSecondsChanged(time: ChronicaTimeValue | null): void {
     this.timeWithSeconds = time;
   }
 
-  onRestrictedTimeChanged(time: TimeValue | null): void {
+  onRestrictedTimeChanged(time: ChronicaTimeValue | null): void {
     this.restrictedTime = time;
   }
 
-  onFormTimeChanged(time: TimeValue | null): void {
+  onFormTimeChanged(time: ChronicaTimeValue | null): void {
     this.formSelectedTime = time;
   }
 
-  onCustomStepTimeChanged(time: TimeValue | null): void {
+  onCustomStepTimeChanged(time: ChronicaTimeValue | null): void {
     this.customStepTime = time;
   }
 
-  onDarkThemeTimeChanged(time: TimeValue | null): void {
+  onDarkThemeTimeChanged(time: ChronicaTimeValue | null): void {
     this.darkThemeTime = time;
   }
 
   formatTimeDisplay(
-    time: TimeValue | null,
+    time: ChronicaTimeValue | null,
     format24Hour: boolean = true,
     showSeconds: boolean = false
   ): string {
@@ -157,7 +159,7 @@ export class TimePickerDemoComponent {
     }
   }
 
-  getTimeInMinutes(time: TimeValue | null): number {
+  getTimeInMinutes(time: ChronicaTimeValue | null): number {
     if (!time) return 0;
     return time.hours * 60 + time.minutes;
   }

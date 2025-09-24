@@ -52,15 +52,6 @@
   color: var(--chronica-primary, #3b82f6);
 }
 
-/* Selection status */
-.chronica-selection-status {
-  text-align: center;
-  font-size: var(--chronica-font-size, 14px);
-  font-weight: 600;
-  color: var(--chronica-primary, #3b82f6);
-  margin-bottom: var(--chronica-spacing, 12px);
-}
-
 /* Header styles (reuse from datepicker) */
 .chronica-header {
   display: flex;

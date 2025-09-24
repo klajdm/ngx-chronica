@@ -1,8 +1,4 @@
-<div
-  class="chronica-inline-calendar"
-  [ngStyle]="getColorThemeStyles()"
-  [class.chronica-dark]="config.theme === 'dark'"
->
+<div class="chronica-inline-calendar" [class]="colorThemeClass + ' ' + themeClass">
   <!-- Calendar Header -->
   <div class="chronica-header">
     <button type="button" class="chronica-nav-btn" (click)="previousMonth()" [disabled]="disabled">
