@@ -1,8 +1,8 @@
-<div class="chronica-calendar-container" [class]="themeClass + ' ' + colorThemeClass">
+<div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- Default input element -->
   <div
     *ngIf="!hideInput"
-    class="chronica-datepicker-trigger"
+    class="chronica-input-trigger"
     (click)="togglePopup()"
     (keydown.enter)="togglePopup()"
     (keydown.space)="togglePopup(); $event.preventDefault()"
@@ -13,11 +13,11 @@
     [attr.aria-label]="'Date picker: ' + formattedDate"
     [class.chronica-disabled]="disabled"
   >
-    <span class="datepicker-input-display" [class.chronica-placeholder]="!selectedDate">
+    <span class="chronica-input-display" [class.chronica-placeholder]="!selectedDate">
       {{ formattedDate }}
     </span>
     <svg
-      class="datepicker-input-icon"
+      class="chronica-input-icon"
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="20"
@@ -38,7 +38,7 @@
   <!-- Custom trigger element for popup mode (when hideInput is true) -->
   <div
     *ngIf="hideInput"
-    class="chronica-trigger"
+    class="chronica-manual-trigger"
     (click)="togglePopup()"
     (keydown.enter)="togglePopup()"
     (keydown.space)="togglePopup(); $event.preventDefault()"
