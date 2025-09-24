@@ -10,9 +10,6 @@ export * from './lib/components/time-picker/time-picker.component';
 export * from './lib/components/datetime-picker/datetime-picker.component';
 export * from './lib/components/duration-picker/duration-picker.component';
 
-// Service exports
-export * from './lib/services/chronica.service';
-
 // Model exports - New organized structure
 export * from './lib/models/index';
 
