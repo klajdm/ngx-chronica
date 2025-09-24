@@ -21,17 +21,13 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import {
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
+  ChronicaDateRange,
   ChronicaEvent,
   ChronicaLocale,
   ChronicaMonth,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models';
 import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
-
-export interface DateRange {
-  startDate: Date | null;
-  endDate: Date | null;
-}
 
 @Component({
   selector: 'chronica-date-range',
@@ -60,11 +56,11 @@ export class ChronicaDateRangeComponent
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
-  @Output() dateRangeChange = new EventEmitter<DateRange>();
+  @Output() dateRangeChange = new EventEmitter<ChronicaDateRange>();
   @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
-  private onChange = (value: DateRange | null) => {};
+  private onChange = (value: ChronicaDateRange | null) => {};
   private onTouched = () => {};
 
   // Calendar state
@@ -76,7 +72,7 @@ export class ChronicaDateRangeComponent
   private overlayRef: OverlayRef | null = null;
 
   // Date range state
-  private _dateRange: DateRange = { startDate: null, endDate: null };
+  private _dateRange: ChronicaDateRange = { startDate: null, endDate: null };
   private _selectingStartDate = true;
   hoveredDate: Date | null = null;
 
@@ -118,7 +114,7 @@ export class ChronicaDateRangeComponent
   }
 
   // ControlValueAccessor implementation
-  writeValue(value: DateRange | null): void {
+  writeValue(value: ChronicaDateRange | null): void {
     if (value) {
       this._dateRange = {
         startDate: value.startDate ? new Date(value.startDate) : null,
@@ -129,7 +125,7 @@ export class ChronicaDateRangeComponent
     }
   }
 
-  registerOnChange(fn: (value: DateRange | null) => void): void {
+  registerOnChange(fn: (value: ChronicaDateRange | null) => void): void {
     this.onChange = fn;
   }
 
@@ -390,7 +386,7 @@ export class ChronicaDateRangeComponent
   }
 
   //#region Getters
-  get dateRange(): DateRange {
+  get dateRange(): ChronicaDateRange {
     return this._dateRange;
   }
 
@@ -426,16 +422,6 @@ export class ChronicaDateRangeComponent
   }
 
   //#region Popup functionality
-  togglePopup(): void {
-    if (this.disabled) return;
-
-    if (this.isPopupOpen) {
-      this.closePopup();
-    } else {
-      this.openPopup();
-    }
-  }
-
   private openPopup(): void {
     if (this.overlayRef) {
       return;
@@ -491,6 +477,16 @@ export class ChronicaDateRangeComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
+  }
+
+  togglePopup(): void {
+    if (this.disabled) return;
+
+    if (this.isPopupOpen) {
+      this.closePopup();
+    } else {
+      this.openPopup();
+    }
   }
 
   //#region Cleanup
