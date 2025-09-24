@@ -48,7 +48,7 @@
 
 .time-input-icon {
   padding: 0 12px;
-  color: var(--chronica-text-muted-color, #9ca3af);
+  color: var(--chronica-text-color-light, #6b7280);
   display: flex;
   align-items: center;
 }
