@@ -422,7 +422,7 @@ export class ChronicaDateRangeComponent
   }
 
   //#region Popup functionality
-  private openPopup(): void {
+  openPopup(): void {
     if (this.overlayRef) {
       return;
     }
@@ -477,16 +477,6 @@ export class ChronicaDateRangeComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
-  }
-
-  togglePopup(): void {
-    if (this.disabled) return;
-
-    if (this.isPopupOpen) {
-      this.closePopup();
-    } else {
-      this.openPopup();
-    }
   }
 
   //#region Cleanup

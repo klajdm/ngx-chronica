@@ -433,24 +433,6 @@ export class ChronicaDatepickerComponent
     this.disabled = isDisabled;
   }
 
-  // Get theme class for styling
-  get themeClass(): string {
-    return `chronica-${this.config.theme || 'light'}`;
-  }
-
-  // Get color theme class for styling
-  get colorThemeClass(): string {
-    return `chronica-${this.config.colorTheme || 'blue'}`;
-  }
-
-  // Get formatted date for display
-  get formattedDate(): string {
-    if (!this.selectedDate) {
-      return this.placeholder;
-    }
-    return this.formatDate(this.selectedDate);
-  }
-
   // Get current locale configuration
   getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
@@ -484,22 +466,26 @@ export class ChronicaDatepickerComponent
     return format.replace('yyyy', year.toString()).replace('MM', month).replace('dd', day);
   }
 
-  ngOnDestroy(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
+  //#region Getters
+  get formattedDate(): string {
+    if (!this.selectedDate) {
+      return this.placeholder;
     }
+    return this.formatDate(this.selectedDate);
   }
 
-  // Popup functionality methods
-  togglePopup(): void {
-    if (this.isPopupOpen) {
-      this.closePopup();
-    } else {
-      this.openPopup();
-    }
+  // Get theme class for styling
+  get themeClass(): string {
+    return `chronica-${this.config.theme || 'light'}`;
   }
 
-  private openPopup(): void {
+  // Get color theme class for styling
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
+
+  //#region Popup management
+  openPopup(): void {
     if (this.overlayRef) {
       return;
     }
@@ -554,5 +540,12 @@ export class ChronicaDatepickerComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
+  }
+
+  //#region Cleanup
+  ngOnDestroy(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
   }
 }
