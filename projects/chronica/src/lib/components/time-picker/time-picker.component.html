@@ -14,7 +14,14 @@
       [attr.aria-haspopup]="true"
     />
     <div class="time-input-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <circle cx="12" cy="12" r="10"></circle>
         <polyline points="12,6 12,12 16,14"></polyline>
       </svg>
@@ -25,21 +32,6 @@
 <!-- Time Picker Popup Template -->
 <ng-template #timePickerTemplate>
   <div class="time-picker-popup" [class]="themeClass + ' ' + colorThemeClass">
-    <div class="time-picker-header">
-      <h3 class="time-picker-title">Select Time</h3>
-      <button 
-        type="button" 
-        class="close-button" 
-        (click)="closePopup()"
-        aria-label="Close time picker"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-
     <div class="time-picker-body">
       <!-- Time Display -->
       <div class="time-display">
@@ -52,8 +44,8 @@
         <div class="time-column">
           <label class="time-column-label">{{ config.format24Hour ? 'Hours' : 'Hour' }}</label>
           <div class="time-scroll-container">
-            <div 
-              *ngFor="let hour of hours" 
+            <div
+              *ngFor="let hour of hours"
               class="time-option"
               [class.selected]="hour === selectedHour"
               (click)="onHourChange(hour)"
@@ -67,8 +59,8 @@
         <div class="time-column">
           <label class="time-column-label">Minutes</label>
           <div class="time-scroll-container">
-            <div 
-              *ngFor="let minute of minutes" 
+            <div
+              *ngFor="let minute of minutes"
               class="time-option"
               [class.selected]="minute === selectedMinute"
               (click)="onMinuteChange(minute)"
@@ -82,8 +74,8 @@
         <div class="time-column" *ngIf="config.showSeconds">
           <label class="time-column-label">Seconds</label>
           <div class="time-scroll-container">
-            <div 
-              *ngFor="let second of seconds" 
+            <div
+              *ngFor="let second of seconds"
               class="time-option"
               [class.selected]="second === selectedSecond"
               (click)="onSecondChange(second)"
@@ -97,14 +89,14 @@
         <div class="time-column" *ngIf="!config.format24Hour">
           <label class="time-column-label">Period</label>
           <div class="time-scroll-container">
-            <div 
+            <div
               class="time-option"
               [class.selected]="selectedPeriod === 'AM'"
               (click)="onPeriodChange('AM')"
             >
               AM
             </div>
-            <div 
+            <div
               class="time-option"
               [class.selected]="selectedPeriod === 'PM'"
               (click)="onPeriodChange('PM')"
@@ -118,27 +110,9 @@
 
     <!-- Time Picker Footer -->
     <div class="time-picker-footer">
-      <button 
-        type="button" 
-        class="action-button secondary" 
-        (click)="setCurrentTime()"
-      >
-        Now
-      </button>
-      <button 
-        type="button" 
-        class="action-button secondary" 
-        (click)="clearTime()"
-      >
-        Clear
-      </button>
-      <button 
-        type="button" 
-        class="action-button primary" 
-        (click)="closePopup()"
-      >
-        OK
-      </button>
+      <button type="button" class="action-button secondary" (click)="setCurrentTime()">Now</button>
+      <button type="button" class="action-button secondary" (click)="clearTime()">Clear</button>
+      <button type="button" class="action-button primary" (click)="closePopup()">OK</button>
     </div>
   </div>
 </ng-template>
