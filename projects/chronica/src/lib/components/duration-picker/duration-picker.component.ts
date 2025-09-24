@@ -129,12 +129,6 @@ export class ChronicaDurationPickerComponent
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
-  }
-
   private initializeDurationLists(): void {
     // Initialize days
     if (this.config.showDays) {
@@ -222,102 +216,6 @@ export class ChronicaDurationPickerComponent
     this.selectedHours = 0;
     this.selectedMinutes = 0;
     this.selectedSeconds = 0;
-  }
-
-  get durationValue(): ChronicaDurationValue | null {
-    return this._durationValue;
-  }
-
-  get formattedDuration(): string {
-    if (!this._durationValue) return '';
-
-    const parts: string[] = [];
-    const { days, hours, minutes, seconds } = this._durationValue;
-
-    if (this.config.showDays && days && days > 0) {
-      parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
-    }
-
-    if (this.config.showHours && hours !== undefined && hours >= 0) {
-      parts.push(`${hours} ${hours === 1 ? 'hour' : 'hours'}`);
-    }
-
-    if (this.config.showMinutes && minutes !== undefined && minutes >= 0) {
-      parts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`);
-    }
-
-    if (this.config.showSeconds && seconds !== undefined && seconds >= 0) {
-      parts.push(`${seconds} ${seconds === 1 ? 'second' : 'seconds'}`);
-    }
-
-    return parts.length > 0 ? parts.join(' ') : '0 minutes';
-  }
-
-  get totalMinutes(): number {
-    if (!this._durationValue) return 0;
-
-    const { days = 0, hours = 0, minutes = 0, seconds = 0 } = this._durationValue;
-    return days * 24 * 60 + hours * 60 + minutes + Math.round(seconds / 60);
-  }
-
-  get totalSeconds(): number {
-    if (!this._durationValue) return 0;
-
-    const { days = 0, hours = 0, minutes = 0, seconds = 0 } = this._durationValue;
-    return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
-  }
-
-  openPopup(): void {
-    if (this.disabled || this.isPopupOpen) return;
-
-    const positionStrategy = this.overlay
-      .position()
-      .flexibleConnectedTo(this.elementRef)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-          offsetY: 14,
-        },
-        {
-          originX: 'start',
-          originY: 'top',
-          overlayX: 'start',
-          overlayY: 'bottom',
-          offsetY: -14,
-        },
-      ]);
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-      hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      panelClass: [this.colorThemeClass, this.themeClass],
-    });
-
-    this.overlayRef = this.overlay.create(overlayConfig);
-    const portal = new TemplatePortal(this.durationPickerTemplate, this.viewContainerRef);
-    this.overlayRef.attach(portal);
-
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
-
-    this.isPopupOpen = true;
-    this.cdr.detectChanges();
-  }
-
-  closePopup(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
-    }
-    this.isPopupOpen = false;
-    this.onTouched();
-    this.cdr.detectChanges();
   }
 
   onDaysChange(days: number): void {
@@ -425,6 +323,50 @@ export class ChronicaDurationPickerComponent
     this.setPresetDuration(preset);
   }
 
+  //#region Getters
+  get durationValue(): ChronicaDurationValue | null {
+    return this._durationValue;
+  }
+
+  get formattedDuration(): string {
+    if (!this._durationValue) return '';
+
+    const parts: string[] = [];
+    const { days, hours, minutes, seconds } = this._durationValue;
+
+    if (this.config.showDays && days && days > 0) {
+      parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
+    }
+
+    if (this.config.showHours && hours !== undefined && hours >= 0) {
+      parts.push(`${hours} ${hours === 1 ? 'hour' : 'hours'}`);
+    }
+
+    if (this.config.showMinutes && minutes !== undefined && minutes >= 0) {
+      parts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`);
+    }
+
+    if (this.config.showSeconds && seconds !== undefined && seconds >= 0) {
+      parts.push(`${seconds} ${seconds === 1 ? 'second' : 'seconds'}`);
+    }
+
+    return parts.length > 0 ? parts.join(' ') : '0 minutes';
+  }
+
+  get totalMinutes(): number {
+    if (!this._durationValue) return 0;
+
+    const { days = 0, hours = 0, minutes = 0, seconds = 0 } = this._durationValue;
+    return days * 24 * 60 + hours * 60 + minutes + Math.round(seconds / 60);
+  }
+
+  get totalSeconds(): number {
+    if (!this._durationValue) return 0;
+
+    const { days = 0, hours = 0, minutes = 0, seconds = 0 } = this._durationValue;
+    return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
+  }
+
   // Utility methods for template
   get colorThemeClass(): string {
     return `chronica-${this.config.colorTheme || 'blue'}`;
@@ -432,5 +374,66 @@ export class ChronicaDurationPickerComponent
 
   get themeClass(): string {
     return `chronica-${this.config.theme || 'light'}`;
+  }
+
+  //#region Popup management
+  openPopup(): void {
+    if (this.disabled || this.isPopupOpen) return;
+
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+          offsetY: 14,
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom',
+          offsetY: -14,
+        },
+      ]);
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      panelClass: [this.colorThemeClass, this.themeClass],
+    });
+
+    this.overlayRef = this.overlay.create(overlayConfig);
+    const portal = new TemplatePortal(this.durationPickerTemplate, this.viewContainerRef);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
+    });
+
+    this.isPopupOpen = true;
+    this.cdr.detectChanges();
+  }
+
+  closePopup(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
+    this.isPopupOpen = false;
+    this.onTouched();
+    this.cdr.detectChanges();
+  }
+
+  //#region Cleanup
+  ngOnDestroy(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
   }
 }
