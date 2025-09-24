@@ -220,18 +220,13 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.disabled = isDisabled;
   }
 
-  getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
-    const colors = CHRONICA_COLOR_THEMES[colorTheme];
+  // Utility methods for template
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
 
-    return {
-      '--chronica-primary': colors.primary,
-      '--chronica-primary-hover': colors.primaryHover,
-      '--chronica-primary-light': colors.primaryLight,
-      '--chronica-primary-dark': colors.primaryDark,
-      '--chronica-accent': colors.accent,
-      '--chronica-focus': colors.focus,
-    };
+  get themeClass(): string {
+    return `chronica-${this.config.theme || 'light'}`;
   }
 
   getCurrentLocale(): ChronicaLocale {
