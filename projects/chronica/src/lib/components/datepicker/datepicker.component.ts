@@ -19,14 +19,14 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
-  CalendarMonth,
-  CalendarConfig,
-  CalendarEvent,
-  CalendarLocale,
+  ChronicaMonth,
+  ChronicaCalendarConfig,
+  ChronicaEvent,
+  ChronicaLocale,
   DEFAULT_CALENDAR_CONFIG,
-  COLOR_THEMES,
-  CALENDAR_LOCALES,
-} from '../../models/chronica.models';
+  CHRONICA_COLOR_THEMES,
+  CHRONICA_LOCALES,
+} from '../../models/index';
 import { ChronicaService } from '../../services/chronica.service';
 
 @Component({
@@ -47,8 +47,8 @@ export class ChronicaDatepickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
   @Input() selectedDate: Date | null = null;
-  @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
-  @Input() locale: CalendarLocale | string = 'en-US';
+  @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
+  @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
   @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
@@ -57,14 +57,14 @@ export class ChronicaDatepickerComponent
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
-  @Output() calendarEvent = new EventEmitter<CalendarEvent>();
+  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (value: Date | null) => {};
   private onTouched = () => {};
   disabled = false;
 
-  currentMonth!: CalendarMonth;
+  currentMonth!: ChronicaMonth;
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
@@ -144,8 +144,8 @@ export class ChronicaDatepickerComponent
     if (!this.selectedDate) return;
 
     this.currentMonth.weeks.forEach((week) => {
-      week.dates.forEach((date) => {
-        date.isSelected = this.calendarService.isSameDate(date.date, this.selectedDate!);
+      week.forEach((date) => {
+        date.selected = this.calendarService.isSameDate(date.date, this.selectedDate!);
       });
     });
   }
@@ -173,7 +173,8 @@ export class ChronicaDatepickerComponent
     this.dateSelected.emit(new Date(selectedDate));
     this.calendarEvent.emit({
       type: 'dateSelect',
-      date: new Date(selectedDate),
+      payload: new Date(selectedDate),
+      timestamp: Date.now(),
     });
 
     // Close popup after date selection
@@ -205,8 +206,8 @@ export class ChronicaDatepickerComponent
     this.monthChanged.emit({ month: monthIndex, year: this.currentMonth.year });
     this.calendarEvent.emit({
       type: 'monthChange',
-      month: monthIndex,
-      year: this.currentMonth.year,
+      payload: { month: monthIndex, year: this.currentMonth.year },
+      timestamp: Date.now(),
     });
   }
 
@@ -238,8 +239,8 @@ export class ChronicaDatepickerComponent
     });
     this.calendarEvent.emit({
       type: 'yearChange',
-      month: this.currentMonth.month,
-      year: numericYear,
+      payload: { month: this.currentMonth.month, year: numericYear },
+      timestamp: Date.now(),
     });
   }
 
@@ -334,8 +335,8 @@ export class ChronicaDatepickerComponent
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
       type: 'monthChange',
-      month: prev.month,
-      year: prev.year,
+      payload: { month: prev.month, year: prev.year },
+      timestamp: Date.now(),
     });
   }
 
@@ -365,8 +366,8 @@ export class ChronicaDatepickerComponent
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
       type: 'monthChange',
-      month: next.month,
-      year: next.year,
+      payload: { month: next.month, year: next.year },
+      timestamp: Date.now(),
     });
   }
 
@@ -419,8 +420,8 @@ export class ChronicaDatepickerComponent
     });
     this.calendarEvent.emit({
       type: 'monthChange',
-      month: todayMonth,
-      year: todayYear,
+      payload: { month: todayMonth, year: todayYear },
+      timestamp: Date.now(),
     });
   }
 
@@ -447,7 +448,7 @@ export class ChronicaDatepickerComponent
   // Get CSS custom properties for color theming
   getColorThemeStyles(): { [key: string]: string } {
     const colorTheme = this.config.colorTheme || 'blue';
-    const colors = COLOR_THEMES[colorTheme];
+    const colors = CHRONICA_COLOR_THEMES[colorTheme];
 
     return {
       '--chronica-primary': colors.primary,
@@ -478,15 +479,15 @@ export class ChronicaDatepickerComponent
   }
 
   // Get current locale configuration
-  getCurrentLocale(): CalendarLocale {
+  getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
   }
 
   // Get day names from locale, respecting firstDayOfWeek
-  private getDayNamesFromLocale(locale: CalendarLocale): string[] {
+  private getDayNamesFromLocale(locale: ChronicaLocale): string[] {
     const firstDayOfWeek = this.config.firstDayOfWeek ?? locale.weekStartsOn;
     const dayNames = [...locale.dayNamesShort];
 

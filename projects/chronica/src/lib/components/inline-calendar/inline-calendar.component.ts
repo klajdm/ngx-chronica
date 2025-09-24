@@ -10,16 +10,16 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  CalendarMonth,
-  CalendarConfig,
-  CalendarEvent,
-  CalendarLocale,
-  DEFAULT_CALENDAR_CONFIG,
-  COLOR_THEMES,
-  CALENDAR_LOCALES,
-} from '../../models/chronica.models';
 import { ChronicaService } from '../../services/chronica.service';
+import {
+  CHRONICA_COLOR_THEMES,
+  CHRONICA_LOCALES,
+  ChronicaCalendarConfig,
+  ChronicaEvent,
+  ChronicaLocale,
+  ChronicaMonth,
+  DEFAULT_CALENDAR_CONFIG,
+} from '../../models';
 
 @Component({
   selector: 'chronica-inline-calendar',
@@ -37,21 +37,21 @@ import { ChronicaService } from '../../services/chronica.service';
 })
 export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
-  @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
-  @Input() locale: CalendarLocale | string = 'en-US';
+  @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
+  @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
-  @Output() calendarEvent = new EventEmitter<CalendarEvent>();
+  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (value: Date | null) => {};
   private onTouched = () => {};
   disabled = false;
 
-  currentMonth!: CalendarMonth;
+  currentMonth!: ChronicaMonth;
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
@@ -104,14 +104,14 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     if (!this.selectedDate) return;
 
     this.currentMonth.weeks.forEach((week) => {
-      week.dates.forEach((date) => {
-        date.isSelected = this.calendarService.isSameDate(date.date, this.selectedDate!);
+      week.forEach((date) => {
+        date.selected = this.calendarService.isSameDate(date.date, this.selectedDate!);
       });
     });
   }
 
   selectDate(date: any): void {
-    if (date.isDisabled || this.disabled) return;
+    if (date.disabled || this.disabled) return;
 
     this.selectedDate = new Date(date.date);
 
@@ -121,7 +121,8 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.dateSelected.emit(new Date(this.selectedDate));
     this.calendarEvent.emit({
       type: 'dateSelect',
-      date: new Date(this.selectedDate),
+      payload: new Date(this.selectedDate),
+      timestamp: Date.now(),
     });
 
     this.updateSelectedDate();
@@ -147,8 +148,8 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
       type: 'monthChange',
-      month: prev.month,
-      year: prev.year,
+      payload: { month: prev.month, year: prev.year },
+      timestamp: Date.now(),
     });
   }
 
@@ -169,8 +170,8 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
       type: 'monthChange',
-      month: next.month,
-      year: next.year,
+      payload: { month: next.month, year: next.year },
+      timestamp: Date.now(),
     });
   }
 
@@ -193,10 +194,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.dateSelected.emit(new Date(this.selectedDate));
     this.updateSelectedDate();
 
-    this.monthChanged.emit({
-      month: todayMonth,
-      year: todayYear,
-    });
+    this.monthChanged.emit({ month: todayMonth, year: todayYear });
   }
 
   // ControlValueAccessor implementation
@@ -221,7 +219,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
 
   getColorThemeStyles(): { [key: string]: string } {
     const colorTheme = this.config.colorTheme || 'blue';
-    const colors = COLOR_THEMES[colorTheme];
+    const colors = CHRONICA_COLOR_THEMES[colorTheme];
 
     return {
       '--chronica-primary': colors.primary,
@@ -233,14 +231,14 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     };
   }
 
-  getCurrentLocale(): CalendarLocale {
+  getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
   }
 
-  private getDayNamesFromLocale(locale: CalendarLocale): string[] {
+  private getDayNamesFromLocale(locale: ChronicaLocale): string[] {
     const firstDayOfWeek = this.config.firstDayOfWeek ?? locale.weekStartsOn;
     const dayNames = [...locale.dayNamesShort];
 

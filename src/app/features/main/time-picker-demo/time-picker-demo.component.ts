@@ -6,7 +6,7 @@ import {
   TimeValue,
   TimePickerConfig,
 } from '../../../../../projects/chronica/src/lib/components/time-picker/time-picker.component';
-import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/chronica.models';
+import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({

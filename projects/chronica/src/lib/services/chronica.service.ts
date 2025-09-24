@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  CalendarDate,
-  CalendarMonth,
-  CalendarWeek,
-  CalendarConfig,
+  ChronicaDate,
+  ChronicaMonth,
+  ChronicaCalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
-  MONTH_NAMES,
-  DAY_NAMES_SHORT,
-} from '../models/chronica.models';
+  ChronicaLocale,
+  CHRONICA_LOCALES,
+} from '../models/index';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +27,8 @@ export class ChronicaService {
   generateCalendarMonth(
     year: number,
     month: number,
-    config: CalendarConfig = DEFAULT_CALENDAR_CONFIG
-  ): CalendarMonth {
+    config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG
+  ): ChronicaMonth {
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     const firstDayOfWeek = config.firstDayOfWeek || 0;
@@ -44,38 +43,45 @@ export class ChronicaService {
     const daysToAdd = 6 - ((lastDayOfMonth.getDay() - firstDayOfWeek + 7) % 7);
     endDate.setDate(endDate.getDate() + daysToAdd);
 
-    const weeks: CalendarWeek[] = [];
+    const weeks: ChronicaDate[][] = [];
+    const dates: ChronicaDate[] = [];
     const currentDate = new Date(startDate);
 
     while (currentDate <= endDate) {
-      const week: CalendarWeek = { dates: [] };
+      const week: ChronicaDate[] = [];
 
       for (let i = 0; i < 7; i++) {
         const calendarDate = this.createCalendarDate(currentDate, year, month, config);
-        week.dates.push(calendarDate);
+        week.push(calendarDate);
+        dates.push(calendarDate);
         currentDate.setDate(currentDate.getDate() + 1);
       }
 
       weeks.push(week);
     }
 
+    // Get locale for month name
+    const locale = config.locale || CHRONICA_LOCALES['en-US'];
+    const displayName = locale.monthNames[month];
+
     return {
       month,
       year,
-      name: MONTH_NAMES[month],
+      displayName,
+      dates,
       weeks,
     };
   }
 
   /**
-   * Creates a CalendarDate object
+   * Creates a ChronicaDate object
    */
   private createCalendarDate(
     date: Date,
     currentMonth: number,
     currentYear: number,
-    config: CalendarConfig
-  ): CalendarDate {
+    config: ChronicaCalendarConfig
+  ): ChronicaDate {
     const today = this.stripTime(new Date());
     const isToday = this.isSameDate(this.stripTime(date), today);
     const isInCurrentMonth = date.getMonth() === currentMonth && date.getFullYear() === currentYear;
@@ -84,13 +90,10 @@ export class ChronicaService {
 
     return {
       date: this.stripTime(new Date(date)),
-      day: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      selected: false,
       isToday,
-      isSelected: false,
-      isDisabled,
-      isInCurrentMonth,
+      inCurrentMonth: isInCurrentMonth,
+      disabled: isDisabled,
       isWeekend,
     };
   }
@@ -98,7 +101,7 @@ export class ChronicaService {
   /**
    * Checks if a date is disabled based on config
    */
-  private isDateDisabled(date: Date, config: CalendarConfig): boolean {
+  private isDateDisabled(date: Date, config: ChronicaCalendarConfig): boolean {
     const d = this.stripTime(date);
 
     if (config.minDate && d.getTime() < this.stripTime(config.minDate).getTime()) {
@@ -132,9 +135,10 @@ export class ChronicaService {
   /**
    * Gets the day names based on first day of week setting
    */
-  getDayNames(config: CalendarConfig = DEFAULT_CALENDAR_CONFIG): string[] {
+  getDayNames(config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG): string[] {
     const firstDayOfWeek = config.firstDayOfWeek || 0;
-    const dayNames = [...DAY_NAMES_SHORT];
+    const locale = config.locale || CHRONICA_LOCALES['en-US'];
+    const dayNames = [...locale.dayNamesShort];
 
     if (firstDayOfWeek > 0) {
       const rotated = dayNames.splice(firstDayOfWeek);

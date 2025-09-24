@@ -1,12 +1,12 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChronicaDateTimePickerComponent } from '../../../../../projects/chronica/src/lib/components/datetime-picker/datetime-picker.component';
 import {
-  ChronicaDateTimePickerComponent,
-  DateTimeValue,
-  DateTimePickerConfig,
+  ChronicaDateTimeValue as DateTimeValue,
+  ChronicaDateTimeConfig as DateTimePickerConfig,
   DEFAULT_DATETIME_CONFIG,
-} from '../../../../../projects/chronica/src/lib/components/datetime-picker/datetime-picker.component';
+} from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({
@@ -25,8 +25,6 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: true,
-      showSeconds: false,
     })
   );
 
@@ -37,8 +35,7 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: false,
-      showSeconds: false,
+      timeConfig: { timeFormat: '12h', showSeconds: false },
     })
   );
 
@@ -49,8 +46,7 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: true,
-      showSeconds: true,
+      timeConfig: { timeFormat: '24h', showSeconds: true },
     })
   );
 
@@ -61,8 +57,6 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: true,
-      showSeconds: false,
     })
   );
 
@@ -73,10 +67,7 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: true,
-      showSeconds: false,
-      minDate: new Date(2024, 0, 1), // January 1, 2024
-      maxDate: new Date(2024, 11, 31), // December 31, 2024
+      calendarConfig: { minDate: new Date(2024, 0, 1), maxDate: new Date(2024, 11, 31) },
     })
   );
 
@@ -90,8 +81,7 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: false,
-      showSeconds: false,
+      timeConfig: { timeFormat: '12h', showSeconds: false },
     })
   );
 
@@ -102,8 +92,6 @@ export class DateTimePickerDemoComponent {
       ...DEFAULT_DATETIME_CONFIG,
       theme: 'dark',
       colorTheme: this._themeService.currentTheme(),
-      format24Hour: true,
-      showSeconds: false,
     })
   );
 

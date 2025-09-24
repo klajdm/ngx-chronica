@@ -23,8 +23,8 @@ describe('ChronicaDateTimePickerComponent', () => {
   });
 
   it('should initialize with default config', () => {
-    expect(component.config.format24Hour).toBe(true);
-    expect(component.config.showSeconds).toBe(false);
+  expect(component.format24Hour).toBe(true);
+  expect(component.showSeconds).toBe(false);
   });
 
   it('should format date and time correctly', () => {
@@ -41,9 +41,10 @@ describe('ChronicaDateTimePickerComponent', () => {
   });
 
   it('should handle 12-hour format', () => {
+    // Set timeConfig to use 12-hour format
     component.config = {
       ...component.config,
-      format24Hour: false,
+      timeConfig: { ...(component.config.timeConfig || {}), timeFormat: '12h' },
     };
 
     const dateTime = {
