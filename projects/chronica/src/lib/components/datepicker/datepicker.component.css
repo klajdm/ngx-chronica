@@ -328,18 +328,17 @@
   border-color: var(--chronica-disabled-border, #e5e7eb);
 }
 
-.chronica-datepicker-display {
+.datepicker-input-display {
   flex: 1;
-  text-align: left;
   font-size: var(--chronica-font-size, 14px);
   color: var(--chronica-text-color, #374151);
 }
 
-.chronica-datepicker-display.chronica-placeholder {
+.datepicker-input-display.chronica-placeholder {
   color: var(--chronica-text-color-muted, #9ca3af);
 }
 
-.chronica-calendar-icon {
+.datepicker-input-icon {
   color: var(--chronica-text-color-light, #6b7280);
   flex-shrink: 0;
   margin-left: var(--chronica-spacing-xs, 4px);

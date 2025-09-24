@@ -13,11 +13,11 @@
     [attr.aria-label]="'Date picker: ' + formattedDate"
     [class.chronica-disabled]="disabled"
   >
-    <span class="chronica-datepicker-display" [class.chronica-placeholder]="!selectedDate">
+    <span class="datepicker-input-display" [class.chronica-placeholder]="!selectedDate">
       {{ formattedDate }}
     </span>
     <svg
-      class="chronica-calendar-icon"
+      class="datepicker-input-icon"
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="20"
