@@ -25,15 +25,13 @@ import {
   ChronicaLocale,
 } from '../../models/index';
 
-export type TimeValue = ChronicaTimeValue;
-
 export interface TimePickerConfig extends Partial<ChronicaTimeConfig> {
   format24Hour?: boolean;
   showSeconds?: boolean;
   minuteStep?: number;
   secondStep?: number;
-  minTime?: TimeValue;
-  maxTime?: TimeValue;
+  minTime?: ChronicaTimeValue;
+  maxTime?: ChronicaTimeValue;
 }
 
 @Component({
@@ -64,17 +62,17 @@ export class ChronicaTimePickerComponent
   @Input() placeholder = 'Select time';
   @Input() disabled = false;
   @Input() required = false;
-  @Input() minTime: TimeValue | null = null;
-  @Input() maxTime: TimeValue | null = null;
+  @Input() minTime: ChronicaTimeValue | null = null;
+  @Input() maxTime: ChronicaTimeValue | null = null;
 
-  @Output() timeChange = new EventEmitter<TimeValue | null>();
+  @Output() timeChange = new EventEmitter<ChronicaTimeValue | null>();
 
   // ControlValueAccessor properties
-  private onChange = (value: TimeValue | null) => {};
+  private onChange = (value: ChronicaTimeValue | null) => {};
   private onTouched = () => {};
 
   // Time picker state
-  private _timeValue: TimeValue | null = null;
+  private _timeValue: ChronicaTimeValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
 
@@ -145,7 +143,7 @@ export class ChronicaTimePickerComponent
   }
 
   // ControlValueAccessor implementation
-  writeValue(value: TimeValue | null): void {
+  writeValue(value: ChronicaTimeValue | null): void {
     if (value) {
       this._timeValue = { ...value };
       this.updateSelectedTime(value);
@@ -156,7 +154,7 @@ export class ChronicaTimePickerComponent
     this.cdr.detectChanges();
   }
 
-  registerOnChange(fn: (value: TimeValue | null) => void): void {
+  registerOnChange(fn: (value: ChronicaTimeValue | null) => void): void {
     this.onChange = fn;
   }
 
@@ -169,7 +167,7 @@ export class ChronicaTimePickerComponent
     this.cdr.detectChanges();
   }
 
-  private updateSelectedTime(time: TimeValue): void {
+  private updateSelectedTime(time: ChronicaTimeValue): void {
     if (this.config.format24Hour) {
       this.selectedHour = time.hours;
     } else {
@@ -195,7 +193,7 @@ export class ChronicaTimePickerComponent
 
   private resetToCurrentTime(): void {
     const now = new Date();
-    const currentTime: TimeValue = {
+    const currentTime: ChronicaTimeValue = {
       hours: now.getHours(),
       minutes: now.getMinutes(),
       seconds: now.getSeconds(),
@@ -203,7 +201,7 @@ export class ChronicaTimePickerComponent
     this.updateSelectedTime(currentTime);
   }
 
-  get timeValue(): TimeValue | null {
+  get timeValue(): ChronicaTimeValue | null {
     return this._timeValue;
   }
 
@@ -312,7 +310,7 @@ export class ChronicaTimePickerComponent
       }
     }
 
-    const newTimeValue: TimeValue = {
+    const newTimeValue: ChronicaTimeValue = {
       hours,
       minutes: this.selectedMinute,
       seconds: this.config.showSeconds ? this.selectedSecond : undefined,
@@ -326,7 +324,7 @@ export class ChronicaTimePickerComponent
     }
   }
 
-  private isTimeValid(time: TimeValue): boolean {
+  private isTimeValid(time: ChronicaTimeValue): boolean {
     if (this.minTime) {
       const minTotalMinutes = this.minTime.hours * 60 + this.minTime.minutes;
       const timeTotalMinutes = time.hours * 60 + time.minutes;
@@ -351,7 +349,7 @@ export class ChronicaTimePickerComponent
 
   setCurrentTime(): void {
     const now = new Date();
-    const currentTime: TimeValue = {
+    const currentTime: ChronicaTimeValue = {
       hours: now.getHours(),
       minutes: now.getMinutes(),
       seconds: this.config.showSeconds ? now.getSeconds() : undefined,
