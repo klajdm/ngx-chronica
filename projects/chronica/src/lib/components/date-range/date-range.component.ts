@@ -8,7 +8,6 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
-  HostListener,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
@@ -20,15 +19,15 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
-  CalendarMonth,
-  CalendarConfig,
-  CalendarEvent,
-  CalendarLocale,
+  CHRONICA_COLOR_THEMES,
+  CHRONICA_LOCALES,
+  ChronicaCalendarConfig,
+  ChronicaEvent,
+  ChronicaLocale,
+  ChronicaMonth,
   DEFAULT_CALENDAR_CONFIG,
-  COLOR_THEMES,
-  CALENDAR_LOCALES,
-} from '../../models/chronica.models';
-import { ChronicaService } from '../../services/chronica.service';
+} from '../../models';
+import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 
 export interface DateRange {
   startDate: Date | null;
@@ -52,8 +51,8 @@ export interface DateRange {
 export class ChronicaDateRangeComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
-  @Input() config: CalendarConfig = DEFAULT_CALENDAR_CONFIG;
-  @Input() locale: CalendarLocale | string = 'en-US';
+  @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
+  @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() placeholder = 'Select date range';
   @Input() disabled = false;
   @Input() required = false;
@@ -63,14 +62,14 @@ export class ChronicaDateRangeComponent
   @Input() initialYear?: number;
 
   @Output() dateRangeChange = new EventEmitter<DateRange>();
-  @Output() calendarEvent = new EventEmitter<CalendarEvent>();
+  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (value: DateRange | null) => {};
   private onTouched = () => {};
 
   // Calendar state
-  currentMonth!: CalendarMonth;
+  currentMonth!: ChronicaMonth;
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
@@ -85,7 +84,6 @@ export class ChronicaDateRangeComponent
   @ViewChild('dateRangeTemplate', { static: true }) dateRangeTemplate!: TemplateRef<any>;
 
   constructor(
-    private calendarService: ChronicaService,
     private cdr: ChangeDetectorRef,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
@@ -123,7 +121,7 @@ export class ChronicaDateRangeComponent
     this.monthNames = currentLocale.monthNames;
 
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
   }
 
   private updateYearRange(centerYear: number): void {
@@ -260,7 +258,7 @@ export class ChronicaDateRangeComponent
   // Calendar navigation
   private generateMonth(year: number, month: number): void {
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
   }
 
   getDaysInMonth(): number[] {
@@ -282,7 +280,7 @@ export class ChronicaDateRangeComponent
   previousMonth(): void {
     if (this.isPreviousMonthDisabled()) return;
 
-    const prev = this.calendarService.getPreviousMonth(
+    const prev = ChronicaCalendarUtils.getPreviousMonth(
       this.currentMonth.month,
       this.currentMonth.year
     );
@@ -293,7 +291,10 @@ export class ChronicaDateRangeComponent
   nextMonth(): void {
     if (this.isNextMonthDisabled()) return;
 
-    const next = this.calendarService.getNextMonth(this.currentMonth.month, this.currentMonth.year);
+    const next = ChronicaCalendarUtils.getNextMonth(
+      this.currentMonth.month,
+      this.currentMonth.year
+    );
     this.generateMonth(next.year, next.month);
     this.cdr.detectChanges();
   }
@@ -316,7 +317,6 @@ export class ChronicaDateRangeComponent
 
   isPreviousMonthDisabled(): boolean {
     if (!this.minDate) return false;
-    const firstDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month, 1);
     const firstDayOfPreviousMonth = new Date(
       this.currentMonth.year,
       this.currentMonth.month - 1,
@@ -327,7 +327,6 @@ export class ChronicaDateRangeComponent
 
   isNextMonthDisabled(): boolean {
     if (!this.maxDate) return false;
-    const lastDayOfCurrentMonth = new Date(this.currentMonth.year, this.currentMonth.month + 1, 0);
     const lastDayOfNextMonth = new Date(this.currentMonth.year, this.currentMonth.month + 2, 0);
     return lastDayOfNextMonth > this.maxDate;
   }
@@ -359,7 +358,8 @@ export class ChronicaDateRangeComponent
     this.dateRangeChange.emit(this._dateRange);
     this.calendarEvent.emit({
       type: 'dateSelect',
-      date: selectedDate,
+      payload: new Date(selectedDate),
+      timestamp: Date.now(),
     });
   }
 
@@ -377,13 +377,13 @@ export class ChronicaDateRangeComponent
   isStartDate(day: number): boolean {
     if (!this._dateRange.startDate) return false;
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
-    return this.calendarService.isSameDate(date, this._dateRange.startDate);
+    return ChronicaCalendarUtils.isSameDate(date, this._dateRange.startDate);
   }
 
   isEndDate(day: number): boolean {
     if (!this._dateRange.endDate) return false;
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
-    return this.calendarService.isSameDate(date, this._dateRange.endDate);
+    return ChronicaCalendarUtils.isSameDate(date, this._dateRange.endDate);
   }
 
   isInRange(day: number): boolean {
@@ -477,7 +477,7 @@ export class ChronicaDateRangeComponent
   // Utility methods
   getColorThemeStyles(): { [key: string]: string } {
     const colorTheme = this.config.colorTheme || 'blue';
-    const colors = COLOR_THEMES[colorTheme];
+    const colors = CHRONICA_COLOR_THEMES[colorTheme];
 
     return {
       '--chronica-primary': colors.primary,
@@ -489,14 +489,14 @@ export class ChronicaDateRangeComponent
     };
   }
 
-  getCurrentLocale(): CalendarLocale {
+  getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
   }
 
-  private getDayNamesFromLocale(locale: CalendarLocale): string[] {
+  private getDayNamesFromLocale(locale: ChronicaLocale): string[] {
     const firstDayOfWeek = this.config.firstDayOfWeek ?? locale.weekStartsOn;
     const dayNames = [...locale.dayNamesShort];
 

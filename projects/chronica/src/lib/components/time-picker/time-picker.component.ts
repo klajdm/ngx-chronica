@@ -20,18 +20,15 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
-  CalendarConfig,
-  CalendarLocale,
-  DEFAULT_CALENDAR_CONFIG,
-} from '../../models/chronica.models';
+  ChronicaTimeConfig,
+  ChronicaTimeValue,
+  DEFAULT_TIME_CONFIG,
+  ChronicaLocale,
+} from '../../models/index';
 
-export interface TimeValue {
-  hours: number;
-  minutes: number;
-  seconds?: number;
-}
+export type TimeValue = ChronicaTimeValue;
 
-export interface TimePickerConfig extends Partial<CalendarConfig> {
+export interface TimePickerConfig extends Partial<ChronicaTimeConfig> {
   format24Hour?: boolean;
   showSeconds?: boolean;
   minuteStep?: number;
@@ -58,13 +55,13 @@ export class ChronicaTimePickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
   @Input() config: TimePickerConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
+    ...DEFAULT_TIME_CONFIG,
     format24Hour: true,
     showSeconds: false,
     minuteStep: 1,
     secondStep: 1,
   };
-  @Input() locale: CalendarLocale | string = 'en-US';
+  @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() placeholder = 'Select time';
   @Input() disabled = false;
   @Input() required = false;
