@@ -1,16 +1,21 @@
-<div class="chronica-duration-picker" [class]="colorThemeClass + ' ' + themeClass">
-  <!-- Input field -->
-  <div class="duration-input-container" (click)="openPopup()">
-    <input
-      type="text"
-      class="duration-input"
-      [value]="formattedDuration"
-      [placeholder]="placeholder"
-      [disabled]="disabled"
-      [required]="required"
-      readonly
-    />
-    <div class="duration-input-icon">
+<div class="chronica-input-container" [class]="colorThemeClass + ' ' + themeClass">
+  <!-- Duration Input Trigger -->
+  <div
+    class="chronica-input-trigger"
+    (click)="openPopup()"
+    (keydown.enter)="openPopup()"
+    (keydown.space)="openPopup(); $event.preventDefault()"
+    tabindex="0"
+    role="button"
+    [attr.aria-expanded]="isPopupOpen"
+    aria-haspopup="true"
+    [attr.aria-label]="formattedDuration || placeholder"
+    [class.chronica-disabled]="disabled"
+  >
+    <span class="chronica-input-display" [class.chronica-placeholder]="!formattedDuration">
+      {{ formattedDuration || placeholder }}
+    </span>
+    <div class="chronica-input-icon">
       <svg
         width="20"
         height="20"
@@ -19,8 +24,8 @@
         stroke="currentColor"
         stroke-width="2"
       >
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12,6 12,12 16,14" />
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12,6 12,12 16,14"></polyline>
       </svg>
     </div>
   </div>

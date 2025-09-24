@@ -1,8 +1,8 @@
-<div class="chronica-datetime-picker" [class]="themeClass + ' ' + colorThemeClass">
+<div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- DateTime Input Trigger -->
   <div
     *ngIf="!hideInput"
-    class="datetime-input-trigger"
+    class="chronica-input-trigger"
     (click)="openPopup()"
     (keydown.enter)="openPopup()"
     (keydown.space)="openPopup(); $event.preventDefault()"
@@ -13,10 +13,10 @@
     [attr.aria-label]="placeholder"
     [class.chronica-disabled]="disabled"
   >
-    <span class="datetime-input-display" [class.chronica-placeholder]="!formattedDateTime">
+    <span class="chronica-input-display" [class.chronica-placeholder]="!formattedDateTime">
       {{ formattedDateTime || placeholder }}
     </span>
-    <div class="datetime-input-icon">
+    <div class="chronica-input-icon">
       <svg
         width="20"
         height="20"
@@ -37,7 +37,7 @@
   <!-- Custom trigger element (when hideInput is true) -->
   <div
     *ngIf="hideInput"
-    class="datetime-trigger"
+    class="chronica-manual-trigger"
     (click)="openPopup()"
     (keydown.enter)="openPopup()"
     (keydown.space)="openPopup(); $event.preventDefault()"
