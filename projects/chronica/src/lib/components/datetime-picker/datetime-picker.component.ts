@@ -13,7 +13,6 @@ import {
   ViewContainerRef,
   ChangeDetectorRef,
   forwardRef,
-  HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -31,13 +30,7 @@ import {
   DEFAULT_TIME_CONFIG,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models/index';
-// legacy TimeValue import removed — use ChronicaTimeValue from models
-
-export type DateTimeValue = ChronicaDateTimeValue;
-
-export type DateTimePickerConfig = ChronicaDateTimeConfig;
-
-export const DEFAULT_DATETIME_PICKER_CONFIG: DateTimePickerConfig = DEFAULT_DATETIME_CONFIG;
+import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 
 @Component({
   selector: 'chronica-datetime-picker',
@@ -56,7 +49,7 @@ export const DEFAULT_DATETIME_PICKER_CONFIG: DateTimePickerConfig = DEFAULT_DATE
 export class ChronicaDateTimePickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
-  @Input() config: DateTimePickerConfig = DEFAULT_DATETIME_PICKER_CONFIG;
+  @Input() config: ChronicaDateTimeConfig = DEFAULT_DATETIME_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() placeholder = 'Select date and time';
   @Input() disabled = false;
@@ -64,18 +57,18 @@ export class ChronicaDateTimePickerComponent
   @Input() hideInput = false;
   @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
 
-  @Output() dateTimeChange = new EventEmitter<DateTimeValue>();
+  @Output() dateTimeChange = new EventEmitter<ChronicaDateTimeValue>();
   @Output() dateSelected = new EventEmitter<Date>();
   @Output() timeSelected = new EventEmitter<ChronicaTimeValue>();
   @Output() calendarOpened = new EventEmitter<void>();
   @Output() calendarClosed = new EventEmitter<void>();
 
   // ControlValueAccessor properties
-  private onChange = (value: DateTimeValue | null) => {};
+  private onChange = (value: ChronicaDateTimeValue | null) => {};
   private onTouched = () => {};
 
   // Component state
-  private _value: DateTimeValue = { date: null, time: null };
+  private _value: ChronicaDateTimeValue = { date: null, time: null };
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
 
@@ -114,10 +107,6 @@ export class ChronicaDateTimePickerComponent
     }
   }
 
-  ngOnDestroy(): void {
-    this.closePopup();
-  }
-
   private initializeComponent(): void {
     this.initializeCalendar();
     this.initializeTimeLists();
@@ -137,7 +126,7 @@ export class ChronicaDateTimePickerComponent
     this.monthNames = locale.monthNames;
 
     // Initialize year range
-    this.updateYearRange(now.getFullYear());
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(now.getFullYear());
   }
 
   private initializeTimeLists(): void {
@@ -165,15 +154,6 @@ export class ChronicaDateTimePickerComponent
       for (let i = 0; i < 60; i += secondStep) {
         this.seconds.push(i);
       }
-    }
-  }
-
-  private updateYearRange(centerYear: number): void {
-    const start = centerYear - 10;
-    const end = centerYear + 10;
-    this.yearRange = [];
-    for (let year = start; year <= end; year++) {
-      this.yearRange.push(year);
     }
   }
 
@@ -212,7 +192,7 @@ export class ChronicaDateTimePickerComponent
   }
 
   // ControlValueAccessor implementation
-  writeValue(value: DateTimeValue | null): void {
+  writeValue(value: ChronicaDateTimeValue | null): void {
     if (value) {
       this._value = { ...value };
       if (value.time) {
@@ -225,7 +205,7 @@ export class ChronicaDateTimePickerComponent
     this.cdr.detectChanges();
   }
 
-  registerOnChange(fn: (value: DateTimeValue | null) => void): void {
+  registerOnChange(fn: (value: ChronicaDateTimeValue | null) => void): void {
     this.onChange = fn;
   }
 
@@ -236,22 +216,6 @@ export class ChronicaDateTimePickerComponent
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this.cdr.detectChanges();
-  }
-
-  // Getters
-  get dateTimeValue(): DateTimeValue {
-    return this._value;
-  }
-
-  get formattedDateTime(): string {
-    if (!this._value.date && !this._value.time) {
-      return '';
-    }
-
-    const datePart = this._value.date ? this.formatDate(this._value.date) : 'No date';
-    const timePart = this._value.time ? this.formatTime(this._value.time) : 'No time';
-
-    return `${datePart} ${timePart}`;
   }
 
   private formatDate(date: Date): string {
@@ -276,69 +240,6 @@ export class ChronicaDateTimePickerComponent
         ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
         : timeStr;
       return `${fullTimeStr} ${period}`;
-    }
-  }
-
-  // Popup management
-  openPopup(): void {
-    if (this.disabled || this.isPopupOpen) return;
-
-    const positionStrategy = this.overlay
-      .position()
-      .flexibleConnectedTo(this.elementRef)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-          offsetY: 14,
-        },
-        {
-          originX: 'start',
-          originY: 'top',
-          overlayX: 'start',
-          overlayY: 'bottom',
-          offsetY: -14,
-        },
-      ]);
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-      hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-    });
-
-    this.overlayRef = this.overlay.create(overlayConfig);
-    const portal = new TemplatePortal(this.datetimePickerTemplate, this.viewContainerRef);
-    this.overlayRef.attach(portal);
-
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
-
-    this.isPopupOpen = true;
-    this.calendarOpened.emit();
-    this.cdr.detectChanges();
-  }
-
-  closePopup(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
-    }
-    this.isPopupOpen = false;
-    this.onTouched();
-    this.calendarClosed.emit();
-    this.cdr.detectChanges();
-  }
-
-  togglePopup(): void {
-    if (this.isPopupOpen) {
-      this.closePopup();
-    } else {
-      this.openPopup();
     }
   }
 
@@ -417,7 +318,7 @@ export class ChronicaDateTimePickerComponent
   previousMonth(): void {
     if (this.currentMonth.month === 0) {
       this.currentMonth = { year: this.currentMonth.year - 1, month: 11 };
-      this.updateYearRange(this.currentMonth.year);
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(this.currentMonth.year);
     } else {
       this.currentMonth = { ...this.currentMonth, month: this.currentMonth.month - 1 };
     }
@@ -427,7 +328,7 @@ export class ChronicaDateTimePickerComponent
   nextMonth(): void {
     if (this.currentMonth.month === 11) {
       this.currentMonth = { year: this.currentMonth.year + 1, month: 0 };
-      this.updateYearRange(this.currentMonth.year);
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(this.currentMonth.year);
     } else {
       this.currentMonth = { ...this.currentMonth, month: this.currentMonth.month + 1 };
     }
@@ -444,7 +345,7 @@ export class ChronicaDateTimePickerComponent
     if (Number.isNaN(numericYear)) return;
 
     this.currentMonth = { ...this.currentMonth, year: numericYear };
-    this.updateYearRange(numericYear);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(numericYear);
     this.cdr.detectChanges();
   }
 
@@ -566,7 +467,21 @@ export class ChronicaDateTimePickerComponent
     return this.locale;
   }
 
-  // Template-friendly compatibility getters
+  //#region Getters
+  get dateTimeValue(): ChronicaDateTimeValue {
+    return this._value;
+  }
+
+  get formattedDateTime(): string {
+    if (!this._value.date && !this._value.time) {
+      return '';
+    }
+
+    const datePart = this._value.date ? this.formatDate(this._value.date) : 'No date';
+    const timePart = this._value.time ? this.formatTime(this._value.time) : 'No time';
+
+    return `${datePart} ${timePart}`;
+  }
   get format24Hour(): boolean {
     return this.effectiveTimeConfig.timeFormat === '24h';
   }
@@ -587,15 +502,71 @@ export class ChronicaDateTimePickerComponent
     };
   }
 
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    if (!this.isPopupOpen) return;
+  //#region Popup management
+  openPopup(): void {
+    if (this.disabled || this.isPopupOpen) return;
 
-    switch (event.key) {
-      case 'Escape':
-        this.closePopup();
-        event.preventDefault();
-        break;
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+          offsetY: 14,
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom',
+          offsetY: -14,
+        },
+      ]);
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    });
+
+    this.overlayRef = this.overlay.create(overlayConfig);
+    const portal = new TemplatePortal(this.datetimePickerTemplate, this.viewContainerRef);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
+    });
+
+    this.isPopupOpen = true;
+    this.calendarOpened.emit();
+    this.cdr.detectChanges();
+  }
+
+  closePopup(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
     }
+    this.isPopupOpen = false;
+    this.onTouched();
+    this.calendarClosed.emit();
+    this.cdr.detectChanges();
+  }
+
+  togglePopup(): void {
+    if (this.isPopupOpen) {
+      this.closePopup();
+    } else {
+      this.openPopup();
+    }
+  }
+
+  //#endregion Cleanup
+  ngOnDestroy(): void {
+    this.closePopup();
   }
 }

@@ -241,4 +241,18 @@ export class ChronicaCalendarUtils {
     }
     return { month: month + 1, year };
   }
+
+  /**
+   * Generates a year range centered around a given year
+   */
+  static updateYearRange(centerYear: number): number[] {
+    const start = centerYear - 10;
+    const end = centerYear + 10;
+    const newYearRange: number[] = [];
+    for (let year = start; year <= end; year++) {
+      newYearRange.push(year);
+    }
+
+    return newYearRange;
+  }
 }

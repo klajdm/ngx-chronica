@@ -11,7 +11,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-  CHRONICA_COLOR_THEMES,
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
   ChronicaEvent,
@@ -57,17 +56,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   yearRange: number[] = [];
 
   constructor() {
-    this.updateYearRange(new Date().getFullYear());
-  }
-
-  private updateYearRange(centerYear: number): void {
-    const start = centerYear - 10;
-    const end = centerYear + 10;
-    const newYearRange: number[] = [];
-    for (let year = start; year <= end; year++) {
-      newYearRange.push(year);
-    }
-    this.yearRange = newYearRange;
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(new Date().getFullYear());
   }
 
   ngOnInit(): void {
@@ -92,7 +81,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.dayNames = this.getDayNamesFromLocale(currentLocale);
     this.monthNames = currentLocale.monthNames;
 
-    this.updateYearRange(year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
 
     if (this.selectedDate) {
@@ -134,7 +123,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
       this.currentMonth.year
     );
 
-    this.updateYearRange(prev.year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(prev.year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       prev.year,
       prev.month,
@@ -159,7 +148,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
       this.currentMonth.year
     );
 
-    this.updateYearRange(next.year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(next.year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       next.year,
       next.month,
@@ -183,7 +172,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     const todayYear = today.getFullYear();
     const todayMonth = today.getMonth();
 
-    this.updateYearRange(todayYear);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(todayYear);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       todayYear,
       todayMonth,
@@ -220,18 +209,13 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.disabled = isDisabled;
   }
 
-  getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
-    const colors = CHRONICA_COLOR_THEMES[colorTheme];
+  // Utility methods for template
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
 
-    return {
-      '--chronica-primary': colors.primary,
-      '--chronica-primary-hover': colors.primaryHover,
-      '--chronica-primary-light': colors.primaryLight,
-      '--chronica-primary-dark': colors.primaryDark,
-      '--chronica-accent': colors.accent,
-      '--chronica-focus': colors.focus,
-    };
+  get themeClass(): string {
+    return `chronica-${this.config.theme || 'light'}`;
   }
 
   getCurrentLocale(): ChronicaLocale {

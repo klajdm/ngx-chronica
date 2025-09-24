@@ -19,20 +19,15 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
-  CHRONICA_COLOR_THEMES,
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
+  ChronicaDateRange,
   ChronicaEvent,
   ChronicaLocale,
   ChronicaMonth,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models';
 import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
-
-export interface DateRange {
-  startDate: Date | null;
-  endDate: Date | null;
-}
 
 @Component({
   selector: 'chronica-date-range',
@@ -61,11 +56,11 @@ export class ChronicaDateRangeComponent
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
-  @Output() dateRangeChange = new EventEmitter<DateRange>();
+  @Output() dateRangeChange = new EventEmitter<ChronicaDateRange>();
   @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
-  private onChange = (value: DateRange | null) => {};
+  private onChange = (value: ChronicaDateRange | null) => {};
   private onTouched = () => {};
 
   // Calendar state
@@ -77,7 +72,7 @@ export class ChronicaDateRangeComponent
   private overlayRef: OverlayRef | null = null;
 
   // Date range state
-  private _dateRange: DateRange = { startDate: null, endDate: null };
+  private _dateRange: ChronicaDateRange = { startDate: null, endDate: null };
   private _selectingStartDate = true;
   hoveredDate: Date | null = null;
 
@@ -89,7 +84,7 @@ export class ChronicaDateRangeComponent
     private viewContainerRef: ViewContainerRef,
     private elementRef: ElementRef
   ) {
-    this.updateYearRange(new Date().getFullYear());
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(new Date().getFullYear());
   }
 
   ngOnInit(): void {
@@ -105,12 +100,6 @@ export class ChronicaDateRangeComponent
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
-  }
-
   private initializeCalendar(): void {
     const now = new Date();
     const month = this.initialMonth ?? now.getMonth();
@@ -120,22 +109,12 @@ export class ChronicaDateRangeComponent
     this.dayNames = this.getDayNamesFromLocale(currentLocale);
     this.monthNames = currentLocale.monthNames;
 
-    this.updateYearRange(year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
   }
 
-  private updateYearRange(centerYear: number): void {
-    const start = centerYear - 10;
-    const end = centerYear + 10;
-    const newYearRange: number[] = [];
-    for (let year = start; year <= end; year++) {
-      newYearRange.push(year);
-    }
-    this.yearRange = newYearRange;
-  }
-
   // ControlValueAccessor implementation
-  writeValue(value: DateRange | null): void {
+  writeValue(value: ChronicaDateRange | null): void {
     if (value) {
       this._dateRange = {
         startDate: value.startDate ? new Date(value.startDate) : null,
@@ -146,7 +125,7 @@ export class ChronicaDateRangeComponent
     }
   }
 
-  registerOnChange(fn: (value: DateRange | null) => void): void {
+  registerOnChange(fn: (value: ChronicaDateRange | null) => void): void {
     this.onChange = fn;
   }
 
@@ -158,106 +137,9 @@ export class ChronicaDateRangeComponent
     this.disabled = isDisabled;
   }
 
-  // Getters
-  get dateRange(): DateRange {
-    return this._dateRange;
-  }
-
-  get isSelectingStartDate(): boolean {
-    return this._selectingStartDate;
-  }
-
-  get formattedDateRange(): string {
-    if (!this._dateRange.startDate && !this._dateRange.endDate) {
-      return this.placeholder;
-    }
-
-    const locale = this.getCurrentLocale();
-    const startStr = this._dateRange.startDate ? this.formatDate(this._dateRange.startDate) : '';
-    const endStr = this._dateRange.endDate ? this.formatDate(this._dateRange.endDate) : '';
-
-    if (startStr && endStr) {
-      return `${startStr} - ${endStr}`;
-    } else if (startStr) {
-      return `${startStr} - Select end date`;
-    } else if (endStr) {
-      return `Select start date - ${endStr}`;
-    }
-
-    return this.placeholder;
-  }
-
-  // Popup functionality
-  togglePopup(): void {
-    if (this.disabled) return;
-
-    if (this.isPopupOpen) {
-      this.closePopup();
-    } else {
-      this.openPopup();
-    }
-  }
-
-  private openPopup(): void {
-    if (this.overlayRef) {
-      return;
-    }
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy: this.overlay
-        .position()
-        .flexibleConnectedTo(this.elementRef)
-        .withPositions([
-          {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top',
-            offsetY: 14,
-          },
-          {
-            originX: 'start',
-            originY: 'top',
-            overlayX: 'start',
-            overlayY: 'bottom',
-            offsetY: -14,
-          },
-        ]),
-      hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-    });
-
-    this.overlayRef = this.overlay.create(overlayConfig);
-
-    const portal = new TemplatePortal(this.dateRangeTemplate, this.viewContainerRef);
-    this.overlayRef.attach(portal);
-
-    this.isPopupOpen = true;
-
-    // Set calendar to show the month of start date or current month
-    const dateToShow = this._dateRange.startDate || new Date();
-    this.generateMonth(dateToShow.getFullYear(), dateToShow.getMonth());
-    this._selectingStartDate = !this._dateRange.startDate || !this._dateRange.endDate;
-
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
-
-    this.onTouched();
-  }
-
-  closePopup(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
-    }
-    this.isPopupOpen = false;
-  }
-
   // Calendar navigation
   private generateMonth(year: number, month: number): void {
-    this.updateYearRange(year);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
   }
 
@@ -474,21 +356,6 @@ export class ChronicaDateRangeComponent
     return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
   }
 
-  // Utility methods
-  getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
-    const colors = CHRONICA_COLOR_THEMES[colorTheme];
-
-    return {
-      '--chronica-primary': colors.primary,
-      '--chronica-primary-hover': colors.primaryHover,
-      '--chronica-primary-light': colors.primaryLight,
-      '--chronica-primary-dark': colors.primaryDark,
-      '--chronica-accent': colors.accent,
-      '--chronica-focus': colors.focus,
-    };
-  }
-
   getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
@@ -518,11 +385,114 @@ export class ChronicaDateRangeComponent
     return format.replace('yyyy', year.toString()).replace('MM', month).replace('dd', day);
   }
 
+  //#region Getters
+  get dateRange(): ChronicaDateRange {
+    return this._dateRange;
+  }
+
+  get isSelectingStartDate(): boolean {
+    return this._selectingStartDate;
+  }
+
+  get formattedDateRange(): string {
+    if (!this._dateRange.startDate && !this._dateRange.endDate) {
+      return this.placeholder;
+    }
+
+    const startStr = this._dateRange.startDate ? this.formatDate(this._dateRange.startDate) : '';
+    const endStr = this._dateRange.endDate ? this.formatDate(this._dateRange.endDate) : '';
+
+    if (startStr && endStr) {
+      return `${startStr} - ${endStr}`;
+    } else if (startStr) {
+      return `${startStr} - Select end date`;
+    } else if (endStr) {
+      return `Select start date - ${endStr}`;
+    }
+
+    return this.placeholder;
+  }
+
   get themeClass(): string {
     return `chronica-${this.config.theme || 'light'}`;
   }
 
   get colorThemeClass(): string {
     return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
+
+  //#region Popup functionality
+  private openPopup(): void {
+    if (this.overlayRef) {
+      return;
+    }
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy: this.overlay
+        .position()
+        .flexibleConnectedTo(this.elementRef)
+        .withPositions([
+          {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top',
+            offsetY: 14,
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom',
+            offsetY: -14,
+          },
+        ]),
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    });
+
+    this.overlayRef = this.overlay.create(overlayConfig);
+
+    const portal = new TemplatePortal(this.dateRangeTemplate, this.viewContainerRef);
+    this.overlayRef.attach(portal);
+
+    this.isPopupOpen = true;
+
+    // Set calendar to show the month of start date or current month
+    const dateToShow = this._dateRange.startDate || new Date();
+    this.generateMonth(dateToShow.getFullYear(), dateToShow.getMonth());
+    this._selectingStartDate = !this._dateRange.startDate || !this._dateRange.endDate;
+
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
+    });
+
+    this.onTouched();
+  }
+
+  closePopup(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
+    this.isPopupOpen = false;
+  }
+
+  togglePopup(): void {
+    if (this.disabled) return;
+
+    if (this.isPopupOpen) {
+      this.closePopup();
+    } else {
+      this.openPopup();
+    }
+  }
+
+  //#region Cleanup
+  ngOnDestroy(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
   }
 }
