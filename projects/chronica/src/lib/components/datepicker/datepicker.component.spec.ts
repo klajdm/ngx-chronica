@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChronicaDatepickerComponent } from './datepicker.component';
-import { ChronicaService } from '../../services/chronica.service';
 
 describe('InlineCalendarComponent', () => {
   let component: ChronicaDatepickerComponent;
@@ -9,7 +8,7 @@ describe('InlineCalendarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ChronicaDatepickerComponent],
-      providers: [ChronicaService],
+      providers: [],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChronicaDatepickerComponent);

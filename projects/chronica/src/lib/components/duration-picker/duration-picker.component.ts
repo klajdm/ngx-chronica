@@ -8,22 +8,24 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
-  HostListener,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
   ViewChild,
   TemplateRef,
+  HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+
+// New model imports (replaces old CalendarConfig/CalendarLocale imports)
 import {
-  CalendarConfig,
-  CalendarLocale,
+  ChronicaCalendarConfig,
+  ChronicaLocale,
   DEFAULT_CALENDAR_CONFIG,
-} from '../../models/chronica.models';
+} from '../../models/index';
 
 export interface DurationValue {
   days?: number;
@@ -32,7 +34,8 @@ export interface DurationValue {
   seconds?: number;
 }
 
-export interface DurationPickerConfig extends Partial<CalendarConfig> {
+// Update: use ChronicaCalendarConfig for DurationPickerConfig
+export interface DurationPickerConfig extends Partial<ChronicaCalendarConfig> {
   showDays?: boolean;
   showHours?: boolean;
   showMinutes?: boolean;
@@ -65,6 +68,7 @@ export interface DurationPickerConfig extends Partial<CalendarConfig> {
 export class ChronicaDurationPickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
+  // Use DEFAULT_CHRONICA_CONFIG spread as base for the duration picker config
   @Input() config: DurationPickerConfig = {
     ...DEFAULT_CALENDAR_CONFIG,
     showDays: false,
@@ -81,7 +85,9 @@ export class ChronicaDurationPickerComponent
     stepSeconds: 1,
     allowZero: true,
   };
-  @Input() locale: CalendarLocale | string = 'en-US';
+
+  // Replace CalendarLocale -> ChronicaLocale
+  @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() placeholder = 'Select duration';
   @Input() disabled = false;
   @Input() required = false;

@@ -1,35 +1,101 @@
-import { Injectable } from '@angular/core';
 import {
-  CalendarDate,
-  CalendarMonth,
-  CalendarWeek,
-  CalendarConfig,
+  CHRONICA_LOCALES,
+  ChronicaCalendarConfig,
+  ChronicaDate,
+  ChronicaLocale,
+  ChronicaMonth,
   DEFAULT_CALENDAR_CONFIG,
-  MONTH_NAMES,
-  DAY_NAMES_SHORT,
-} from '../models/chronica.models';
+} from '../models';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ChronicaService {
-  constructor() {}
+/**
+ * Calendar utility functions
+ */
+export class ChronicaCalendarUtils {
+  /**
+   * Check if two dates are the same day
+   */
+  static isSameDay(date1: Date, date2: Date): boolean {
+    return (
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
+  }
+
+  /**
+   * Check if a date is today
+   */
+  static isToday(date: Date): boolean {
+    return this.isSameDay(date, new Date());
+  }
+
+  /**
+   * Check if a date is a weekend
+   */
+  static isWeekend(date: Date): boolean {
+    const day = date.getDay();
+    return day === 0 || day === 6; // Sunday or Saturday
+  }
+
+  /**
+   * Get the first day of the month
+   */
+  static getFirstDayOfMonth(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
+  }
+
+  /**
+   * Get the last day of the month
+   */
+  static getLastDayOfMonth(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  }
+
+  /**
+   * Add months to a date
+   */
+  static addMonths(date: Date, months: number): Date {
+    const newDate = new Date(date);
+    newDate.setMonth(newDate.getMonth() + months);
+    return newDate;
+  }
+
+  /**
+   * Add days to a date
+   */
+  static addDays(date: Date, days: number): Date {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + days);
+    return newDate;
+  }
+
+  /**
+   * Format date according to locale
+   */
+  static formatDate(date: Date, locale: ChronicaLocale): string {
+    // Simple implementation - in real world, you'd use Intl.DateTimeFormat
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+
+    return locale.dateFormat.replace('dd', day).replace('MM', month).replace('yyyy', year);
+  }
 
   /**
    * Strip time from a Date (normalize to local midnight)
    */
-  private stripTime(date: Date): Date {
+  static stripTime(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
   /**
    * Generates a calendar month with all dates
    */
-  generateCalendarMonth(
+  static generateCalendarMonth(
     year: number,
     month: number,
-    config: CalendarConfig = DEFAULT_CALENDAR_CONFIG
-  ): CalendarMonth {
+    config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG
+  ): ChronicaMonth {
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     const firstDayOfWeek = config.firstDayOfWeek || 0;
@@ -44,38 +110,45 @@ export class ChronicaService {
     const daysToAdd = 6 - ((lastDayOfMonth.getDay() - firstDayOfWeek + 7) % 7);
     endDate.setDate(endDate.getDate() + daysToAdd);
 
-    const weeks: CalendarWeek[] = [];
+    const weeks: ChronicaDate[][] = [];
+    const dates: ChronicaDate[] = [];
     const currentDate = new Date(startDate);
 
     while (currentDate <= endDate) {
-      const week: CalendarWeek = { dates: [] };
+      const week: ChronicaDate[] = [];
 
       for (let i = 0; i < 7; i++) {
         const calendarDate = this.createCalendarDate(currentDate, year, month, config);
-        week.dates.push(calendarDate);
+        week.push(calendarDate);
+        dates.push(calendarDate);
         currentDate.setDate(currentDate.getDate() + 1);
       }
 
       weeks.push(week);
     }
 
+    // Get locale for month name
+    const locale = config.locale || CHRONICA_LOCALES['en-US'];
+    const displayName = locale.monthNames[month];
+
     return {
       month,
       year,
-      name: MONTH_NAMES[month],
+      displayName,
+      dates,
       weeks,
     };
   }
 
   /**
-   * Creates a CalendarDate object
+   * Creates a ChronicaDate object
    */
-  private createCalendarDate(
+  static createCalendarDate(
     date: Date,
     currentMonth: number,
     currentYear: number,
-    config: CalendarConfig
-  ): CalendarDate {
+    config: ChronicaCalendarConfig
+  ): ChronicaDate {
     const today = this.stripTime(new Date());
     const isToday = this.isSameDate(this.stripTime(date), today);
     const isInCurrentMonth = date.getMonth() === currentMonth && date.getFullYear() === currentYear;
@@ -84,13 +157,10 @@ export class ChronicaService {
 
     return {
       date: this.stripTime(new Date(date)),
-      day: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      selected: false,
       isToday,
-      isSelected: false,
-      isDisabled,
-      isInCurrentMonth,
+      inCurrentMonth: isInCurrentMonth,
+      disabled: isDisabled,
       isWeekend,
     };
   }
@@ -98,7 +168,7 @@ export class ChronicaService {
   /**
    * Checks if a date is disabled based on config
    */
-  private isDateDisabled(date: Date, config: CalendarConfig): boolean {
+  static isDateDisabled(date: Date, config: ChronicaCalendarConfig): boolean {
     const d = this.stripTime(date);
 
     if (config.minDate && d.getTime() < this.stripTime(config.minDate).getTime()) {
@@ -121,7 +191,7 @@ export class ChronicaService {
   /**
    * Checks if two dates are the same day
    */
-  isSameDate(date1: Date, date2: Date): boolean {
+  static isSameDate(date1: Date, date2: Date): boolean {
     return (
       date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&
@@ -132,9 +202,10 @@ export class ChronicaService {
   /**
    * Gets the day names based on first day of week setting
    */
-  getDayNames(config: CalendarConfig = DEFAULT_CALENDAR_CONFIG): string[] {
+  getDayNames(config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG): string[] {
     const firstDayOfWeek = config.firstDayOfWeek || 0;
-    const dayNames = [...DAY_NAMES_SHORT];
+    const locale = config.locale || CHRONICA_LOCALES['en-US'];
+    const dayNames = [...locale.dayNamesShort];
 
     if (firstDayOfWeek > 0) {
       const rotated = dayNames.splice(firstDayOfWeek);
@@ -154,7 +225,7 @@ export class ChronicaService {
   /**
    * Gets the previous month/year
    */
-  getPreviousMonth(month: number, year: number): { month: number; year: number } {
+  static getPreviousMonth(month: number, year: number): { month: number; year: number } {
     if (month === 0) {
       return { month: 11, year: year - 1 };
     }
@@ -164,7 +235,7 @@ export class ChronicaService {
   /**
    * Gets the next month/year
    */
-  getNextMonth(month: number, year: number): { month: number; year: number } {
+  static getNextMonth(month: number, year: number): { month: number; year: number } {
     if (month === 11) {
       return { month: 0, year: year + 1 };
     }

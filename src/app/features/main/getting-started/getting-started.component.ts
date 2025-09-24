@@ -2,9 +2,9 @@ import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChronicaDatepickerComponent } from '../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component';
 import {
-  CalendarConfig,
+  ChronicaCalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
-} from '../../../../../projects/chronica/src/lib/models/chronica.models';
+} from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class GettingStartedComponent {
   // Example datepicker
   exampleSelectedDate: Date | null = new Date(2025, 8, 15); // September 15, 2025
   exampleConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChronicaDatepickerComponent } from '../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component';
 import {
-  CalendarConfig,
+  ChronicaCalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
-} from '../../../../../projects/chronica/src/lib/models/chronica.models';
+} from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class DatepickerDemoComponent {
   // Default input datepicker
   defaultSelectedDate: Date | null = null;
   defaultConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -30,7 +30,7 @@ export class DatepickerDemoComponent {
   // Custom trigger datepicker
   customSelectedDate: Date | null = null;
   customConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -40,7 +40,7 @@ export class DatepickerDemoComponent {
   // Date range restricted datepicker
   restrictedSelectedDate: Date | null = null;
   restrictedConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -52,7 +52,7 @@ export class DatepickerDemoComponent {
   // Form integration datepicker
   formSelectedDate: Date | null = new Date();
   formConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -62,7 +62,7 @@ export class DatepickerDemoComponent {
   // Disabled dates datepicker
   disabledDatesSelected: Date | null = null;
   disabledDatesConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -77,7 +77,7 @@ export class DatepickerDemoComponent {
   // Dark theme datepicker
   darkThemeDate: Date | null = null;
   darkThemeConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'dark',
       colorTheme: this._themeService.currentTheme(),
