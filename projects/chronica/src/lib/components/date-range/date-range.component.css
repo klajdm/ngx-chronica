@@ -1,3 +1,6 @@
+/* Import centralized variables */
+@import '../../../styles/_variables.css';
+
 /* Date Range Component Styles */
 .chronica-date-range-container {
   display: inline-block;
@@ -13,7 +16,7 @@
   padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing, 12px);
   border: 1px solid var(--chronica-border-color, #e5e7eb);
   border-radius: var(--chronica-border-radius, 6px);
-  background: var(--chronica-background, #ffffff);
+  background: var(--chronica-bg-color, #ffffff);
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 40px;
@@ -31,7 +34,6 @@
 }
 
 .chronica-date-range-trigger:focus {
-  /* use box-shadow for a focus ring close to the border */
   outline: none;
   box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
   border-color: var(--chronica-primary, #3b82f6);
@@ -59,23 +61,23 @@
   flex: 1;
   text-align: left;
   font-size: var(--chronica-font-size, 14px);
-  color: var(--chronica-text, #374151);
+  color: var(--chronica-text-color, #374151);
 }
 
 .chronica-date-range-display.chronica-placeholder {
-  color: var(--chronica-placeholder, #9ca3af);
+  color: var(--chronica-text-color-muted, #9ca3af);
 }
 
 .chronica-calendar-icon {
-  color: var(--chronica-icon, #6b7280);
+  color: var(--chronica-text-color-light, #6b7280);
   flex-shrink: 0;
   margin-left: var(--chronica-spacing-xs, 4px);
 }
 
 /* Popup styles */
 .chronica-date-range-popup {
-  background: var(--chronica-popup-bg, var(--chronica-background, #ffffff));
-  border: 1px solid var(--chronica-popup-border, var(--chronica-border-color, #e5e7eb));
+  background: var(--chronica-bg-color, #ffffff);
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
   border-radius: 8px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   padding: var(--chronica-spacing, 16px);
@@ -93,14 +95,6 @@
     sans-serif
   );
   user-select: none;
-
-  /* Color theme variables */
-  --chronica-primary: #3b82f6;
-  --chronica-primary-hover: #2563eb;
-  --chronica-primary-light: #dbeafe;
-  --chronica-primary-dark: #1d4ed8;
-  --chronica-accent: #60a5fa;
-  --chronica-focus: rgba(59, 130, 246, 0.2);
 }
 
 /* Quick select buttons */
@@ -115,17 +109,17 @@
   padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
   border: 1px solid var(--chronica-border-color, #e5e7eb);
   border-radius: var(--chronica-border-radius-sm, 4px);
-  background: var(--chronica-background, #ffffff);
-  color: var(--chronica-text, #374151);
+  background: var(--chronica-bg-color, #ffffff);
+  color: var(--chronica-text-color, #374151);
   font-size: var(--chronica-font-size-sm, 12px);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .chronica-quick-select-btn:hover {
-  background: var(--chronica-primary-light, #dbeafe);
+  background: var(--chronica-bg-hover, #f3f4f6);
   border-color: var(--chronica-primary, #3b82f6);
-  color: var(--chronica-primary-dark, #1d4ed8);
+  color: var(--chronica-primary, #3b82f6);
 }
 
 /* Selection status */
@@ -155,13 +149,13 @@
   border: none;
   border-radius: var(--chronica-border-radius, 6px);
   background: transparent;
-  color: var(--chronica-text, #374151);
+  color: var(--chronica-text-color, #374151);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .chronica-nav-button:hover:not(:disabled) {
-  background: var(--chronica-hover-bg, #f3f4f6);
+  background: var(--chronica-bg-hover, #f3f4f6);
   color: var(--chronica-primary, #3b82f6);
 }
 
@@ -182,8 +176,8 @@
   padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
   border: 1px solid var(--chronica-border-color, #e5e7eb);
   border-radius: var(--chronica-border-radius-sm, 4px);
-  background: var(--chronica-background, #ffffff);
-  color: var(--chronica-text, #374151);
+  background: var(--chronica-bg-color, #ffffff);
+  color: var(--chronica-text-color, #374151);
   font-size: var(--chronica-font-size-sm, 12px);
   cursor: pointer;
 }
@@ -225,7 +219,7 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: var(--chronica-border-radius, 6px);
+  border-radius: 50%;
   font-size: var(--chronica-font-size-sm, 12px);
   font-weight: 500;
   transition: all 0.2s ease;
@@ -238,11 +232,11 @@
 
 .chronica-date.chronica-clickable {
   cursor: pointer;
-  color: var(--chronica-text, #374151);
+  color: var(--chronica-text-color, #374151);
 }
 
 .chronica-date.chronica-clickable:hover:not(.chronica-disabled) {
-  background: var(--chronica-hover-bg, #f3f4f6);
+  background: var(--chronica-bg-hover, #f3f4f6);
   color: var(--chronica-primary, #3b82f6);
   border-radius: 50%;
 }
@@ -312,13 +306,13 @@
 .chronica-range-dates {
   font-size: var(--chronica-font-size, 14px);
   font-weight: 500;
-  color: var(--chronica-text, #374151);
+  color: var(--chronica-text-color, #374151);
   margin-bottom: var(--chronica-spacing-xs, 4px);
 }
 
 .chronica-days-count {
   font-size: var(--chronica-font-size-sm, 12px);
-  color: var(--chronica-text-light, #6b7280);
+  color: var(--chronica-text-color-secondary, #6b7280);
 }
 
 .chronica-clear-btn {
@@ -337,61 +331,6 @@
 .chronica-clear-btn:hover {
   background: var(--chronica-error, #ef4444);
   color: white;
-}
-
-/* Dark Theme */
-.chronica-dark {
-  --chronica-background: #1f2937;
-  --chronica-text: #f9fafb;
-  --chronica-placeholder: #9ca3af;
-  --chronica-border-color: #374151;
-  --chronica-border-hover-color: #4b5563;
-  --chronica-icon: #9ca3af;
-  --chronica-popup-bg: #1f2937;
-  --chronica-popup-border: #374151;
-  --chronica-header-bg: #111827;
-  --chronica-footer-bg: #111827;
-  --chronica-hover-bg: #374151;
-  --chronica-disabled-bg: #374151;
-  --chronica-disabled-text: #6b7280;
-  --chronica-disabled-border: #4b5563;
-}
-
-/* Color Theme Variations */
-.chronica-blue {
-  --chronica-primary: #3b82f6;
-  --chronica-primary-dark: #2563eb;
-  --chronica-focus: rgba(59, 130, 246, 0.2);
-}
-
-.chronica-green {
-  --chronica-primary: #10b981;
-  --chronica-primary-dark: #059669;
-  --chronica-focus: rgba(16, 185, 129, 0.2);
-}
-
-.chronica-purple {
-  --chronica-primary: #8b5cf6;
-  --chronica-primary-dark: #7c3aed;
-  --chronica-focus: rgba(139, 92, 246, 0.2);
-}
-
-.chronica-red {
-  --chronica-primary: #ef4444;
-  --chronica-primary-dark: #dc2626;
-  --chronica-focus: rgba(239, 68, 68, 0.2);
-}
-
-.chronica-orange {
-  --chronica-primary: #f97316;
-  --chronica-primary-dark: #ea580c;
-  --chronica-focus: rgba(249, 115, 22, 0.2);
-}
-
-.chronica-teal {
-  --chronica-primary: #14b8a6;
-  --chronica-primary-dark: #0d9488;
-  --chronica-focus: rgba(20, 184, 166, 0.2);
 }
 
 /* Responsive styles */
