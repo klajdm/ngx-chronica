@@ -30,6 +30,7 @@ import {
   DEFAULT_TIME_CONFIG,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models/index';
+import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 
 export type DateTimeValue = ChronicaDateTimeValue;
 
@@ -135,7 +136,7 @@ export class ChronicaDateTimePickerComponent
     this.monthNames = locale.monthNames;
 
     // Initialize year range
-    this.updateYearRange(now.getFullYear());
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(now.getFullYear());
   }
 
   private initializeTimeLists(): void {
@@ -163,15 +164,6 @@ export class ChronicaDateTimePickerComponent
       for (let i = 0; i < 60; i += secondStep) {
         this.seconds.push(i);
       }
-    }
-  }
-
-  private updateYearRange(centerYear: number): void {
-    const start = centerYear - 10;
-    const end = centerYear + 10;
-    this.yearRange = [];
-    for (let year = start; year <= end; year++) {
-      this.yearRange.push(year);
     }
   }
 
@@ -415,7 +407,7 @@ export class ChronicaDateTimePickerComponent
   previousMonth(): void {
     if (this.currentMonth.month === 0) {
       this.currentMonth = { year: this.currentMonth.year - 1, month: 11 };
-      this.updateYearRange(this.currentMonth.year);
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(this.currentMonth.year);
     } else {
       this.currentMonth = { ...this.currentMonth, month: this.currentMonth.month - 1 };
     }
@@ -425,7 +417,7 @@ export class ChronicaDateTimePickerComponent
   nextMonth(): void {
     if (this.currentMonth.month === 11) {
       this.currentMonth = { year: this.currentMonth.year + 1, month: 0 };
-      this.updateYearRange(this.currentMonth.year);
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(this.currentMonth.year);
     } else {
       this.currentMonth = { ...this.currentMonth, month: this.currentMonth.month + 1 };
     }
@@ -442,7 +434,7 @@ export class ChronicaDateTimePickerComponent
     if (Number.isNaN(numericYear)) return;
 
     this.currentMonth = { ...this.currentMonth, year: numericYear };
-    this.updateYearRange(numericYear);
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(numericYear);
     this.cdr.detectChanges();
   }
 
