@@ -18,8 +18,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-
-// New model imports (replaces old CalendarConfig/CalendarLocale imports)
 import {
   ChronicaCalendarConfig,
   ChronicaLocale,
