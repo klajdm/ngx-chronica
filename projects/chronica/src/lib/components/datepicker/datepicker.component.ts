@@ -445,24 +445,9 @@ export class ChronicaDatepickerComponent
     this.disabled = isDisabled;
   }
 
-  // Get CSS custom properties for color theming
-  getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
-    const colors = CHRONICA_COLOR_THEMES[colorTheme];
-
-    return {
-      '--chronica-primary': colors.primary,
-      '--chronica-primary-hover': colors.primaryHover,
-      '--chronica-primary-light': colors.primaryLight,
-      '--chronica-primary-dark': colors.primaryDark,
-      '--chronica-accent': colors.accent,
-      '--chronica-focus': colors.focus,
-    };
-  }
-
   // Get theme class for styling
   get themeClass(): string {
-    return this.config.theme === 'dark' ? 'chronica-dark' : 'chronica-light';
+    return `chronica-${this.config.theme || 'light'}`;
   }
 
   // Get color theme class for styling

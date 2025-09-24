@@ -8,7 +8,6 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
-  HostListener,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
@@ -361,22 +360,6 @@ export class ChronicaTimePickerComponent
     this.writeValue(currentTime);
     this.onChange(currentTime);
     this.timeChange.emit(currentTime);
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    if (!this.isPopupOpen) return;
-
-    switch (event.key) {
-      case 'Escape':
-        event.preventDefault();
-        this.closePopup();
-        break;
-      case 'Enter':
-        event.preventDefault();
-        this.closePopup();
-        break;
-    }
   }
 
   // Utility methods for template

@@ -44,7 +44,6 @@
   <div
     class="chronica-date-range-popup"
     [class]="themeClass + ' ' + colorThemeClass"
-    [style]="getColorThemeStyles()"
     (click)="$event.stopPropagation()"
   >
     <!-- Quick Select Buttons -->
@@ -56,13 +55,6 @@
       <button class="chronica-quick-select-btn" (click)="selectThisMonth()" type="button">
         This Month
       </button>
-    </div>
-
-    <!-- Selection Status -->
-    <div class="chronica-selection-status">
-      <span *ngIf="isSelectingStartDate && !dateRange.startDate"> Choose start date </span>
-      <span *ngIf="isSelectingStartDate && dateRange.startDate"> Choose end date </span>
-      <span *ngIf="!isSelectingStartDate"> Choose end date </span>
     </div>
 
     <!-- Header with navigation and dropdowns -->

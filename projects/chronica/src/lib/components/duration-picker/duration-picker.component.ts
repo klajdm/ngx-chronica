@@ -13,7 +13,6 @@ import {
   OnDestroy,
   ViewChild,
   TemplateRef,
-  HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -433,22 +432,6 @@ export class ChronicaDurationPickerComponent
     }
 
     this.setPresetDuration(preset);
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    if (!this.isPopupOpen) return;
-
-    switch (event.key) {
-      case 'Escape':
-        event.preventDefault();
-        this.closePopup();
-        break;
-      case 'Enter':
-        event.preventDefault();
-        this.closePopup();
-        break;
-    }
   }
 
   // Utility methods for template

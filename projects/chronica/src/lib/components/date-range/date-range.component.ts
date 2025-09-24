@@ -474,21 +474,6 @@ export class ChronicaDateRangeComponent
     return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
   }
 
-  // Utility methods
-  getColorThemeStyles(): { [key: string]: string } {
-    const colorTheme = this.config.colorTheme || 'blue';
-    const colors = CHRONICA_COLOR_THEMES[colorTheme];
-
-    return {
-      '--chronica-primary': colors.primary,
-      '--chronica-primary-hover': colors.primaryHover,
-      '--chronica-primary-light': colors.primaryLight,
-      '--chronica-primary-dark': colors.primaryDark,
-      '--chronica-accent': colors.accent,
-      '--chronica-focus': colors.focus,
-    };
-  }
-
   getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
