@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ChronicaService } from '../../services/chronica.service';
 import {
   CHRONICA_COLOR_THEMES,
   CHRONICA_LOCALES,
@@ -28,6 +27,7 @@ import {
   ChronicaMonth,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models';
+import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 
 export interface DateRange {
   startDate: Date | null;
@@ -84,7 +84,6 @@ export class ChronicaDateRangeComponent
   @ViewChild('dateRangeTemplate', { static: true }) dateRangeTemplate!: TemplateRef<any>;
 
   constructor(
-    private calendarService: ChronicaService,
     private cdr: ChangeDetectorRef,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
@@ -122,7 +121,7 @@ export class ChronicaDateRangeComponent
     this.monthNames = currentLocale.monthNames;
 
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
   }
 
   private updateYearRange(centerYear: number): void {
@@ -259,7 +258,7 @@ export class ChronicaDateRangeComponent
   // Calendar navigation
   private generateMonth(year: number, month: number): void {
     this.updateYearRange(year);
-    this.currentMonth = this.calendarService.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
   }
 
   getDaysInMonth(): number[] {
@@ -281,7 +280,7 @@ export class ChronicaDateRangeComponent
   previousMonth(): void {
     if (this.isPreviousMonthDisabled()) return;
 
-    const prev = this.calendarService.getPreviousMonth(
+    const prev = ChronicaCalendarUtils.getPreviousMonth(
       this.currentMonth.month,
       this.currentMonth.year
     );
@@ -292,7 +291,10 @@ export class ChronicaDateRangeComponent
   nextMonth(): void {
     if (this.isNextMonthDisabled()) return;
 
-    const next = this.calendarService.getNextMonth(this.currentMonth.month, this.currentMonth.year);
+    const next = ChronicaCalendarUtils.getNextMonth(
+      this.currentMonth.month,
+      this.currentMonth.year
+    );
     this.generateMonth(next.year, next.month);
     this.cdr.detectChanges();
   }
@@ -375,13 +377,13 @@ export class ChronicaDateRangeComponent
   isStartDate(day: number): boolean {
     if (!this._dateRange.startDate) return false;
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
-    return this.calendarService.isSameDate(date, this._dateRange.startDate);
+    return ChronicaCalendarUtils.isSameDate(date, this._dateRange.startDate);
   }
 
   isEndDate(day: number): boolean {
     if (!this._dateRange.endDate) return false;
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
-    return this.calendarService.isSameDate(date, this._dateRange.endDate);
+    return ChronicaCalendarUtils.isSameDate(date, this._dateRange.endDate);
   }
 
   isInRange(day: number): boolean {
