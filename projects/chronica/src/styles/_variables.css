@@ -1,0 +1,324 @@
+/**
+ * Chronica Design System Variables
+ * Centralized CSS custom properties for consistent theming across all components
+ */
+
+:root {
+  /* ==== BASE COLORS ==== */
+  /* Primary Colors */
+  --chronica-primary: #3b82f6;
+  --chronica-primary-hover: #2563eb;
+  --chronica-primary-light: #dbeafe;
+  --chronica-primary-dark: #1d4ed8;
+  --chronica-accent: #60a5fa;
+  --chronica-focus: rgba(59, 130, 246, 0.2);
+
+  /* ==== TYPOGRAPHY ==== */
+  --chronica-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --chronica-font-size: 14px;
+  --chronica-font-size-xs: 11px;
+  --chronica-font-size-sm: 12px;
+  --chronica-font-size-md: 14px;
+  --chronica-font-size-lg: 16px;
+  --chronica-font-size-xl: 18px;
+  --chronica-font-weight: 400;
+  --chronica-font-weight-medium: 500;
+  --chronica-font-weight-semibold: 600;
+  --chronica-font-weight-bold: 700;
+  --chronica-line-height: 1.5;
+
+  /* ==== SPACING ==== */
+  --chronica-spacing-xs: 4px;
+  --chronica-spacing-sm: 8px;
+  --chronica-spacing-md: 12px;
+  --chronica-spacing-lg: 16px;
+  --chronica-spacing-xl: 20px;
+  --chronica-spacing-2xl: 24px;
+  --chronica-spacing: 16px; /* Default spacing */
+
+  /* ==== BORDERS ==== */
+  --chronica-border-radius: 8px;
+  --chronica-border-radius-xs: 2px;
+  --chronica-border-radius-sm: 4px;
+  --chronica-border-radius-md: 6px;
+  --chronica-border-radius-lg: 8px;
+  --chronica-border-radius-xl: 12px;
+  --chronica-border-radius-full: 50%;
+  --chronica-border-width: 1px;
+
+  /* ==== SHADOWS ==== */
+  --chronica-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --chronica-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --chronica-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --chronica-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --chronica-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --chronica-shadow: var(--chronica-shadow-md); /* Default shadow */
+
+  /* ==== COMPONENT SIZES ==== */
+  --chronica-width: 320px;
+  --chronica-min-width: 280px;
+  --chronica-max-width: 480px;
+  --chronica-date-size: 32px;
+  --chronica-button-height: 32px;
+  --chronica-input-height: 40px;
+
+  /* ==== INTERACTIVE STATES ==== */
+  --chronica-disabled-opacity: 0.4;
+  --chronica-hover-opacity: 0.8;
+  --chronica-active-opacity: 0.9;
+
+  /* ==== TRANSITIONS ==== */
+  --chronica-transition: all 0.2s ease;
+  --chronica-transition-fast: all 0.15s ease;
+  --chronica-transition-slow: all 0.3s ease;
+
+  /* ==== Z-INDEX ==== */
+  --chronica-z-index-dropdown: 1000;
+  --chronica-z-index-modal: 1050;
+  --chronica-z-index-tooltip: 1100;
+}
+
+/* ==== LIGHT THEME (DEFAULT) ==== */
+:root,
+.chronica-light {
+  /* Background Colors */
+  --chronica-bg-color: #ffffff;
+  --chronica-background: #ffffff;
+  --chronica-bg-secondary: #f8fafc;
+  --chronica-bg-tertiary: #f1f5f9;
+  --chronica-bg-hover: #f3f4f6;
+  --chronica-bg-active: #e5e7eb;
+  --chronica-bg-disabled: #f9fafb;
+
+  /* Text Colors */
+  --chronica-text-color: #1f2937;
+  --chronica-text-color-primary: #1f2937;
+  --chronica-text-color-secondary: #374151;
+  --chronica-text-color-light: #6b7280;
+  --chronica-text-color-muted: #9ca3af;
+  --chronica-text-color-disabled: #d1d5db;
+  --chronica-text-color-inverse: #ffffff;
+
+  /* Border Colors */
+  --chronica-border-color: #e5e7eb;
+  --chronica-border-color-light: #f1f5f9;
+  --chronica-border-color-medium: #d1d5db;
+  --chronica-border-color-dark: #9ca3af;
+  --chronica-border-color-hover: #9ca3af;
+  --chronica-border-color-focus: var(--chronica-primary);
+  --chronica-border-color-disabled: #e5e7eb;
+
+  /* Interactive Colors */
+  --chronica-hover-background: #f3f4f6;
+  --chronica-active-background: #e5e7eb;
+  --chronica-selected-background: var(--chronica-primary);
+  --chronica-selected-text: #ffffff;
+
+  /* Scrollbar Colors */
+  --chronica-scrollbar-track: #f1f5f9;
+  --chronica-scrollbar-thumb: #cbd5e1;
+  --chronica-scrollbar-thumb-hover: #94a3b8;
+
+  /* Status Colors */
+  --chronica-success: #10b981;
+  --chronica-warning: #f59e0b;
+  --chronica-error: #ef4444;
+  --chronica-info: #3b82f6;
+}
+
+/* ==== DARK THEME ==== */
+.chronica-dark {
+  /* Background Colors */
+  --chronica-bg-color: #1f2937;
+  --chronica-background: #1f2937;
+  --chronica-bg-secondary: #111827;
+  --chronica-bg-tertiary: #374151;
+  --chronica-bg-hover: #374151;
+  --chronica-bg-active: #4b5563;
+  --chronica-bg-disabled: #374151;
+
+  /* Text Colors */
+  --chronica-text-color: #f9fafb;
+  --chronica-text-color-primary: #f9fafb;
+  --chronica-text-color-secondary: #e5e7eb;
+  --chronica-text-color-light: #9ca3af;
+  --chronica-text-color-muted: #6b7280;
+  --chronica-text-color-disabled: #4b5563;
+  --chronica-text-color-inverse: #1f2937;
+
+  /* Border Colors */
+  --chronica-border-color: #374151;
+  --chronica-border-color-light: #374151;
+  --chronica-border-color-medium: #4b5563;
+  --chronica-border-color-dark: #6b7280;
+  --chronica-border-color-hover: #6b7280;
+  --chronica-border-color-focus: var(--chronica-primary);
+  --chronica-border-color-disabled: #4b5563;
+
+  /* Interactive Colors */
+  --chronica-hover-background: #374151;
+  --chronica-active-background: #4b5563;
+  --chronica-selected-background: var(--chronica-primary);
+  --chronica-selected-text: #ffffff;
+
+  /* Scrollbar Colors */
+  --chronica-scrollbar-track: #374151;
+  --chronica-scrollbar-thumb: #4b5563;
+  --chronica-scrollbar-thumb-hover: #6b7280;
+
+  /* Shadows for dark theme */
+  --chronica-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --chronica-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* ==== COLOR THEMES ==== */
+.chronica-blue {
+  --chronica-primary: #3b82f6;
+  --chronica-primary-hover: #2563eb;
+  --chronica-primary-light: #dbeafe;
+  --chronica-primary-dark: #1d4ed8;
+  --chronica-accent: #60a5fa;
+  --chronica-focus: rgba(59, 130, 246, 0.2);
+  --chronica-primary-color: #3b82f6;
+  --chronica-primary-hover-color: #2563eb;
+  --chronica-primary-color-alpha: rgba(59, 130, 246, 0.1);
+}
+
+.chronica-green {
+  --chronica-primary: #10b981;
+  --chronica-primary-hover: #059669;
+  --chronica-primary-light: #d1fae5;
+  --chronica-primary-dark: #047857;
+  --chronica-accent: #34d399;
+  --chronica-focus: rgba(16, 185, 129, 0.2);
+  --chronica-primary-color: #10b981;
+  --chronica-primary-hover-color: #059669;
+  --chronica-primary-color-alpha: rgba(16, 185, 129, 0.1);
+}
+
+.chronica-purple {
+  --chronica-primary: #8b5cf6;
+  --chronica-primary-hover: #7c3aed;
+  --chronica-primary-light: #ede9fe;
+  --chronica-primary-dark: #6d28d9;
+  --chronica-accent: #a78bfa;
+  --chronica-focus: rgba(139, 92, 246, 0.2);
+  --chronica-primary-color: #8b5cf6;
+  --chronica-primary-hover-color: #7c3aed;
+  --chronica-primary-color-alpha: rgba(139, 92, 246, 0.1);
+}
+
+.chronica-red {
+  --chronica-primary: #ef4444;
+  --chronica-primary-hover: #dc2626;
+  --chronica-primary-light: #fecaca;
+  --chronica-primary-dark: #b91c1c;
+  --chronica-accent: #f87171;
+  --chronica-focus: rgba(239, 68, 68, 0.2);
+  --chronica-primary-color: #ef4444;
+  --chronica-primary-hover-color: #dc2626;
+  --chronica-primary-color-alpha: rgba(239, 68, 68, 0.1);
+}
+
+.chronica-orange {
+  --chronica-primary: #f97316;
+  --chronica-primary-hover: #ea580c;
+  --chronica-primary-light: #fed7aa;
+  --chronica-primary-dark: #c2410c;
+  --chronica-accent: #fb923c;
+  --chronica-focus: rgba(249, 115, 22, 0.2);
+  --chronica-primary-color: #f97316;
+  --chronica-primary-hover-color: #ea580c;
+  --chronica-primary-color-alpha: rgba(249, 115, 22, 0.1);
+}
+
+.chronica-teal {
+  --chronica-primary: #14b8a6;
+  --chronica-primary-hover: #0d9488;
+  --chronica-primary-light: #b2f5ea;
+  --chronica-primary-dark: #0f766e;
+  --chronica-accent: #5eead4;
+  --chronica-focus: rgba(20, 184, 166, 0.2);
+  --chronica-primary-color: #14b8a6;
+  --chronica-primary-hover-color: #0d9488;
+  --chronica-primary-color-alpha: rgba(20, 184, 166, 0.1);
+}
+
+.chronica-pink {
+  --chronica-primary: #ec4899;
+  --chronica-primary-hover: #db2777;
+  --chronica-primary-light: #fce7f3;
+  --chronica-primary-dark: #be185d;
+  --chronica-accent: #f472b6;
+  --chronica-focus: rgba(236, 72, 153, 0.2);
+  --chronica-primary-color: #ec4899;
+  --chronica-primary-hover-color: #db2777;
+  --chronica-primary-color-alpha: rgba(236, 72, 153, 0.1);
+}
+
+.chronica-indigo {
+  --chronica-primary: #6366f1;
+  --chronica-primary-hover: #4f46e5;
+  --chronica-primary-light: #e0e7ff;
+  --chronica-primary-dark: #4338ca;
+  --chronica-accent: #818cf8;
+  --chronica-focus: rgba(99, 102, 241, 0.2);
+  --chronica-primary-color: #6366f1;
+  --chronica-primary-hover-color: #4f46e5;
+  --chronica-primary-color-alpha: rgba(99, 102, 241, 0.1);
+}
+
+/* ==== COMPONENT-SPECIFIC VARIABLES ==== */
+
+/* Calendar specific */
+:root {
+  --chronica-calendar-width: var(--chronica-width);
+  --chronica-calendar-padding: var(--chronica-spacing-lg);
+  --chronica-calendar-border-radius: var(--chronica-border-radius-lg);
+  --chronica-calendar-shadow: var(--chronica-shadow-md);
+}
+
+/* Date cell specific */
+:root {
+  --chronica-date-cell-size: var(--chronica-date-size);
+  --chronica-date-cell-border-radius: var(--chronica-border-radius-full);
+  --chronica-date-cell-font-size: var(--chronica-font-size-md);
+  --chronica-date-cell-font-weight: var(--chronica-font-weight);
+  --chronica-date-cell-selected-font-weight: var(--chronica-font-weight-bold);
+}
+
+/* Input specific */
+:root {
+  --chronica-input-border-radius: var(--chronica-border-radius-md);
+  --chronica-input-padding-x: var(--chronica-spacing-md);
+  --chronica-input-padding-y: var(--chronica-spacing-sm);
+  --chronica-input-font-size: var(--chronica-font-size-md);
+  --chronica-input-height: var(--chronica-button-height);
+  --chronica-input-min-height: var(--chronica-input-height);
+}
+
+/* Button specific */
+:root {
+  --chronica-button-border-radius: var(--chronica-border-radius-md);
+  --chronica-button-padding-x: var(--chronica-spacing-lg);
+  --chronica-button-padding-y: var(--chronica-spacing-sm);
+  --chronica-button-font-size: var(--chronica-font-size-sm);
+  --chronica-button-font-weight: var(--chronica-font-weight-medium);
+  --chronica-button-height: var(--chronica-button-height);
+  --chronica-button-transition: var(--chronica-transition);
+}
+
+/* Popup specific */
+:root {
+  --chronica-popup-border-radius: var(--chronica-border-radius-xl);
+  --chronica-popup-shadow: var(--chronica-shadow-lg);
+  --chronica-popup-min-width: 320px;
+  --chronica-popup-max-width: 480px;
+  --chronica-popup-z-index: var(--chronica-z-index-dropdown);
+}
+
+/* Scrollbar specific */
+:root {
+  --chronica-scrollbar-width: 6px;
+  --chronica-scrollbar-border-radius: 3px;
+}

@@ -1,19 +1,15 @@
+/* Import centralized variables */
+@import '../../../styles/_variables.css';
+
 /* Chronica Inline Calendar Styles */
 .chronica-inline-calendar {
-  --chronica-primary: #3b82f6;
-  --chronica-primary-hover: #2563eb;
-  --chronica-primary-light: #dbeafe;
-  --chronica-primary-dark: #1d4ed8;
-  --chronica-accent: #60a5fa;
-  --chronica-focus: rgba(59, 130, 246, 0.2);
-
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  max-width: 320px;
+  font-family: var(--chronica-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif);
+  background: var(--chronica-background, #ffffff);
+  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
+  border-radius: var(--chronica-border-radius-lg, 8px);
+  padding: var(--chronica-spacing-lg, 16px);
+  box-shadow: var(--chronica-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+  max-width: var(--chronica-width, 320px);
   user-select: none;
   z-index: 1;
 }
@@ -30,25 +26,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: var(--chronica-spacing-lg, 16px);
 }
 
 .chronica-nav-btn {
   background: none;
   border: none;
-  padding: 8px;
-  border-radius: 6px;
+  padding: var(--chronica-spacing-sm, 8px);
+  border-radius: var(--chronica-border-radius-md, 6px);
   cursor: pointer;
-  color: #6b7280;
-  transition: all 0.2s;
+  color: var(--chronica-text-color-light, #6b7280);
+  transition: var(--chronica-transition, all 0.2s);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .chronica-nav-btn:hover:not(:disabled) {
-  background: #f3f4f6;
-  color: #374151;
+  background: var(--chronica-bg-hover, #f3f4f6);
+  color: var(--chronica-text-color, #374151);
 }
 
 .chronica-nav-btn:disabled {
@@ -133,15 +129,15 @@
 .chronica-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
+  gap: var(--chronica-calendar-gap, 1px);
 }
 
 .chronica-day-header {
-  padding: 8px 4px;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-xs, 4px);
   text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--chronica-accent);
+  font-size: var(--chronica-font-size-sm, 12px);
+  font-weight: var(--chronica-font-weight-semibold, 600);
+  color: var(--chronica-accent, var(--chronica-primary, #3b82f6));
   background: #f9fafb;
 }
 
@@ -248,63 +244,6 @@
 
 .chronica-dark .chronica-date-cell.chronica-weekend {
   color: #f87171;
-}
-
-/* Color Theme Variations */
-.chronica-blue {
-  --chronica-primary: #3b82f6;
-  --chronica-primary-hover: #2563eb;
-  --chronica-accent: #60a5fa;
-  --chronica-focus: rgba(59, 130, 246, 0.2);
-}
-
-.chronica-green {
-  --chronica-primary: #10b981;
-  --chronica-primary-hover: #059669;
-  --chronica-accent: #34d399;
-  --chronica-focus: rgba(16, 185, 129, 0.2);
-}
-
-.chronica-purple {
-  --chronica-primary: #8b5cf6;
-  --chronica-primary-hover: #7c3aed;
-  --chronica-accent: #a78bfa;
-  --chronica-focus: rgba(139, 92, 246, 0.2);
-}
-
-.chronica-red {
-  --chronica-primary: #ef4444;
-  --chronica-primary-hover: #dc2626;
-  --chronica-accent: #f87171;
-  --chronica-focus: rgba(239, 68, 68, 0.2);
-}
-
-.chronica-orange {
-  --chronica-primary: #f97316;
-  --chronica-primary-hover: #ea580c;
-  --chronica-accent: #fb923c;
-  --chronica-focus: rgba(249, 115, 22, 0.2);
-}
-
-.chronica-teal {
-  --chronica-primary: #14b8a6;
-  --chronica-primary-hover: #0d9488;
-  --chronica-accent: #5eead4;
-  --chronica-focus: rgba(20, 184, 166, 0.2);
-}
-
-.chronica-pink {
-  --chronica-primary: #ec4899;
-  --chronica-primary-hover: #db2777;
-  --chronica-accent: #f472b6;
-  --chronica-focus: rgba(236, 72, 153, 0.2);
-}
-
-.chronica-indigo {
-  --chronica-primary: #6366f1;
-  --chronica-primary-hover: #4f46e5;
-  --chronica-accent: #818cf8;
-  --chronica-focus: rgba(99, 102, 241, 0.2);
 }
 
 /* Responsive adjustments */
