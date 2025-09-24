@@ -109,12 +109,6 @@ export class ChronicaTimePickerComponent
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
-  }
-
   private initializeTimeLists(): void {
     // Initialize hours
     this.hours = [];
@@ -201,83 +195,6 @@ export class ChronicaTimePickerComponent
     this.updateSelectedTime(currentTime);
   }
 
-  get timeValue(): ChronicaTimeValue | null {
-    return this._timeValue;
-  }
-
-  get formattedTime(): string {
-    if (!this._timeValue) return '';
-
-    const { hours, minutes, seconds } = this._timeValue;
-
-    if (this.config.format24Hour) {
-      const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-      return this.config.showSeconds
-        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
-        : timeStr;
-    } else {
-      const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
-      const period = hours < 12 ? 'AM' : 'PM';
-      const timeStr = `${displayHour}:${minutes.toString().padStart(2, '0')}`;
-      const fullTimeStr = this.config.showSeconds
-        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
-        : timeStr;
-      return `${fullTimeStr} ${period}`;
-    }
-  }
-
-  openPopup(): void {
-    if (this.disabled || this.isPopupOpen) return;
-
-    const positionStrategy = this.overlay
-      .position()
-      .flexibleConnectedTo(this.elementRef)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-          offsetY: 14,
-        },
-        {
-          originX: 'start',
-          originY: 'top',
-          overlayX: 'start',
-          overlayY: 'bottom',
-          offsetY: -14,
-        },
-      ]);
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-      hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-    });
-
-    this.overlayRef = this.overlay.create(overlayConfig);
-    const portal = new TemplatePortal(this.timePickerTemplate, this.viewContainerRef);
-    this.overlayRef.attach(portal);
-
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
-
-    this.isPopupOpen = true;
-    this.cdr.detectChanges();
-  }
-
-  closePopup(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
-    }
-    this.isPopupOpen = false;
-    this.onTouched();
-    this.cdr.detectChanges();
-  }
-
   onHourChange(hour: number): void {
     this.selectedHour = hour;
     this.updateTimeValue();
@@ -360,12 +277,97 @@ export class ChronicaTimePickerComponent
     this.timeChange.emit(currentTime);
   }
 
-  // Utility methods for template
+  //#region Getters
+  get timeValue(): ChronicaTimeValue | null {
+    return this._timeValue;
+  }
+
+  get formattedTime(): string {
+    if (!this._timeValue) return '';
+
+    const { hours, minutes, seconds } = this._timeValue;
+
+    if (this.config.format24Hour) {
+      const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      return this.config.showSeconds
+        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
+        : timeStr;
+    } else {
+      const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+      const period = hours < 12 ? 'AM' : 'PM';
+      const timeStr = `${displayHour}:${minutes.toString().padStart(2, '0')}`;
+      const fullTimeStr = this.config.showSeconds
+        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
+        : timeStr;
+      return `${fullTimeStr} ${period}`;
+    }
+  }
+
   get colorThemeClass(): string {
     return `chronica-${this.config.colorTheme || 'blue'}`;
   }
 
   get themeClass(): string {
     return `chronica-${this.config.theme || 'light'}`;
+  }
+
+  //#region Popup management
+  openPopup(): void {
+    if (this.disabled || this.isPopupOpen) return;
+
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(this.elementRef)
+      .withPositions([
+        {
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+          offsetY: 14,
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'bottom',
+          offsetY: -14,
+        },
+      ]);
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    });
+
+    this.overlayRef = this.overlay.create(overlayConfig);
+    const portal = new TemplatePortal(this.timePickerTemplate, this.viewContainerRef);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => {
+      this.closePopup();
+    });
+
+    this.isPopupOpen = true;
+    this.cdr.detectChanges();
+  }
+
+  closePopup(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
+    this.isPopupOpen = false;
+    this.onTouched();
+    this.cdr.detectChanges();
+  }
+
+  //#region Cleanup
+  ngOnDestroy(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
   }
 }
