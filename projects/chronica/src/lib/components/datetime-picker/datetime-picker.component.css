@@ -58,11 +58,6 @@
   outline: none;
 }
 
-.datetime-trigger:focus {
-  outline: 2px solid var(--chronica-primary);
-  outline-offset: 2px;
-}
-
 /* Popup Styles */
 .datetime-picker-popup {
   background: var(--chronica-bg-color);
