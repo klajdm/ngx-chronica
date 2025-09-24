@@ -6,7 +6,7 @@ import {
   DurationValue,
   DurationPickerConfig,
 } from '../../../../../projects/chronica/src/public-api';
-import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/chronica.models';
+import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({

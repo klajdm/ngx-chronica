@@ -19,7 +19,7 @@
     </button>
 
     <div class="chronica-month-year">
-      <span class="chronica-month">{{ currentMonth.name }}</span>
+      <span class="chronica-month">{{ currentMonth.displayName }}</span>
       <span class="chronica-year">{{ currentMonth.year }}</span>
     </div>
 
@@ -49,16 +49,16 @@
       <button
         type="button"
         class="chronica-date-cell"
-        *ngFor="let date of week.dates"
+        *ngFor="let date of week"
         [class.chronica-today]="date.isToday"
-        [class.chronica-selected]="date.isSelected"
-        [class.chronica-disabled]="date.isDisabled"
-        [class.chronica-other-month]="!date.isInCurrentMonth"
+        [class.chronica-selected]="date.selected"
+        [class.chronica-disabled]="date.disabled"
+        [class.chronica-other-month]="!date.inCurrentMonth"
         [class.chronica-weekend]="date.isWeekend"
-        [disabled]="date.isDisabled || disabled"
+        [disabled]="date.disabled || disabled"
         (click)="selectDate(date)"
       >
-        {{ date.day }}
+        {{ date.date.getDate() }}
       </button>
     </ng-container>
   </div>
