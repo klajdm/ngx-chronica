@@ -1,19 +1,21 @@
-<div class="chronica-time-picker" [class]="themeClass + ' ' + colorThemeClass">
+<div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- Time Input Trigger -->
-  <div class="time-input-container" (click)="openPopup()">
-    <input
-      type="text"
-      class="time-input"
-      [value]="formattedTime"
-      [placeholder]="placeholder"
-      [disabled]="disabled"
-      [required]="required"
-      readonly
-      [attr.aria-label]="placeholder"
-      [attr.aria-expanded]="isPopupOpen"
-      [attr.aria-haspopup]="true"
-    />
-    <div class="time-input-icon">
+  <div
+    class="chronica-input-trigger"
+    (click)="openPopup()"
+    (keydown.enter)="openPopup()"
+    (keydown.space)="openPopup(); $event.preventDefault()"
+    tabindex="0"
+    role="button"
+    [attr.aria-expanded]="isPopupOpen"
+    aria-haspopup="true"
+    [attr.aria-label]="formattedTime || placeholder"
+    [class.chronica-disabled]="disabled"
+  >
+    <span class="chronica-input-display" [class.chronica-placeholder]="!formattedTime">
+      {{ formattedTime || placeholder }}
+    </span>
+    <div class="chronica-input-icon">
       <svg
         width="20"
         height="20"

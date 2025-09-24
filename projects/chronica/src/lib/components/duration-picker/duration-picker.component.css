@@ -1,58 +1,6 @@
 /* Import centralized variables */
 @import '../../../styles/_variables.css';
-
-/* Duration Picker Component Styles */
-.chronica-duration-picker {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-/* Input Container */
-.duration-input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  border: 1px solid var(--chronica-border-color, #e5e7eb);
-  border-radius: 6px;
-  background: var(--chronica-bg-color, #ffffff);
-  transition: all 0.2s ease;
-  min-height: 40px;
-}
-
-.duration-input-container:focus-within {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  border-color: var(--chronica-primary-color, #3b82f6);
-}
-
-.duration-input {
-  flex: 1;
-  padding: 8px 12px;
-  border: none;
-  background: transparent;
-  font-size: 14px;
-  color: var(--chronica-text-color, #1f2937);
-  cursor: pointer;
-  outline: none;
-}
-
-.duration-input::placeholder {
-  color: var(--chronica-text-muted-color, #9ca3af);
-}
-
-.duration-input:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.duration-input-icon {
-  padding: 0 12px;
-  color: var(--chronica-text-color-light, #6b7280);
-  display: flex;
-  align-items: center;
-}
+@import '../../../styles/styles.css';
 
 /* Popup Styles */
 .duration-picker-popup {
