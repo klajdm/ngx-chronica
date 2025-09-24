@@ -63,22 +63,6 @@
   overflow: hidden;
 }
 
-.duration-picker-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--chronica-border-color, #e2e8f0);
-  background: var(--chronica-header-bg, #f8fafc);
-}
-
-.duration-picker-header h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--chronica-text-color, #1f2937);
-}
-
 .close-button {
   background: none;
   border: none;
@@ -198,7 +182,6 @@
 .duration-summary {
   padding: 16px 20px;
   border-top: 1px solid var(--chronica-border-color, #e2e8f0);
-  background: var(--chronica-footer-bg, #f8fafc);
 }
 
 .summary-item {
@@ -229,8 +212,7 @@
   display: flex;
   gap: 8px;
   padding: 16px 20px;
-  border-top: 1px solid var(--chronica-border-color, #e2e8f0);
-  background: var(--chronica-footer-bg, #f8fafc);
+  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
 }
 
 .action-button {
