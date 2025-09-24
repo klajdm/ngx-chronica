@@ -1,5 +1,7 @@
 /* Import centralized variables */
 @import '../../../styles/_variables.css';
+@import '../../../styles/styles.css';
+
 
 .chronica-calendar {
   position: relative;
@@ -278,78 +280,6 @@
 }
 
 /* Popup mode styles */
-.chronica-calendar-container {
-  display: inline-block;
-  min-width: 100px;
-  width: 100%;
-}
-
-/* Default input trigger styles */
-.chronica-datepicker-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing, 12px);
-  border: 1px solid var(--chronica-border-color, #e5e7eb);
-  border-radius: var(--chronica-border-radius, 6px);
-  background: var(--chronica-background, #ffffff);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 40px;
-  font-family: var(
-    --chronica-font-family,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    sans-serif
-  );
-}
-
-.chronica-datepicker-trigger:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
-  border-color: var(--chronica-primary, #3b82f6);
-}
-
-.chronica-datepicker-trigger:active:not(.chronica-disabled) {
-  border-color: var(--chronica-primary, #3b82f6);
-  box-shadow: 0 0 0 1px var(--chronica-primary, #3b82f6);
-  transform: translateY(0px);
-}
-
-.chronica-datepicker-trigger.chronica-disabled {
-  background-color: var(--chronica-disabled-bg, #f9fafb);
-  color: var(--chronica-disabled-text, #9ca3af);
-  cursor: not-allowed;
-  border-color: var(--chronica-disabled-border, #e5e7eb);
-}
-
-.datepicker-input-display {
-  flex: 1;
-  font-size: var(--chronica-font-size, 14px);
-  color: var(--chronica-text-color, #374151);
-}
-
-.datepicker-input-display.chronica-placeholder {
-  color: var(--chronica-text-color-muted, #9ca3af);
-}
-
-.datepicker-input-icon {
-  color: var(--chronica-text-color-light, #6b7280);
-  flex-shrink: 0;
-  margin-left: var(--chronica-spacing-xs, 4px);
-}
-
-/* Custom trigger element for popup mode (when hideInput is true) */
-.chronica-trigger {
-  cursor: pointer;
-  display: inline-block;
-  min-width: 0;
-}
 
 /* CDK Overlay popup styles */
 .chronica-calendar.chronica-popup {
