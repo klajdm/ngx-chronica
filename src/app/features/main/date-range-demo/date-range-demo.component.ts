@@ -6,9 +6,9 @@ import {
   DateRange,
 } from '../../../../../projects/chronica/src/lib/components/date-range/date-range.component';
 import {
-  CalendarConfig,
+  ChronicaCalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
-} from '../../../../../projects/chronica/src/lib/models/chronica.models';
+} from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class DateRangeDemoComponent {
   // Basic date range
   basicSelectedRange: DateRange = { startDate: null, endDate: null };
   basicConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -33,7 +33,7 @@ export class DateRangeDemoComponent {
   // Date range restricted
   restrictedSelectedRange: DateRange = { startDate: null, endDate: null };
   restrictedConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -48,7 +48,7 @@ export class DateRangeDemoComponent {
     endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
   };
   formConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -58,7 +58,7 @@ export class DateRangeDemoComponent {
   // Business days only (no weekends)
   businessDaysRange: DateRange = { startDate: null, endDate: null };
   businessDaysConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -69,7 +69,7 @@ export class DateRangeDemoComponent {
   // Quick select presets
   presetRange: DateRange = { startDate: null, endDate: null };
   presetConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -79,7 +79,7 @@ export class DateRangeDemoComponent {
   // Dark theme date range
   darkThemeRange: DateRange = { startDate: null, endDate: null };
   darkThemeConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'dark',
       colorTheme: this._themeService.currentTheme(),

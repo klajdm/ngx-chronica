@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChronicaInlineCalendarComponent } from '../../../../../projects/chronica/src/lib/components/inline-calendar/inline-calendar.component';
 import {
-  CalendarConfig,
+  ChronicaCalendarConfig,
   DEFAULT_CALENDAR_CONFIG,
-} from '../../../../../projects/chronica/src/lib/models/chronica.models';
+} from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class InlineCalendarDemoComponent {
   // Basic inline calendar
   basicSelectedDate: Date | null = null;
   basicConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -30,7 +30,7 @@ export class InlineCalendarDemoComponent {
   // Compact inline calendar
   compactSelectedDate: Date | null = null;
   compactConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -41,7 +41,7 @@ export class InlineCalendarDemoComponent {
   // Date range restricted inline calendar
   restrictedSelectedDate: Date | null = null;
   restrictedConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -53,7 +53,7 @@ export class InlineCalendarDemoComponent {
   // Weekend disabled calendar
   weekendDisabledSelected: Date | null = null;
   weekendDisabledConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -64,7 +64,7 @@ export class InlineCalendarDemoComponent {
   // Pre-selected date calendar
   preSelectedDate: Date | null = new Date();
   preSelectedConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'light',
       colorTheme: this._themeService.currentTheme(),
@@ -74,7 +74,7 @@ export class InlineCalendarDemoComponent {
   // Dark mode calendar
   darkModeSelectedDate: Date | null = null;
   darkModeConfig = computed(
-    (): CalendarConfig => ({
+    (): ChronicaCalendarConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
       theme: 'dark',
       colorTheme: this._themeService.currentTheme(),
