@@ -73,22 +73,6 @@
   overflow: hidden;
 }
 
-.datetime-picker-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--chronica-border-color, #e2e8f0);
-  background: var(--chronica-header-bg, #f8fafc);
-}
-
-.datetime-picker-title {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--chronica-text-color, #1f2937);
-}
-
 .close-button {
   background: none;
   border: none;
@@ -361,8 +345,7 @@
   justify-content: flex-end;
   gap: 6px;
   padding: 12px 16px;
-  border-top: 1px solid var(--chronica-border-color, #e2e8f0);
-  background: var(--chronica-footer-bg, #f8fafc);
+  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
 }
 
 .action-button {
