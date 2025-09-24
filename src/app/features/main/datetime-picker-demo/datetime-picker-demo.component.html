@@ -291,7 +291,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Appointment Notes</label>
               <textarea
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                class="w-full bg-white px-3 py-2 border border-gray-300 rounded-md"
                 rows="3"
                 placeholder="Add any notes about your appointment..."
                 ngModel
@@ -301,11 +301,7 @@
           </div>
 
           <div class="mt-4">
-            <button
-              type="submit"
-              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              [disabled]="!datetimeForm.valid"
-            >
+            <button type="submit" class="btn-primary" [disabled]="!datetimeForm.valid">
               Schedule Appointment
             </button>
           </div>
