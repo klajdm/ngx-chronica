@@ -19,38 +19,25 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-
 import {
-  CalendarConfig,
-  CalendarLocale,
+  ChronicaDateTimeConfig,
+  ChronicaDateTimeValue,
+  DEFAULT_DATETIME_CONFIG,
+  ChronicaLocale,
+  ChronicaTimeConfig,
+  ChronicaTimeValue,
+  ChronicaCalendarConfig,
+  CHRONICA_LOCALES,
+  DEFAULT_TIME_CONFIG,
   DEFAULT_CALENDAR_CONFIG,
-  CALENDAR_LOCALES,
-} from '../../models/chronica.models';
-import { TimeValue } from '../time-picker/time-picker.component';
+} from '../../models/index';
+// legacy TimeValue import removed — use ChronicaTimeValue from models
 
-export interface DateTimeValue {
-  date: Date | null;
-  time: TimeValue | null;
-}
+export type DateTimeValue = ChronicaDateTimeValue;
 
-export interface DateTimePickerConfig extends CalendarConfig {
-  format24Hour?: boolean;
-  showSeconds?: boolean;
-  minuteStep?: number;
-  secondStep?: number;
-  minTime?: TimeValue;
-  maxTime?: TimeValue;
-  dateFormat?: string;
-  timeFormat?: string;
-}
+export type DateTimePickerConfig = ChronicaDateTimeConfig;
 
-export const DEFAULT_DATETIME_CONFIG: DateTimePickerConfig = {
-  ...DEFAULT_CALENDAR_CONFIG,
-  format24Hour: true,
-  showSeconds: false,
-  minuteStep: 1,
-  secondStep: 1,
-};
+export const DEFAULT_DATETIME_PICKER_CONFIG: DateTimePickerConfig = DEFAULT_DATETIME_CONFIG;
 
 @Component({
   selector: 'chronica-datetime-picker',
@@ -69,8 +56,8 @@ export const DEFAULT_DATETIME_CONFIG: DateTimePickerConfig = {
 export class ChronicaDateTimePickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
 {
-  @Input() config: DateTimePickerConfig = DEFAULT_DATETIME_CONFIG;
-  @Input() locale: CalendarLocale | string = 'en-US';
+  @Input() config: DateTimePickerConfig = DEFAULT_DATETIME_PICKER_CONFIG;
+  @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() placeholder = 'Select date and time';
   @Input() disabled = false;
   @Input() required = false;
@@ -79,7 +66,7 @@ export class ChronicaDateTimePickerComponent
 
   @Output() dateTimeChange = new EventEmitter<DateTimeValue>();
   @Output() dateSelected = new EventEmitter<Date>();
-  @Output() timeSelected = new EventEmitter<TimeValue>();
+  @Output() timeSelected = new EventEmitter<ChronicaTimeValue>();
   @Output() calendarOpened = new EventEmitter<void>();
   @Output() calendarClosed = new EventEmitter<void>();
 
@@ -146,7 +133,7 @@ export class ChronicaDateTimePickerComponent
 
     // Initialize day names
     const locale = this.getCurrentLocale();
-    this.dayNames = locale.dayNames.map((name) => name.substring(0, 3));
+    this.dayNames = locale.dayNames.map((name: string) => name.substring(0, 3));
     this.monthNames = locale.monthNames;
 
     // Initialize year range
@@ -156,8 +143,9 @@ export class ChronicaDateTimePickerComponent
   private initializeTimeLists(): void {
     // Initialize hours
     this.hours = [];
-    const maxHour = this.config.format24Hour ? 23 : 12;
-    const minHour = this.config.format24Hour ? 0 : 1;
+    const timeCfg = this.effectiveTimeConfig;
+    const maxHour = timeCfg.timeFormat === '24h' ? 23 : 12;
+    const minHour = timeCfg.timeFormat === '24h' ? 0 : 1;
 
     for (let i = minHour; i <= maxHour; i++) {
       this.hours.push(i);
@@ -165,15 +153,15 @@ export class ChronicaDateTimePickerComponent
 
     // Initialize minutes
     this.minutes = [];
-    const minuteStep = this.config.minuteStep || 1;
+    const minuteStep = timeCfg.minuteStep || 1;
     for (let i = 0; i < 60; i += minuteStep) {
       this.minutes.push(i);
     }
 
     // Initialize seconds (if enabled)
-    if (this.config.showSeconds) {
+    if (timeCfg.showSeconds) {
       this.seconds = [];
-      const secondStep = this.config.secondStep || 1;
+      const secondStep = timeCfg.secondStep || 1;
       for (let i = 0; i < 60; i += secondStep) {
         this.seconds.push(i);
       }
@@ -198,8 +186,9 @@ export class ChronicaDateTimePickerComponent
     });
   }
 
-  private updateTimeSelection(time: TimeValue): void {
-    if (this.config.format24Hour) {
+  private updateTimeSelection(time: ChronicaTimeValue): void {
+    const timeCfg = this.effectiveTimeConfig;
+    if (timeCfg.timeFormat === '24h') {
       this.selectedHour = time.hours;
     } else {
       // Convert 24-hour to 12-hour format
@@ -270,19 +259,20 @@ export class ChronicaDateTimePickerComponent
     return new Intl.DateTimeFormat(typeof locale === 'string' ? locale : 'en-US').format(date);
   }
 
-  private formatTime(time: TimeValue): string {
+  private formatTime(time: ChronicaTimeValue): string {
+    const timeCfg = this.effectiveTimeConfig;
     const { hours, minutes, seconds } = time;
 
-    if (this.config.format24Hour) {
+    if (timeCfg.timeFormat === '24h') {
       const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-      return this.config.showSeconds
+      return timeCfg.showSeconds
         ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
         : timeStr;
     } else {
       const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
       const period = hours < 12 ? 'AM' : 'PM';
       const timeStr = `${displayHour}:${minutes.toString().padStart(2, '0')}`;
-      const fullTimeStr = this.config.showSeconds
+      const fullTimeStr = timeCfg.showSeconds
         ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
         : timeStr;
       return `${fullTimeStr} ${period}`;
@@ -364,7 +354,7 @@ export class ChronicaDateTimePickerComponent
     const year = this.currentMonth.year;
     const month = this.currentMonth.month;
     const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const firstDayOfWeek = this.config.firstDayOfWeek || 0;
+    const firstDayOfWeek = this.effectiveCalendarConfig.firstDayOfWeek ?? 0;
     const offset = (firstDayOfMonth - firstDayOfWeek + 7) % 7;
     return Array.from({ length: offset }, (_, i) => i);
   }
@@ -402,17 +392,18 @@ export class ChronicaDateTimePickerComponent
     if (this.disabled) return true;
 
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const cal = this.effectiveCalendarConfig;
 
-    if (this.config.minDate && date < this.config.minDate) {
+    if (cal.minDate && date < cal.minDate) {
       return true;
     }
 
-    if (this.config.maxDate && date > this.config.maxDate) {
+    if (cal.maxDate && date > cal.maxDate) {
       return true;
     }
 
-    if (this.config.disabledDates) {
-      return this.config.disabledDates.some(
+    if (cal.disabledDates) {
+      return cal.disabledDates.some(
         (disabledDate) =>
           disabledDate.getDate() === day &&
           disabledDate.getMonth() === this.currentMonth.month &&
@@ -487,7 +478,8 @@ export class ChronicaDateTimePickerComponent
   private updateTimeValue(): void {
     let hours = this.selectedHour;
 
-    if (!this.config.format24Hour) {
+    const timeCfg = this.effectiveTimeConfig;
+    if (!(timeCfg.timeFormat === '24h')) {
       // Convert 12-hour to 24-hour format
       if (this.selectedPeriod === 'AM' && hours === 12) {
         hours = 0;
@@ -496,10 +488,10 @@ export class ChronicaDateTimePickerComponent
       }
     }
 
-    const newTimeValue: TimeValue = {
+    const newTimeValue: ChronicaTimeValue = {
       hours,
       minutes: this.selectedMinute,
-      seconds: this.config.showSeconds ? this.selectedSecond : undefined,
+      seconds: timeCfg.showSeconds ? this.selectedSecond : undefined,
     };
 
     this._value.time = newTimeValue;
@@ -509,10 +501,11 @@ export class ChronicaDateTimePickerComponent
 
   setCurrentTime(): void {
     const now = new Date();
-    const currentTime: TimeValue = {
+    const timeCfg2 = this.effectiveTimeConfig;
+    const currentTime: ChronicaTimeValue = {
       hours: now.getHours(),
       minutes: now.getMinutes(),
-      seconds: this.config.showSeconds ? now.getSeconds() : undefined,
+      seconds: timeCfg2.showSeconds ? now.getSeconds() : undefined,
     };
 
     this.updateTimeSelection(currentTime);
@@ -530,10 +523,11 @@ export class ChronicaDateTimePickerComponent
     this.dateSelected.emit(new Date(now));
 
     // Set current time
-    const currentTime: TimeValue = {
+    const timeCfg3 = this.effectiveTimeConfig;
+    const currentTime: ChronicaTimeValue = {
       hours: now.getHours(),
       minutes: now.getMinutes(),
-      seconds: this.config.showSeconds ? now.getSeconds() : undefined,
+      seconds: timeCfg3.showSeconds ? now.getSeconds() : undefined,
     };
 
     this.updateTimeSelection(currentTime);
@@ -565,11 +559,32 @@ export class ChronicaDateTimePickerComponent
     return `chronica-${this.config.theme || 'light'}`;
   }
 
-  getCurrentLocale(): CalendarLocale {
+  getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
-      return CALENDAR_LOCALES[this.locale] || CALENDAR_LOCALES['en-US'];
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
+  }
+
+  // Template-friendly compatibility getters
+  get format24Hour(): boolean {
+    return this.effectiveTimeConfig.timeFormat === '24h';
+  }
+
+  get showSeconds(): boolean {
+    return !!this.effectiveTimeConfig.showSeconds;
+  }
+
+  // Effective merged configs (apply defaults + user config)
+  get effectiveTimeConfig(): ChronicaTimeConfig {
+    return { ...(DEFAULT_TIME_CONFIG as ChronicaTimeConfig), ...(this.config.timeConfig || {}) };
+  }
+
+  get effectiveCalendarConfig(): ChronicaCalendarConfig {
+    return {
+      ...(DEFAULT_CALENDAR_CONFIG as ChronicaCalendarConfig),
+      ...(this.config.calendarConfig || {}),
+    };
   }
 
   @HostListener('document:keydown', ['$event'])
