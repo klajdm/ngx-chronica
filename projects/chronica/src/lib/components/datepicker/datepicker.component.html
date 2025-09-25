@@ -3,9 +3,9 @@
   <div
     *ngIf="!hideInput"
     class="chronica-input-trigger"
-    (click)="togglePopup()"
-    (keydown.enter)="togglePopup()"
-    (keydown.space)="togglePopup(); $event.preventDefault()"
+    (click)="openPopup()"
+    (keydown.enter)="openPopup()"
+    (keydown.space)="openPopup(); $event.preventDefault()"
     tabindex="0"
     role="button"
     [attr.aria-expanded]="isPopupOpen"
@@ -39,9 +39,9 @@
   <div
     *ngIf="hideInput"
     class="chronica-manual-trigger"
-    (click)="togglePopup()"
-    (keydown.enter)="togglePopup()"
-    (keydown.space)="togglePopup(); $event.preventDefault()"
+    (click)="openPopup()"
+    (keydown.enter)="openPopup()"
+    (keydown.space)="openPopup(); $event.preventDefault()"
     tabindex="0"
     role="button"
     [attr.aria-expanded]="isPopupOpen"
@@ -54,7 +54,7 @@
 <!-- Calendar popup template -->
 <ng-template #calendarTemplate>
   <div
-    class="chronica-calendar chronica-popup chronica-popup-open"
+    class="chronica-datepicker-popup"
     [class]="colorThemeClass + ' ' + themeClass"
     (click)="$event.stopPropagation()"
   >

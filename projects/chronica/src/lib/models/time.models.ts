@@ -70,11 +70,13 @@ export interface ChronicaDateTimeValue {
 /**
  * Time duration interface
  */
-export interface ChronicaTimeDuration {
+export interface ChronicaDurationValue {
+  /** Days */
+  days?: number;
   /** Hours */
-  hours: number;
+  hours?: number;
   /** Minutes */
-  minutes: number;
+  minutes?: number;
   /** Seconds */
   seconds?: number;
 }

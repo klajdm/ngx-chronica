@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   ChronicaDurationPickerComponent,
-  DurationValue,
+  ChronicaDurationValue,
   DurationPickerConfig,
 } from '../../../../../projects/chronica/src/public-api';
 import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/index';
@@ -19,7 +19,7 @@ export class DurationPickerDemoComponent {
   private readonly _themeService = inject(ThemeService);
 
   // Demo 1: Basic duration picker (hours and minutes)
-  basicDuration: DurationValue | null = null;
+  basicDuration: ChronicaDurationValue | null = null;
   basicConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -32,7 +32,7 @@ export class DurationPickerDemoComponent {
   );
 
   // Demo 2: With seconds
-  precisionDuration: DurationValue | null = { hours: 2, minutes: 30, seconds: 45 };
+  precisionDuration: ChronicaDurationValue | null = { hours: 2, minutes: 30, seconds: 45 };
   precisionConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -46,7 +46,7 @@ export class DurationPickerDemoComponent {
   );
 
   // Demo 3: Days, hours, minutes for project planning
-  projectDuration: DurationValue | null = null;
+  projectDuration: ChronicaDurationValue | null = null;
   projectConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -61,7 +61,7 @@ export class DurationPickerDemoComponent {
   );
 
   // Demo 4: Form integration
-  formDuration: DurationValue | null = { hours: 8 };
+  formDuration: ChronicaDurationValue | null = { hours: 8 };
   formConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -75,7 +75,7 @@ export class DurationPickerDemoComponent {
   );
 
   // Demo 5: Custom intervals (15-minute steps)
-  intervalDuration: DurationValue | null = null;
+  intervalDuration: ChronicaDurationValue | null = null;
   intervalConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -89,7 +89,7 @@ export class DurationPickerDemoComponent {
   );
 
   // Demo 6: Time tracking with restrictions
-  trackingDuration: DurationValue | null = null;
+  trackingDuration: ChronicaDurationValue | null = null;
   trackingConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -104,7 +104,7 @@ export class DurationPickerDemoComponent {
   );
 
   // Demo 7: Dark theme
-  darkDuration: DurationValue | null = { hours: 1, minutes: 30 };
+  darkDuration: ChronicaDurationValue | null = { hours: 1, minutes: 30 };
   darkConfig = computed(
     (): DurationPickerConfig => ({
       ...DEFAULT_CALENDAR_CONFIG,
@@ -116,12 +116,12 @@ export class DurationPickerDemoComponent {
     })
   );
 
-  onDurationChange(duration: DurationValue | null, demo: string): void {
+  onDurationChange(duration: ChronicaDurationValue | null, demo: string): void {
     console.log(`${demo} duration changed:`, duration);
   }
 
   // Utility method to format duration for display
-  formatDuration(duration: DurationValue | null): string {
+  formatDuration(duration: ChronicaDurationValue | null): string {
     if (!duration) return 'No duration selected';
 
     const parts: string[] = [];
@@ -146,7 +146,7 @@ export class DurationPickerDemoComponent {
   }
 
   // Calculate total minutes for display
-  getTotalMinutes(duration: DurationValue | null): number {
+  getTotalMinutes(duration: ChronicaDurationValue | null): number {
     if (!duration) return 0;
 
     const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
@@ -154,7 +154,7 @@ export class DurationPickerDemoComponent {
   }
 
   // Calculate total seconds for display
-  getTotalSeconds(duration: DurationValue | null): number {
+  getTotalSeconds(duration: ChronicaDurationValue | null): number {
     if (!duration) return 0;
 
     const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
