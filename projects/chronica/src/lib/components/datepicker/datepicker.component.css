@@ -3,17 +3,26 @@
 @import '../../../styles/styles.css';
 
 
-.chronica-calendar {
+.chronica-datepicker-popup {
   position: relative;
   font-family: var(--chronica-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif);
-  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
-  border-radius: var(--chronica-calendar-border-radius, var(--chronica-border-radius-lg, 8px));
-  background: var(--chronica-background, #ffffff);
-  box-shadow: var(--chronica-calendar-shadow, var(--chronica-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1)));
+  border: 1px solid var(--chronica-border-color, #e5e7eb);
+  border-radius: var(--chronica-border-radius-lg, 8px);
+  background: var(--chronica-bg-color, #ffffff);
+  box-shadow: var(--chronica-shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
   overflow: hidden;
   user-select: none;
   width: var(--chronica-calendar-width, var(--chronica-width, 320px));
-  padding: var(--chronica-calendar-padding, var(--chronica-spacing-lg, 16px));
+  min-width: 280px;
+  max-width: 320px;
+  padding: var(--chronica-spacing-lg, 16px);
+  
+  /* Animation */
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
 }
 
 .chronica-header {
@@ -83,6 +92,7 @@
 .chronica-year-select:hover {
   border-color: #9ca3af;
 }
+
 .chronica-month-select:focus,
 .chronica-year-select:focus {
   outline: none;
@@ -106,7 +116,7 @@
   text-transform: uppercase;
 }
 
-.chronica-calendar-grid {
+.chronica-datepicker-popup .chronica-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--chronica-spacing-xs, 4px);
@@ -120,6 +130,7 @@
   justify-content: center;
   border-radius: var(--chronica-border-radius-full, 50%);
   font-size: var(--chronica-font-size, 14px);
+  color: var(--chronica-text-color, #374151);
   transition: var(--chronica-transition, all 0.2s ease);
   position: relative;
 }
@@ -161,58 +172,45 @@
   color: #fff;
 }
 
-.chronica-theme-dark .chronica-nav-button {
+.chronica-datepicker-popup.chronica-theme-dark .chronica-nav-button {
   color: #9ca3af;
 }
 
-.chronica-theme-dark .chronica-nav-button:hover:not(:disabled) {
+.chronica-datepicker-popup.chronica-theme-dark .chronica-nav-button:hover:not(:disabled) {
   background: #374151;
   color: #fff;
 }
-.chronica-theme-dark .chronica-nav-button:disabled {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-nav-button:disabled {
   color: #4b5563;
 }
-.chronica-theme-dark .chronica-month-select,
-.chronica-theme-dark .chronica-year-select {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select,
+.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select {
   background: #374151;
   border-color: #4b5563;
   color: #fff;
 }
-.chronica-theme-dark .chronica-month-select:hover,
-.chronica-theme-dark .chronica-year-select:hover {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select:hover,
+.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select:hover {
   border-color: #6b7280;
 }
-.chronica-theme-dark .chronica-month-select:focus,
-.chronica-theme-dark .chronica-year-select:focus {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select:focus,
+.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select:focus {
   border-color: var(--chronica-primary);
   box-shadow: 0 0 0 3px var(--chronica-focus);
 }
-.chronica-theme-dark .chronica-month-select option,
-.chronica-theme-dark .chronica-year-select option {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select option,
+.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select option {
   background: #374151;
   color: #fff;
 }
 
-.chronica-theme-dark .chronica-day-name {
+.chronica-datepicker-popup.chronica-theme-dark .chronica-day-name {
   color: var(--chronica-accent);
-}
-
-.chronica-theme-dark .chronica-date {
-  color: #fff;
-}
-.chronica-theme-dark .chronica-date.chronica-clickable:hover:not(.chronica-selected) {
-  background: #374151;
-}
-.chronica-theme-dark .chronica-date.chronica-today {
-  font-weight: 700;
-  color: var(--chronica-accent);
-}
-.chronica-theme-dark .chronica-date.chronica-selected {
-  background: var(--chronica-primary);
-  color: #fff;
-}
-.chronica-theme-dark .chronica-date.chronica-disabled {
-  color: #4b5563;
 }
 
 .chronica-today-button-container {
@@ -222,6 +220,7 @@
   padding-top: var(--chronica-spacing-sm, 8px);
   border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
 }
+
 .chronica-today-button {
   background: var(--chronica-primary);
   color: white;
@@ -235,32 +234,38 @@
   outline: none;
   min-width: 80px;
 }
+
 .chronica-today-button:hover {
   background: var(--chronica-primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px var(--chronica-focus);
 }
+
 .chronica-today-button:focus {
   box-shadow: 0 0 0 3px var(--chronica-focus);
 }
+
 .chronica-today-button:active {
   transform: translateY(0);
   box-shadow: 0 1px 2px var(--chronica-focus);
 }
-.chronica-theme-dark .chronica-today-button {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-today-button {
   background: var(--chronica-primary);
   color: #fff;
 }
-.chronica-theme-dark .chronica-today-button:hover {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-today-button:hover {
   background: var(--chronica-primary-hover);
   box-shadow: 0 2px 4px var(--chronica-focus);
 }
-.chronica-theme-dark .chronica-today-button:focus {
+
+.chronica-datepicker-popup.chronica-theme-dark .chronica-today-button:focus {
   box-shadow: 0 0 0 3px var(--chronica-focus);
 }
 
 @media (max-width: 320px) {
-  .chronica-calendar {
+  .chronica-datepicker-popup {
     width: 100%;
     min-width: var(--chronica-min-width, 280px);
   }
@@ -271,55 +276,23 @@
     font-size: var(--chronica-font-size, 14px);
   }
 }
-.chronica-calendar-grid {
+
+.chronica-datepicker-popup .chronica-calendar-grid {
   transition: opacity 0.2s ease;
 }
+
 .chronica-date:focus {
   outline: 2px solid var(--chronica-primary);
   outline-offset: -2px;
 }
 
-/* Popup mode styles */
-
-/* CDK Overlay popup styles */
-.chronica-calendar.chronica-popup {
-  background: var(--chronica-background, #ffffff);
-  border: 1px solid var(--chronica-border-color, #e5e7eb);
-  border-radius: var(--chronica-border-radius-lg, 8px);
-  box-shadow: var(--chronica-shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
-  min-width: 280px;
-  max-width: 320px;
-  padding: var(--chronica-spacing-lg, 16px);
-}
-
-/* Dark theme popup specific styles */
-.chronica-calendar.chronica-popup.chronica-theme-dark {
-  background: #1f2937;
-  border-color: #374151;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.3),
-    0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  box-shadow: var(
-    --chronica-shadow-lg,
-    0 10px 15px -3px rgba(0, 0, 0, 0.3),
-    0 4px 6px -2px rgba(0, 0, 0, 0.2)
-  );
-}
-
 /* Responsive popup sizing */
 @media (max-width: 640px) {
-  .chronica-calendar.chronica-popup {
+  .chronica-datepicker-popup {
     width: 100vw;
     max-width: 320px;
     min-width: 280px;
   }
 }
 
-/* Animation for CDK Overlay popup */
-.chronica-calendar.chronica-popup {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.15s ease-out,
-    transform 0.15s ease-out;
-}
+

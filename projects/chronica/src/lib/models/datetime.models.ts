@@ -5,7 +5,7 @@
 
 import { ChronicaBaseConfig } from './base.models';
 import { ChronicaCalendarConfig } from './calendar.models';
-import { ChronicaTimeConfig, ChronicaTimeValue, ChronicaDateTimeValue } from './time.models';
+import { ChronicaTimeConfig, ChronicaDateTimeValue } from './time.models';
 
 /**
  * DateTime picker layout mode
