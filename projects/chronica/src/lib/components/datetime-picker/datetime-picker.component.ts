@@ -451,15 +451,6 @@ export class ChronicaDateTimePickerComponent
     this.dateTimeChange.emit(this._value);
   }
 
-  // Utility methods
-  get colorThemeClass(): string {
-    return `chronica-${this.config.colorTheme || 'blue'}`;
-  }
-
-  get themeClass(): string {
-    return `chronica-${this.config.theme || 'light'}`;
-  }
-
   getCurrentLocale(): ChronicaLocale {
     if (typeof this.locale === 'string') {
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
@@ -500,6 +491,14 @@ export class ChronicaDateTimePickerComponent
       ...(DEFAULT_CALENDAR_CONFIG as ChronicaCalendarConfig),
       ...(this.config.calendarConfig || {}),
     };
+  }
+
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
+
+  get themeClass(): string {
+    return `chronica-${this.config.theme || 'light'}`;
   }
 
   //#region Popup management
@@ -557,16 +556,10 @@ export class ChronicaDateTimePickerComponent
     this.cdr.detectChanges();
   }
 
-  togglePopup(): void {
-    if (this.isPopupOpen) {
-      this.closePopup();
-    } else {
-      this.openPopup();
-    }
-  }
-
-  //#endregion Cleanup
+  //#region Cleanup
   ngOnDestroy(): void {
-    this.closePopup();
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+    }
   }
 }

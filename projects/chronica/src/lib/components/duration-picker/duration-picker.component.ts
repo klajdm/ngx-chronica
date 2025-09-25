@@ -20,18 +20,11 @@ import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
   ChronicaCalendarConfig,
+  ChronicaDurationValue,
   ChronicaLocale,
   DEFAULT_CALENDAR_CONFIG,
 } from '../../models/index';
 
-export interface DurationValue {
-  days?: number;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
-}
-
-// Update: use ChronicaCalendarConfig for DurationPickerConfig
 export interface DurationPickerConfig extends Partial<ChronicaCalendarConfig> {
   showDays?: boolean;
   showHours?: boolean;
@@ -88,17 +81,17 @@ export class ChronicaDurationPickerComponent
   @Input() placeholder = 'Select duration';
   @Input() disabled = false;
   @Input() required = false;
-  @Input() minDuration: DurationValue | null = null;
-  @Input() maxDuration: DurationValue | null = null;
+  @Input() minDuration: ChronicaDurationValue | null = null;
+  @Input() maxDuration: ChronicaDurationValue | null = null;
 
-  @Output() durationChange = new EventEmitter<DurationValue | null>();
+  @Output() durationChange = new EventEmitter<ChronicaDurationValue | null>();
 
   // ControlValueAccessor properties
-  private onChange = (value: DurationValue | null) => {};
+  private onChange = (value: ChronicaDurationValue | null) => {};
   private onTouched = () => {};
 
   // Duration picker state
-  private _durationValue: DurationValue | null = null;
+  private _durationValue: ChronicaDurationValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
 
@@ -133,12 +126,6 @@ export class ChronicaDurationPickerComponent
     }
     if (changes['minDuration'] || changes['maxDuration']) {
       this.cdr.detectChanges();
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
     }
   }
 
@@ -193,7 +180,7 @@ export class ChronicaDurationPickerComponent
   }
 
   // ControlValueAccessor implementation
-  writeValue(value: DurationValue | null): void {
+  writeValue(value: ChronicaDurationValue | null): void {
     if (value) {
       this._durationValue = { ...value };
       this.updateSelectedDuration(value);
@@ -204,7 +191,7 @@ export class ChronicaDurationPickerComponent
     this.cdr.detectChanges();
   }
 
-  registerOnChange(fn: (value: DurationValue | null) => void): void {
+  registerOnChange(fn: (value: ChronicaDurationValue | null) => void): void {
     this.onChange = fn;
   }
 
@@ -217,7 +204,7 @@ export class ChronicaDurationPickerComponent
     this.cdr.detectChanges();
   }
 
-  private updateSelectedDuration(duration: DurationValue): void {
+  private updateSelectedDuration(duration: ChronicaDurationValue): void {
     this.selectedDays = duration.days || 0;
     this.selectedHours = duration.hours || 0;
     this.selectedMinutes = duration.minutes || 0;
@@ -231,7 +218,113 @@ export class ChronicaDurationPickerComponent
     this.selectedSeconds = 0;
   }
 
-  get durationValue(): DurationValue | null {
+  onDaysChange(days: number): void {
+    this.selectedDays = days;
+    this.updateDurationValue();
+  }
+
+  onHoursChange(hours: number): void {
+    this.selectedHours = hours;
+    this.updateDurationValue();
+  }
+
+  onMinutesChange(minutes: number): void {
+    this.selectedMinutes = minutes;
+    this.updateDurationValue();
+  }
+
+  onSecondsChange(seconds: number): void {
+    this.selectedSeconds = seconds;
+    this.updateDurationValue();
+  }
+
+  private updateDurationValue(): void {
+    const newDurationValue: ChronicaDurationValue = {};
+
+    if (this.config.showDays) {
+      newDurationValue.days = this.selectedDays;
+    }
+
+    if (this.config.showHours) {
+      newDurationValue.hours = this.selectedHours;
+    }
+
+    if (this.config.showMinutes) {
+      newDurationValue.minutes = this.selectedMinutes;
+    }
+
+    if (this.config.showSeconds) {
+      newDurationValue.seconds = this.selectedSeconds;
+    }
+
+    // Validate against min/max duration
+    if (this.isDurationValid(newDurationValue)) {
+      this._durationValue = newDurationValue;
+      this.onChange(this._durationValue);
+      this.durationChange.emit(this._durationValue);
+    }
+  }
+
+  private isDurationValid(duration: ChronicaDurationValue): boolean {
+    const totalSeconds = this.calculateTotalSeconds(duration);
+
+    if (this.minDuration) {
+      const minTotalSeconds = this.calculateTotalSeconds(this.minDuration);
+      if (totalSeconds < minTotalSeconds) return false;
+    }
+
+    if (this.maxDuration) {
+      const maxTotalSeconds = this.calculateTotalSeconds(this.maxDuration);
+      if (totalSeconds > maxTotalSeconds) return false;
+    }
+
+    // Check if duration is zero when not allowed
+    if (!this.config.allowZero && totalSeconds === 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private calculateTotalSeconds(duration: ChronicaDurationValue): number {
+    const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
+    return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
+  }
+
+  clearDuration(): void {
+    this._durationValue = null;
+    this.onChange(null);
+    this.durationChange.emit(null);
+    this.closePopup();
+  }
+
+  setPresetDuration(preset: ChronicaDurationValue): void {
+    this.writeValue(preset);
+    this.onChange(preset);
+    this.durationChange.emit(preset);
+  }
+
+  // Common preset durations
+  setQuickDuration(type: 'minutes' | 'hours' | 'days', value: number): void {
+    const preset: ChronicaDurationValue = {};
+
+    switch (type) {
+      case 'minutes':
+        preset.minutes = value;
+        break;
+      case 'hours':
+        preset.hours = value;
+        break;
+      case 'days':
+        preset.days = value;
+        break;
+    }
+
+    this.setPresetDuration(preset);
+  }
+
+  //#region Getters
+  get durationValue(): ChronicaDurationValue | null {
     return this._durationValue;
   }
 
@@ -274,6 +367,16 @@ export class ChronicaDurationPickerComponent
     return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
   }
 
+  // Utility methods for template
+  get colorThemeClass(): string {
+    return `chronica-${this.config.colorTheme || 'blue'}`;
+  }
+
+  get themeClass(): string {
+    return `chronica-${this.config.theme || 'light'}`;
+  }
+
+  //#region Popup management
   openPopup(): void {
     if (this.disabled || this.isPopupOpen) return;
 
@@ -327,117 +430,10 @@ export class ChronicaDurationPickerComponent
     this.cdr.detectChanges();
   }
 
-  onDaysChange(days: number): void {
-    this.selectedDays = days;
-    this.updateDurationValue();
-  }
-
-  onHoursChange(hours: number): void {
-    this.selectedHours = hours;
-    this.updateDurationValue();
-  }
-
-  onMinutesChange(minutes: number): void {
-    this.selectedMinutes = minutes;
-    this.updateDurationValue();
-  }
-
-  onSecondsChange(seconds: number): void {
-    this.selectedSeconds = seconds;
-    this.updateDurationValue();
-  }
-
-  private updateDurationValue(): void {
-    const newDurationValue: DurationValue = {};
-
-    if (this.config.showDays) {
-      newDurationValue.days = this.selectedDays;
+  //#region Cleanup
+  ngOnDestroy(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
     }
-
-    if (this.config.showHours) {
-      newDurationValue.hours = this.selectedHours;
-    }
-
-    if (this.config.showMinutes) {
-      newDurationValue.minutes = this.selectedMinutes;
-    }
-
-    if (this.config.showSeconds) {
-      newDurationValue.seconds = this.selectedSeconds;
-    }
-
-    // Validate against min/max duration
-    if (this.isDurationValid(newDurationValue)) {
-      this._durationValue = newDurationValue;
-      this.onChange(this._durationValue);
-      this.durationChange.emit(this._durationValue);
-    }
-  }
-
-  private isDurationValid(duration: DurationValue): boolean {
-    const totalSeconds = this.calculateTotalSeconds(duration);
-
-    if (this.minDuration) {
-      const minTotalSeconds = this.calculateTotalSeconds(this.minDuration);
-      if (totalSeconds < minTotalSeconds) return false;
-    }
-
-    if (this.maxDuration) {
-      const maxTotalSeconds = this.calculateTotalSeconds(this.maxDuration);
-      if (totalSeconds > maxTotalSeconds) return false;
-    }
-
-    // Check if duration is zero when not allowed
-    if (!this.config.allowZero && totalSeconds === 0) {
-      return false;
-    }
-
-    return true;
-  }
-
-  private calculateTotalSeconds(duration: DurationValue): number {
-    const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
-    return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
-  }
-
-  clearDuration(): void {
-    this._durationValue = null;
-    this.onChange(null);
-    this.durationChange.emit(null);
-    this.closePopup();
-  }
-
-  setPresetDuration(preset: DurationValue): void {
-    this.writeValue(preset);
-    this.onChange(preset);
-    this.durationChange.emit(preset);
-  }
-
-  // Common preset durations
-  setQuickDuration(type: 'minutes' | 'hours' | 'days', value: number): void {
-    const preset: DurationValue = {};
-
-    switch (type) {
-      case 'minutes':
-        preset.minutes = value;
-        break;
-      case 'hours':
-        preset.hours = value;
-        break;
-      case 'days':
-        preset.days = value;
-        break;
-    }
-
-    this.setPresetDuration(preset);
-  }
-
-  // Utility methods for template
-  get colorThemeClass(): string {
-    return `chronica-${this.config.colorTheme || 'blue'}`;
-  }
-
-  get themeClass(): string {
-    return `chronica-${this.config.theme || 'light'}`;
   }
 }
