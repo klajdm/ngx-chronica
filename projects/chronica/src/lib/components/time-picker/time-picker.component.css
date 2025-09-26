@@ -123,23 +123,14 @@
   font-weight: 600;
 }
 
-/* Footer */
-.time-picker-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 16px 20px;
-  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
-}
-
 .action-button {
-  padding: 8px 16px;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-lg, 16px);
   border: 1px solid var(--chronica-border-color);
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--chronica-font-size-small, 12px);
+  font-weight: var(--chronica-font-weight, 500);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--chronica-transition, all 0.2s ease);
   background: var(--chronica-bg-color);
   color: var(--chronica-text-color);
 }

@@ -281,23 +281,14 @@
   font-weight: 600;
 }
 
-/* Footer */
-.datetime-picker-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  padding: 12px 16px;
-  border-top: var(--chronica-border-width) solid var(--chronica-border-color);
-}
-
 .action-button {
-  padding: 6px 12px;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-lg, 16px);
   border: 1px solid var(--chronica-border-color);
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: 6px;
+  font-size: var(--chronica-font-size-small, 12px);
+  font-weight: var(--chronica-font-weight, 500);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--chronica-transition, all 0.2s ease);
   background: var(--chronica-bg-color);
   color: var(--chronica-text-color);
 }
