@@ -1,67 +1,73 @@
 <div class="chronica-inline-calendar" [class]="colorThemeClass + ' ' + themeClass">
-  <!-- Calendar Header -->
-  <div class="chronica-header">
-    <button type="button" class="chronica-nav-btn" (click)="previousMonth()" [disabled]="disabled">
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <polyline points="15,18 9,12 15,6"></polyline>
-      </svg>
-    </button>
-
-    <div class="chronica-month-year">
-      <span class="chronica-month">{{ currentMonth.displayName }}</span>
-      <span class="chronica-year">{{ currentMonth.year }}</span>
-    </div>
-
-    <button type="button" class="chronica-nav-btn" (click)="nextMonth()" [disabled]="disabled">
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <polyline points="9,18 15,12 9,6"></polyline>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Calendar Grid -->
-  <div class="chronica-calendar-grid">
-    <!-- Day Headers -->
-    <div class="chronica-day-header" *ngFor="let dayName of dayNames">
-      {{ dayName }}
-    </div>
-
-    <!-- Calendar Dates -->
-    <ng-container *ngFor="let week of currentMonth.weeks">
+  <div class="chronica-calendar-body">
+    <!-- Calendar Header -->
+    <div class="chronica-header">
       <button
         type="button"
-        class="chronica-date-cell"
-        *ngFor="let date of week"
-        [class.chronica-today]="date.isToday"
-        [class.chronica-selected]="date.selected"
-        [class.chronica-disabled]="date.disabled"
-        [class.chronica-other-month]="!date.inCurrentMonth"
-        [class.chronica-weekend]="date.isWeekend"
-        [disabled]="date.disabled || disabled"
-        (click)="selectDate(date)"
+        class="chronica-nav-btn"
+        (click)="previousMonth()"
+        [disabled]="disabled"
       >
-        {{ date.date.getDate() }}
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
       </button>
-    </ng-container>
-  </div>
 
-  <!-- Today button - positioned at bottom of calendar -->
-  <div class="chronica-today-button-container" *ngIf="config.showTodayButton !== false">
-    <button class="chronica-today-button" (click)="goToToday()" type="button" [disabled]="disabled">
+      <div class="chronica-month-year">
+        <span class="chronica-month">{{ currentMonth.displayName }}</span>
+        <span class="chronica-year">{{ currentMonth.year }}</span>
+      </div>
+
+      <button type="button" class="chronica-nav-btn" (click)="nextMonth()" [disabled]="disabled">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="chronica-calendar-grid">
+      <!-- Day Headers -->
+      <div class="chronica-day-header" *ngFor="let dayName of dayNames">
+        {{ dayName }}
+      </div>
+
+      <!-- Calendar Dates -->
+      <ng-container *ngFor="let week of currentMonth.weeks">
+        <button
+          type="button"
+          class="chronica-date-cell"
+          *ngFor="let date of week"
+          [class.chronica-today]="date.isToday"
+          [class.chronica-selected]="date.selected"
+          [class.chronica-disabled]="date.disabled"
+          [class.chronica-other-month]="!date.inCurrentMonth"
+          [class.chronica-weekend]="date.isWeekend"
+          [disabled]="date.disabled || disabled"
+          (click)="selectDate(date)"
+        >
+          {{ date.date.getDate() }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+  <!--  Footer -->
+  <div class="chronica-calendar-footer" *ngIf="config.showTodayButton !== false">
+    <button type="button" class="action-button" (click)="goToToday()" [disabled]="disabled">
       {{ getCurrentLocale().todayLabel }}
     </button>
   </div>
