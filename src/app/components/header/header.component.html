@@ -35,7 +35,7 @@
       <div class="relative theme-selector">
         <button
           (click)="toggleThemeDropdown()"
-          class="flex items-center space-x-2 px-2 py-2 lg:px-3 text-gray-600 hover:text-gray-900 text-sm font-medium rounded-md hover:bg-gray-100 transition-colors"
+          class="flex cursor-pointer items-center space-x-2 px-2 py-2 lg:px-3 text-gray-600 hover:text-gray-900 text-sm font-medium rounded-md hover:bg-gray-100 transition-colors"
           [attr.aria-expanded]="isThemeDropdownOpen()"
           aria-haspopup="true"
           aria-label="Select color theme"
@@ -97,7 +97,7 @@
             @for (themeOption of themeOptions; track themeOption.value) {
               <button
                 (click)="selectTheme(themeOption.value)"
-                class="w-full px-3 py-2 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
+                class="w-full cursor-pointer px-3 py-2 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
                 [class.bg-blue-50]="currentTheme() === themeOption.value"
                 [class.text-blue-700]="currentTheme() === themeOption.value"
                 role="menuitem"
