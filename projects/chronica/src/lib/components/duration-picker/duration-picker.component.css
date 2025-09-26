@@ -218,15 +218,6 @@
   }
 }
 
-/* Footer */
-.chronica-popup-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 16px 20px;
-  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
-}
-
 /* Animation for popup */
 .duration-picker-popup {
   animation: slideIn 0.2s ease-out;
