@@ -82,3 +82,12 @@
   display: inline-block;
   min-width: 0;
 }
+
+/* Chronica Popup/Calendar Footer */
+.chronica-popup-footer, .chronica-calendar-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
+}
