@@ -12,7 +12,7 @@
     </aside>
 
     <!-- Main Content Column -->
-    <div class="flex-1 overflow-auto">
+    <div #scrollContainer class="flex-1 overflow-auto" (scroll)="onContentScroll($event)">
       <!-- Scrollable main content -->
       <main class="p-4 lg:p-6 max-w-4xl min-h-screen mx-auto">
         <router-outlet></router-outlet>
@@ -49,4 +49,29 @@
       <app-mobile-menu (closeMenu)="closeMobileDrawer()"></app-mobile-menu>
     </aside>
   </div>
+
+  <!-- Back to top button (fixed) with smooth transition -->
+  <button
+    (click)="scrollToTop()"
+    [attr.aria-hidden]="!showBackToTop"
+    class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-50 transition duration-300 ease-in-out"
+    [class.opacity-0]="!showBackToTop"
+    [class.opacity-100]="showBackToTop"
+    [class.translate-y-4]="!showBackToTop"
+    [class.translate-y-0]="showBackToTop"
+    [class.pointer-events-none]="!showBackToTop"
+    title="Back to top"
+  >
+    <!-- simple chevron up icon (svg) -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
 </div>
