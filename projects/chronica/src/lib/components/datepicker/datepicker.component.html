@@ -58,120 +58,122 @@
     [class]="colorThemeClass + ' ' + themeClass"
     (click)="$event.stopPropagation()"
   >
-    <!-- Header with navigation and dropdowns -->
-    <div class="chronica-header">
-      <button
-        class="chronica-nav-button"
-        (click)="previousMonth()"
-        [disabled]="isPreviousMonthDisabled()"
-        type="button"
-        aria-label="Previous month"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-chevron-left-icon lucide-chevron-left"
+    <div class="chronica-datepicker-body">
+      <!-- Header with navigation and dropdowns -->
+      <div class="chronica-header">
+        <button
+          class="chronica-nav-button"
+          (click)="previousMonth()"
+          [disabled]="isPreviousMonthDisabled()"
+          type="button"
+          aria-label="Previous month"
         >
-          <path d="m15 18-6-6 6-6" />
-        </svg>
-      </button>
-
-      <div class="chronica-month-year-selectors">
-        <select
-          class="chronica-month-select"
-          [value]="currentMonth.month"
-          (change)="changeMonth(+$any($event.target).value)"
-          aria-label="Select month"
-        >
-          <option
-            *ngFor="let monthName of monthNames; let i = index"
-            [value]="i"
-            [selected]="i === currentMonth.month"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-left-icon lucide-chevron-left"
           >
-            {{ monthName }}
-          </option>
-        </select>
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
 
-        <select
-          class="chronica-year-select"
-          [value]="currentMonth.year"
-          (change)="changeYear(+$any($event.target).value)"
-          aria-label="Select year"
-        >
-          <option
-            *ngFor="let year of yearRange"
-            [value]="year"
-            [selected]="year === currentMonth.year"
+        <div class="chronica-month-year-selectors">
+          <select
+            class="chronica-month-select"
+            [value]="currentMonth.month"
+            (change)="changeMonth(+$any($event.target).value)"
+            aria-label="Select month"
           >
-            {{ year }}
-          </option>
-        </select>
-      </div>
+            <option
+              *ngFor="let monthName of monthNames; let i = index"
+              [value]="i"
+              [selected]="i === currentMonth.month"
+            >
+              {{ monthName }}
+            </option>
+          </select>
 
-      <button
-        class="chronica-nav-button"
-        (click)="nextMonth()"
-        [disabled]="isNextMonthDisabled()"
-        type="button"
-        aria-label="Next month"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-chevron-right-icon lucide-chevron-right"
+          <select
+            class="chronica-year-select"
+            [value]="currentMonth.year"
+            (change)="changeYear(+$any($event.target).value)"
+            aria-label="Select year"
+          >
+            <option
+              *ngFor="let year of yearRange"
+              [value]="year"
+              [selected]="year === currentMonth.year"
+            >
+              {{ year }}
+            </option>
+          </select>
+        </div>
+
+        <button
+          class="chronica-nav-button"
+          (click)="nextMonth()"
+          [disabled]="isNextMonthDisabled()"
+          type="button"
+          aria-label="Next month"
         >
-          <path d="m9 18 6-6-6-6" />
-        </svg>
-      </button>
-    </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-right-icon lucide-chevron-right"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </div>
 
-    <!-- Day names header -->
-    <div class="chronica-day-names">
-      <div class="chronica-day-name" *ngFor="let dayName of dayNames">
-        {{ dayName }}
+      <!-- Day names header -->
+      <div class="chronica-day-names">
+        <div class="chronica-day-name" *ngFor="let dayName of dayNames">
+          {{ dayName }}
+        </div>
+      </div>
+
+      <!-- Calendar grid -->
+      <div class="chronica-calendar-grid">
+        <!-- Empty cells for days before the first day of month -->
+        <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty"></div>
+
+        <!-- Days of month -->
+        <div
+          *ngFor="let day of getDaysInMonth()"
+          class="chronica-date chronica-clickable"
+          [class.chronica-today]="isToday(day)"
+          [class.chronica-selected]="isSelectedDate(day)"
+          [class.chronica-disabled]="isDateDisabled(day)"
+          (click)="selectDate(day)"
+          (keydown.enter)="selectDate(day)"
+          (keydown.space)="selectDate(day)"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="'Select date ' + day"
+        >
+          {{ day }}
+        </div>
       </div>
     </div>
 
-    <!-- Calendar grid -->
-    <div class="chronica-calendar-grid">
-      <!-- Empty cells for days before the first day of month -->
-      <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty"></div>
-
-      <!-- Days of month -->
-      <div
-        *ngFor="let day of getDaysInMonth()"
-        class="chronica-date chronica-clickable"
-        [class.chronica-today]="isToday(day)"
-        [class.chronica-selected]="isSelectedDate(day)"
-        [class.chronica-disabled]="isDateDisabled(day)"
-        (click)="selectDate(day)"
-        (keydown.enter)="selectDate(day)"
-        (keydown.space)="selectDate(day)"
-        tabindex="0"
-        role="button"
-        [attr.aria-label]="'Select date ' + day"
-      >
-        {{ day }}
-      </div>
-    </div>
-
-    <!-- Today button - positioned at bottom of calendar -->
-    <div class="chronica-today-button-container" *ngIf="config.showTodayButton !== false">
-      <button class="chronica-today-button" (click)="goToToday()" type="button">
+    <!-- Popup Footer -->
+    <div class="chronica-popup-footer" *ngIf="config.showTodayButton !== false">
+      <button type="button" class="action-button" (click)="goToToday()">
         {{ getCurrentLocale().todayLabel }}
       </button>
     </div>
