@@ -15,7 +15,6 @@
   width: var(--chronica-calendar-width, var(--chronica-width, 320px));
   min-width: 280px;
   max-width: 320px;
-  padding: var(--chronica-spacing-lg, 16px);
   
   /* Animation */
   opacity: 1;
@@ -23,6 +22,10 @@
   transition:
     opacity 0.15s ease-out,
     transform 0.15s ease-out;
+}
+
+.chronica-datepicker-body{
+  padding: var(--chronica-spacing-lg, 16px);
 }
 
 .chronica-header {
@@ -116,7 +119,7 @@
   text-transform: uppercase;
 }
 
-.chronica-datepicker-popup .chronica-calendar-grid {
+.chronica-datepicker-body .chronica-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--chronica-spacing-xs, 4px);
@@ -213,15 +216,7 @@
   color: var(--chronica-accent);
 }
 
-.chronica-today-button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: var(--chronica-spacing-md, 12px);
-  padding-top: var(--chronica-spacing-sm, 8px);
-  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
-}
-
-.chronica-today-button {
+.action-button {
   background: var(--chronica-primary);
   color: white;
   border: none;
@@ -235,32 +230,29 @@
   min-width: 80px;
 }
 
-.chronica-today-button:hover {
+.action-button:hover {
   background: var(--chronica-primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--chronica-focus);
 }
 
-.chronica-today-button:focus {
+.action-button:focus {
   box-shadow: 0 0 0 3px var(--chronica-focus);
 }
 
-.chronica-today-button:active {
-  transform: translateY(0);
+.action-button:active {
   box-shadow: 0 1px 2px var(--chronica-focus);
 }
 
-.chronica-datepicker-popup.chronica-theme-dark .chronica-today-button {
+.chronica-datepicker-popup.chronica-theme-dark .action-button {
   background: var(--chronica-primary);
   color: #fff;
 }
 
-.chronica-datepicker-popup.chronica-theme-dark .chronica-today-button:hover {
+.chronica-datepicker-popup.chronica-theme-dark .action-button:hover {
   background: var(--chronica-primary-hover);
   box-shadow: 0 2px 4px var(--chronica-focus);
 }
 
-.chronica-datepicker-popup.chronica-theme-dark .chronica-today-button:focus {
+.chronica-datepicker-popup.chronica-theme-dark .action-button:focus {
   box-shadow: 0 0 0 3px var(--chronica-focus);
 }
 
@@ -284,6 +276,15 @@
 .chronica-date:focus {
   outline: 2px solid var(--chronica-primary);
   outline-offset: -2px;
+}
+
+/* Footer */
+.chronica-popup-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
 }
 
 /* Responsive popup sizing */
