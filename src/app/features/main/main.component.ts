@@ -25,6 +25,12 @@ export class MainComponent {
   mobileDrawerOpen = false;
   mobileDrawerVisible = false;
 
+  // back-to-top button visibility state
+  showBackToTop = false;
+
+  // threshold in pixels when the Back to Top button appears
+  private readonly backToTopThreshold = 200;
+
   // Toggle the mobile drawer
   toggleMobileDrawer(): void {
     console.log('Toggle mobile drawer called, current state:', this.mobileDrawerOpen);
@@ -51,5 +57,27 @@ export class MainComponent {
     setTimeout(() => {
       this.mobileDrawerVisible = false;
     }, 300);
+  }
+
+  // Called when the scrollable content container scrolls
+  onContentScroll(event: Event): void {
+    const target = event.target as HTMLElement;
+    const scrollTop = target.scrollTop ?? 0;
+    this.showBackToTop = scrollTop > this.backToTopThreshold;
+  }
+
+  // Smoothly scroll the main content container to top
+  scrollToTop(): void {
+    // find the scrollable container in the DOM by querying for the class used in template
+    const container = document.querySelector('.flex-1.overflow-auto') as HTMLElement | null;
+    if (!container) {
+      // fallback: scroll window
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    container.scrollTo({ top: 0, behavior: 'smooth' });
+    // immediately hide the button; it will reappear if user scrolls again
+    this.showBackToTop = false;
   }
 }
