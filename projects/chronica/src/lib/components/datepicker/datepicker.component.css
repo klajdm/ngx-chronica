@@ -278,15 +278,6 @@
   outline-offset: -2px;
 }
 
-/* Footer */
-.chronica-popup-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 16px 20px;
-  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
-}
-
 /* Responsive popup sizing */
 @media (max-width: 640px) {
   .chronica-datepicker-popup {

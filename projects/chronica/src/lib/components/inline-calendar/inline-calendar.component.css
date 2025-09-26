@@ -1,5 +1,6 @@
 /* Import centralized variables */
 @import '../../../styles/_variables.css';
+@import '../../../styles/styles.css';
 
 /* Chronica Inline Calendar Styles */
 .chronica-inline-calendar {
@@ -236,15 +237,6 @@
 
 .chronica-dark .chronica-date-cell.chronica-weekend {
   color: #f87171;
-}
-
-/* Footer */
-.chronica-calendar-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 16px 20px;
-  border-top: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #e5e7eb);
 }
 
 /* Responsive adjustments */
