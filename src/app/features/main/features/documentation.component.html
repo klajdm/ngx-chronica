@@ -1,0 +1,340 @@
+<div class="py-4 lg:py-8">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Documentation</h1>
+    <p class="text-lg text-gray-600 leading-relaxed">
+      Comprehensive guide to all features and capabilities of NGX-Chronica - the most complete date/time component library for Angular.
+    </p>
+  </div>
+
+  <!-- Core Features -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Core Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- 6 Specialized Components -->
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">📦</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-2">6 Specialized Components</h3>
+            <p class="text-gray-700 text-sm mb-3">
+              Complete toolkit covering all date/time selection scenarios: DatePicker, DateRange,
+              InlineCalendar, TimePicker, DateTimePicker, and DurationPicker.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• Single date selection</li>
+              <li>• Date range selection</li>
+              <li>• Time selection (12h/24h)</li>
+              <li>• Combined date + time</li>
+              <li>• Duration/time span selection</li>
+              <li>• Always-visible calendar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forms Integration -->
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-6">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">📋</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-2">Full Forms Integration</h3>
+            <p class="text-gray-700 text-sm mb-3">
+              Seamless integration with Angular forms through ControlValueAccessor implementation.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• Reactive Forms support</li>
+              <li>• Template-driven Forms support</li>
+              <li>• Two-way binding with [(ngModel)]</li>
+              <li>• Form validation support</li>
+              <li>• Disabled state handling</li>
+              <li>• Touch/dirty state tracking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theming System -->
+      <div class="bg-gradient-to-br from-pink-50 to-pink-100 border border-pink-200 rounded-lg p-6">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">🎨</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-2">Advanced Theming</h3>
+            <p class="text-gray-700 text-sm mb-3">
+              8 built-in color themes with light/dark mode support and CSS custom properties.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• 8 color themes (Blue, Green, Purple, Red, etc.)</li>
+              <li>• Light/Dark mode auto-detection</li>
+              <li>• CSS custom properties for customization</li>
+              <li>• Consistent design system</li>
+              <li>• Easy theme switching</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Internationalization -->
+      <div class="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-6">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">🌍</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-2">Internationalization</h3>
+            <p class="text-gray-700 text-sm mb-3">
+              11 built-in locales with support for custom locales and RTL languages.
+            </p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li>• 11 built-in locales (EN, ES, FR, DE, IT, PT, ZH, JA, KO, RU, AR)</li>
+              <li>• Custom locale support</li>
+              <li>• Configurable first day of week</li>
+              <li>• Localized month/day names</li>
+              <li>• Date format customization</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date & Time Features -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Date & Time Features</h2>
+    <div class="space-y-4">
+      <div class="border border-gray-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🚫</span>
+          <span>Smart Date Restrictions</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Min/Max Dates</p>
+            <p class="text-gray-600">Set minimum and maximum selectable dates</p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Disabled Dates</p>
+            <p class="text-gray-600">Disable specific dates or date ranges</p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Highlighted Dates</p>
+            <p class="text-gray-600">Highlight important dates visually</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>⏰</span>
+          <span>Time Selection Options</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="font-medium text-gray-700 mb-1">12h/24h Format</p>
+            <p class="text-gray-600">Support for both time formats with AM/PM</p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Step Intervals</p>
+            <p class="text-gray-600">Customizable minute/second step intervals</p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Time Restrictions</p>
+            <p class="text-gray-600">Min/max time limits for business hours</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>📆</span>
+          <span>Calendar Display Options</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Week Numbers</p>
+            <p class="text-gray-600">Optional week number display</p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Adjacent Months</p>
+            <p class="text-gray-600">Show/hide dates from adjacent months</p>
+          </div>
+          <div>
+            <p class="font-medium text-gray-700 mb-1">Today Button</p>
+            <p class="text-gray-600">Quick navigation to current date</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Features -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Technical Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <div class="text-2xl mb-2">⚡</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Standalone Components</h3>
+        <p class="text-sm text-gray-600">
+          Works with both standalone and NgModule-based Angular applications
+        </p>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <div class="text-2xl mb-2">📦</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Tree-Shakeable</h3>
+        <p class="text-sm text-gray-600">
+          Import only what you need for optimal bundle size
+        </p>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <div class="text-2xl mb-2">🔒</div>
+        <h3 class="font-semibold text-gray-900 mb-2">TypeScript First</h3>
+        <p class="text-sm text-gray-600">
+          Comprehensive type definitions and interfaces included
+        </p>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <div class="text-2xl mb-2">♿</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Accessibility</h3>
+        <p class="text-sm text-gray-600">
+          WCAG 2.1 AA compliant with keyboard navigation and ARIA labels
+        </p>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <div class="text-2xl mb-2">📱</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Responsive Design</h3>
+        <p class="text-sm text-gray-600">
+          Mobile-friendly with touch support and adaptive layouts
+        </p>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5">
+        <div class="text-2xl mb-2">🎯</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Zero Dependencies</h3>
+        <p class="text-sm text-gray-600">
+          No external date libraries required - pure Angular implementation
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display Modes -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Display Modes</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🔽</span>
+          <span>Popup Mode</span>
+        </h3>
+        <p class="text-gray-700 text-sm mb-4">
+          Calendar appears in an overlay popup when triggered, perfect for forms and space-constrained
+          layouts.
+        </p>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>• Angular CDK Overlay positioning</li>
+          <li>• Custom trigger elements</li>
+          <li>• Backdrop click to close</li>
+          <li>• Keyboard navigation (Escape to close)</li>
+          <li>• Smart positioning (auto-flip)</li>
+        </ul>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>📌</span>
+          <span>Inline Mode</span>
+        </h3>
+        <p class="text-gray-700 text-sm mb-4">
+          Calendar is always visible inline with your content, ideal for dashboards and dedicated date
+          selection pages.
+        </p>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>• Always visible</li>
+          <li>• No trigger required</li>
+          <li>• Embeddable in any layout</li>
+          <li>• Perfect for dashboards</li>
+          <li>• Customizable size</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Use Cases -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Common Use Cases</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-2">📅 Booking Systems</h3>
+        <p class="text-sm text-gray-600">
+          Date range selection for hotel reservations, appointment scheduling, and event booking
+        </p>
+      </div>
+
+      <div class="bg-purple-50 border border-purple-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-2">📊 Analytics Dashboards</h3>
+        <p class="text-sm text-gray-600">
+          Date range filters for reports, data visualization, and time-based analytics
+        </p>
+      </div>
+
+      <div class="bg-green-50 border border-green-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-2">⏰ Scheduling Apps</h3>
+        <p class="text-sm text-gray-600">
+          Time selection for meetings, appointments, and calendar events
+        </p>
+      </div>
+
+      <div class="bg-orange-50 border border-orange-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-2">📝 Task Management</h3>
+        <p class="text-sm text-gray-600">
+          Due dates, duration estimation, and time tracking for project management
+        </p>
+      </div>
+
+      <div class="bg-red-50 border border-red-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-2">🏥 Healthcare Systems</h3>
+        <p class="text-sm text-gray-600">
+          Patient appointment scheduling with time slots and duration selection
+        </p>
+      </div>
+
+      <div class="bg-teal-50 border border-teal-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-2">🎓 Education Platforms</h3>
+        <p class="text-sm text-gray-600">
+          Class scheduling, exam dates, and academic calendar management
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance -->
+  <div class="mb-6 lg:mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Performance & Optimization</h2>
+    <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div>
+          <div class="text-3xl mb-2">⚡</div>
+          <h3 class="font-semibold text-gray-900 mb-1">OnPush Detection</h3>
+          <p class="text-sm text-gray-600">Optimized change detection for better performance</p>
+        </div>
+        <div>
+          <div class="text-3xl mb-2">📦</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Small Bundle</h3>
+          <p class="text-sm text-gray-600">~15KB per component (gzipped)</p>
+        </div>
+        <div>
+          <div class="text-3xl mb-2">🔄</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Lazy Loading</h3>
+          <p class="text-sm text-gray-600">Components load on demand</p>
+        </div>
+        <div>
+          <div class="text-3xl mb-2">🎯</div>
+          <h3 class="font-semibold text-gray-900 mb-1">Tree-Shakeable</h3>
+          <p class="text-sm text-gray-600">Import only what you use</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

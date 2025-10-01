@@ -1,0 +1,381 @@
+<div class="py-4 lg:py-8">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Styling Guide</h1>
+    <p class="text-lg text-gray-600 leading-relaxed">
+      Complete guide to customizing NGX-Chronica components with 8 built-in color themes, dark mode support, and CSS custom properties to match your brand.
+    </p>
+  </div>
+
+  <!-- Color Themes -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">8 Built-in Color Themes</h2>
+    <p class="text-gray-700 mb-6">
+      Choose from 8 professionally designed color themes that work seamlessly with both light and dark
+      modes.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Blue Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-blue-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Blue</h3>
+            <p class="text-xs text-gray-600">#3b82f6</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Default theme with professional blue tones</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'blue'</code>
+        </div>
+      </div>
+
+      <!-- Green Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-green-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Green</h3>
+            <p class="text-xs text-gray-600">#10b981</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Fresh emerald green for eco-friendly apps</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'green'</code>
+        </div>
+      </div>
+
+      <!-- Purple Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-purple-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Purple</h3>
+            <p class="text-xs text-gray-600">#8b5cf6</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Elegant violet for creative applications</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'purple'</code>
+        </div>
+      </div>
+
+      <!-- Red Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-red-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Red</h3>
+            <p class="text-xs text-gray-600">#ef4444</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Bold red for urgent or important dates</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'red'</code>
+        </div>
+      </div>
+
+      <!-- Orange Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-orange-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Orange</h3>
+            <p class="text-xs text-gray-600">#f97316</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Warm orange for energetic interfaces</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'orange'</code>
+        </div>
+      </div>
+
+      <!-- Teal Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-teal-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Teal</h3>
+            <p class="text-xs text-gray-600">#14b8a6</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Modern teal for healthcare apps</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'teal'</code>
+        </div>
+      </div>
+
+      <!-- Pink Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-pink-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Pink</h3>
+            <p class="text-xs text-gray-600">#ec4899</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Vibrant pink for lifestyle apps</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'pink'</code>
+        </div>
+      </div>
+
+      <!-- Indigo Theme -->
+      <div class="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-lg bg-indigo-500"></div>
+          <div>
+            <h3 class="font-semibold text-gray-900">Indigo</h3>
+            <p class="text-xs text-gray-600">#6366f1</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-3">Deep indigo for professional tools</p>
+        <div class="bg-gray-900 rounded p-2">
+          <code class="text-xs text-green-400">colorTheme: 'indigo'</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark Mode -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Dark Mode Support</h2>
+    <p class="text-gray-700 mb-6">
+      All components support dark mode with automatic detection or manual control.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>☀️</span>
+          <span>Light Mode</span>
+        </h3>
+        <p class="text-gray-600 text-sm mb-4">Force light theme regardless of system preference</p>
+        <div class="bg-gray-900 rounded-lg p-3">
+          <code class="text-xs text-green-400">theme: 'light'</code>
+        </div>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🌙</span>
+          <span>Dark Mode</span>
+        </h3>
+        <p class="text-gray-600 text-sm mb-4">Force dark theme regardless of system preference</p>
+        <div class="bg-gray-900 rounded-lg p-3">
+          <code class="text-xs text-green-400">theme: 'dark'</code>
+        </div>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🔄</span>
+          <span>Auto Mode</span>
+        </h3>
+        <p class="text-gray-600 text-sm mb-4">Automatically match system preference</p>
+        <div class="bg-gray-900 rounded-lg p-3">
+          <code class="text-xs text-green-400">theme: 'auto'</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Examples -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Usage Examples</h2>
+
+    <div class="space-y-6">
+      <!-- Basic Theme -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-3">Basic Theme Configuration</h3>
+        <div class="bg-gray-900 rounded-lg p-4">
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDatepickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
+  <span class="text-orange-400">[config]</span>=<span class="text-green-400">"&#123; 
+    colorTheme: 'purple',
+    theme: 'dark'
+  &#125;"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Component-Level Theme -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-3">Component-Level Theme</h3>
+        <div class="bg-gray-900 rounded-lg p-4">
+          <pre class="text-sm"><code><span class="text-purple-400">export</span> <span class="text-purple-400">class</span> <span class="text-yellow-400">MyComponent</span> <span class="text-gray-600">&#123;</span>
+  <span class="text-blue-400">calendarConfig</span> <span class="text-gray-600">=</span> <span class="text-gray-600">&#123;</span>
+    <span class="text-blue-400">colorTheme</span><span class="text-gray-600">:</span> <span class="text-green-400">'teal'</span><span class="text-gray-600">,</span>
+    <span class="text-blue-400">theme</span><span class="text-gray-600">:</span> <span class="text-green-400">'auto'</span><span class="text-gray-600">,</span>
+    <span class="text-blue-400">firstDayOfWeek</span><span class="text-gray-600">:</span> <span class="text-orange-400">1</span>
+  <span class="text-gray-600">&#125;;</span>
+<span class="text-gray-600">&#125;</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSS Custom Properties -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">CSS Custom Properties</h2>
+    <p class="text-gray-700 mb-6">
+      For advanced customization, override CSS custom properties to create your own theme.
+    </p>
+
+    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+      <pre class="text-sm"><code><span class="text-gray-500">/* Override theme variables */</span>
+<span class="text-red-400">chronica-datepicker</span> <span class="text-gray-600">&#123;</span>
+  <span class="text-blue-400">--chronica-primary</span><span class="text-gray-600">:</span> <span class="text-green-400">#3b82f6</span><span class="text-gray-600">;</span>
+  <span class="text-blue-400">--chronica-primary-hover</span><span class="text-gray-600">:</span> <span class="text-green-400">#2563eb</span><span class="text-gray-600">;</span>
+  <span class="text-blue-400">--chronica-primary-light</span><span class="text-gray-600">:</span> <span class="text-green-400">#dbeafe</span><span class="text-gray-600">;</span>
+  <span class="text-blue-400">--chronica-primary-dark</span><span class="text-gray-600">:</span> <span class="text-green-400">#1d4ed8</span><span class="text-gray-600">;</span>
+  <span class="text-blue-400">--chronica-accent</span><span class="text-gray-600">:</span> <span class="text-green-400">#60a5fa</span><span class="text-gray-600">;</span>
+  <span class="text-blue-400">--chronica-focus</span><span class="text-gray-600">:</span> <span class="text-green-400">rgba(59, 130, 246, 0.2)</span><span class="text-gray-600">;</span>
+<span class="text-gray-600">&#125;</span></code></pre>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border border-gray-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-3">Available Variables</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary</code> - Primary color</li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-hover</code> - Hover state
+          </li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-light</code> - Light
+            variant
+          </li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-dark</code> - Dark variant
+          </li>
+          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-accent</code> - Accent color</li>
+          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-focus</code> - Focus ring</li>
+        </ul>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg p-5">
+        <h3 class="font-semibold text-gray-900 mb-3">Dark Mode Variables</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-bg</code> - Background color
+          </li>
+          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-text</code> - Text color</li>
+          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-border</code> - Border color</li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-disabled</code> - Disabled state
+          </li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-hover-bg</code> - Hover background
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Styling Tips -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Styling Tips</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>💡</span>
+          <span>Custom Trigger Styling</span>
+        </h3>
+        <p class="text-gray-700 text-sm mb-3">
+          Style the trigger element (button, input, etc.) using standard CSS classes.
+        </p>
+        <div class="bg-gray-900 rounded p-3">
+          <code class="text-xs text-green-400"
+            >.custom-trigger &#123; /* your styles */ &#125;</code
+          >
+        </div>
+      </div>
+
+      <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🎨</span>
+          <span>Global Theme Override</span>
+        </h3>
+        <p class="text-gray-700 text-sm mb-3">
+          Override variables globally in your main styles file for consistent theming.
+        </p>
+        <div class="bg-gray-900 rounded p-3">
+          <code class="text-xs text-green-400">:root &#123; --chronica-primary: ... &#125;</code>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>📐</span>
+          <span>Responsive Sizing</span>
+        </h3>
+        <p class="text-gray-700 text-sm mb-3">
+          Components automatically adapt to container size. Use CSS to control width.
+        </p>
+        <div class="bg-gray-900 rounded p-3">
+          <code class="text-xs text-green-400">chronica-datepicker &#123; width: 100% &#125;</code>
+        </div>
+      </div>
+
+      <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🌓</span>
+          <span>Dark Mode Detection</span>
+        </h3>
+        <p class="text-gray-700 text-sm mb-3">
+          Use 'auto' theme to automatically match user's system preference.
+        </p>
+        <div class="bg-gray-900 rounded p-3">
+          <code class="text-xs text-green-400">theme: 'auto'</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Best Practices -->
+  <div class="mb-6 lg:mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Best Practices</h2>
+    <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6">
+      <ul class="space-y-3 text-gray-700">
+        <li class="flex items-start gap-3">
+          <span class="text-blue-600 mt-1">✓</span>
+          <span
+            ><strong>Consistent Theming:</strong> Use the same color theme across all components for
+            visual consistency</span
+          >
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-600 mt-1">✓</span>
+          <span
+            ><strong>Respect System Preferences:</strong> Use 'auto' theme to respect user's dark mode
+            preference</span
+          >
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-600 mt-1">✓</span>
+          <span
+            ><strong>Accessibility:</strong> Ensure sufficient color contrast when customizing
+            themes</span
+          >
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-600 mt-1">✓</span>
+          <span
+            ><strong>Brand Alignment:</strong> Choose a color theme that matches your brand
+            identity</span
+          >
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-600 mt-1">✓</span>
+          <span
+            ><strong>Testing:</strong> Test your theme in both light and dark modes to ensure
+            readability</span
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
