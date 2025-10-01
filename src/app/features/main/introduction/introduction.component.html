@@ -1,50 +1,120 @@
 <div class="py-4 lg:py-8">
   <!-- Page Header -->
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-2">ngx-chronica</h1>
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">NGX-Chronica</h1>
     <p class="text-lg text-gray-600 leading-relaxed">
-      A lightweight, customizable inline calendar and datepicker component for
+      A comprehensive suite of <strong>6 specialized date and time picker components</strong> for
       <a
         href="https://angular.io"
         target="_blank"
         rel="noopener noreferrer"
         class="font-semibold text-primary hover:underline"
         >Angular</a
-      >, plus a documentation/demo website.
+      >. Fill the gaps left by Angular Material with production-ready components.
     </p>
   </div>
 
-  <!-- Features Section -->
+  <!-- Why NGX-Chronica -->
   <div class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Features</h2>
-    <ul class="space-y-3 text-gray-700">
-      <li class="flex items-start">
-        <span class="text-blue-600 mr-3">•</span>
-        <span><strong>🗓️ Dual Display Modes:</strong> Popup or always-visible inline calendar</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-blue-600 mr-3">•</span>
-        <span><strong>🎨 Customizable Themes:</strong> Light, dark, and 8 color schemes</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-blue-600 mr-3">•</span>
-        <span><strong>🌍 Internationalization:</strong> Locale and first day of week</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-blue-600 mr-3">•</span>
-        <span><strong>🚫 Date Restrictions:</strong> Min/max, disabled, and highlighted dates</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-blue-600 mr-3">•</span>
-        <span><strong>📋 Forms Integration:</strong> Reactive and template-driven forms</span>
-      </li>
-      <li class="flex items-start">
-        <span class="text-blue-600 mr-3">•</span>
-        <span
-          ><strong>⚡ Standalone & Module Support:</strong> Use as standalone or in NgModule</span
-        >
-      </li>
-    </ul>
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Why NGX-Chronica?</h2>
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+      <p class="text-gray-700 leading-relaxed">
+        Angular Material lacks native <strong>Time Picker</strong>, <strong>DateTime Picker</strong>, and
+        <strong>Duration Picker</strong> components. NGX-Chronica addresses these critical gaps with a complete
+        toolkit of date/time components that are production-ready, fully typed, and accessible.
+      </p>
+    </div>
+  </div>
+
+  <!-- Components Grid -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">6 Specialized Components</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:border-blue-300 transition-colors">
+        <div class="text-3xl mb-3">📅</div>
+        <h3 class="font-semibold text-gray-900 mb-2">DatePicker</h3>
+        <p class="text-sm text-gray-600 mb-3">Single date selection with popup</p>
+        <span class="text-xs text-blue-600">Forms, filters, date inputs</span>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:border-purple-300 transition-colors">
+        <div class="text-3xl mb-3">📆</div>
+        <h3 class="font-semibold text-gray-900 mb-2">DateRange</h3>
+        <p class="text-sm text-gray-600 mb-3">Start/end date selection</p>
+        <span class="text-xs text-purple-600">Booking systems, reports</span>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:border-green-300 transition-colors">
+        <div class="text-3xl mb-3">🗓️</div>
+        <h3 class="font-semibold text-gray-900 mb-2">InlineCalendar</h3>
+        <p class="text-sm text-gray-600 mb-3">Always-visible calendar</p>
+        <span class="text-xs text-green-600">Dashboards, embedded</span>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:border-orange-300 transition-colors">
+        <div class="text-3xl mb-3">⏰</div>
+        <h3 class="font-semibold text-gray-900 mb-2">TimePicker</h3>
+        <p class="text-sm text-gray-600 mb-3">Time selection (12h/24h)</p>
+        <span class="text-xs text-orange-600">Appointments, schedules</span>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:border-red-300 transition-colors">
+        <div class="text-3xl mb-3">📅⏰</div>
+        <h3 class="font-semibold text-gray-900 mb-2">DateTimePicker</h3>
+        <p class="text-sm text-gray-600 mb-3">Combined date + time</p>
+        <span class="text-xs text-red-600">Event scheduling</span>
+      </div>
+
+      <div class="bg-white border border-gray-200 rounded-lg p-5 hover:border-teal-300 transition-colors">
+        <div class="text-3xl mb-3">⏱️</div>
+        <h3 class="font-semibold text-gray-900 mb-2">DurationPicker</h3>
+        <p class="text-sm text-gray-600 mb-3">Time span selection</p>
+        <span class="text-xs text-teal-600">Task estimation, timers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Features Section -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Key Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ul class="space-y-3 text-gray-700">
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>8 Color Themes:</strong> Blue, Green, Purple, Red, Orange, Teal, Pink, Indigo</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>11 Built-in Locales:</strong> EN, ES, FR, DE, IT, PT, ZH, JA, KO, RU + custom</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>Dark Mode Support:</strong> Auto-detect or force light/dark themes</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>Smart Validation:</strong> Min/max dates, disabled dates, time restrictions</span>
+        </li>
+      </ul>
+      <ul class="space-y-3 text-gray-700">
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>Form Integration:</strong> Full ControlValueAccessor support</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>Standalone Components:</strong> Works with standalone or NgModule apps</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>Accessibility:</strong> WCAG compliant, keyboard navigation, ARIA labels</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-3">✓</span>
+          <span><strong>TypeScript First:</strong> Comprehensive type definitions included</span>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <!-- Quick Preview Section -->
