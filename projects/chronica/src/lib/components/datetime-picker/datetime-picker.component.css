@@ -178,7 +178,7 @@
 }
 
 .date.clickable:hover:not(.selected) {
-  background: var(--chronica-hover-bg, #f3f4f6);
+  background: var(--chronica-hover-background, #f3f4f6);
 }
 
 .date.disabled {
@@ -316,70 +316,6 @@
 .action-button.secondary:hover {
   background: var(--chronica-bg-hover);
   color: var(--chronica-text-color);
-}
-
-/* Dark theme specific styles for DateTime picker */
-.chronica-dark .day-name {
-  color: var(--chronica-primary-color, #3b82f6);
-}
-
-.chronica-dark .date {
-  color: #f9fafb;
-}
-
-.chronica-dark .date.clickable:hover:not(.selected) {
-  background: var(--chronica-hover-bg, #374151);
-}
-
-.chronica-dark .date.today {
-  font-weight: 700;
-  color: var(--chronica-primary-color, #3b82f6);
-}
-
-.chronica-dark .date.selected {
-  background: var(--chronica-primary-color, #3b82f6);
-  color: #fff;
-}
-
-.chronica-dark .date.disabled {
-  color: #4b5563;
-}
-
-.chronica-dark .nav-button {
-  color: #9ca3af;
-}
-
-.chronica-dark .nav-button:hover:not(:disabled) {
-  background: var(--chronica-hover-bg, #374151);
-  color: #f9fafb;
-}
-
-.chronica-dark .nav-button:disabled {
-  color: #4b5563;
-}
-
-.chronica-dark .month-select,
-.chronica-dark .year-select {
-  background: #374151;
-  border-color: #4b5563;
-  color: #f9fafb;
-}
-
-.chronica-dark .month-select:hover,
-.chronica-dark .year-select:hover {
-  border-color: #6b7280;
-}
-
-.chronica-dark .month-select:focus,
-.chronica-dark .year-select:focus {
-  border-color: var(--chronica-primary-color, #3b82f6);
-  box-shadow: 0 0 0 3px var(--chronica-focus, rgba(59, 130, 246, 0.2));
-}
-
-.chronica-dark .month-select option,
-.chronica-dark .year-select option {
-  background: #374151;
-  color: #f9fafb;
 }
 
 /* Responsive Design */
