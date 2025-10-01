@@ -36,81 +36,102 @@
     </div>
   </div>
 
-  <!-- Basic Usage Section -->
+  <!-- Quick Start Examples -->
   <div class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Basic Usage</h2>
-    <p class="text-gray-700 mb-6">To add a simple date picker to your app:</p>
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Quick Start Examples</h2>
+    <p class="text-gray-700 mb-6">Choose the component that fits your needs:</p>
 
     <div class="space-y-6">
-      <!-- Step 1 -->
-      <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-3">
-          1. Import the component and styles from
-          <code class="bg-gray-100 px-2 py-1 rounded text-sm">ngx-chronica</code>:
+      <!-- DatePicker Example -->
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>📅</span>
+          <span>DatePicker - Single Date Selection</span>
         </h3>
         <div class="bg-gray-900 overflow-x-auto rounded-lg p-4">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs text-gray-400 font-medium">TypeScript</span>
-            <button class="text-xs text-gray-400 hover:text-white">Copy</button>
-          </div>
-          <pre
-            class="text-sm"
-          ><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDatepicker</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
-<span class="text-purple-400">import</span> <span class="text-green-400">'ngx-chronica/styles.css'</span><span class="text-gray-600">;</span></code></pre>
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDatepickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
+  <span class="text-orange-400">[(ngModel)]</span>=<span class="text-green-400">"selectedDate"</span>
+  <span class="text-orange-400">[config]</span>=<span class="text-green-400">"&#123; colorTheme: 'blue' &#125;"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
         </div>
       </div>
 
-      <!-- Step 2 -->
-      <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-3">
-          2. Choose a <a href="#" class="text-blue-600 hover:underline">selection mode</a> using the
-          <code class="bg-gray-100 px-2 py-1 rounded text-sm">mode</code> prop:
+      <!-- TimePicker Example -->
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>⏰</span>
+          <span>TimePicker - Time Selection</span>
         </h3>
         <div class="bg-gray-900 overflow-x-auto rounded-lg p-4">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs text-gray-400 font-medium">Angular Template</span>
-            <button class="text-xs text-gray-400 hover:text-white">Copy</button>
-          </div>
-          <pre
-            class="text-sm"
-          ><code><span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
-  <span class="text-orange-400">mode</span>=<span class="text-green-400">"single"</span>
-  <span class="text-orange-400">[selected]</span>=<span class="text-blue-400">selectedDate</span>
-  <span class="text-orange-400">(selectedChange)</span>=<span class="text-blue-400">onDateSelect<span class="text-gray-600">&#40;</span>$event<span class="text-gray-600">&#41;</span></span>
-<span class="text-gray-600">&gt;&lt;/</span><span class="text-red-400">chronica-datepicker</span><span class="text-gray-600">&gt;</span></code></pre>
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaTimePickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-time-picker</span>
+  <span class="text-orange-400">[(ngModel)]</span>=<span class="text-green-400">"selectedTime"</span>
+  <span class="text-orange-400">[config]</span>=<span class="text-green-400">"&#123; format24Hour: false &#125;"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
         </div>
       </div>
 
-      <!-- Step 3 -->
-      <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-3">
-          3. Use the <code class="bg-gray-100 px-2 py-1 rounded text-sm">selected</code> and
-          <code class="bg-gray-100 px-2 py-1 rounded text-sm">selectedChange</code> props to control
-          the selected date:
+      <!-- DateTimePicker Example -->
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>📅⏰</span>
+          <span>DateTimePicker - Date + Time</span>
         </h3>
         <div class="bg-gray-900 overflow-x-auto rounded-lg p-4">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs text-gray-400 font-medium">Component</span>
-            <button class="text-xs text-gray-400 hover:text-white">Copy</button>
-          </div>
-          <pre
-            class="text-sm"
-          ><code><span class="text-purple-400">export</span> <span class="text-purple-400">function</span> <span class="text-yellow-400">MyDatePicker</span><span class="text-gray-600">&#40;&#41;</span> <span class="text-gray-600">&#123;</span>
-  <span class="text-blue-400">selectedDate</span><span class="text-gray-600">:</span> <span class="text-cyan-400">Date</span> <span class="text-gray-600">|</span> <span class="text-cyan-400">null</span> <span class="text-gray-600">=</span> <span class="text-orange-400">null</span><span class="text-gray-600">;</span>
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDateTimePickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
 
-  <span class="text-yellow-400">onDateSelect</span><span class="text-gray-600">&#40;</span><span class="text-blue-400">date</span><span class="text-gray-600">:</span> <span class="text-cyan-400">Date</span><span class="text-gray-600">&#41;</span> <span class="text-gray-600">&#123;</span>
-    <span class="text-purple-400">this</span><span class="text-gray-600">.</span><span class="text-blue-400">selectedDate</span> <span class="text-gray-600">=</span> <span class="text-blue-400">date</span><span class="text-gray-600">;</span>
-  <span class="text-gray-600">&#125;</span>
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datetime-picker</span>
+  <span class="text-orange-400">[(ngModel)]</span>=<span class="text-green-400">"dateTime"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
+        </div>
+      </div>
 
-  <span class="text-purple-400">return</span> <span class="text-gray-600">&#40;</span>
-    <span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
-      <span class="text-orange-400">mode</span>=<span class="text-green-400">"single"</span>
-      <span class="text-orange-400">[selected]</span>=<span class="text-blue-400">selectedDate</span>
-      <span class="text-orange-400">(selectedChange)</span>=<span class="text-blue-400">onDateSelect</span>
-      <span class="text-orange-400">[footer]</span><span class="text-gray-600">=</span><span class="text-blue-400">selectedDate</span> <span class="text-gray-600">?</span> <span class="text-green-400">`Selected: $<span class="text-gray-600">&#123;</span>selectedDate.toDateString<span class="text-gray-600">&#40;&#41;&#125;</span>`</span> <span class="text-gray-600">:</span> <span class="text-green-400">"Pick a day."</span>
-    <span class="text-gray-600">/&gt;</span>
-  <span class="text-gray-600">&#41;</span><span class="text-gray-600">;</span>
-<span class="text-gray-600">&#125;</span></code></pre>
+      <!-- DateRange Example -->
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>📆</span>
+          <span>DateRange - Range Selection</span>
+        </h3>
+        <div class="bg-gray-900 overflow-x-auto rounded-lg p-4">
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDateRangeComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-date-range</span>
+  <span class="text-orange-400">[(ngModel)]</span>=<span class="text-green-400">"dateRange"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
+        </div>
+      </div>
+
+      <!-- DurationPicker Example -->
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>⏱️</span>
+          <span>DurationPicker - Time Spans</span>
+        </h3>
+        <div class="bg-gray-900 overflow-x-auto rounded-lg p-4">
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDurationPickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-duration-picker</span>
+  <span class="text-orange-400">[(ngModel)]</span>=<span class="text-green-400">"duration"</span>
+  <span class="text-orange-400">[config]</span>=<span class="text-green-400">"&#123; showHours: true, showMinutes: true &#125;"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
+        </div>
+      </div>
+
+      <!-- InlineCalendar Example -->
+      <div class="border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <span>🗓️</span>
+          <span>InlineCalendar - Always Visible</span>
+        </h3>
+        <div class="bg-gray-900 overflow-x-auto rounded-lg p-4">
+          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaInlineCalendarComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+
+<span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-inline-calendar</span>
+  <span class="text-orange-400">[(ngModel)]</span>=<span class="text-green-400">"selectedDate"</span>
+<span class="text-gray-600">/&gt;</span></code></pre>
         </div>
       </div>
     </div>
@@ -151,26 +172,90 @@
     </div>
   </div>
 
+  <!-- Component Links -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Explore Components</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <a
+        routerLink="/components/datepicker"
+        class="block border border-gray-200 rounded-lg p-5 hover:border-blue-300 transition-colors"
+      >
+        <div class="text-2xl mb-2">📅</div>
+        <h3 class="font-semibold text-gray-900 mb-1">DatePicker</h3>
+        <p class="text-gray-600 text-sm">Explore DatePicker demos →</p>
+      </a>
+
+      <a
+        routerLink="/components/time-picker"
+        class="block border border-gray-200 rounded-lg p-5 hover:border-orange-300 transition-colors"
+      >
+        <div class="text-2xl mb-2">⏰</div>
+        <h3 class="font-semibold text-gray-900 mb-1">TimePicker</h3>
+        <p class="text-gray-600 text-sm">Explore TimePicker demos →</p>
+      </a>
+
+      <a
+        routerLink="/components/date-range"
+        class="block border border-gray-200 rounded-lg p-5 hover:border-purple-300 transition-colors"
+      >
+        <div class="text-2xl mb-2">📆</div>
+        <h3 class="font-semibold text-gray-900 mb-1">DateRange</h3>
+        <p class="text-gray-600 text-sm">Explore DateRange demos →</p>
+      </a>
+
+      <a
+        routerLink="/components/datetime-picker"
+        class="block border border-gray-200 rounded-lg p-5 hover:border-red-300 transition-colors"
+      >
+        <div class="text-2xl mb-2">📅⏰</div>
+        <h3 class="font-semibold text-gray-900 mb-1">DateTimePicker</h3>
+        <p class="text-gray-600 text-sm">Explore DateTime demos →</p>
+      </a>
+
+      <a
+        routerLink="/components/duration-picker"
+        class="block border border-gray-200 rounded-lg p-5 hover:border-teal-300 transition-colors"
+      >
+        <div class="text-2xl mb-2">⏱️</div>
+        <h3 class="font-semibold text-gray-900 mb-1">DurationPicker</h3>
+        <p class="text-gray-600 text-sm">Explore Duration demos →</p>
+      </a>
+
+      <a
+        routerLink="/components/inline-calendar"
+        class="block border border-gray-200 rounded-lg p-5 hover:border-green-300 transition-colors"
+      >
+        <div class="text-2xl mb-2">🗓️</div>
+        <h3 class="font-semibold text-gray-900 mb-1">InlineCalendar</h3>
+        <p class="text-gray-600 text-sm">Explore Calendar demos →</p>
+      </a>
+    </div>
+  </div>
+
   <!-- Next Steps -->
   <div class="mb-6 lg:mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Next Steps</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="border border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors">
-        <h3 class="text-lg font-medium text-gray-900 mb-2">📚 Explore Features</h3>
+      <a
+        routerLink="/documentation"
+        class="block border border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors"
+      >
+        <h3 class="text-lg font-medium text-gray-900 mb-2">📚 Documentation</h3>
         <p class="text-gray-600 text-sm mb-4">
-          Learn about themes, localization, date restrictions, and more advanced features.
+          Learn about all features, localization, date restrictions, and advanced capabilities.
         </p>
-        <a href="#" class="text-blue-600 hover:underline text-sm font-medium"
-          >View Documentation →</a
-        >
-      </div>
-      <div class="border border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors">
-        <h3 class="text-lg font-medium text-gray-900 mb-2">🎨 Customize Themes</h3>
+        <span class="text-blue-600 hover:underline text-sm font-medium">View Documentation →</span>
+      </a>
+      <a
+        routerLink="/styling-guide"
+        class="block border border-gray-200 rounded-lg p-6 hover:border-blue-300 transition-colors"
+      >
+        <h3 class="text-lg font-medium text-gray-900 mb-2">🎨 Styling Guide</h3>
         <p class="text-gray-600 text-sm mb-4">
-          Discover the 8 built-in color schemes and learn how to create custom themes.
+          Discover the 8 built-in color themes and learn how to customize components to match your brand.
         </p>
-        <a href="#" class="text-blue-600 hover:underline text-sm font-medium">Styling Guide →</a>
-      </div>
+        <span class="text-blue-600 hover:underline text-sm font-medium">Styling Guide →</span>
+      </a>
     </div>
   </div>
 </div>
