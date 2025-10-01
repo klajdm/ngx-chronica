@@ -18,12 +18,7 @@
   padding: var(--chronica-spacing-lg, 16px);
 }
 
-/* Dark Theme */
-.chronica-inline-calendar.chronica-dark {
-  background: #1f2937;
-  border-color: #374151;
-  color: #f9fafb;
-}
+/* Theme handled by CSS variables - no explicit dark theme needed */
 
 /* Header */
 .chronica-header {
@@ -47,56 +42,43 @@
 }
 
 .chronica-nav-btn:hover:not(:disabled) {
-  background: var(--chronica-bg-hover, #f3f4f6);
-  color: var(--chronica-text-color, #374151);
+  background: var(--chronica-hover-background);
+  color: var(--chronica-text-color);
 }
 
 .chronica-nav-btn:disabled {
-  opacity: 0.5;
+  opacity: var(--chronica-disabled-opacity);
   cursor: not-allowed;
-}
-
-.chronica-dark .chronica-nav-btn:hover:not(:disabled) {
-  background: #374151;
-  color: #f9fafb;
 }
 
 .chronica-month-year {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-weight: 600;
+  font-weight: var(--chronica-font-weight-semibold);
 }
 
 .chronica-month {
-  font-size: 16px;
-  color: #111827;
+  font-size: var(--chronica-font-size-lg);
+  color: var(--chronica-text-color-primary);
 }
 
 .chronica-year {
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.chronica-dark .chronica-month {
-  color: #f9fafb;
-}
-
-.chronica-dark .chronica-year {
-  color: #9ca3af;
+  font-size: var(--chronica-font-size-md);
+  color: var(--chronica-text-color-light);
 }
 
 
 .action-button {
   background: var(--chronica-primary);
-  color: white;
+  color: var(--chronica-selected-text, white);
   border: none;
-  border-radius: var(--chronica-border-radius-md, 6px);
-  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-lg, 16px);
-  font-size: var(--chronica-font-size-small, 12px);
-  font-weight: var(--chronica-font-weight, 500);
+  border-radius: var(--chronica-button-border-radius, 6px);
+  padding: var(--chronica-button-padding-y, 8px) var(--chronica-button-padding-x, 16px);
+  font-size: var(--chronica-button-font-size, 12px);
+  font-weight: var(--chronica-button-font-weight, 500);
   cursor: pointer;
-  transition: var(--chronica-transition, all 0.2s ease);
+  transition: var(--chronica-button-transition, all 0.2s ease);
   outline: none;
   min-width: 80px;
 }
@@ -114,7 +96,7 @@
 }
 
 .action-button:disabled {
-  opacity: 0.5;
+  opacity: var(--chronica-disabled-opacity);
   cursor: not-allowed;
 }
 
@@ -122,7 +104,7 @@
 .chronica-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--chronica-calendar-gap, 1px);
+  gap: var(--chronica-spacing-xs, 4px);
 }
 
 .chronica-day-header {
@@ -130,33 +112,29 @@
   text-align: center;
   font-size: var(--chronica-font-size-sm, 12px);
   font-weight: var(--chronica-font-weight-semibold, 600);
-  color: var(--chronica-accent, var(--chronica-primary, #3b82f6));
-  background: #f9fafb;
-}
-
-.chronica-dark .chronica-day-header {
-  background: #374151;
   color: var(--chronica-accent);
+  margin-bottom: var(--chronica-spacing-xs, 4px);
 }
 
 .chronica-date-cell {
-  background: white;
+  background: var(--chronica-background, white);
   border: none;
   padding: 0;
   text-align: center;
-  font-size: 14px;
+  font-size: var(--chronica-date-cell-font-size, 14px);
   cursor: pointer;
-  transition: all 0.2s;
-  height: 32px;
-  width: 32px;
+  transition: var(--chronica-transition, all 0.2s);
+  height: var(--chronica-date-cell-size, 32px);
+  width: var(--chronica-date-cell-size, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: var(--chronica-date-cell-border-radius, 50%);
+  color: var(--chronica-text-color, #374151);
 }
 
 .chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
-  background: #f3f4f6;
+  background: var(--chronica-hover-background, #f3f4f6);
 }
 
 .chronica-date-cell:focus {
@@ -165,14 +143,14 @@
 }
 
 .chronica-date-cell.chronica-today {
-  font-weight: 700;
+  font-weight: var(--chronica-date-cell-selected-font-weight, 700);
   color: var(--chronica-accent);
 }
 
 .chronica-date-cell.chronica-selected {
-  background: var(--chronica-primary);
-  color: white !important;
-  font-weight: 700;
+  background: var(--chronica-selected-background, var(--chronica-primary));
+  color: var(--chronica-selected-text, white) !important;
+  font-weight: var(--chronica-date-cell-selected-font-weight, 700);
 }
 
 .chronica-date-cell.chronica-selected:hover {
@@ -180,9 +158,9 @@
 }
 
 .chronica-date-cell.chronica-disabled {
-  opacity: 0.4;
+  opacity: var(--chronica-disabled-opacity, 0.4);
   cursor: not-allowed;
-  color: #9ca3af;
+  color: var(--chronica-text-color-disabled, #9ca3af);
 }
 
 .chronica-date-cell.chronica-disabled:hover {
@@ -190,53 +168,7 @@
 }
 
 .chronica-date-cell.chronica-weekend {
-  color: #ef4444;
-}
-
-/* Dark theme date cells */
-.chronica-dark .chronica-date-cell {
-  background: #1f2937;
-  color: #fff;
-}
-
-.chronica-dark .chronica-date-cell:hover:not(:disabled):not(.chronica-selected) {
-  background: #374151;
-}
-
-.chronica-dark .chronica-date-cell.chronica-today {
-  font-weight: 700;
-  color: var(--chronica-accent);
-}
-
-.chronica-dark .chronica-date-cell.chronica-selected {
-  background: var(--chronica-primary);
-  color: white !important;
-}
-
-.chronica-dark .chronica-date-cell.chronica-disabled {
-  color: #4b5563;
-}
-
-.chronica-dark .action-button {
-  background: var(--chronica-primary);
-  color: #fff;
-}
-
-.chronica-dark .action-button:hover {
-  background: var(--chronica-primary-hover);
-  box-shadow: 0 2px 4px var(--chronica-focus);
-}
-
-.chronica-dark .action-button:focus {
-  box-shadow: 0 0 0 3px var(--chronica-focus);
-}
-
-.chronica-dark .action-button-container {
-  border-top-color: #374151;
-}
-
-.chronica-dark .chronica-date-cell.chronica-weekend {
-  color: #f87171;
+  color: var(--chronica-error, #ef4444);
 }
 
 /* Responsive adjustments */
@@ -247,6 +179,6 @@
 
   .chronica-date-cell {
     min-height: 28px;
-    font-size: 13px;
+    font-size: var(--chronica-font-size-sm);
   }
 }
