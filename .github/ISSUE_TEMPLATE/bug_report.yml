@@ -1,0 +1,149 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior in NGX-Chronica
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us resolve the issue.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+      placeholder: When I click the date picker...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Which component is affected?
+      options:
+        - DatePicker
+        - DateRange
+        - InlineCalendar
+        - TimePicker
+        - DateTimePicker
+        - DurationPicker
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Provide detailed steps to reproduce the issue
+      placeholder: |
+        1. Import ChronicaDatepickerComponent
+        2. Add to template with config...
+        3. Click on date...
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: The date picker should...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Instead, the date picker...
+    validations:
+      required: true
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Sample
+      description: Please provide a minimal code sample that reproduces the issue
+      render: typescript
+      placeholder: |
+        @Component({
+          template: `
+            <chronica-datepicker [(ngModel)]="date" />
+          `
+        })
+        export class MyComponent {
+          date = new Date();
+        }
+
+  - type: input
+    id: angular-version
+    attributes:
+      label: Angular Version
+      description: Which version of Angular are you using?
+      placeholder: "19.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: chronica-version
+    attributes:
+      label: NGX-Chronica Version
+      description: Which version of NGX-Chronica are you using?
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: Which browser(s) does this occur in?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: Which OS are you using?
+      placeholder: "Windows 11, macOS 14, Ubuntu 22.04"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console Errors
+      description: Please paste any relevant console errors or warnings
+      render: shell
+      placeholder: |
+        ERROR Error: Uncaught (in promise): ...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here (screenshots, videos, etc.)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched for similar issues before creating this one
+          required: true
+        - label: I have provided all the required information above
+          required: true
+        - label: I am using a supported version of Angular (15+)
+          required: true

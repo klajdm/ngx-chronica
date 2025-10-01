@@ -24,6 +24,22 @@ export const routes: Routes = [
         title: 'Getting Started | Angular Chronica',
       },
       {
+        path: 'documentation',
+        loadComponent: () =>
+          import('./features/main/features/documentation.component').then(
+            (m) => m.DocumentationComponent
+          ),
+        title: 'Documentation | Angular Chronica',
+      },
+      {
+        path: 'styling-guides',
+        loadComponent: () =>
+          import('./features/main/themes/styling-guides.component').then(
+            (m) => m.StylingGuidesComponent
+          ),
+        title: 'Styling Guides | Angular Chronica',
+      },
+      {
         path: 'components/datepicker',
         loadComponent: () =>
           import('./features/main/datepicker-demo/datepicker-demo.component').then(
@@ -70,6 +86,22 @@ export const routes: Routes = [
             (m) => m.InlineCalendarDemoComponent
           ),
         title: 'Inline Calendar | Angular Chronica',
+      },
+      {
+        path: 'development/contributing',
+        loadComponent: () =>
+          import('./features/main/contributing/contributing.component').then(
+            (m) => m.ContributingComponent
+          ),
+        title: 'Contributing | Angular Chronica',
+      },
+      {
+        path: 'development/code-of-conduct',
+        loadComponent: () =>
+          import('./features/main/code-of-conduct/code-of-conduct.component').then(
+            (m) => m.CodeOfConductComponent
+          ),
+        title: 'Code of Conduct | Angular Chronica',
       },
       {
         path: 'license',
