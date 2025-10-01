@@ -1,0 +1,87 @@
+name: ❓ Question
+description: Ask a question about using NGX-Chronica
+title: "[Question]: "
+labels: ["question"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question? We're here to help!
+        
+        **Note:** For general discussions, consider using [GitHub Discussions](https://github.com/yourusername/ngx-chronica/discussions) instead.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: How do I...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Related Component
+      description: Which component is your question about?
+      options:
+        - DatePicker
+        - DateRange
+        - InlineCalendar
+        - TimePicker
+        - DateTimePicker
+        - DurationPicker
+        - General Usage
+        - Installation/Setup
+        - Configuration
+        - Forms Integration
+        - Theming/Styling
+        - Other
+
+  - type: textarea
+    id: context
+    attributes:
+      label: What Have You Tried?
+      description: Describe what you've already attempted
+      placeholder: I tried following the documentation but...
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Sample (Optional)
+      description: Share relevant code if applicable
+      render: typescript
+      placeholder: |
+        @Component({
+          template: `<chronica-datepicker />`
+        })
+
+  - type: input
+    id: angular-version
+    attributes:
+      label: Angular Version
+      placeholder: "19.0.0"
+
+  - type: input
+    id: chronica-version
+    attributes:
+      label: NGX-Chronica Version
+      placeholder: "1.0.0"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might help us answer your question
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have checked the documentation
+          required: true
+        - label: I have searched for similar questions
+          required: true
