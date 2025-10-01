@@ -31,7 +31,7 @@
 .chronica-quick-select {
   display: flex;
   justify-content: space-around;
-  gap: var(--chronica-spacing-xs, 4px);
+  gap: var(--chronica-spacing-sm, 8px);
   margin-bottom: var(--chronica-spacing, 12px);
 }
 
@@ -44,12 +44,11 @@
   font-size: var(--chronica-font-size-sm, 12px);
   cursor: pointer;
   transition: all 0.2s ease;
+  width: 100%;
 }
 
 .chronica-quick-select-btn:hover {
   background: var(--chronica-bg-hover, #f3f4f6);
-  border-color: var(--chronica-primary, #3b82f6);
-  color: var(--chronica-primary, #3b82f6);
 }
 
 /* Header styles (reuse from datepicker) */
@@ -87,20 +86,32 @@
 
 .chronica-month-year-selectors {
   display: flex;
+  align-items: center;
   gap: var(--chronica-spacing-xs, 4px);
   flex: 1;
-  justify-content: center;
 }
 
 .chronica-month-select,
 .chronica-year-select {
+  border: var(--chronica-border-width, 1px) solid var(--chronica-border-color, #d1d5db);
+  border-radius: var(--chronica-border-radius-md, 6px);
   padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
-  border: 1px solid var(--chronica-border-color, #e5e7eb);
-  border-radius: var(--chronica-border-radius-sm, 4px);
-  background: var(--chronica-bg-color, #ffffff);
+  font-size: var(--chronica-font-size, 14px);
+  background: var(--chronica-background, #fff);
   color: var(--chronica-text-color, #374151);
-  font-size: var(--chronica-font-size-sm, 12px);
   cursor: pointer;
+  transition: var(--chronica-transition, all 0.2s ease);
+  height: var(--chronica-button-height, 32px);
+  cursor: pointer;
+}
+
+.chronica-month-select {
+  flex: 1;
+  max-width: 120px;
+}
+
+.chronica-year-select {
+  width: 80px;
 }
 
 .chronica-month-select:focus,
@@ -259,15 +270,6 @@
   .chronica-date-range-popup {
     min-width: 280px;
     max-width: 300px;
-  }
-  
-  .chronica-quick-select {
-    flex-direction: column;
-    gap: var(--chronica-spacing-xs, 4px);
-  }
-  
-  .chronica-quick-select-btn {
-    width: 100%;
   }
   
   .chronica-date {
