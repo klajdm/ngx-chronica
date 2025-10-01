@@ -1,0 +1,105 @@
+name: 📚 Documentation Issue
+description: Report an issue with documentation or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our documentation!
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - Missing documentation
+        - Incorrect/outdated information
+        - Typo or grammar error
+        - Unclear explanation
+        - Missing example
+        - API reference issue
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Documentation Location
+      description: Where is the documentation issue? (URL or file path)
+      placeholder: https://ngx-chronica.vercel.app/components/datepicker or README.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Documentation
+      description: What does the current documentation say? (copy/paste if applicable)
+      placeholder: The current docs state that...
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue Description
+      description: What's wrong or missing?
+      placeholder: The documentation doesn't explain how to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How should the documentation be improved?
+      placeholder: It would be helpful to add an example showing...
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Proposed Example (Optional)
+      description: If suggesting a code example, provide it here
+      render: typescript
+      placeholder: |
+        // Example showing how to...
+        @Component({
+          template: `<chronica-datepicker />`
+        })
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Related Component
+      description: Which component is this documentation about?
+      options:
+        - DatePicker
+        - DateRange
+        - InlineCalendar
+        - TimePicker
+        - DateTimePicker
+        - DurationPicker
+        - General/Getting Started
+        - API Reference
+        - Other
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context or screenshots
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have checked the latest documentation
+          required: true
+        - label: I am willing to submit a PR to fix this
+          required: false
