@@ -169,53 +169,6 @@
   background: transparent;
 }
 
-.chronica-theme-dark {
-  background: #1f2937;
-  border-color: #374151;
-  color: #fff;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-nav-button {
-  color: #9ca3af;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-nav-button:hover:not(:disabled) {
-  background: #374151;
-  color: #fff;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-nav-button:disabled {
-  color: #4b5563;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select,
-.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select {
-  background: #374151;
-  border-color: #4b5563;
-  color: #fff;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select:hover,
-.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select:hover {
-  border-color: #6b7280;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select:focus,
-.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select:focus {
-  border-color: var(--chronica-primary);
-  box-shadow: 0 0 0 3px var(--chronica-focus);
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-month-select option,
-.chronica-datepicker-popup.chronica-theme-dark .chronica-year-select option {
-  background: #374151;
-  color: #fff;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .chronica-day-name {
-  color: var(--chronica-accent);
-}
-
 .action-button {
   background: var(--chronica-primary);
   color: white;
@@ -240,20 +193,6 @@
 
 .action-button:active {
   box-shadow: 0 1px 2px var(--chronica-focus);
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .action-button {
-  background: var(--chronica-primary);
-  color: #fff;
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .action-button:hover {
-  background: var(--chronica-primary-hover);
-  box-shadow: 0 2px 4px var(--chronica-focus);
-}
-
-.chronica-datepicker-popup.chronica-theme-dark .action-button:focus {
-  box-shadow: 0 0 0 3px var(--chronica-focus);
 }
 
 @media (max-width: 320px) {
