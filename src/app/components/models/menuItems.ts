@@ -5,6 +5,8 @@ export class AppMenuItems {
     return [
       { label: 'Introduction', route: '/' },
       { label: 'Getting Started', route: '/start' },
+      { label: 'Documentation', route: '/documentation' },
+      { label: 'Styling Guides', route: '/styling-guides' },
       {
         label: 'Components',
         children: [
@@ -14,6 +16,13 @@ export class AppMenuItems {
           { label: 'DateTime Picker', route: '/components/datetime-picker' },
           { label: 'Duration Picker', route: '/components/duration-picker' },
           { label: 'Inline Calendar', route: '/components/inline-calendar' },
+        ],
+      },
+      {
+        label: 'Development',
+        children: [
+          { label: 'Contributing', route: '/development/contributing' },
+          { label: 'Code of Conduct', route: '/development/code-of-conduct' },
         ],
       },
       { label: 'License', route: '/license' },
