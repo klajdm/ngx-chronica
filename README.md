@@ -13,7 +13,7 @@
   
   <p>
     <a href="https://ngx-chronica.vercel.app"><strong>📚 Documentation</strong></a> •
-    <a href="https://ngx-chronica.vercel.app/getting-started"><strong>🚀 Quick Start</strong></a> •
+    <a href="https://ngx-chronica.vercel.app/start"><strong>🚀 Quick Start</strong></a> •
     <a href="#-components"><strong>📦 Components</strong></a> •
     <a href="#-contributing"><strong>🤝 Contributing</strong></a>
   </p>
