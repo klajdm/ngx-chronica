@@ -1,3 +1,4 @@
+import { StylingGuidesComponent } from './features/main/styling-guides/styling-guides.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -26,7 +27,7 @@ export const routes: Routes = [
       {
         path: 'documentation',
         loadComponent: () =>
-          import('./features/main/features/documentation.component').then(
+          import('./features/main/documentation/documentation.component').then(
             (m) => m.DocumentationComponent
           ),
         title: 'Documentation | Angular Chronica',
@@ -34,7 +35,7 @@ export const routes: Routes = [
       {
         path: 'styling-guides',
         loadComponent: () =>
-          import('./features/main/themes/styling-guides.component').then(
+          import('./features/main/styling-guides/styling-guides.component').then(
             (m) => m.StylingGuidesComponent
           ),
         title: 'Styling Guides | Angular Chronica',
