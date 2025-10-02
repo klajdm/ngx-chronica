@@ -1,13 +1,13 @@
 blank_issues_enabled: false
 contact_links:
   - name: 💬 GitHub Discussions
-    url: https://github.com/yourusername/ngx-chronica/discussions
+    url: https://github.com/klajdm/ngx-chronica/discussions
     about: Ask questions and discuss ideas with the community
   - name: 📚 Documentation
     url: https://ngx-chronica.vercel.app
     about: Read the full documentation and guides
   - name: 💡 Feature Requests
-    url: https://github.com/yourusername/ngx-chronica/discussions/categories/feature-requests
+    url: https://github.com/klajdm/ngx-chronica/discussions/categories/feature-requests
     about: Suggest and vote on new features
   - name: 🐦 Twitter
     url: https://twitter.com/ngxchronica

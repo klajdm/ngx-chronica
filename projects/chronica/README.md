@@ -1,16 +1,18 @@
 <div align="center">
-  <h1>🗓️ NGX-Chronica</h1>
-  <p><strong>Modern Date & Time Picker Components for Angular</strong></p>
+   <img src="src/assets/images/logo.png" alt="ngx-chronica logo" width="120" height="120" />
+   <h1>🗓️ NGX-Chronica</h1>
+   <p><strong>Complete Date & Time Picker Suite for Angular</strong></p>
+   
   <p>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/v/ngx-chronica.svg" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/dm/ngx-chronica.svg" alt="npm downloads"></a>
-    <a href="https://github.com/yourusername/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg" alt="license"></a>
+    <a href="https://github.com/klajdm/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg" alt="license"></a>
     <a href="https://angular.io"><img src="https://img.shields.io/badge/Angular-15%2B-red.svg" alt="Angular 15+"></a>
   </p>
   <p>
     <a href="https://ngx-chronica.vercel.app">📚 Documentation</a> •
-    <a href="https://ngx-chronica.vercel.app/getting-started">🚀 Quick Start</a> •
-    <a href="https://github.com/yourusername/ngx-chronica">💻 GitHub</a>
+    <a href="https://ngx-chronica.vercel.app/start">🚀 Quick Start</a> •
+    <a href="https://github.com/klajdm/ngx-chronica">💻 GitHub</a>
   </p>
 </div>
 
@@ -20,7 +22,7 @@ A comprehensive, lightweight Angular library providing **6 specialized date and 
 
 ## ✨ Why NGX-Chronica?
 
-Angular Material lacks native **Time Picker** and **DateTime Picker** components. NGX-Chronica fills this critical gap with a complete suite of date/time components that are:
+The Angular ecosystem lacks robust, production-ready **Date & Time Picker** components. NGX-Chronica fills these critical gaps with a complete suite of date/time components that are:
 
 - ✅ **Production-Ready** - Battle-tested components with comprehensive validation
 - ✅ **Zero Dependencies** - No Moment.js or other heavy libraries
@@ -30,14 +32,14 @@ Angular Material lacks native **Time Picker** and **DateTime Picker** components
 
 ## 📦 Components
 
-| Component | Description | Use Case |
-|-----------|-------------|----------|
-| **DatePicker** | Single date selection with popup | Forms, filters, date inputs |
-| **DateRange** | Start/end date selection | Booking systems, reports, analytics |
-| **InlineCalendar** | Always-visible calendar | Dashboards, embedded calendars |
-| **TimePicker** | Time selection (12h/24h) | Appointments, schedules |
-| **DateTimePicker** | Combined date + time | Event scheduling, timestamps |
-| **DurationPicker** | Time span selection | Task estimation, timers |
+| Component          | Description                      | Use Case                            |
+| ------------------ | -------------------------------- | ----------------------------------- |
+| **DatePicker**     | Single date selection with popup | Forms, filters, date inputs         |
+| **DateRange**      | Start/end date selection         | Booking systems, reports, analytics |
+| **InlineCalendar** | Always-visible calendar          | Dashboards, embedded calendars      |
+| **TimePicker**     | Time selection (12h/24h)         | Appointments, schedules             |
+| **DateTimePicker** | Combined date + time             | Event scheduling, timestamps        |
+| **DurationPicker** | Time span selection              | Task estimation, timers             |
 
 ## 🎯 Key Features
 
@@ -76,11 +78,11 @@ import { ChronicaDatepickerComponent } from 'ngx-chronica';
       [config]="{ colorTheme: 'blue', theme: 'light' }"
       (dateSelected)="onDateSelected($event)"
     />
-  `
+  `,
 })
 export class ExampleComponent {
   selectedDate: Date | null = new Date();
-  
+
   onDateSelected(date: Date) {
     console.log('Selected:', date);
   }
@@ -98,7 +100,7 @@ import { ChronicaTimePickerComponent } from 'ngx-chronica';
       [(ngModel)]="selectedTime"
       [config]="{ format24Hour: false, showSeconds: true }"
     />
-  `
+  `,
 })
 export class TimeExample {
   selectedTime = { hours: 14, minutes: 30, seconds: 0 };
@@ -112,11 +114,8 @@ import { ChronicaDateTimePickerComponent } from 'ngx-chronica';
 
 @Component({
   template: `
-    <chronica-datetime-picker
-      [(ngModel)]="dateTime"
-      [config]="{ colorTheme: 'purple' }"
-    />
-  `
+    <chronica-datetime-picker [(ngModel)]="dateTime" [config]="{ colorTheme: 'purple' }" />
+  `,
 })
 export class DateTimeExample {
   dateTime = { date: new Date(), time: { hours: 14, minutes: 30 } };
@@ -130,11 +129,8 @@ import { ChronicaDateRangeComponent } from 'ngx-chronica';
 
 @Component({
   template: `
-    <chronica-date-range
-      [(ngModel)]="dateRange"
-      (dateRangeChange)="onRangeChange($event)"
-    />
-  `
+    <chronica-date-range [(ngModel)]="dateRange" (dateRangeChange)="onRangeChange($event)" />
+  `,
 })
 export class RangeExample {
   dateRange = { startDate: new Date(), endDate: null };
@@ -152,7 +148,7 @@ import { ChronicaDurationPickerComponent } from 'ngx-chronica';
       [(ngModel)]="duration"
       [config]="{ showDays: true, showHours: true, showMinutes: true }"
     />
-  `
+  `,
 })
 export class DurationExample {
   duration = { hours: 2, minutes: 30 };
@@ -166,11 +162,8 @@ import { ChronicaInlineCalendarComponent } from 'ngx-chronica';
 
 @Component({
   template: `
-    <chronica-inline-calendar
-      [(ngModel)]="selectedDate"
-      [config]="{ colorTheme: 'teal' }"
-    />
-  `
+    <chronica-inline-calendar [(ngModel)]="selectedDate" [config]="{ colorTheme: 'teal' }" />
+  `,
 })
 export class InlineExample {
   selectedDate: Date | null = new Date();
@@ -247,11 +240,11 @@ NGX-Chronica includes **11 built-in locales**:
 
 ```typescript
 // Built-in locales
-'en-US' | 'en-GB' | 'es-ES' | 'fr-FR' | 'de-DE' | 'it-IT' | 
+'en-US' | 'en-GB' | 'es-ES' | 'fr-FR' | 'de-DE' | 'it-IT' |
 'pt-BR' | 'zh-CN' | 'ja-JP' | 'ko-KR' | 'ru-RU'
 
 // Usage
-<chronica-datepicker 
+<chronica-datepicker
   [locale]="'es-ES'"
   [config]="{ firstDayOfWeek: 1 }"
 />
@@ -278,8 +271,8 @@ const config = {
   maxDate: new Date(2025, 11, 31),
   disabledDates: [
     new Date(2025, 11, 25), // Christmas
-    new Date(2025, 0, 1),   // New Year
-  ]
+    new Date(2025, 0, 1), // New Year
+  ],
 };
 ```
 
@@ -291,7 +284,7 @@ const timeConfig = {
   minTime: { hours: 9, minutes: 0 },
   maxTime: { hours: 17, minutes: 0 },
   minuteStep: 15,
-  timeFormat: '12h' as const
+  timeFormat: '12h' as const,
 };
 ```
 
@@ -304,7 +297,7 @@ const durationConfig = {
   showMinutes: true,
   stepMinutes: 30,
   minDuration: { hours: 0, minutes: 30 },
-  maxDuration: { hours: 8, minutes: 0 }
+  maxDuration: { hours: 8, minutes: 0 },
 };
 ```
 
@@ -336,12 +329,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 export class BookingForm {
   fb = inject(FormBuilder);
-  
+
   bookingForm = this.fb.group({
     checkIn: [new Date(), Validators.required],
     checkOut: [null, Validators.required],
     appointmentTime: [{ hours: 9, minutes: 0 }],
-    duration: [{ hours: 1, minutes: 0 }]
+    duration: [{ hours: 1, minutes: 0 }],
   });
 }
 ```
@@ -359,15 +352,8 @@ export class BookingForm {
 
 ```html
 <form #f="ngForm">
-  <chronica-datepicker 
-    [(ngModel)]="selectedDate" 
-    name="date"
-    required
-  />
-  <chronica-time-picker 
-    [(ngModel)]="selectedTime" 
-    name="time"
-  />
+  <chronica-datepicker [(ngModel)]="selectedDate" name="date" required />
+  <chronica-time-picker [(ngModel)]="selectedTime" name="time" />
 </form>
 ```
 
@@ -377,16 +363,16 @@ export class BookingForm {
 
 8 beautiful pre-built themes:
 
-| Theme | Primary | Best For |
-|-------|---------|----------|
-| `blue` | #3b82f6 | Professional, default |
-| `green` | #10b981 | Success, eco-friendly |
-| `purple` | #8b5cf6 | Creative, modern |
-| `red` | #ef4444 | Urgent, important |
-| `orange` | #f97316 | Energetic, warm |
-| `teal` | #14b8a6 | Calm, medical |
-| `pink` | #ec4899 | Playful, feminine |
-| `indigo` | #6366f1 | Tech, corporate |
+| Theme    | Primary | Best For              |
+| -------- | ------- | --------------------- |
+| `blue`   | #3b82f6 | Professional, default |
+| `green`  | #10b981 | Success, eco-friendly |
+| `purple` | #8b5cf6 | Creative, modern      |
+| `red`    | #ef4444 | Urgent, important     |
+| `orange` | #f97316 | Energetic, warm       |
+| `teal`   | #14b8a6 | Calm, medical         |
+| `pink`   | #ec4899 | Playful, feminine     |
+| `indigo` | #6366f1 | Tech, corporate       |
 
 ### Custom Styling
 
@@ -429,52 +415,34 @@ import { ChronicaModule } from 'ngx-chronica';
 export class AppModule {}
 ```
 
-## 📊 Bundle Size
-
-NGX-Chronica is lightweight and tree-shakeable:
-
-- **DatePicker**: ~15KB (gzipped)
-- **TimePicker**: ~12KB (gzipped)
-- **DateTimePicker**: ~20KB (gzipped)
-- **Full Library**: ~45KB (gzipped)
-
-## 🌐 Browser Support
-
-| Browser | Version |
-|---------|---------|
-| Chrome | Latest 2 versions |
-| Firefox | Latest 2 versions |
-| Safari | Latest 2 versions |
-| Edge | Latest 2 versions |
-
 ## ⚡ Angular Compatibility
 
 | Angular Version | NGX-Chronica Version |
-|-----------------|---------------------|
-| 15.x | ✅ Supported |
-| 16.x | ✅ Supported |
-| 17.x | ✅ Supported |
-| 18.x | ✅ Supported |
-| 19.x | ✅ Supported |
+| --------------- | -------------------- |
+| 15.x            | ✅ Supported         |
+| 16.x            | ✅ Supported         |
+| 17.x            | ✅ Supported         |
+| 18.x            | ✅ Supported         |
+| 19.x            | ✅ Supported         |
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see our [Contributing Guide](https://github.com/yourusername/ngx-chronica/blob/main/CONTRIBUTING.md).
+Contributions are welcome! Please see our [Contributing Guide](https://github.com/klajdm/ngx-chronica/blob/main/CONTRIBUTING.md).
 
 ## 📄 License
 
-MIT License - see [LICENSE](https://github.com/yourusername/ngx-chronica/blob/main/LICENSE) file for details.
+MIT License - see [LICENSE](https://github.com/klajdm/ngx-chronica/blob/main/LICENSE) file for details.
 
 ## 🔗 Links
 
 - 📚 [Full Documentation](https://ngx-chronica.vercel.app)
-- 🐛 [Report Issues](https://github.com/yourusername/ngx-chronica/issues)
-- 💬 [Discussions](https://github.com/yourusername/ngx-chronica/discussions)
+- 🐛 [Report Issues](https://github.com/klajdm/ngx-chronica/issues)
+- 💬 [Discussions](https://github.com/klajdm/ngx-chronica/discussions)
 - 📦 [npm Package](https://www.npmjs.com/package/ngx-chronica)
 
 ## ⭐ Show Your Support
 
-If you find NGX-Chronica useful, please consider giving it a star on [GitHub](https://github.com/yourusername/ngx-chronica)!
+If you find NGX-Chronica useful, please consider giving it a star on [GitHub](https://github.com/klajdm/ngx-chronica)!
 
 ---
 
@@ -482,7 +450,7 @@ If you find NGX-Chronica useful, please consider giving it a star on [GitHub](ht
   <p>Made with ❤️ for the Angular community</p>
   <p>
     <a href="https://ngx-chronica.vercel.app">Documentation</a> •
-    <a href="https://github.com/yourusername/ngx-chronica">GitHub</a> •
+    <a href="https://github.com/klajdm/ngx-chronica">GitHub</a> •
     <a href="https://www.npmjs.com/package/ngx-chronica">npm</a>
   </p>
 </div>
