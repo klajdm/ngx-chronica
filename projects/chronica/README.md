@@ -1,5 +1,5 @@
 <div align="center">
-   <img src="../../src/assets/images/logo.png" alt="ngx-chronica logo" width="120" height="120" />
+   <img src="./assets/logo.png" alt="ngx-chronica logo" width="120" height="120" />
    <h1>🗓️ NGX-Chronica</h1>
    <p><strong>Complete Date & Time Picker Suite for Angular</strong></p>
    
