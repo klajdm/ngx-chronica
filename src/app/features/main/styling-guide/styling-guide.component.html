@@ -3,7 +3,8 @@
   <div class="mb-8">
     <h1 class="text-3xl font-bold text-gray-900 mb-2">Styling Guide</h1>
     <p class="text-lg text-gray-600 leading-relaxed">
-      Complete guide to customizing NGX-Chronica components with 8 built-in color themes, dark mode support, and CSS custom properties to match your brand.
+      Complete guide to customizing NGX-Chronica components with 8 built-in color themes, dark mode
+      support, and CSS custom properties to match your brand.
     </p>
   </div>
 
@@ -11,8 +12,8 @@
   <div class="mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">8 Built-in Color Themes</h2>
     <p class="text-gray-700 mb-6">
-      Choose from 8 professionally designed color themes that work seamlessly with both light and dark
-      modes.
+      Choose from 8 professionally designed color themes that work seamlessly with both light and
+      dark modes.
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -189,8 +190,10 @@
       <!-- Basic Theme -->
       <div>
         <h3 class="text-lg font-medium text-gray-900 mb-3">Basic Theme Configuration</h3>
-        <div class="bg-gray-900 rounded-lg p-4">
-          <pre class="text-sm"><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDatepickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
+        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+          <pre
+            class="text-sm"
+          ><code><span class="text-purple-400">import</span> <span class="text-gray-600">&#123;</span> <span class="text-red-400">ChronicaDatepickerComponent</span> <span class="text-gray-600">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span><span class="text-gray-600">;</span>
 
 <span class="text-gray-600">&lt;</span><span class="text-red-400">chronica-datepicker</span>
   <span class="text-orange-400">[config]</span>=<span class="text-green-400">"&#123; 
@@ -205,7 +208,9 @@
       <div>
         <h3 class="text-lg font-medium text-gray-900 mb-3">Component-Level Theme</h3>
         <div class="bg-gray-900 rounded-lg p-4">
-          <pre class="text-sm"><code><span class="text-purple-400">export</span> <span class="text-purple-400">class</span> <span class="text-yellow-400">MyComponent</span> <span class="text-gray-600">&#123;</span>
+          <pre
+            class="text-sm"
+          ><code><span class="text-purple-400">export</span> <span class="text-purple-400">class</span> <span class="text-yellow-400">MyComponent</span> <span class="text-gray-600">&#123;</span>
   <span class="text-blue-400">calendarConfig</span> <span class="text-gray-600">=</span> <span class="text-gray-600">&#123;</span>
     <span class="text-blue-400">colorTheme</span><span class="text-gray-600">:</span> <span class="text-green-400">'teal'</span><span class="text-gray-600">,</span>
     <span class="text-blue-400">theme</span><span class="text-gray-600">:</span> <span class="text-green-400">'auto'</span><span class="text-gray-600">,</span>
@@ -224,7 +229,7 @@
       For advanced customization, override CSS custom properties to create your own theme.
     </p>
 
-    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+    <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto mb-6">
       <pre class="text-sm"><code><span class="text-gray-500">/* Override theme variables */</span>
 <span class="text-red-400">chronica-datepicker</span> <span class="text-gray-600">&#123;</span>
   <span class="text-blue-400">--chronica-primary</span><span class="text-gray-600">:</span> <span class="text-green-400">#3b82f6</span><span class="text-gray-600">;</span>
@@ -240,18 +245,24 @@
       <div class="border border-gray-200 rounded-lg p-5">
         <h3 class="font-semibold text-gray-900 mb-3">Available Variables</h3>
         <ul class="text-sm text-gray-600 space-y-2">
-          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary</code> - Primary color</li>
           <li>
-            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-hover</code> - Hover state
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary</code> - Primary color
+          </li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-hover</code> - Hover
+            state
           </li>
           <li>
             <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-light</code> - Light
             variant
           </li>
           <li>
-            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-dark</code> - Dark variant
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-primary-dark</code> - Dark
+            variant
           </li>
-          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-accent</code> - Accent color</li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-accent</code> - Accent color
+          </li>
           <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-focus</code> - Focus ring</li>
         </ul>
       </div>
@@ -263,12 +274,15 @@
             <code class="bg-gray-100 px-2 py-1 rounded">--chronica-bg</code> - Background color
           </li>
           <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-text</code> - Text color</li>
-          <li><code class="bg-gray-100 px-2 py-1 rounded">--chronica-border</code> - Border color</li>
+          <li>
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-border</code> - Border color
+          </li>
           <li>
             <code class="bg-gray-100 px-2 py-1 rounded">--chronica-disabled</code> - Disabled state
           </li>
           <li>
-            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-hover-bg</code> - Hover background
+            <code class="bg-gray-100 px-2 py-1 rounded">--chronica-hover-bg</code> - Hover
+            background
           </li>
         </ul>
       </div>
@@ -350,8 +364,8 @@
         <li class="flex items-start gap-3">
           <span class="text-blue-600 mt-1">✓</span>
           <span
-            ><strong>Respect System Preferences:</strong> Use 'auto' theme to respect user's dark mode
-            preference</span
+            ><strong>Respect System Preferences:</strong> Use 'auto' theme to respect user's dark
+            mode preference</span
           >
         </li>
         <li class="flex items-start gap-3">
