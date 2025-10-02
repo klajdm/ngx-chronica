@@ -1,7 +1,7 @@
 name: 📚 Documentation Issue
 description: Report an issue with documentation or suggest improvements
-title: "[Docs]: "
-labels: ["documentation", "needs-triage"]
+title: '[Docs]: '
+labels: ['documentation', 'needs-triage']
 assignees: []
 
 body:
@@ -78,7 +78,7 @@ body:
       label: Related Component
       description: Which component is this documentation about?
       options:
-        - DatePicker
+        - Datepicker
         - DateRange
         - InlineCalendar
         - TimePicker

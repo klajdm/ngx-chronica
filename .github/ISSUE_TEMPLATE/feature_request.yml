@@ -1,7 +1,7 @@
 name: 💡 Feature Request
 description: Suggest a new feature or enhancement for NGX-Chronica
-title: "[Feature]: "
-labels: ["enhancement", "needs-triage"]
+title: '[Feature]: '
+labels: ['enhancement', 'needs-triage']
 assignees: []
 
 body:
@@ -34,7 +34,7 @@ body:
       label: Which component would this affect?
       multiple: true
       options:
-        - DatePicker
+        - Datepicker
         - DateRange
         - InlineCalendar
         - TimePicker
