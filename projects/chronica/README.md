@@ -1,6 +1,8 @@
 <div align="center">
-  <h1>🗓️ NGX-Chronica</h1>
-  <p><strong>Modern Date & Time Picker Components for Angular</strong></p>
+   <img src="src/assets/images/logo.png" alt="ngx-chronica logo" width="120" height="120" />
+   <h1>🗓️ NGX-Chronica</h1>
+   <p><strong>Complete Date & Time Picker Suite for Angular</strong></p>
+   
   <p>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/v/ngx-chronica.svg" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/dm/ngx-chronica.svg" alt="npm downloads"></a>
