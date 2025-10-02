@@ -1,4 +1,3 @@
-import { StylingGuidesComponent } from './features/main/styling-guides/styling-guides.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -33,12 +32,12 @@ export const routes: Routes = [
         title: 'Documentation | Angular Chronica',
       },
       {
-        path: 'styling-guides',
+        path: 'styling-guide',
         loadComponent: () =>
-          import('./features/main/styling-guides/styling-guides.component').then(
-            (m) => m.StylingGuidesComponent
+          import('./features/main/styling-guide/styling-guide.component').then(
+            (m) => m.StylingGuideComponent
           ),
-        title: 'Styling Guides | Angular Chronica',
+        title: 'Styling Guide | Angular Chronica',
       },
       {
         path: 'components/datepicker',

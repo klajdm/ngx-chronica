@@ -6,11 +6,13 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { Router } from 'lucide-angular';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-getting-started',
   standalone: true,
-  imports: [CommonModule, ChronicaDatepickerComponent],
+  imports: [CommonModule, ChronicaDatepickerComponent, RouterModule],
   templateUrl: './getting-started.component.html',
 })
 export class GettingStartedComponent {

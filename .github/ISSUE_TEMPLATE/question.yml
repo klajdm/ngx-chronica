@@ -27,7 +27,7 @@ body:
       label: Related Component
       description: Which component is your question about?
       options:
-        - DatePicker
+        - Datepicker
         - DateRange
         - InlineCalendar
         - TimePicker
