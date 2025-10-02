@@ -1,5 +1,5 @@
 @echo off
-echo Installing dependencies for Angular Inline Calendar...
+echo Installing dependencies for ngx-chronica...
 npm install
 if %errorlevel% neq 0 (
     echo.
@@ -12,7 +12,8 @@ echo Dependencies installed successfully!
 echo.
 echo You can now run:
 echo   npm run build          - Build the library
-echo   ng serve demo-app      - Run the demo application
+echo   ng serve               - Run the demo application
 echo   npm test               - Run tests
+echo   npm run test:ci        - Run tests with coverage
 echo.
 pause

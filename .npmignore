@@ -32,4 +32,4 @@ node_modules/
 # Demo and development files
 *.md
 !README.md
-LICENSE
+!CHANGELOG.md
