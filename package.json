@@ -10,14 +10,14 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "ng build chronica",
-    "build:app": "ng build chronica --configuration=production",
-    "build:watch": "ng build chronica --watch",
+    "build": "ng build chronica-demo --configuration=production",
+    "build:lib": "ng build chronica",
+    "build:lib:watch": "ng build chronica --watch",
     "test": "ng test chronica",
     "test:ci": "ng test chronica --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint chronica",
-    "pack": "npm run build && npm pack dist/chronica",
-    "publish:npm": "npm run build && npm publish dist/chronica"
+    "pack": "npm run build:lib && npm pack dist/chronica",
+    "publish:npm": "npm run build:lib && npm publish dist/chronica"
   },
   "keywords": [
     "angular",
