@@ -1,7 +1,7 @@
 name: ❓ Question
 description: Ask a question about using NGX-Chronica
-title: "[Question]: "
-labels: ["question"]
+title: '[Question]: '
+labels: ['question']
 assignees: []
 
 body:
@@ -9,8 +9,8 @@ body:
     attributes:
       value: |
         Have a question? We're here to help!
-        
-        **Note:** For general discussions, consider using [GitHub Discussions](https://github.com/yourusername/ngx-chronica/discussions) instead.
+
+        **Note:** For general discussions, consider using [GitHub Discussions](https://github.com/klajdm/ngx-chronica/discussions) instead.
 
   - type: textarea
     id: question
@@ -62,13 +62,13 @@ body:
     id: angular-version
     attributes:
       label: Angular Version
-      placeholder: "19.0.0"
+      placeholder: '19.0.0'
 
   - type: input
     id: chronica-version
     attributes:
       label: NGX-Chronica Version
-      placeholder: "1.0.0"
+      placeholder: '1.0.0'
 
   - type: textarea
     id: additional
