@@ -25,7 +25,19 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - run: npm ci
-      - run: npm run build --if-present
+      - name: Build library
+        run: npm run build
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist/chronica" ]; then
+            echo "Build failed: dist/chronica directory not found"
+            exit 1
+          fi
+          if [ ! -f "dist/chronica/package.json" ]; then
+            echo "Build failed: package.json not found in dist"
+            exit 1
+          fi
+          echo "Build verification passed"
       - name: Run tests in CI mode
         run: npm run test:ci --if-present
         env:
@@ -34,3 +46,5 @@ jobs:
         run: |
           cd dist/chronica
           npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

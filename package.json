@@ -1,7 +1,7 @@
 {
   "name": "ngx-chronica",
   "version": "1.0.0",
-  "description": "A lightweight, customizable inline calendar component for Angular applications",
+  "description": "Complete Angular date & time component library featuring Calendar, Date Range, Time Picker, and Duration Picker. Fill the gaps in Angular Material with 8 themes and dark mode support.",
   "main": "dist/chronica/index.js",
   "types": "dist/chronica/index.d.ts",
   "files": [
@@ -24,11 +24,17 @@
     "angular-calendar",
     "chronica",
     "calendar",
-    "inline-calendar",
-    "inline",
     "date-picker",
+    "time-picker",
+    "duration-picker",
+    "date-range",
+    "datetime-picker",
+    "angular-material",
     "component",
-    "ui"
+    "ui",
+    "typescript",
+    "standalone",
+    "forms"
   ],
   "author": "Klajdi Murataj <klajdimurati3@gmail.com>",
   "license": "MIT",
@@ -40,15 +46,11 @@
     "url": "https://github.com/klajdm/ngx-chronica/issues"
   },
   "homepage": "https://ngx-chronica.vercel.app",
-  "peerDependencies": {
-    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
-  },
-  "dependencies": {
+  "devDependencies": {
     "@angular/cdk": "^20.0.4",
-    "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/common": "^20.0.5",
     "@angular/compiler": "^20.0.5",
-    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^20.0.5",
     "@angular/forms": "^20.0.5",
     "@angular/platform-browser": "^20.0.5",
     "@angular/platform-browser-dynamic": "^20.0.5",
@@ -56,9 +58,6 @@
     "lucide-angular": "^0.544.0",
     "rxjs": "~7.8.2",
     "tslib": "^2.8.1",
-    "zone.js": "~0.15.1"
-  },
-  "devDependencies": {
     "@angular-devkit/build-angular": "^20.3.1",
     "@angular/cli": "^20.3.1",
     "@angular/compiler-cli": "^20.3.0",

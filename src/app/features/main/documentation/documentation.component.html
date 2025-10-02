@@ -13,7 +13,7 @@
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Core Features</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- 6 Specialized Components -->
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6">
+      <div class="border border-gray-200 rounded-lg p-6">
         <div class="flex items-start">
           <div>
             <h3 class="font-semibold text-gray-900 mb-2">6 Specialized Components</h3>
@@ -34,9 +34,7 @@
       </div>
 
       <!-- Forms Integration -->
-      <div
-        class="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-6"
-      >
+      <div class="border border-gray-200 rounded-lg p-6">
         <div class="flex items-start">
           <div>
             <h3 class="font-semibold text-gray-900 mb-2">Full Forms Integration</h3>
@@ -56,7 +54,7 @@
       </div>
 
       <!-- Theming System -->
-      <div class="bg-gradient-to-br from-pink-50 to-pink-100 border border-pink-200 rounded-lg p-6">
+      <div class="border border-gray-200 rounded-lg p-6">
         <div class="flex items-start">
           <div>
             <h3 class="font-semibold text-gray-900 mb-2">Advanced Theming</h3>
@@ -75,9 +73,7 @@
       </div>
 
       <!-- Internationalization -->
-      <div
-        class="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-6"
-      >
+      <div class="border border-gray-200 rounded-lg p-6">
         <div class="flex items-start">
           <div>
             <h3 class="font-semibold text-gray-900 mb-2">Internationalization</h3>
@@ -249,6 +245,614 @@
           <li>• Perfect for dashboards</li>
           <li>• Customizable size</li>
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Reference -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">API Reference</h2>
+    <p class="text-gray-600 mb-6">
+      Complete reference for all component inputs, outputs, and configuration interfaces.
+    </p>
+
+    <!-- DatePicker API -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">DatePicker Component</h3>
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">Inputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">selectedDate</td>
+                <td class="px-4 py-2 font-mono text-xs">Date | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Currently selected date</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaCalendarConfig</td>
+                <td class="px-4 py-2 text-xs">DEFAULT_CALENDAR_CONFIG</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Configuration object for calendar behavior</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
+                <td class="px-4 py-2 text-xs">'en-US'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">initialMonth</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs">-</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Initial month to display (0-11)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">initialYear</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs">-</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Initial year to display</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">popupPosition</td>
+                <td class="px-4 py-2 font-mono text-xs">'bottom' | 'top' | 'auto'</td>
+                <td class="px-4 py-2 text-xs">'auto'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Position of the popup calendar</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">hideInput</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Hide the input field (custom trigger)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
+                <td class="px-4 py-2 font-mono text-xs">string</td>
+                <td class="px-4 py-2 text-xs">'Select date'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text for input</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
+          <h4 class="font-semibold text-gray-900">Outputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">dateSelected</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;Date&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted when a date is selected</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">monthChanged</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;&#123;month: number; year: number&#125;&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted when month/year changes</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">calendarEvent</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaEvent&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted for calendar-related events</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Date Range API -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Date Range Component</h3>
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">Inputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaCalendarConfig</td>
+                <td class="px-4 py-2 text-xs">DEFAULT_CALENDAR_CONFIG</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Configuration object</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
+                <td class="px-4 py-2 text-xs">'en-US'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
+                <td class="px-4 py-2 font-mono text-xs">string</td>
+                <td class="px-4 py-2 text-xs">'Select date range'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">minDate</td>
+                <td class="px-4 py-2 font-mono text-xs">Date | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Minimum selectable date</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxDate</td>
+                <td class="px-4 py-2 font-mono text-xs">Date | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Maximum selectable date</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabled</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Disable the component</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">required</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Mark as required field</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
+          <h4 class="font-semibold text-gray-900">Outputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">dateRangeChange</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaDateRange&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted when date range changes</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">calendarEvent</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaEvent&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted for calendar events</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Picker API -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Time Picker Component</h3>
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">Inputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
+                <td class="px-4 py-2 font-mono text-xs">TimePickerConfig</td>
+                <td class="px-4 py-2 text-xs">DEFAULT_TIME_CONFIG</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Configuration object</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
+                <td class="px-4 py-2 text-xs">'en-US'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
+                <td class="px-4 py-2 font-mono text-xs">string</td>
+                <td class="px-4 py-2 text-xs">'Select time'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">minTime</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaTimeValue | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Minimum selectable time</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxTime</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaTimeValue | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Maximum selectable time</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabled</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Disable the component</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">required</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Mark as required field</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
+          <h4 class="font-semibold text-gray-900">Outputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">timeChange</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaTimeValue | null&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted when time changes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Duration Picker API -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Duration Picker Component</h3>
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">Inputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
+                <td class="px-4 py-2 font-mono text-xs">DurationPickerConfig</td>
+                <td class="px-4 py-2 text-xs">-</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Configuration object</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
+                <td class="px-4 py-2 text-xs">'en-US'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
+                <td class="px-4 py-2 font-mono text-xs">string</td>
+                <td class="px-4 py-2 text-xs">'Select duration'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">minDuration</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaDurationValue | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Minimum duration</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxDuration</td>
+                <td class="px-4 py-2 font-mono text-xs">ChronicaDurationValue | null</td>
+                <td class="px-4 py-2 text-xs">null</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Maximum duration</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabled</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Disable the component</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">required</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs">false</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Mark as required field</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
+          <h4 class="font-semibold text-gray-900">Outputs</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-blue-600">durationChange</td>
+                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaDurationValue | null&gt;</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Emitted when duration changes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuration Interfaces -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Configuration Interfaces</h3>
+
+      <!-- ChronicaCalendarConfig -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden mb-6">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">ChronicaCalendarConfig</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">theme</td>
+                <td class="px-4 py-2 font-mono text-xs">'light' | 'dark' | 'auto'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Visual theme mode</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">colorTheme</td>
+                <td class="px-4 py-2 font-mono text-xs">'blue' | 'green' | 'purple' | 'red' | 'orange' | 'teal' | 'pink' | 'indigo'</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Color theme for primary colors</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">minDate</td>
+                <td class="px-4 py-2 font-mono text-xs">Date</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Minimum selectable date</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxDate</td>
+                <td class="px-4 py-2 font-mono text-xs">Date</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Maximum selectable date</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabledDates</td>
+                <td class="px-4 py-2 font-mono text-xs">Date[]</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Array of disabled dates</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">firstDayOfWeek</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs text-gray-600">First day of week (0=Sunday, 1=Monday)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showTodayButton</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show today button</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showNavigation</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show navigation arrows</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">closeAfterSelection</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Close popup after date selection</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TimePickerConfig -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden mb-6">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">TimePickerConfig</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">format24Hour</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Use 24-hour format (true) or 12-hour with AM/PM (false)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showSeconds</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show seconds selector</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">minuteStep</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Minute step increment (e.g., 15 for 15-minute intervals)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">secondStep</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Second step increment</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DurationPickerConfig -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">DurationPickerConfig</h4>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showDays</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show days selector</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showHours</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show hours selector</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showMinutes</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show minutes selector</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">showSeconds</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Show seconds selector</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">stepDays</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Day step increment</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">stepHours</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Hour step increment</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">stepMinutes</td>
+                <td class="px-4 py-2 font-mono text-xs">number</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Minute step increment</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-mono text-xs text-purple-600">allowZero</td>
+                <td class="px-4 py-2 font-mono text-xs">boolean</td>
+                <td class="px-4 py-2 text-xs text-gray-600">Allow zero duration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type Definitions -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Type Definitions</h3>
+
+      <!-- ChronicaTimeValue -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">ChronicaTimeValue</h4>
+        </div>
+        <div class="p-4">
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaTimeValue</span> &#123;
+  <span class="text-cyan-300">hours</span>: <span class="text-blue-300">number</span>;      <span class="text-gray-500">// 0-23</span>
+  <span class="text-cyan-300">minutes</span>: <span class="text-blue-300">number</span>;    <span class="text-gray-500">// 0-59</span>
+  <span class="text-cyan-300">seconds</span>?: <span class="text-blue-300">number</span>;   <span class="text-gray-500">// 0-59 (optional)</span>
+  <span class="text-cyan-300">period</span>?: <span class="text-green-400">'AM'</span> | <span class="text-green-400">'PM'</span>; <span class="text-gray-500">// For 12h format</span>
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <!-- ChronicaDurationValue -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">ChronicaDurationValue</h4>
+        </div>
+        <div class="p-4">
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDurationValue</span> &#123;
+  <span class="text-cyan-300">days</span>?: <span class="text-blue-300">number</span>;
+  <span class="text-cyan-300">hours</span>?: <span class="text-blue-300">number</span>;
+  <span class="text-cyan-300">minutes</span>?: <span class="text-blue-300">number</span>;
+  <span class="text-cyan-300">seconds</span>?: <span class="text-blue-300">number</span>;
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <!-- ChronicaDateRange -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">ChronicaDateRange</h4>
+        </div>
+        <div class="p-4">
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateRange</span> &#123;
+  <span class="text-cyan-300">startDate</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
+  <span class="text-cyan-300">endDate</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <!-- ChronicaDateTimeValue -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+          <h4 class="font-semibold text-gray-900">ChronicaDateTimeValue</h4>
+        </div>
+        <div class="p-4">
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateTimeValue</span> &#123;
+  <span class="text-cyan-300">date</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
+  <span class="text-cyan-300">time</span>: <span class="text-blue-300">ChronicaTimeValue</span> | <span class="text-orange-400">null</span>;
+&#125;</code></pre>
+        </div>
       </div>
     </div>
   </div>
