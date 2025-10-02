@@ -6,7 +6,7 @@ export class AppMenuItems {
       { label: 'Introduction', route: '/' },
       { label: 'Getting Started', route: '/start' },
       { label: 'Documentation', route: '/documentation' },
-      { label: 'Styling Guides', route: '/styling-guides' },
+      { label: 'Styling Guide', route: '/styling-guide' },
       {
         label: 'Components',
         children: [

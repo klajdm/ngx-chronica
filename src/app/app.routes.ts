@@ -26,18 +26,18 @@ export const routes: Routes = [
       {
         path: 'documentation',
         loadComponent: () =>
-          import('./features/main/features/documentation.component').then(
+          import('./features/main/documentation/documentation.component').then(
             (m) => m.DocumentationComponent
           ),
         title: 'Documentation | Angular Chronica',
       },
       {
-        path: 'styling-guides',
+        path: 'styling-guide',
         loadComponent: () =>
-          import('./features/main/themes/styling-guides.component').then(
-            (m) => m.StylingGuidesComponent
+          import('./features/main/styling-guide/styling-guide.component').then(
+            (m) => m.StylingGuideComponent
           ),
-        title: 'Styling Guides | Angular Chronica',
+        title: 'Styling Guide | Angular Chronica',
       },
       {
         path: 'components/datepicker',
