@@ -159,54 +159,6 @@
     </div>
   </div>
 
-  <!-- Technical Features -->
-  <div class="mb-12">
-    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Technical Features</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-white border border-gray-200 rounded-lg p-5">
-        <div class="text-2xl mb-2">⚡</div>
-        <h3 class="font-semibold text-gray-900 mb-2">Standalone Components</h3>
-        <p class="text-sm text-gray-600">
-          Works with both standalone and NgModule-based Angular applications
-        </p>
-      </div>
-
-      <div class="bg-white border border-gray-200 rounded-lg p-5">
-        <div class="text-2xl mb-2">📦</div>
-        <h3 class="font-semibold text-gray-900 mb-2">Tree-Shakeable</h3>
-        <p class="text-sm text-gray-600">Import only what you need for optimal bundle size</p>
-      </div>
-
-      <div class="bg-white border border-gray-200 rounded-lg p-5">
-        <div class="text-2xl mb-2">🔒</div>
-        <h3 class="font-semibold text-gray-900 mb-2">TypeScript First</h3>
-        <p class="text-sm text-gray-600">Comprehensive type definitions and interfaces included</p>
-      </div>
-
-      <div class="bg-white border border-gray-200 rounded-lg p-5">
-        <div class="text-2xl mb-2">♿</div>
-        <h3 class="font-semibold text-gray-900 mb-2">Accessibility</h3>
-        <p class="text-sm text-gray-600">
-          WCAG 2.1 AA compliant with keyboard navigation and ARIA labels
-        </p>
-      </div>
-
-      <div class="bg-white border border-gray-200 rounded-lg p-5">
-        <div class="text-2xl mb-2">📱</div>
-        <h3 class="font-semibold text-gray-900 mb-2">Responsive Design</h3>
-        <p class="text-sm text-gray-600">Mobile-friendly with touch support and adaptive layouts</p>
-      </div>
-
-      <div class="bg-white border border-gray-200 rounded-lg p-5">
-        <div class="text-2xl mb-2">🎯</div>
-        <h3 class="font-semibold text-gray-900 mb-2">Zero Dependencies</h3>
-        <p class="text-sm text-gray-600">
-          No external date libraries required - pure Angular implementation
-        </p>
-      </div>
-    </div>
-  </div>
-
   <!-- Display Modes -->
   <div class="mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Display Modes</h2>
@@ -256,9 +208,9 @@
       Complete reference for all component inputs, outputs, and configuration interfaces.
     </p>
 
-    <!-- DatePicker API -->
+    <!-- Datepicker API -->
     <div class="mb-8">
-      <h3 class="text-xl font-semibold text-gray-900 mb-4">DatePicker Component</h3>
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Datepicker Component</h3>
       <div class="border border-gray-200 rounded-lg overflow-hidden">
         <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
           <h4 class="font-semibold text-gray-900">Inputs</h4>
@@ -284,7 +236,9 @@
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
                 <td class="px-4 py-2 font-mono text-xs">ChronicaCalendarConfig</td>
                 <td class="px-4 py-2 text-xs">DEFAULT_CALENDAR_CONFIG</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Configuration object for calendar behavior</td>
+                <td class="px-4 py-2 text-xs text-gray-600">
+                  Configuration object for calendar behavior
+                </td>
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
@@ -314,7 +268,9 @@
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">hideInput</td>
                 <td class="px-4 py-2 font-mono text-xs">boolean</td>
                 <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Hide the input field (custom trigger)</td>
+                <td class="px-4 py-2 text-xs text-gray-600">
+                  Hide the input field (custom trigger)
+                </td>
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
@@ -345,7 +301,9 @@
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-blue-600">monthChanged</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;&#123;month: number; year: number&#125;&gt;</td>
+                <td class="px-4 py-2 font-mono text-xs">
+                  EventEmitter&lt;&#123;month: number; year: number&#125;&gt;
+                </td>
                 <td class="px-4 py-2 text-xs text-gray-600">Emitted when month/year changes</td>
               </tr>
               <tr>
@@ -529,7 +487,9 @@
             <tbody class="divide-y divide-gray-200">
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-blue-600">timeChange</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaTimeValue | null&gt;</td>
+                <td class="px-4 py-2 font-mono text-xs">
+                  EventEmitter&lt;ChronicaTimeValue | null&gt;
+                </td>
                 <td class="px-4 py-2 text-xs text-gray-600">Emitted when time changes</td>
               </tr>
             </tbody>
@@ -616,7 +576,9 @@
             <tbody class="divide-y divide-gray-200">
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-blue-600">durationChange</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaDurationValue | null&gt;</td>
+                <td class="px-4 py-2 font-mono text-xs">
+                  EventEmitter&lt;ChronicaDurationValue | null&gt;
+                </td>
                 <td class="px-4 py-2 text-xs text-gray-600">Emitted when duration changes</td>
               </tr>
             </tbody>
@@ -651,7 +613,9 @@
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">colorTheme</td>
-                <td class="px-4 py-2 font-mono text-xs">'blue' | 'green' | 'purple' | 'red' | 'orange' | 'teal' | 'pink' | 'indigo'</td>
+                <td class="px-4 py-2 font-mono text-xs">
+                  'blue' | 'green' | 'purple' | 'red' | 'orange' | 'teal' | 'pink' | 'indigo'
+                </td>
                 <td class="px-4 py-2 text-xs text-gray-600">Color theme for primary colors</td>
               </tr>
               <tr>
@@ -672,7 +636,9 @@
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">firstDayOfWeek</td>
                 <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">First day of week (0=Sunday, 1=Monday)</td>
+                <td class="px-4 py-2 text-xs text-gray-600">
+                  First day of week (0=Sunday, 1=Monday)
+                </td>
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">showTodayButton</td>
@@ -712,7 +678,9 @@
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">format24Hour</td>
                 <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Use 24-hour format (true) or 12-hour with AM/PM (false)</td>
+                <td class="px-4 py-2 text-xs text-gray-600">
+                  Use 24-hour format (true) or 12-hour with AM/PM (false)
+                </td>
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">showSeconds</td>
@@ -722,7 +690,9 @@
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">minuteStep</td>
                 <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Minute step increment (e.g., 15 for 15-minute intervals)</td>
+                <td class="px-4 py-2 text-xs text-gray-600">
+                  Minute step increment (e.g., 15 for 15-minute intervals)
+                </td>
               </tr>
               <tr>
                 <td class="px-4 py-2 font-mono text-xs text-purple-600">secondStep</td>
@@ -805,7 +775,9 @@
           <h4 class="font-semibold text-gray-900">ChronicaTimeValue</h4>
         </div>
         <div class="p-4">
-          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaTimeValue</span> &#123;
+          <pre
+            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
+          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaTimeValue</span> &#123;
   <span class="text-cyan-300">hours</span>: <span class="text-blue-300">number</span>;      <span class="text-gray-500">// 0-23</span>
   <span class="text-cyan-300">minutes</span>: <span class="text-blue-300">number</span>;    <span class="text-gray-500">// 0-59</span>
   <span class="text-cyan-300">seconds</span>?: <span class="text-blue-300">number</span>;   <span class="text-gray-500">// 0-59 (optional)</span>
@@ -820,7 +792,9 @@
           <h4 class="font-semibold text-gray-900">ChronicaDurationValue</h4>
         </div>
         <div class="p-4">
-          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDurationValue</span> &#123;
+          <pre
+            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
+          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDurationValue</span> &#123;
   <span class="text-cyan-300">days</span>?: <span class="text-blue-300">number</span>;
   <span class="text-cyan-300">hours</span>?: <span class="text-blue-300">number</span>;
   <span class="text-cyan-300">minutes</span>?: <span class="text-blue-300">number</span>;
@@ -835,7 +809,9 @@
           <h4 class="font-semibold text-gray-900">ChronicaDateRange</h4>
         </div>
         <div class="p-4">
-          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateRange</span> &#123;
+          <pre
+            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
+          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateRange</span> &#123;
   <span class="text-cyan-300">startDate</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
   <span class="text-cyan-300">endDate</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
 &#125;</code></pre>
@@ -848,7 +824,9 @@
           <h4 class="font-semibold text-gray-900">ChronicaDateTimeValue</h4>
         </div>
         <div class="p-4">
-          <pre class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateTimeValue</span> &#123;
+          <pre
+            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
+          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateTimeValue</span> &#123;
   <span class="text-cyan-300">date</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
   <span class="text-cyan-300">time</span>: <span class="text-blue-300">ChronicaTimeValue</span> | <span class="text-orange-400">null</span>;
 &#125;</code></pre>
