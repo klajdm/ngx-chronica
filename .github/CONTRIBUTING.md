@@ -78,7 +78,7 @@ git clone https://github.com/YOUR_USERNAME/ngx-chronica.git
 cd ngx-chronica
 
 # Add upstream remote
-git remote add upstream https://github.com/yourusername/ngx-chronica.git
+git remote add upstream https://github.com/klajdm/ngx-chronica.git
 
 # Install dependencies
 npm install
@@ -120,12 +120,14 @@ ngx-chronica/
 ### Before Submitting
 
 1. **Update your fork** with the latest changes from upstream:
+
    ```bash
    git fetch upstream
    git rebase upstream/main
    ```
 
 2. **Create a feature branch**:
+
    ```bash
    git checkout -b feature/amazing-feature
    ```
@@ -292,10 +294,10 @@ describe('ChronicaDatepickerComponent', () => {
       // Arrange
       const component = createComponent();
       const spy = jest.spyOn(component.dateSelected, 'emit');
-      
+
       // Act
       component.selectDate(15);
-      
+
       // Assert
       expect(spy).toHaveBeenCalledWith(expect.any(Date));
     });
@@ -395,14 +397,14 @@ npm run build:lib -- --watch
 
 Contributors will be:
 
-- Listed in the [Contributors](https://github.com/yourusername/ngx-chronica/graphs/contributors) page
+- Listed in the [Contributors](https://github.com/klajdm/ngx-chronica/graphs/contributors) page
 - Mentioned in release notes
 - Added to the README acknowledgments section
 
 ## 📞 Getting Help
 
-- 💬 [GitHub Discussions](https://github.com/yourusername/ngx-chronica/discussions) - Ask questions
-- 🐛 [Issue Tracker](https://github.com/yourusername/ngx-chronica/issues) - Report bugs
+- 💬 [GitHub Discussions](https://github.com/klajdm/ngx-chronica/discussions) - Ask questions
+- 🐛 [Issue Tracker](https://github.com/klajdm/ngx-chronica/issues) - Report bugs
 - 📚 [Documentation](https://ngx-chronica.vercel.app) - Read guides
 
 ## 📄 License
