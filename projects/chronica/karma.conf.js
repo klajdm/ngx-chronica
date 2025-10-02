@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../../coverage/nga-inline-calendar'),
+      dir: require('path').join(__dirname, '../../coverage/ngx-chronica'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'text-summary' }],
     },
