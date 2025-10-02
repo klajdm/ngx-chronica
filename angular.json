@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-chronica": {
+    "chronica": {
       "projectType": "library",
       "root": "projects/chronica",
       "sourceRoot": "projects/chronica/src",
-      "prefix": "aic",
+      "prefix": "chronica",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -39,7 +39,7 @@
         }
       }
     },
-    "chronica": {
+    "chronica-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -88,10 +88,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "chronica:build:production"
+              "buildTarget": "chronica-demo:build:production"
             },
             "development": {
-              "buildTarget": "chronica:build:development"
+              "buildTarget": "chronica-demo:build:development"
             }
           },
           "defaultConfiguration": "development"

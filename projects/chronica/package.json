@@ -1,19 +1,26 @@
 {
   "name": "ngx-chronica",
   "version": "1.0.0",
-  "description": "A lightweight, customizable inline calendar component for Angular applications",
+  "description": "Complete Angular date & time component library featuring Calendar, Date Range, Time Picker, and Duration Picker. Fill the gaps in Angular Material with 8 themes and dark mode support.",
   "main": "index.js",
   "types": "index.d.ts",
+  "sideEffects": false,
   "keywords": [
     "angular",
     "angular-calendar",
     "chronica",
     "calendar",
-    "inline-calendar",
-    "inline",
     "date-picker",
+    "time-picker",
+    "duration-picker",
+    "date-range",
+    "datetime-picker",
+    "angular-material",
     "component",
-    "ui"
+    "ui",
+    "typescript",
+    "standalone",
+    "forms"
   ],
   "author": "Klajdi Murataj <klajdimurati3@gmail.com>",
   "license": "MIT",
@@ -27,6 +34,12 @@
   "homepage": "https://ngx-chronica.vercel.app",
   "peerDependencies": {
     "@angular/common": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
+    "@angular/core": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/cdk": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/forms": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/klajdm"
   }
 }
