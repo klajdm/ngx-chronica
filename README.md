@@ -6,9 +6,9 @@
   <p>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/v/ngx-chronica.svg?style=flat-square" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/dm/ngx-chronica.svg?style=flat-square" alt="npm downloads"></a>
-    <a href="https://github.com/yourusername/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg?style=flat-square" alt="license"></a>
+    <a href="https://github.com/klajdm/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg?style=flat-square" alt="license"></a>
     <a href="https://angular.io"><img src="https://img.shields.io/badge/Angular-15%2B-DD0031?style=flat-square&logo=angular" alt="Angular 15+"></a>
-    <a href="https://github.com/yourusername/ngx-chronica/stargazers"><img src="https://img.shields.io/github/stars/yourusername/ngx-chronica?style=flat-square" alt="GitHub stars"></a>
+    <a href="https://github.com/klajdm/ngx-chronica/stargazers"><img src="https://img.shields.io/github/stars/klajdm/ngx-chronica?style=flat-square" alt="GitHub stars"></a>
   </p>
   
   <p>
@@ -18,18 +18,18 @@
     <a href="#-contributing"><strong>🤝 Contributing</strong></a>
   </p>
   
-  <img src="https://raw.githubusercontent.com/yourusername/ngx-chronica/main/docs/demo-screenshot.png" alt="NGX-Chronica Demo" width="800" />
+  <img src="https://raw.githubusercontent.com/klajdm/ngx-chronica/main/docs/demo-screenshot.png" alt="NGX-Chronica Demo" width="800" />
 </div>
 
 ---
 
 ## 🌟 Overview
 
-**NGX-Chronica** is a comprehensive Angular library that fills critical gaps in the Angular Material ecosystem by providing **6 specialized date and time picker components**. Built with modern Angular practices, full TypeScript support, and zero external dependencies.
+**NGX-Chronica** is a comprehensive Angular library providing **6 specialized date and time picker components** that fill critical gaps in the Angular ecosystem. Built with modern Angular practices, full TypeScript support, and zero external dependencies.
 
 ### 🎯 Why NGX-Chronica?
 
-Angular Material lacks native **Time Picker**, **DateTime Picker**, and **Duration Picker** components. This library addresses that gap with production-ready components that are:
+The Angular ecosystem lacks robust, production-ready **Date &Time Picker** components. NGX-Chronica addresses these gaps with components that are:
 
 - ✅ **Battle-Tested** - Used in production applications
 - ✅ **Zero Dependencies** - No Moment.js, date-fns, or other heavy libraries
@@ -40,14 +40,14 @@ Angular Material lacks native **Time Picker**, **DateTime Picker**, and **Durati
 
 ## 📦 Components
 
-| Component | Description | Key Features |
-|-----------|-------------|--------------|
-| **DatePicker** | Single date selection with popup | Min/max dates, disabled dates, locale support |
-| **DateRange** | Start/end date selection | Hover preview, quick presets, validation |
-| **InlineCalendar** | Always-visible calendar | Embedded display, no popup overhead |
-| **TimePicker** | Time selection (12h/24h) | Step intervals, min/max time, seconds support |
-| **DateTimePicker** | Combined date + time | Unified interface, flexible layout |
-| **DurationPicker** | Time span selection | Days/hours/minutes/seconds, preset durations |
+| Component          | Description                      | Key Features                                  |
+| ------------------ | -------------------------------- | --------------------------------------------- |
+| **DatePicker**     | Single date selection with popup | Min/max dates, disabled dates, locale support |
+| **DateRange**      | Start/end date selection         | Hover preview, quick presets, validation      |
+| **InlineCalendar** | Always-visible calendar          | Embedded display, no popup overhead           |
+| **TimePicker**     | Time selection (12h/24h)         | Step intervals, min/max time, seconds support |
+| **DateTimePicker** | Combined date + time             | Unified interface, flexible layout            |
+| **DurationPicker** | Time span selection              | Days/hours/minutes/seconds, preset durations  |
 
 ## ✨ Key Features
 
@@ -84,11 +84,11 @@ import { ChronicaDatepickerComponent } from 'ngx-chronica';
       [config]="{ colorTheme: 'blue', theme: 'light' }"
       (dateSelected)="onDateSelected($event)"
     />
-  `
+  `,
 })
 export class ExampleComponent {
   selectedDate: Date | null = new Date();
-  
+
   onDateSelected(date: Date) {
     console.log('Selected:', date);
   }
@@ -129,7 +129,7 @@ ngx-chronica/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ngx-chronica.git
+git clone https://github.com/klajdm/ngx-chronica.git
 cd ngx-chronica
 
 # Install dependencies
@@ -189,18 +189,20 @@ All picker components follow this pattern:
 ```typescript
 @Component({
   standalone: true,
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Component), multi: true }],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Component), multi: true },
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaComponent implements ControlValueAccessor, OnInit, OnDestroy {
   // Angular CDK Overlay for popups
   private overlayRef: OverlayRef | null = null;
-  
+
   // ControlValueAccessor implementation
-  writeValue(value: T): void { }
-  registerOnChange(fn: any): void { }
-  registerOnTouched(fn: any): void { }
-  setDisabledState(isDisabled: boolean): void { }
+  writeValue(value: T): void {}
+  registerOnChange(fn: any): void {}
+  registerOnTouched(fn: any): void {}
+  setDisabledState(isDisabled: boolean): void {}
 }
 ```
 
@@ -210,8 +212,8 @@ We welcome contributions! Here's how you can help:
 
 ### Ways to Contribute
 
-- 🐛 **Report Bugs** - [Open an issue](https://github.com/yourusername/ngx-chronica/issues)
-- 💡 **Suggest Features** - [Start a discussion](https://github.com/yourusername/ngx-chronica/discussions)
+- 🐛 **Report Bugs** - [Open an issue](https://github.com/klajdm/ngx-chronica/issues)
+- 💡 **Suggest Features** - [Start a discussion](https://github.com/klajdm/ngx-chronica/discussions)
 - 📝 **Improve Docs** - Fix typos, add examples
 - 🔧 **Submit PRs** - Fix bugs, add features
 - ⭐ **Star the Repo** - Show your support!
@@ -283,7 +285,7 @@ ci(github): add automated testing
 - 📦 Smaller bundle size optimizations
 - 🧪 Comprehensive E2E test suite
 
-**[Vote on features](https://github.com/yourusername/ngx-chronica/discussions/categories/feature-requests)**
+**[Vote on features](https://github.com/klajdm/ngx-chronica/discussions/categories/feature-requests)**
 
 ## 📈 Performance
 
@@ -296,62 +298,28 @@ NGX-Chronica is optimized for performance:
 - **No External Dependencies** - Zero runtime dependencies
 - **Virtual Scrolling** - Efficient rendering for large lists
 
-### Bundle Size Comparison
-
-| Library | DatePicker | TimePicker | Total |
-|---------|-----------|-----------|-------|
-| **NGX-Chronica** | 15KB | 12KB | 45KB |
-| Angular Material | 25KB | N/A | 25KB |
-| ng-bootstrap | 30KB | N/A | 30KB |
-| PrimeNG | 40KB | 35KB | 75KB |
-
-*All sizes gzipped*
-
-## 🌐 Browser & Angular Support
-
-### Browser Compatibility
-
-| Browser | Version |
-|---------|---------|
-| Chrome | Latest 2 versions |
-| Firefox | Latest 2 versions |
-| Safari | Latest 2 versions |
-| Edge | Latest 2 versions |
-| iOS Safari | 12+ |
-| Chrome Android | Latest |
-
 ### Angular Version Support
 
-| Angular | NGX-Chronica | Status |
-|---------|--------------|--------|
-| 15.x | 1.x | ✅ Supported |
-| 16.x | 1.x | ✅ Supported |
-| 17.x | 1.x | ✅ Supported |
-| 18.x | 1.x | ✅ Supported |
-| 19.x | 1.x | ✅ Supported |
+| Angular | NGX-Chronica | Status       |
+| ------- | ------------ | ------------ |
+| 15.x    | 1.x          | ✅ Supported |
+| 16.x    | 1.x          | ✅ Supported |
+| 17.x    | 1.x          | ✅ Supported |
+| 18.x    | 1.x          | ✅ Supported |
+| 19.x    | 1.x          | ✅ Supported |
 
 ## 📄 License
 
 MIT License - see [LICENSE](./LICENSE) file for details.
 
-Copyright (c) 2025 NGX-Chronica Contributors
-
-## 🙏 Acknowledgments
-
-- Inspired by Angular Material's design principles
-- Built with Angular CDK for robust overlay management
-- Community feedback from GitHub issue #29046
-- Thanks to all [contributors](https://github.com/yourusername/ngx-chronica/graphs/contributors)
-
 ## 🔗 Links & Resources
 
 - 📚 **[Documentation](https://ngx-chronica.vercel.app)** - Full API docs and examples
-- 🚀 **[Getting Started](https://ngx-chronica.vercel.app/getting-started)** - Quick start guide
-- 🐛 **[Issue Tracker](https://github.com/yourusername/ngx-chronica/issues)** - Report bugs
-- 💬 **[Discussions](https://github.com/yourusername/ngx-chronica/discussions)** - Ask questions
+- 🚀 **[Getting Started](https://ngx-chronica.vercel.app/start)** - Quick start guide
+- 🐛 **[Issue Tracker](https://github.com/klajdm/ngx-chronica/issues)** - Report bugs
+- 💬 **[Discussions](https://github.com/klajdm/ngx-chronica/discussions)** - Ask questions
 - 📦 **[npm Package](https://www.npmjs.com/package/ngx-chronica)** - Install via npm
-- 📝 **[Changelog](https://github.com/yourusername/ngx-chronica/blob/main/CHANGELOG.md)** - Release notes
-- 🤝 **[Contributing](https://github.com/yourusername/ngx-chronica/blob/main/CONTRIBUTING.md)** - Contribution guide
+- 🤝 **[Contributing](https://github.com/klajdm/ngx-chronica/blob/main/CONTRIBUTING.md)** - Contribution guide
 
 ## ⭐ Show Your Support
 
@@ -369,11 +337,7 @@ If NGX-Chronica helps your project, please consider:
   <p><strong>Made with ❤️ for the Angular community</strong></p>
   <p>
     <a href="https://ngx-chronica.vercel.app">Documentation</a> •
-    <a href="https://github.com/yourusername/ngx-chronica">GitHub</a> •
+    <a href="https://github.com/klajdm/ngx-chronica">GitHub</a> •
     <a href="https://www.npmjs.com/package/ngx-chronica">npm</a> •
-    <a href="https://twitter.com/ngxchronica">Twitter</a>
-  </p>
-  <p>
-    <sub>Built by developers, for developers</sub>
   </p>
 </div>
