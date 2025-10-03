@@ -7,18 +7,16 @@
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/v/ngx-chronica.svg?style=flat-square" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/dm/ngx-chronica.svg?style=flat-square" alt="npm downloads"></a>
     <a href="https://github.com/klajdm/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg?style=flat-square" alt="license"></a>
-    <a href="https://angular.io"><img src="https://img.shields.io/badge/Angular-15%2B-DD0031?style=flat-square&logo=angular" alt="Angular 15+"></a>
+    <a href="https://angular.io"><img src="https://img.shields.io/badge/Angular-20%2B-green.svg" alt="Angular 20+"></a>
     <a href="https://github.com/klajdm/ngx-chronica/stargazers"><img src="https://img.shields.io/github/stars/klajdm/ngx-chronica?style=flat-square" alt="GitHub stars"></a>
   </p>
   
   <p>
-    <a href="https://ngx-chronica.vercel.app"><strong>📚 Documentation</strong></a> •
+    <a href="https://ngx-chronica.vercel.app/documentation"><strong>📚 Documentation</strong></a> •
     <a href="https://ngx-chronica.vercel.app/start"><strong>🚀 Quick Start</strong></a> •
     <a href="#-components"><strong>📦 Components</strong></a> •
     <a href="#-contributing"><strong>🤝 Contributing</strong></a>
   </p>
-  
-  <img src="https://raw.githubusercontent.com/klajdm/ngx-chronica/main/docs/demo-screenshot.png" alt="NGX-Chronica Demo" width="800" />
 </div>
 
 ---
@@ -314,30 +312,15 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 
 ## 🔗 Links & Resources
 
-- 📚 **[Documentation](https://ngx-chronica.vercel.app)** - Full API docs and examples
+- 📚 **[Documentation](https://ngx-chronica.vercel.app/documentation)** - Full API docs and examples
 - 🚀 **[Getting Started](https://ngx-chronica.vercel.app/start)** - Quick start guide
 - 🐛 **[Issue Tracker](https://github.com/klajdm/ngx-chronica/issues)** - Report bugs
 - 💬 **[Discussions](https://github.com/klajdm/ngx-chronica/discussions)** - Ask questions
 - 📦 **[npm Package](https://www.npmjs.com/package/ngx-chronica)** - Install via npm
 - 🤝 **[Contributing](https://github.com/klajdm/ngx-chronica/blob/main/CONTRIBUTING.md)** - Contribution guide
 
-## ⭐ Show Your Support
-
-If NGX-Chronica helps your project, please consider:
-
-- ⭐ **Star this repository** on GitHub
-- 🐦 **Share on Twitter** with #ngxchronica
-- 📝 **Write a blog post** about your experience
-- 💬 **Recommend to colleagues** who use Angular
-- 🤝 **Contribute** code, docs, or ideas
-
 ---
 
 <div align="center">
   <p><strong>Made with ❤️ for the Angular community</strong></p>
-  <p>
-    <a href="https://ngx-chronica.vercel.app">Documentation</a> •
-    <a href="https://github.com/klajdm/ngx-chronica">GitHub</a> •
-    <a href="https://www.npmjs.com/package/ngx-chronica">npm</a> •
-  </p>
 </div>
