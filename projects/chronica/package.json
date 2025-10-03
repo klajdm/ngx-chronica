@@ -1,7 +1,7 @@
 {
   "name": "ngx-chronica",
   "version": "1.0.0",
-  "description": "Complete Angular date & time component library featuring Calendar, Date Range, Time Picker, and Duration Picker. Fill the gaps in Angular Material with 8 themes and dark mode support.",
+  "description": "Complete Angular date & time component library featuring Calendar, Date Range, Time Picker, and Duration Picker. Fill the gaps in Angular ecosystem with 8 themes and dark mode support.",
   "main": "index.js",
   "types": "index.d.ts",
   "sideEffects": false,
@@ -15,7 +15,6 @@
     "duration-picker",
     "date-range",
     "datetime-picker",
-    "angular-material",
     "component",
     "ui",
     "typescript",
