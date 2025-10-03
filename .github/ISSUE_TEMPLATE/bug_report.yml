@@ -95,7 +95,7 @@ body:
     attributes:
       label: NGX-Chronica Version
       description: Which version of NGX-Chronica are you using?
-      placeholder: '1.1.1'
+      placeholder: '1.1.4'
     validations:
       required: true
 
