@@ -6,7 +6,6 @@
   <p>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/v/ngx-chronica.svg?style=flat-square" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/dm/ngx-chronica.svg?style=flat-square" alt="npm downloads"></a>
-    <a href="https://github.com/klajdm/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg?style=flat-square" alt="license"></a>
     <a href="https://angular.io"><img src="https://img.shields.io/badge/Angular-20%2B-green.svg" alt="Angular 20+"></a>
     <a href="https://github.com/klajdm/ngx-chronica/stargazers"><img src="https://img.shields.io/github/stars/klajdm/ngx-chronica?style=flat-square" alt="GitHub stars"></a>
   </p>
