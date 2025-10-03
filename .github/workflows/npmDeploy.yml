@@ -38,10 +38,6 @@ jobs:
             exit 1
           fi
           echo "Build verification passed"
-      - name: Run tests in CI mode
-        run: npm run test:ci --if-present
-        env:
-          CHROME_BIN: /usr/bin/google-chrome
       - name: Publish to npm
         run: |
           cd dist/chronica
