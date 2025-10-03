@@ -128,7 +128,7 @@
       <!-- Calendar Preview: centered -->
       <div class="flex justify-center mt-6">
         <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
-          <chronica-inline-calendar [selectedDate]="previewSelectedDate"
+          <chronica-inline-calendar [selectedDate]="previewSelectedDate"  [config]="previewBasicConfig()"
             (dateSelected)="onPreviewDateSelected($event)"></chronica-inline-calendar>
 
           <p class="text-xs text-gray-500 mt-3 text-center" *ngIf="previewSelectedDate">
