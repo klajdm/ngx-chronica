@@ -1,8 +1,11 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChronicaInlineCalendarComponent } from '../../../../../projects/chronica/src/public-api';
+import {
+  ChronicaCalendarConfig,
+  ChronicaInlineCalendarComponent,
+  DEFAULT_CALENDAR_CONFIG,
+} from '../../../../../projects/chronica/src/public-api';
 import { ThemeService } from '../../../services/theme.service';
-import { ChronicaCalendarConfig, DEFAULT_CALENDAR_CONFIG } from '../../../../../dist/chronica';
 
 @Component({
   selector: 'app-introduction',
