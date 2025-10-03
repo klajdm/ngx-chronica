@@ -68,7 +68,7 @@ body:
     id: chronica-version
     attributes:
       label: NGX-Chronica Version
-      placeholder: '1.1.1'
+      placeholder: '1.1.4'
 
   - type: textarea
     id: additional
