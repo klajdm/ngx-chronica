@@ -1,12 +1,10 @@
 <div align="center">
-   <img src="./assets/logo.png" alt="ngx-chronica logo" width="120" height="120" />
    <h1>🗓️ NGX-Chronica</h1>
    <p><strong>Complete Date & Time Picker Suite for Angular</strong></p>
    
   <p>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/v/ngx-chronica.svg" alt="npm version"></a>
     <a href="https://www.npmjs.com/package/ngx-chronica"><img src="https://img.shields.io/npm/dm/ngx-chronica.svg" alt="npm downloads"></a>
-    <a href="https://github.com/klajdm/ngx-chronica/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/ngx-chronica.svg" alt="license"></a>
     <a href="https://angular.io"><img src="https://img.shields.io/badge/Angular-20%2B-green.svg" alt="Angular 20+"></a>
   </p>
   <p>

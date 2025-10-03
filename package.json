@@ -1,6 +1,6 @@
 {
   "name": "ngx-chronica",
-  "version": "1.0.0",
+  "version": "1.1.3",
   "description": "Complete Angular date & time component library featuring Calendar, Date Range, Time Picker, and Duration Picker. Fill the gaps in Angular ecosystem with 8 themes and dark mode support.",
   "main": "dist/chronica/index.js",
   "types": "dist/chronica/index.d.ts",
@@ -17,7 +17,7 @@
     "test:ci": "ng test chronica --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint chronica",
     "pack": "npm run build:lib && npm pack dist/chronica",
-    "publish:npm": "npm run build:lib && npm publish dist/chronica"
+    "publish:npm": "npm run build:lib && cd dist/chronica && npm publish --access public"
   },
   "keywords": [
     "angular",
@@ -39,7 +39,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/klajdm/ngx-chronica.git"
+    "url": "git+https://github.com/klajdm/ngx-chronica.git"
   },
   "bugs": {
     "url": "https://github.com/klajdm/ngx-chronica/issues"
