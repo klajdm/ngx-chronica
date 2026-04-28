@@ -81,6 +81,22 @@ export class InlineCalendarDemoComponent {
     })
   );
 
+  // Decade view calendar (min/max spanning multiple years to showcase nav guards + decade view)
+  decadeViewSelectedDate: Date | null = null;
+  decadeViewConfig = computed(
+    (): ChronicaCalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+      minDate: new Date(2020, 0, 1),
+      maxDate: new Date(2029, 11, 31),
+    })
+  );
+
+  onDecadeViewDateSelected(date: Date): void {
+    this.decadeViewSelectedDate = date;
+  }
+
   onBasicDateSelected(date: Date): void {
     this.basicSelectedDate = date;
   }
