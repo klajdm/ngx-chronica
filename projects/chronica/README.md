@@ -26,7 +26,7 @@ The Angular ecosystem lacks robust, production-ready **Date & Time Picker** comp
 - ✅ **Production-Ready** - Battle-tested components with comprehensive validation
 - ✅ **Zero Dependencies** - No Moment.js or other heavy libraries
 - ✅ **Fully Typed** - Complete TypeScript definitions for excellent IDE support
-- ✅ **Accessible** - WCAG compliant with keyboard navigation and ARIA support
+- ✅ **Accessible** - WCAG 2.1 AA targeted: ARIA grid roles, focus-visible, reduced-motion, high-contrast
 - ✅ **Themeable** - 8 color themes + light/dark mode out of the box
 
 ## 📦 Components
@@ -35,7 +35,7 @@ The Angular ecosystem lacks robust, production-ready **Date & Time Picker** comp
 | ------------------ | -------------------------------- | ----------------------------------- |
 | **DatePicker**     | Single date selection with popup | Forms, filters, date inputs         |
 | **DateRange**      | Start/end date selection         | Booking systems, reports, analytics |
-| **InlineCalendar** | Always-visible calendar          | Dashboards, embedded calendars      |
+| **InlineCalendar** | Always-visible calendar with Month/Months/Year views | Dashboards, embedded calendars |
 | **TimePicker**     | Time selection (12h/24h)         | Appointments, schedules             |
 | **DateTimePicker** | Combined date + time             | Event scheduling, timestamps        |
 | **DurationPicker** | Time span selection              | Task estimation, timers             |
@@ -209,8 +209,9 @@ interface ChronicaTimeConfig {
 interface ChronicaDateTimeConfig {
   calendarConfig?: Partial<ChronicaCalendarConfig>;
   timeConfig?: Partial<ChronicaTimeConfig>;
-  layout?: 'inline' | 'popup' | 'tabs' | 'compact';
-  requireBoth?: boolean; // Both date and time required
+  layout?: 'inline' | 'tabs';
+  showSeparateInputs?: boolean; // Show separate date and time trigger buttons
+  requireBoth?: boolean; // Emit null until both date AND time are selected (default: true)
   allowClear?: boolean;
 }
 ```
@@ -423,6 +424,28 @@ export class AppModule {}
 | 17.x            | ✅ Supported         |
 | 18.x            | ✅ Supported         |
 | 19.x            | ✅ Supported         |
+| 20.x            | ✅ Supported         |
+
+## 🆕 What's New in v1.2.0
+
+- **DateTimePicker tabs layout** —  renders date and time in separate tabs with ARIA /- **DateTimePicker separate inputs** —  shows side-by-side date and time trigger buttons
+- **DateTimePicker ** —  emits a value even when only date or time is selected
+- **InlineCalendar multi-view** — click the month/year header to cycle: Month → Months (12-month grid) → Year (decade grid)
+- **InlineCalendar nav guards** — prev/next arrows disabled when / would be exceeded
+- ** input** — , , or  (default) in DatePicker and DateTimePicker
+- **Bug fixes** —  firstDayOfWeek, range highlight endpoints, backdrop memory leaks, and more
+- **Accessibility** — , , , , high-contrast support
+
+## 🆕 What's New in v1.2.0
+
+- **DateTimePicker tabs layout** — `config = { layout: 'tabs' }` renders date and time in separate tabs with ARIA `tablist`/`tabpanel`
+- **DateTimePicker separate inputs** — `config = { showSeparateInputs: true }` shows side-by-side date and time trigger buttons
+- **DateTimePicker `requireBoth`** — `config = { requireBoth: false }` emits a value even when only date or time is selected
+- **InlineCalendar multi-view** — click the month/year header to cycle: Month → Months (12-month grid) → Year (decade grid)
+- **InlineCalendar nav guards** — prev/next arrows disabled when `minDate`/`maxDate` would be exceeded
+- **`popupPosition` input** — `'top'`, `'bottom'`, or `'auto'` (default) in DatePicker and DateTimePicker
+- **Bug fixes** — `selectThisWeek` firstDayOfWeek, range highlight endpoints, backdrop memory leaks, and more
+- **Accessibility** — `role="grid"`, `aria-selected`, `:focus-visible`, `prefers-reduced-motion`, high-contrast support
 
 ## 🤝 Contributing
 
