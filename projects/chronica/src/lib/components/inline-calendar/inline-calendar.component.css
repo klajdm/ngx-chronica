@@ -142,6 +142,15 @@
   outline-offset: -2px;
 }
 
+.chronica-date-cell:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-date-cell:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .chronica-date-cell.chronica-today {
   font-weight: var(--chronica-date-cell-selected-font-weight, 700);
   color: var(--chronica-accent);
@@ -169,6 +178,105 @@
 
 .chronica-date-cell.chronica-weekend {
   color: var(--chronica-error, #ef4444);
+}
+
+/* Month-year header as interactive button */
+.chronica-month-year {
+  background: none;
+  border: none;
+  border-radius: var(--chronica-border-radius-md, 4px);
+  cursor: pointer;
+  padding: var(--chronica-spacing-xs, 4px) var(--chronica-spacing-sm, 8px);
+  color: inherit;
+}
+
+.chronica-month-year:hover {
+  background: var(--chronica-hover-background);
+}
+
+.chronica-month-year:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+/* Nav button focus-visible */
+.chronica-nav-btn:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-nav-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Months view: 12-month grid */
+.chronica-months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--chronica-spacing-xs, 4px);
+  padding: var(--chronica-spacing-sm, 8px) 0;
+}
+
+.chronica-month-cell {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--chronica-border-radius-md, 4px);
+  cursor: pointer;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-xs, 4px);
+  font-size: var(--chronica-font-size-sm, 12px);
+  color: var(--chronica-text-color);
+  text-align: center;
+  transition: background var(--chronica-transition-fast, 0.15s ease);
+}
+
+.chronica-month-cell:hover {
+  background: var(--chronica-hover-background);
+}
+
+.chronica-month-cell.chronica-selected {
+  background: var(--chronica-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.chronica-month-cell:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+/* Year view: decade grid of years */
+.chronica-year-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--chronica-spacing-xs, 4px);
+  padding: var(--chronica-spacing-sm, 8px) 0;
+}
+
+.chronica-year-cell {
+  background: none;
+  border: 1px solid var(--chronica-border-color);
+  border-radius: var(--chronica-border-radius-md, 4px);
+  cursor: pointer;
+  padding: var(--chronica-spacing-sm, 8px);
+  font-size: var(--chronica-font-size-sm, 12px);
+  color: var(--chronica-text-color);
+  text-align: center;
+  transition: background var(--chronica-transition-fast, 0.15s ease);
+}
+
+.chronica-year-cell:hover {
+  background: var(--chronica-hover-background);
+}
+
+.chronica-year-cell.chronica-selected {
+  background: var(--chronica-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.chronica-year-cell:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
 }
 
 /* Responsive adjustments */
