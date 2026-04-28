@@ -96,7 +96,7 @@ export interface ChronicaDateRange {
 /**
  * Calendar view modes
  */
-export type ChronicaCalendarView = 'month' | 'year' | 'decade';
+export type ChronicaCalendarView = 'month' | 'months' | 'year';
 
 /**
  * Calendar navigation event

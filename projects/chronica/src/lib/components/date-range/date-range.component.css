@@ -265,6 +265,37 @@
   color: white;
 }
 
+.chronica-date.chronica-weekend {
+  color: var(--chronica-error, #ef4444);
+}
+
+.chronica-date:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-date:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.chronica-nav-button:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-nav-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.chronica-quick-select-btn:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-quick-select-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Responsive styles */
 @media (max-width: 640px) {
   .chronica-date-range-popup {

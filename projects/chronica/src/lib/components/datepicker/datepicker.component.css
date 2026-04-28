@@ -217,6 +217,28 @@
   outline-offset: -2px;
 }
 
+.chronica-date:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-date:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.chronica-date.chronica-weekend {
+  color: var(--chronica-error, #ef4444);
+}
+
+.chronica-nav-button:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: 2px;
+}
+
+.chronica-nav-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Responsive popup sizing */
 @media (max-width: 640px) {
   .chronica-datepicker-popup {
