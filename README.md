@@ -31,7 +31,7 @@ The Angular ecosystem lacks robust, production-ready **Date &Time Picker** compo
 - ✅ **Battle-Tested** - Used in production applications
 - ✅ **Zero Dependencies** - No Moment.js, date-fns, or other heavy libraries
 - ✅ **Fully Typed** - Complete TypeScript definitions
-- ✅ **Accessible** - WCAG 2.1 AA compliant
+- ✅ **Accessible** - WCAG 2.1 AA targeted: ARIA grid roles, keyboard navigation, focus-visible, reduced-motion, high-contrast
 - ✅ **Themeable** - 8 color themes + dark mode
 - ✅ **i18n Ready** - 11 built-in locales + custom locale support
 
@@ -175,7 +175,7 @@ npm run e2e
 - **Standalone First** - All components are standalone by default
 - **Type Safety** - Comprehensive TypeScript interfaces
 - **Zero Dependencies** - No external date libraries
-- **Accessibility** - WCAG 2.1 AA compliant
+- **Accessibility** - WCAG 2.1 AA targeted: ARIA grid roles, keyboard navigation, focus-visible, reduced-motion, high-contrast
 - **Performance** - OnPush change detection, lazy loading
 - **Modularity** - Tree-shakeable exports
 
@@ -248,6 +248,36 @@ refactor(utils): extract date utilities
 ci(github): add automated testing
 ```
 
+## 🆕 What's New in v1.2.0
+
+### New Features
+
+- **DateTimePicker tabs layout** - `config = { layout: 'tabs' }` renders a tab-based date/time UI with ARIA `tablist`/`tabpanel` support
+- **DateTimePicker separate inputs** - `config = { showSeparateInputs: true }` renders side-by-side date and time trigger buttons
+- **DateTimePicker `requireBoth` validation** - `config = { requireBoth: false }` allows submitting a partial date-or-time-only value (default: `true`)
+- **InlineCalendar multi-view navigation** - click the month/year header to cycle through Month → Months (12-month grid) → Year (decade grid)
+- **InlineCalendar min/max nav guards** - previous/next month buttons are disabled when navigation would exceed `minDate`/`maxDate`
+- **`popupPosition` now respected** - `'top'`, `'bottom'`, and `'auto'` positions work in DatePicker and DateTimePicker
+
+### Bug Fixes
+
+- Fixed `selectThisWeek()` ignoring `config.firstDayOfWeek` in DateRange
+- Fixed date range `isInRange()` excluding start/end dates from the highlight
+- Fixed DateTimePicker resetting user value when config changes
+- Fixed DateTimePicker ignoring `locale.dateFormat` (was using `Intl.DateTimeFormat`)
+- Fixed `getDayNames()` mutating the source array via `splice`
+- Fixed backdrop subscription memory leak in all 5 popup components
+- Fixed circular import in `chronica.module.ts`
+
+### Accessibility Improvements
+
+- Added `role="grid"`, `role="gridcell"`, `role="columnheader"` to all calendar grids
+- Added `:focus-visible` outline styles (no outline on mouse click) across all components
+- Added `aria-selected`, `aria-disabled`, and descriptive `aria-label` to date cells
+- Added `prefers-reduced-motion` support - all transitions disabled when requested
+- Added `prefers-contrast: more` high-contrast variable overrides
+- Added colorblind-safe weekend indicator (small dot below the date number)
+
 ## 📊 Roadmap
 
 ### Current Version (v1.x)
@@ -293,7 +323,6 @@ NGX-Chronica is optimized for performance:
 - **Lazy Loading** - Components load on demand
 - **Small Bundle Size** - ~15KB per component (gzipped)
 - **No External Dependencies** - Zero runtime dependencies
-- **Virtual Scrolling** - Efficient rendering for large lists
 
 ### Angular Version Support
 
@@ -304,6 +333,7 @@ NGX-Chronica is optimized for performance:
 | 17.x    | 1.x          | ✅ Supported |
 | 18.x    | 1.x          | ✅ Supported |
 | 19.x    | 1.x          | ✅ Supported |
+| 20.x    | 1.x          | ✅ Supported |
 
 ## 📄 License
 
