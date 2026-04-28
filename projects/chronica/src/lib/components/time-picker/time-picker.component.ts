@@ -18,12 +18,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
   ChronicaTimeConfig,
   ChronicaTimeValue,
   DEFAULT_TIME_CONFIG,
   ChronicaLocale,
 } from '../../models/index';
+import { ChronicaTimeUtils } from '../../utils/time.utils';
 
 export interface TimePickerConfig extends Partial<ChronicaTimeConfig> {
   format24Hour?: boolean;
@@ -75,6 +78,7 @@ export class ChronicaTimePickerComponent
   private _timeValue: ChronicaTimeValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
+  private destroy$ = new Subject<void>();
 
   // Time selection state
   selectedHour = 0;
@@ -112,8 +116,8 @@ export class ChronicaTimePickerComponent
   private initializeTimeLists(): void {
     // Initialize hours
     this.hours = [];
-    const maxHour = this.config.format24Hour ? 23 : 12;
-    const minHour = this.config.format24Hour ? 0 : 1;
+    const maxHour = this.isFormat24Hour ? 23 : 12;
+    const minHour = this.isFormat24Hour ? 0 : 1;
 
     for (let i = minHour; i <= maxHour; i++) {
       this.hours.push(i);
@@ -162,7 +166,7 @@ export class ChronicaTimePickerComponent
   }
 
   private updateSelectedTime(time: ChronicaTimeValue): void {
-    if (this.config.format24Hour) {
+    if (this.isFormat24Hour) {
       this.selectedHour = time.hours;
     } else {
       // Convert 24-hour to 12-hour format
@@ -187,11 +191,16 @@ export class ChronicaTimePickerComponent
 
   private resetToCurrentTime(): void {
     const now = new Date();
-    const currentTime: ChronicaTimeValue = {
+    let currentTime: ChronicaTimeValue = {
       hours: now.getHours(),
       minutes: now.getMinutes(),
       seconds: now.getSeconds(),
     };
+    if (this.minTime && !this.isTimeValid(currentTime)) {
+      currentTime = { ...this.minTime };
+    } else if (this.maxTime && !this.isTimeValid(currentTime)) {
+      currentTime = { ...this.maxTime };
+    }
     this.updateSelectedTime(currentTime);
   }
 
@@ -218,7 +227,7 @@ export class ChronicaTimePickerComponent
   private updateTimeValue(): void {
     let hours = this.selectedHour;
 
-    if (!this.config.format24Hour) {
+    if (!this.isFormat24Hour) {
       // Convert 12-hour to 24-hour format
       if (this.selectedPeriod === 'AM' && hours === 12) {
         hours = 0;
@@ -282,25 +291,14 @@ export class ChronicaTimePickerComponent
     return this._timeValue;
   }
 
+  get isFormat24Hour(): boolean {
+    if (this.config.format24Hour !== undefined) return this.config.format24Hour;
+    return this.config.timeFormat !== '12h';
+  }
+
   get formattedTime(): string {
     if (!this._timeValue) return '';
-
-    const { hours, minutes, seconds } = this._timeValue;
-
-    if (this.config.format24Hour) {
-      const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-      return this.config.showSeconds
-        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
-        : timeStr;
-    } else {
-      const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
-      const period = hours < 12 ? 'AM' : 'PM';
-      const timeStr = `${displayHour}:${minutes.toString().padStart(2, '0')}`;
-      const fullTimeStr = this.config.showSeconds
-        ? `${timeStr}:${(seconds || 0).toString().padStart(2, '0')}`
-        : timeStr;
-      return `${fullTimeStr} ${period}`;
-    }
+    return ChronicaTimeUtils.formatTime(this._timeValue, this.isFormat24Hour ? '24h' : '12h');
   }
 
   get colorThemeClass(): string {
@@ -346,9 +344,9 @@ export class ChronicaTimePickerComponent
     const portal = new TemplatePortal(this.timePickerTemplate, this.viewContainerRef);
     this.overlayRef.attach(portal);
 
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
+    this.overlayRef.backdropClick()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
     this.cdr.detectChanges();
@@ -366,6 +364,8 @@ export class ChronicaTimePickerComponent
 
   //#region Cleanup
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.overlayRef) {
       this.overlayRef.dispose();
     }
