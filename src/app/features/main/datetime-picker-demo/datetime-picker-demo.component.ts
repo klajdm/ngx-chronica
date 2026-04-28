@@ -95,6 +95,51 @@ export class DateTimePickerDemoComponent {
     })
   );
 
+  // Tabs layout
+  tabsDateTime: DateTimeValue | null = null;
+  tabsConfig = computed(
+    (): DateTimePickerConfig => ({
+      ...DEFAULT_DATETIME_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+      layout: 'tabs',
+    })
+  );
+
+  // Separate inputs
+  separateInputsDateTime: DateTimeValue | null = null;
+  separateInputsConfig = computed(
+    (): DateTimePickerConfig => ({
+      ...DEFAULT_DATETIME_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+      showSeparateInputs: true,
+    })
+  );
+
+  // requireBoth: false (allow partial value)
+  partialDateTime: DateTimeValue | null = null;
+  partialConfig = computed(
+    (): DateTimePickerConfig => ({
+      ...DEFAULT_DATETIME_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+      requireBoth: false,
+    })
+  );
+
+  onTabsDateTimeChanged(dateTime: DateTimeValue): void {
+    this.tabsDateTime = dateTime;
+  }
+
+  onSeparateInputsDateTimeChanged(dateTime: DateTimeValue): void {
+    this.separateInputsDateTime = dateTime;
+  }
+
+  onPartialDateTimeChanged(dateTime: DateTimeValue): void {
+    this.partialDateTime = dateTime;
+  }
+
   onBasicDateTimeChanged(dateTime: DateTimeValue): void {
     this.basicSelectedDateTime = dateTime;
   }
