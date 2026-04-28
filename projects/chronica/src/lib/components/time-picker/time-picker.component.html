@@ -44,7 +44,7 @@
       <div class="time-controls">
         <!-- Hours -->
         <div class="time-column">
-          <label class="time-column-label">{{ config.format24Hour ? 'Hours' : 'Hour' }}</label>
+          <label class="time-column-label">{{ isFormat24Hour ? 'Hours' : 'Hour' }}</label>
           <div class="time-scroll-container">
             <div
               *ngFor="let hour of hours"
@@ -52,7 +52,7 @@
               [class.selected]="hour === selectedHour"
               (click)="onHourChange(hour)"
             >
-              {{ config.format24Hour ? hour.toString().padStart(2, '0') : hour }}
+              {{ isFormat24Hour ? hour.toString().padStart(2, '0') : hour }}
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- AM/PM (if 12-hour format) -->
-        <div class="time-column" *ngIf="!config.format24Hour">
+        <div class="time-column" *ngIf="!isFormat24Hour">
           <label class="time-column-label">Period</label>
           <div class="time-scroll-container">
             <div

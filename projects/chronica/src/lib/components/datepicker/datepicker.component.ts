@@ -16,8 +16,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
   ChronicaMonth,
   ChronicaCalendarConfig,
@@ -69,6 +71,7 @@ export class ChronicaDatepickerComponent
   yearRange: number[] = [];
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
+  private destroy$ = new Subject<void>();
 
   @ViewChild('calendarTemplate', { static: true }) calendarTemplate!: TemplateRef<any>;
 
@@ -187,9 +190,6 @@ export class ChronicaDatepickerComponent
       this.updateSelectedDate();
     }
 
-    // Force change detection to ensure dropdown stays in sync
-    this.cdr.detectChanges();
-
     this.monthChanged.emit({ month: monthIndex, year: this.currentMonth.year });
     this.calendarEvent.emit({
       type: 'monthChange',
@@ -216,9 +216,6 @@ export class ChronicaDatepickerComponent
     if (this.selectedDate) {
       this.updateSelectedDate();
     }
-
-    // Force change detection to ensure dropdown stays in sync
-    this.cdr.detectChanges();
 
     this.monthChanged.emit({
       month: this.currentMonth.month,
@@ -293,6 +290,19 @@ export class ChronicaDatepickerComponent
     return false;
   }
 
+  isWeekend(day: number): boolean {
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    return ChronicaCalendarUtils.isWeekend(date);
+  }
+
+  getDateLabel(day: number): string {
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const locale = this.getCurrentLocale();
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    const monthName = locale.monthNames[date.getMonth()];
+    return `${dayName}, ${monthName} ${day}, ${date.getFullYear()}`;
+  }
+
   previousMonth(): void {
     if (this.isPreviousMonthDisabled()) return;
 
@@ -315,9 +325,6 @@ export class ChronicaDatepickerComponent
     if (this.selectedDate) {
       this.updateSelectedDate();
     }
-
-    // Force change detection to ensure dropdown stays in sync
-    this.cdr.detectChanges();
 
     this.monthChanged.emit(prev);
     this.calendarEvent.emit({
@@ -349,9 +356,6 @@ export class ChronicaDatepickerComponent
     if (this.selectedDate) {
       this.updateSelectedDate();
     }
-
-    // Force change detection to ensure dropdown stays in sync
-    this.cdr.detectChanges();
 
     this.monthChanged.emit(next);
     this.calendarEvent.emit({
@@ -398,9 +402,6 @@ export class ChronicaDatepickerComponent
 
     // Select today's date
     this.selectDate(today.getDate());
-
-    // Force change detection to ensure dropdown stays in sync
-    this.cdr.detectChanges();
 
     this.monthChanged.emit({
       month: todayMonth,
@@ -484,6 +485,14 @@ export class ChronicaDatepickerComponent
     return `chronica-${this.config.colorTheme || 'blue'}`;
   }
 
+  private getPositions(): ConnectedPosition[] {
+    const bottom: ConnectedPosition = { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 14 };
+    const top: ConnectedPosition = { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -14 };
+    if (this.popupPosition === 'bottom') return [bottom];
+    if (this.popupPosition === 'top') return [top];
+    return [bottom, top];
+  }
+
   //#region Popup management
   openPopup(): void {
     if (this.overlayRef) {
@@ -494,22 +503,7 @@ export class ChronicaDatepickerComponent
       positionStrategy: this.overlay
         .position()
         .flexibleConnectedTo(this.elementRef)
-        .withPositions([
-          {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top',
-            offsetY: 14,
-          },
-          {
-            originX: 'start',
-            originY: 'top',
-            overlayX: 'start',
-            overlayY: 'bottom',
-            offsetY: -14,
-          },
-        ]),
+        .withPositions(this.getPositions()),
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
@@ -528,10 +522,9 @@ export class ChronicaDatepickerComponent
       this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
     }
 
-    // Close popup when backdrop is clicked
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
+    this.overlayRef.backdropClick()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.closePopup());
   }
 
   closePopup(): void {
@@ -544,6 +537,8 @@ export class ChronicaDatepickerComponent
 
   //#region Cleanup
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.overlayRef) {
       this.overlayRef.dispose();
     }
