@@ -18,14 +18,16 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
-  ChronicaCalendarConfig,
+  ChronicaBaseConfig,
   ChronicaDurationValue,
   ChronicaLocale,
-  DEFAULT_CALENDAR_CONFIG,
+  DEFAULT_CHRONICA_CONFIG,
 } from '../../models/index';
 
-export interface DurationPickerConfig extends Partial<ChronicaCalendarConfig> {
+export interface DurationPickerConfig extends Partial<ChronicaBaseConfig> {
   showDays?: boolean;
   showHours?: boolean;
   showMinutes?: boolean;
@@ -60,7 +62,7 @@ export class ChronicaDurationPickerComponent
 {
   // Use DEFAULT_CHRONICA_CONFIG spread as base for the duration picker config
   @Input() config: DurationPickerConfig = {
-    ...DEFAULT_CALENDAR_CONFIG,
+    ...DEFAULT_CHRONICA_CONFIG,
     showDays: false,
     showHours: true,
     showMinutes: true,
@@ -94,6 +96,7 @@ export class ChronicaDurationPickerComponent
   private _durationValue: ChronicaDurationValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
+  private destroy$ = new Subject<void>();
 
   // Duration selection state
   selectedDays = 0;
@@ -412,9 +415,9 @@ export class ChronicaDurationPickerComponent
     const portal = new TemplatePortal(this.durationPickerTemplate, this.viewContainerRef);
     this.overlayRef.attach(portal);
 
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
+    this.overlayRef.backdropClick()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
     this.cdr.detectChanges();
@@ -432,6 +435,8 @@ export class ChronicaDurationPickerComponent
 
   //#region Cleanup
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.overlayRef) {
       this.overlayRef.dispose();
     }

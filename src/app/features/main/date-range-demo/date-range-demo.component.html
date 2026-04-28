@@ -181,8 +181,8 @@
     <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
       <h3 class="text-xl font-semibold text-gray-800 mb-2">5. Quick Select Presets</h3>
       <p class="text-gray-600 mb-5 leading-relaxed">
-        Pre-defined date ranges for common selections like "Last 7 days", "This month", or "This
-        quarter".
+        Built-in quick-select buttons let users jump straight to common ranges - "This Week",
+        "Today", or "This Month" - without manually picking start and end dates.
       </p>
 
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
@@ -205,18 +205,18 @@
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
+        <pre
+          class="text-gray-200 text-sm"
+        ><code>&lt;!-- Quick select buttons (This Week / Today / This Month)
+     are built into the component - no extra config needed --&gt;
+&lt;chronica-date-range
   [(ngModel)]="presetRange"
   [config]="&#123;
     theme: 'light',
-    colorTheme: 'blue',
-    showPresets: true,
-    presets: [
-      &#123; label: 'Last 7 days', range: this.getLastNDays(7) &#125;,
-      &#123; label: 'Last 30 days', range: this.getLastNDays(30) &#125;,
-      &#123; label: 'This month', range: this.getCurrentMonth() &#125;
-    ]
-  &#125;"&gt;
+    colorTheme: 'blue'
+  &#125;"
+  placeholder="Select or use presets"
+  (dateRangeChange)="onPresetRangeChanged($event)"&gt;
 &lt;/chronica-date-range&gt;</code></pre>
       </div>
     </div>
