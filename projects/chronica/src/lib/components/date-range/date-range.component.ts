@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
@@ -60,7 +62,7 @@ export class ChronicaDateRangeComponent
   @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
-  private onChange = (value: ChronicaDateRange | null) => {};
+  private onChange = (_value: ChronicaDateRange | null) => {};
   private onTouched = () => {};
 
   // Calendar state
@@ -70,6 +72,7 @@ export class ChronicaDateRangeComponent
   yearRange: number[] = [];
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
+  private destroy$ = new Subject<void>();
 
   // Date range state
   private _dateRange: ChronicaDateRange = { startDate: null, endDate: null };
@@ -167,7 +170,6 @@ export class ChronicaDateRangeComponent
       this.currentMonth.year
     );
     this.generateMonth(prev.year, prev.month);
-    this.cdr.detectChanges();
   }
 
   nextMonth(): void {
@@ -178,7 +180,6 @@ export class ChronicaDateRangeComponent
       this.currentMonth.year
     );
     this.generateMonth(next.year, next.month);
-    this.cdr.detectChanges();
   }
 
   changeMonth(monthIndex: number): void {
@@ -186,7 +187,6 @@ export class ChronicaDateRangeComponent
       return;
     }
     this.generateMonth(this.currentMonth.year, monthIndex);
-    this.cdr.detectChanges();
   }
 
   changeYear(year: number | string): void {
@@ -194,7 +194,6 @@ export class ChronicaDateRangeComponent
     if (Number.isNaN(numericYear)) return;
 
     this.generateMonth(numericYear, this.currentMonth.month);
-    this.cdr.detectChanges();
   }
 
   isPreviousMonthDisabled(): boolean {
@@ -271,7 +270,7 @@ export class ChronicaDateRangeComponent
   isInRange(day: number): boolean {
     if (!this._dateRange.startDate || !this._dateRange.endDate) return false;
     const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
-    return date > this._dateRange.startDate && date < this._dateRange.endDate;
+    return date >= this._dateRange.startDate && date <= this._dateRange.endDate;
   }
 
   isInHoverRange(day: number): boolean {
@@ -318,7 +317,9 @@ export class ChronicaDateRangeComponent
   selectThisWeek(): void {
     const today = new Date();
     const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());
+    const firstDayOfWeek = this.config.firstDayOfWeek ?? 0;
+    const dayOffset = (today.getDay() - firstDayOfWeek + 7) % 7;
+    startOfWeek.setDate(today.getDate() - dayOffset);
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6);
 
@@ -464,9 +465,9 @@ export class ChronicaDateRangeComponent
     this.generateMonth(dateToShow.getFullYear(), dateToShow.getMonth());
     this._selectingStartDate = !this._dateRange.startDate || !this._dateRange.endDate;
 
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
+    this.overlayRef.backdropClick()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.closePopup());
 
     this.onTouched();
   }
@@ -481,6 +482,8 @@ export class ChronicaDateRangeComponent
 
   //#region Cleanup
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.overlayRef) {
       this.overlayRef.dispose();
     }

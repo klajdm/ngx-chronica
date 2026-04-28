@@ -369,3 +369,58 @@
     transform: translateY(0);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .datetime-picker-popup {
+    animation: none;
+  }
+}
+
+/* Separate inputs layout */
+.chronica-separate-inputs {
+  display: flex;
+  gap: var(--chronica-spacing-sm, 8px);
+}
+
+.chronica-separate-inputs .chronica-input-trigger {
+  flex: 1;
+}
+
+/* Tabs layout */
+.datetime-tab-strip {
+  display: flex;
+  border-bottom: 1px solid var(--chronica-border-color);
+  margin-bottom: var(--chronica-spacing-md, 12px);
+}
+
+.datetime-tab {
+  flex: 1;
+  padding: var(--chronica-spacing-sm, 8px) var(--chronica-spacing-md, 12px);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: var(--chronica-font-size-sm, 13px);
+  color: var(--chronica-text-color-secondary);
+  transition: color var(--chronica-transition-fast, 0.15s ease), border-color var(--chronica-transition-fast, 0.15s ease);
+}
+
+.datetime-tab.active {
+  color: var(--chronica-primary);
+  border-bottom-color: var(--chronica-primary);
+  font-weight: 600;
+}
+
+.datetime-tab:hover:not(.active) {
+  color: var(--chronica-text-color);
+  background: var(--chronica-hover-background);
+}
+
+.datetime-tab:focus-visible {
+  outline: 2px solid var(--chronica-primary);
+  outline-offset: -2px;
+}
+
+.datetime-tab:focus:not(:focus-visible) {
+  outline: none;
+}

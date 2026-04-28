@@ -84,6 +84,20 @@ export class DatepickerDemoComponent {
     })
   );
 
+  // Popup position datepicker
+  popupPositionDate: Date | null = null;
+  popupTopConfig = computed(
+    (): ChronicaCalendarConfig => ({
+      ...DEFAULT_CALENDAR_CONFIG,
+      theme: 'light',
+      colorTheme: this._themeService.currentTheme(),
+    })
+  );
+
+  onPopupPositionDateSelected(date: Date): void {
+    this.popupPositionDate = date;
+  }
+
   onDefaultDateSelected(date: Date): void {
     this.defaultSelectedDate = date;
   }
