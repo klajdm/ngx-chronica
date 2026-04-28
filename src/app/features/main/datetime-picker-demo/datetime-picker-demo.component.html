@@ -339,9 +339,130 @@
       </div>
     </div>
 
-    <!-- Demo 7: Dark Theme -->
+    <!-- Demo 7: Tabs Layout -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">7. Tabs Layout</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Set <code class="bg-gray-100 px-1 rounded text-sm font-mono">layout: 'tabs'</code> to render
+        the date calendar and time controls in separate tabs. Each tab panel has full ARIA
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">tablist</code> /
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">tabpanel</code> semantics for
+        screen reader support.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="tabsDateTime"
+          [config]="tabsConfig()"
+          [placeholder]="'Select date and time'"
+          (dateTimeChange)="onTabsDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        @if (tabsDateTime) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDateTimeDisplay(tabsDateTime) }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [(ngModel)]="tabsDateTime"
+  [config]="&#123;
+    layout: 'tabs',
+    theme: 'light',
+    colorTheme: 'blue'
+  &#125;"
+  (dateTimeChange)="onTabsDateTimeChanged($event)"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 8: Separate Inputs -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">8. Separate Inputs</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Set
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">showSeparateInputs: true</code> to
+        display distinct date and time trigger buttons side by side instead of one combined input.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="separateInputsDateTime"
+          [config]="separateInputsConfig()"
+          [placeholder]="'Pick date & time'"
+          (dateTimeChange)="onSeparateInputsDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        @if (separateInputsDateTime) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDateTimeDisplay(separateInputsDateTime) }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [(ngModel)]="separateInputsDateTime"
+  [config]="&#123;
+    showSeparateInputs: true,
+    theme: 'light',
+    colorTheme: 'blue'
+  &#125;"
+  (dateTimeChange)="onSeparateInputsDateTimeChanged($event)"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 9: Optional Date-Only / Time-Only (requireBoth: false) -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">
+        9. Partial Selection (requireBoth: false)
+      </h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        By default the form value is
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">null</code> until both a date
+        <em>and</em> a time are chosen. Set
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">requireBoth: false</code> to emit a
+        value as soon as either the date or the time is selected - useful for optional datetime
+        fields.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <chronica-datetime-picker
+          [(ngModel)]="partialDateTime"
+          [config]="partialConfig()"
+          [placeholder]="'Date or time (either is fine)'"
+          (dateTimeChange)="onPartialDateTimeChanged($event)"
+        ></chronica-datetime-picker>
+
+        <div class="py-3">
+          <strong>Form value: </strong>
+          <span>{{
+            partialDateTime ? formatDateTimeDisplay(partialDateTime) : 'null (nothing selected yet)'
+          }}</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
+  [(ngModel)]="partialDateTime"
+  [config]="&#123;
+    requireBoth: false,
+    theme: 'light',
+    colorTheme: 'blue'
+  &#125;"
+  (dateTimeChange)="onPartialDateTimeChanged($event)"&gt;
+&lt;/chronica-datetime-picker&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Demo 10: Dark Theme -->
     <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-md border border-gray-600">
-      <h3 class="text-xl font-semibold text-white mb-2">7. Dark Theme</h3>
+      <h3 class="text-xl font-semibold text-white mb-2">10. Dark Theme</h3>
       <p class="text-gray-300 mb-5 leading-relaxed">
         Dark theme variant for datetime picker. Perfect for dark mode applications and night-time
         interfaces with consistent styling across calendar and time controls.
@@ -509,7 +630,7 @@
             <td class="p-3 text-gray-600">1</td>
             <td class="p-3 text-gray-600">Minute selection step interval</td>
           </tr>
-          <tr>
+          <tr class="border-b border-gray-100">
             <td class="p-3">
               <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
                 >secondStep</code
@@ -518,6 +639,42 @@
             <td class="p-3 text-gray-600">number</td>
             <td class="p-3 text-gray-600">1</td>
             <td class="p-3 text-gray-600">Second selection step interval</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.layout</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">'inline' | 'tabs'</td>
+            <td class="p-3 text-gray-600">'inline'</td>
+            <td class="p-3 text-gray-600">
+              Display calendar and time picker side-by-side or in separate tabs
+            </td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.showSeparateInputs</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">false</td>
+            <td class="p-3 text-gray-600">
+              Render separate date and time trigger buttons side by side
+            </td>
+          </tr>
+          <tr>
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
+                >config.requireBoth</code
+              >
+            </td>
+            <td class="p-3 text-gray-600">boolean</td>
+            <td class="p-3 text-gray-600">true</td>
+            <td class="p-3 text-gray-600">
+              When false, emit form value even when only date or time is selected
+            </td>
           </tr>
         </tbody>
       </table>
@@ -630,6 +787,26 @@
             ></path>
           </svg>
           <span class="font-medium">Keyboard navigation and accessibility</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Tabs layout with ARIA tablist/tabpanel</span>
+        </li>
+        <li class="flex items-center">
+          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="font-medium">Separate inputs and partial-value (requireBoth) modes</span>
         </li>
       </ul>
     </div>
