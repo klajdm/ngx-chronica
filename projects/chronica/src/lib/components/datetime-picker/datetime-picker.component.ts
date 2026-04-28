@@ -16,8 +16,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
   ChronicaDateTimeConfig,
   ChronicaDateTimeValue,
@@ -64,13 +66,14 @@ export class ChronicaDateTimePickerComponent
   @Output() calendarClosed = new EventEmitter<void>();
 
   // ControlValueAccessor properties
-  private onChange = (value: ChronicaDateTimeValue | null) => {};
+  private onChange = (_value: ChronicaDateTimeValue | null) => {};
   private onTouched = () => {};
 
   // Component state
   private _value: ChronicaDateTimeValue = { date: null, time: null };
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
+  private destroy$ = new Subject<void>();
 
   // Calendar state
   currentMonth!: { year: number; month: number };
@@ -86,6 +89,25 @@ export class ChronicaDateTimePickerComponent
   hours: number[] = [];
   minutes: number[] = [];
   seconds: number[] = [];
+
+  // Layout state
+  activeTab: 'date' | 'time' = 'date';
+
+  get layout(): string {
+    return this.config.layout ?? 'inline';
+  }
+
+  switchTab(tab: 'date' | 'time'): void {
+    this.activeTab = tab;
+  }
+
+  get formattedDate(): string {
+    return this._value.date ? this.formatDate(this._value.date) : '';
+  }
+
+  get formattedTimeDisplay(): string {
+    return this._value.time ? this.formatTime(this._value.time) : '';
+  }
 
   @ViewChild('datetimePickerTemplate', { static: true })
   datetimePickerTemplate!: TemplateRef<any>;
@@ -110,7 +132,9 @@ export class ChronicaDateTimePickerComponent
   private initializeComponent(): void {
     this.initializeCalendar();
     this.initializeTimeLists();
-    this.resetToCurrentDateTime();
+    if (!this._value.date && !this._value.time) {
+      this.resetToCurrentDateTime();
+    }
   }
 
   private initializeCalendar(): void {
@@ -220,7 +244,10 @@ export class ChronicaDateTimePickerComponent
 
   private formatDate(date: Date): string {
     const locale = this.getCurrentLocale();
-    return new Intl.DateTimeFormat(typeof locale === 'string' ? locale : 'en-US').format(date);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return locale.dateFormat.replace('yyyy', year).replace('MM', month).replace('dd', day);
   }
 
   private formatTime(time: ChronicaTimeValue): string {
@@ -447,7 +474,9 @@ export class ChronicaDateTimePickerComponent
   }
 
   private updateValue(): void {
-    this.onChange(this._value);
+    const requireBoth = this.config.requireBoth ?? true;
+    const isComplete = !!this._value.date && !!this._value.time;
+    this.onChange(requireBoth && !isComplete ? null : this._value);
     this.dateTimeChange.emit(this._value);
   }
 
@@ -501,6 +530,14 @@ export class ChronicaDateTimePickerComponent
     return `chronica-${this.config.theme || 'light'}`;
   }
 
+  private getPositions(): ConnectedPosition[] {
+    const bottom: ConnectedPosition = { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 14 };
+    const top: ConnectedPosition = { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -14 };
+    if (this.popupPosition === 'bottom') return [bottom];
+    if (this.popupPosition === 'top') return [top];
+    return [bottom, top];
+  }
+
   //#region Popup management
   openPopup(): void {
     if (this.disabled || this.isPopupOpen) return;
@@ -508,22 +545,7 @@ export class ChronicaDateTimePickerComponent
     const positionStrategy = this.overlay
       .position()
       .flexibleConnectedTo(this.elementRef)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-          offsetY: 14,
-        },
-        {
-          originX: 'start',
-          originY: 'top',
-          overlayX: 'start',
-          overlayY: 'bottom',
-          offsetY: -14,
-        },
-      ]);
+      .withPositions(this.getPositions());
 
     const overlayConfig = new OverlayConfig({
       positionStrategy,
@@ -536,9 +558,9 @@ export class ChronicaDateTimePickerComponent
     const portal = new TemplatePortal(this.datetimePickerTemplate, this.viewContainerRef);
     this.overlayRef.attach(portal);
 
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.closePopup();
-    });
+    this.overlayRef.backdropClick()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
     this.calendarOpened.emit();
@@ -558,6 +580,8 @@ export class ChronicaDateTimePickerComponent
 
   //#region Cleanup
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.overlayRef) {
       this.overlayRef.dispose();
     }

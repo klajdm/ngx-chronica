@@ -322,3 +322,32 @@
   --chronica-scrollbar-width: 6px;
   --chronica-scrollbar-border-radius: 3px;
 }
+
+/* Accessibility: reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --chronica-transition: none;
+    --chronica-transition-fast: none;
+    --chronica-transition-slow: none;
+    --chronica-button-transition: none;
+  }
+}
+
+/* Accessibility: high contrast */
+@media (prefers-contrast: more) {
+  :root {
+    --chronica-border-color: #000000;
+    --chronica-text-color: #000000;
+    --chronica-bg-color: #ffffff;
+    --chronica-background: #ffffff;
+    --chronica-disabled-opacity: 0.6;
+  }
+
+  .chronica-dark {
+    --chronica-border-color: #ffffff;
+    --chronica-text-color: #ffffff;
+    --chronica-bg-color: #000000;
+    --chronica-background: #000000;
+  }
+}
+

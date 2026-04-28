@@ -13,6 +13,8 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
 import {
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
+  ChronicaCalendarView,
+  ChronicaDate,
   ChronicaEvent,
   ChronicaLocale,
   ChronicaMonth,
@@ -46,7 +48,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
 
   // ControlValueAccessor properties
-  private onChange = (value: Date | null) => {};
+  private onChange = (_value: Date | null) => {};
   private onTouched = () => {};
   disabled = false;
 
@@ -54,6 +56,8 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
+  currentView: ChronicaCalendarView = 'month';
+  yearGridYears: number[] = [];
 
   constructor() {
     this.yearRange = ChronicaCalendarUtils.updateYearRange(new Date().getFullYear());
@@ -99,7 +103,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     });
   }
 
-  selectDate(date: any): void {
+  selectDate(date: ChronicaDate): void {
     if (date.disabled || this.disabled) return;
 
     this.selectedDate = new Date(date.date);
@@ -165,6 +169,46 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
       payload: { month: next.month, year: next.year },
       timestamp: Date.now(),
     });
+  }
+
+  cycleView(): void {
+    if (this.currentView === 'month') {
+      this.currentView = 'months';
+    } else if (this.currentView === 'months') {
+      this.yearGridYears = ChronicaCalendarUtils.generateDecadeGrid(this.currentMonth.year);
+      this.currentView = 'year';
+    } else {
+      this.currentView = 'month';
+    }
+  }
+
+  selectMonth(monthIndex: number): void {
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+      this.currentMonth.year, monthIndex, this.config
+    );
+    this.currentView = 'month';
+    if (this.selectedDate) this.updateSelectedDate();
+  }
+
+  selectYear(year: number): void {
+    this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+      year, this.currentMonth.month, this.config
+    );
+    this.currentView = 'months';
+    if (this.selectedDate) this.updateSelectedDate();
+  }
+
+  isPreviousMonthDisabled(): boolean {
+    if (!this.config.minDate) return false;
+    const firstOfPrev = new Date(this.currentMonth.year, this.currentMonth.month - 1, 1);
+    return firstOfPrev < ChronicaCalendarUtils.stripTime(this.config.minDate);
+  }
+
+  isNextMonthDisabled(): boolean {
+    if (!this.config.maxDate) return false;
+    const lastOfNext = new Date(this.currentMonth.year, this.currentMonth.month + 2, 0);
+    return lastOfNext > ChronicaCalendarUtils.stripTime(this.config.maxDate);
   }
 
   goToToday(): void {

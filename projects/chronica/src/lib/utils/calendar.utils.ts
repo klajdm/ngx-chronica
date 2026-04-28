@@ -12,21 +12,10 @@ import {
  */
 export class ChronicaCalendarUtils {
   /**
-   * Check if two dates are the same day
-   */
-  static isSameDay(date1: Date, date2: Date): boolean {
-    return (
-      date1.getDate() === date2.getDate() &&
-      date1.getMonth() === date2.getMonth() &&
-      date1.getFullYear() === date2.getFullYear()
-    );
-  }
-
-  /**
    * Check if a date is today
    */
   static isToday(date: Date): boolean {
-    return this.isSameDay(date, new Date());
+    return this.isSameDate(date, new Date());
   }
 
   /**
@@ -149,14 +138,15 @@ export class ChronicaCalendarUtils {
     currentYear: number,
     config: ChronicaCalendarConfig
   ): ChronicaDate {
+    const stripped = this.stripTime(date);
     const today = this.stripTime(new Date());
-    const isToday = this.isSameDate(this.stripTime(date), today);
+    const isToday = this.isSameDate(stripped, today);
     const isInCurrentMonth = date.getMonth() === currentMonth && date.getFullYear() === currentYear;
     const isWeekend = date.getDay() === 0 || date.getDay() === 6;
     const isDisabled = this.isDateDisabled(date, config);
 
     return {
-      date: this.stripTime(new Date(date)),
+      date: stripped,
       selected: false,
       isToday,
       inCurrentMonth: isInCurrentMonth,
@@ -208,18 +198,10 @@ export class ChronicaCalendarUtils {
     const dayNames = [...locale.dayNamesShort];
 
     if (firstDayOfWeek > 0) {
-      const rotated = dayNames.splice(firstDayOfWeek);
-      return [...rotated, ...dayNames];
+      return [...dayNames.slice(firstDayOfWeek), ...dayNames.slice(0, firstDayOfWeek)];
     }
 
     return dayNames;
-  }
-
-  /**
-   * Formats a date according to locale
-   */
-  formatDate(date: Date, locale: string = 'en-US'): string {
-    return date.toLocaleDateString(locale);
   }
 
   /**
@@ -240,6 +222,14 @@ export class ChronicaCalendarUtils {
       return { month: 0, year: year + 1 };
     }
     return { month: month + 1, year };
+  }
+
+  /**
+   * Generates the 10 years that form the decade containing a given year
+   */
+  static generateDecadeGrid(centerYear: number): number[] {
+    const startDecade = Math.floor(centerYear / 10) * 10;
+    return Array.from({ length: 10 }, (_, i) => startDecade + i);
   }
 
   /**

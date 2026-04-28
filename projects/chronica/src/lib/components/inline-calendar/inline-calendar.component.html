@@ -6,7 +6,8 @@
         type="button"
         class="chronica-nav-btn"
         (click)="previousMonth()"
-        [disabled]="disabled"
+        [disabled]="disabled || isPreviousMonthDisabled()"
+        aria-label="Go to previous month"
       >
         <svg
           width="16"
@@ -20,12 +21,17 @@
         </svg>
       </button>
 
-      <div class="chronica-month-year">
+      <button
+        type="button"
+        class="chronica-month-year"
+        (click)="cycleView()"
+        [attr.aria-label]="'Currently showing ' + currentMonth.displayName + ' ' + currentMonth.year + ', click to change view'"
+      >
         <span class="chronica-month">{{ currentMonth.displayName }}</span>
         <span class="chronica-year">{{ currentMonth.year }}</span>
-      </div>
+      </button>
 
-      <button type="button" class="chronica-nav-btn" (click)="nextMonth()" [disabled]="disabled">
+      <button type="button" class="chronica-nav-btn" (click)="nextMonth()" [disabled]="disabled || isNextMonthDisabled()" aria-label="Go to next month">
         <svg
           width="16"
           height="16"
@@ -39,10 +45,10 @@
       </button>
     </div>
 
-    <!-- Calendar Grid -->
-    <div class="chronica-calendar-grid">
+    <!-- Month view: Calendar Grid -->
+    <div class="chronica-calendar-grid" *ngIf="currentView === 'month'" role="grid" aria-label="Calendar">
       <!-- Day Headers -->
-      <div class="chronica-day-header" *ngFor="let dayName of dayNames">
+      <div class="chronica-day-header" role="columnheader" *ngFor="let dayName of dayNames">
         {{ dayName }}
       </div>
 
@@ -51,6 +57,7 @@
         <button
           type="button"
           class="chronica-date-cell"
+          role="gridcell"
           *ngFor="let date of week"
           [class.chronica-today]="date.isToday"
           [class.chronica-selected]="date.selected"
@@ -58,11 +65,42 @@
           [class.chronica-other-month]="!date.inCurrentMonth"
           [class.chronica-weekend]="date.isWeekend"
           [disabled]="date.disabled || disabled"
+          [attr.aria-label]="date.date | date:'MMMM d, yyyy'"
+          [attr.aria-selected]="date.selected"
+          [attr.aria-disabled]="date.disabled"
           (click)="selectDate(date)"
         >
           {{ date.date.getDate() }}
         </button>
       </ng-container>
+    </div>
+
+    <!-- Months view: 12-month grid for the current year -->
+    <div class="chronica-months-grid" *ngIf="currentView === 'months'" role="grid" aria-label="Select month">
+      <button
+        type="button"
+        class="chronica-month-cell"
+        role="gridcell"
+        *ngFor="let name of monthNames; let i = index"
+        [class.chronica-selected]="i === currentMonth.month"
+        [attr.aria-selected]="i === currentMonth.month"
+        [attr.aria-label]="name + ' ' + currentMonth.year"
+        (click)="selectMonth(i)"
+      >{{ name }}</button>
+    </div>
+
+    <!-- Year view: decade grid of years -->
+    <div class="chronica-year-grid" *ngIf="currentView === 'year'" role="grid" aria-label="Select year">
+      <button
+        type="button"
+        class="chronica-year-cell"
+        role="gridcell"
+        *ngFor="let year of yearGridYears"
+        [class.chronica-selected]="year === currentMonth.year"
+        [attr.aria-selected]="year === currentMonth.year"
+        [attr.aria-label]="year.toString()"
+        (click)="selectYear(year)"
+      >{{ year }}</button>
     </div>
   </div>
   <!--  Footer -->

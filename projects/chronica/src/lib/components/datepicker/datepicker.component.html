@@ -141,16 +141,16 @@
       </div>
 
       <!-- Day names header -->
-      <div class="chronica-day-names">
-        <div class="chronica-day-name" *ngFor="let dayName of dayNames">
+      <div class="chronica-day-names" role="row">
+        <div class="chronica-day-name" role="columnheader" *ngFor="let dayName of dayNames">
           {{ dayName }}
         </div>
       </div>
 
       <!-- Calendar grid -->
-      <div class="chronica-calendar-grid">
+      <div class="chronica-calendar-grid" role="grid" aria-label="Calendar">
         <!-- Empty cells for days before the first day of month -->
-        <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty"></div>
+        <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty" role="gridcell" aria-hidden="true"></div>
 
         <!-- Days of month -->
         <div
@@ -159,12 +159,15 @@
           [class.chronica-today]="isToday(day)"
           [class.chronica-selected]="isSelectedDate(day)"
           [class.chronica-disabled]="isDateDisabled(day)"
+          [class.chronica-weekend]="isWeekend(day)"
           (click)="selectDate(day)"
           (keydown.enter)="selectDate(day)"
           (keydown.space)="selectDate(day)"
           tabindex="0"
-          role="button"
-          [attr.aria-label]="'Select date ' + day"
+          role="gridcell"
+          [attr.aria-label]="getDateLabel(day)"
+          [attr.aria-selected]="isSelectedDate(day)"
+          [attr.aria-disabled]="isDateDisabled(day)"
         >
           {{ day }}
         </div>

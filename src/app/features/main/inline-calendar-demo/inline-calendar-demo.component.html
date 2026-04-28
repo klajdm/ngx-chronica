@@ -233,6 +233,55 @@ preSelectedDate: Date | null = new Date();</code></pre>
         </div>
       </div>
     </div>
+
+    <!-- Demo 7: Multi-View Navigation & Nav Guards -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">
+        7. Multi-View Navigation &amp; Navigation Guards
+      </h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Click the <strong>month/year header button</strong> to cycle through three views:
+        <strong>Month</strong> → <strong>Months</strong> (12-month grid) →
+        <strong>Year</strong> (decade grid). Navigation arrows are automatically disabled when
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">minDate</code> or
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">maxDate</code> would be exceeded -
+        the example below restricts selection to the 2020s.
+      </p>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
+  [selectedDate]="decadeViewSelectedDate"
+  [config]="&#123;
+    theme: 'light',
+    colorTheme: 'blue',
+    minDate: new Date(2020, 0, 1),
+    maxDate: new Date(2029, 11, 31)
+  &#125;"
+  (dateSelected)="onDecadeViewDateSelected($event)"&gt;
+&lt;/chronica-inline-calendar&gt;
+
+&lt;!-- Click the month/year header to cycle:
+     Month view → Months grid → Year grid --&gt;</code></pre>
+        </div>
+
+        <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
+          <chronica-inline-calendar
+            [selectedDate]="decadeViewSelectedDate"
+            [config]="decadeViewConfig()"
+            (dateSelected)="onDecadeViewDateSelected($event)"
+          ></chronica-inline-calendar>
+
+          <div class="py-3" *ngIf="decadeViewSelectedDate">
+            <strong>Selected Date: </strong>
+            <span>{{ decadeViewSelectedDate | date: 'mediumDate' }}</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-2">
+            Tip: click the header button to cycle - Month → Months → Year.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Configuration Options -->
