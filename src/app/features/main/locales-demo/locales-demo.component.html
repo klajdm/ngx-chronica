@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto">
+<div class="py-4 lg:py-8">
   <div class="text-center pt-4 lg:pt-8 mb-10">
     <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Locales / Internationalization</h1>
     <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
@@ -42,16 +42,16 @@
           <span class="text-sm text-gray-600">
             <span class="font-medium text-gray-800">Format:</span>
             <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono">
-              {{ localesMap[selectedLocaleCode()]?.dateFormat }}
+              {{ localesMap[selectedLocaleCode()].dateFormat }}
             </code>
           </span>
           <span class="text-sm text-gray-600">
             <span class="font-medium text-gray-800">"Today" label:</span>
-            {{ localesMap[selectedLocaleCode()]?.todayLabel }}
+            {{ localesMap[selectedLocaleCode()].todayLabel }}
           </span>
           <span class="text-sm text-gray-600">
             <span class="font-medium text-gray-800">Week starts:</span>
-            {{ localesMap[selectedLocaleCode()]?.weekStartsOn === 0 ? 'Sunday' : 'Monday' }}
+            {{ localesMap[selectedLocaleCode()].weekStartsOn === 0 ? 'Sunday' : 'Monday' }}
           </span>
         </div>
 
@@ -245,7 +245,7 @@ const myLocale: ChronicaLocale = &#123;
               <code class="text-sm font-mono text-gray-600">{{ info.format }}</code>
             </td>
             <td class="p-3 text-gray-600">{{ info.weekStart }}</td>
-            <td class="p-3 text-gray-600">{{ localesMap[info.code]?.todayLabel }}</td>
+            <td class="p-3 text-gray-600">{{ localesMap[info.code].todayLabel }}</td>
           </tr>
         </tbody>
       </table>

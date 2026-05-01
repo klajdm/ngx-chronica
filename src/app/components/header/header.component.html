@@ -2,10 +2,9 @@
   <div class="flex items-center h-16">
     <!-- Hamburger for mobile -->
     <button
-      class="lg:hidden flex items-center justify-center mr-4 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md z-50 bg-white"
+      class="lg:hidden relative flex items-center justify-center mr-4 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md z-50 bg-white"
       aria-label="Open menu"
       (click)="onToggleMobileMenu()"
-      style="position: relative; z-index: 9999"
     >
       <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -25,7 +24,7 @@
           alt="ngx-chronica logo"
           class="h-10 w-10 md:h-12 md:w-12 mr-3"
         />
-        <h1 class="text-xl md:text-2xl font-bold text-primary">NGX-CHRONICA</h1>
+        <span class="text-xl md:text-2xl font-bold text-primary">NGX-CHRONICA</span>
       </a>
     </div>
 
@@ -98,8 +97,8 @@
               <button
                 (click)="selectTheme(themeOption.value)"
                 class="w-full cursor-pointer px-3 py-2 text-left hover:bg-gray-50 transition-colors flex items-center space-x-3"
-                [class.bg-blue-50]="currentTheme() === themeOption.value"
-                [class.text-blue-700]="currentTheme() === themeOption.value"
+                [style.background-color]="currentTheme() === themeOption.value ? themeOption.color + '14' : ''"
+                [style.color]="currentTheme() === themeOption.value ? themeOption.color : ''"
                 role="menuitem"
               >
                 <!-- Theme color indicator -->
@@ -117,7 +116,8 @@
                 <!-- Selected indicator -->
                 @if (currentTheme() === themeOption.value) {
                   <svg
-                    class="w-4 h-4 text-blue-600 flex-shrink-0"
+                    class="w-4 h-4 flex-shrink-0"
+                    [style.color]="themeOption.color"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >

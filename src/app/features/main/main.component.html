@@ -26,29 +26,30 @@
   </div>
 
   <!-- Mobile Drawer Sidebar (pure Tailwind off-canvas) -->
-  <div
-    *ngIf="mobileDrawerVisible"
-    class="fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-in-out"
-    [class.pointer-events-none]="!mobileDrawerOpen"
-    [class.pointer-events-auto]="mobileDrawerOpen"
-  >
-    <!-- backdrop with animation -->
+  @if (mobileDrawerVisible) {
     <div
-      class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out"
-      [class.opacity-0]="!mobileDrawerOpen"
-      [class.opacity-50]="mobileDrawerOpen"
-      (click)="closeMobileDrawer()"
-    ></div>
-
-    <!-- panel with slide animation -->
-    <aside
-      class="relative z-50 w-64 max-w-full h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
-      [class.-translate-x-full]="!mobileDrawerOpen"
-      [class.translate-x-0]="mobileDrawerOpen"
+      class="fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-in-out"
+      [class.pointer-events-none]="!mobileDrawerOpen"
+      [class.pointer-events-auto]="mobileDrawerOpen"
     >
-      <app-mobile-menu (closeMenu)="closeMobileDrawer()"></app-mobile-menu>
-    </aside>
-  </div>
+      <!-- backdrop with animation -->
+      <div
+        class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out"
+        [class.opacity-0]="!mobileDrawerOpen"
+        [class.opacity-50]="mobileDrawerOpen"
+        (click)="closeMobileDrawer()"
+      ></div>
+
+      <!-- panel with slide animation -->
+      <aside
+        class="relative z-50 w-64 max-w-full h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
+        [class.-translate-x-full]="!mobileDrawerOpen"
+        [class.translate-x-0]="mobileDrawerOpen"
+      >
+        <app-mobile-menu (closeMenu)="closeMobileDrawer()"></app-mobile-menu>
+      </aside>
+    </div>
+  }
 
   <!-- Back to top button (fixed) with smooth transition -->
   <button
@@ -61,6 +62,7 @@
     [class.translate-y-0]="showBackToTop"
     [class.pointer-events-none]="!showBackToTop"
     title="Back to top"
+    aria-label="Back to top"
   >
     <!-- simple chevron up icon (svg) -->
     <svg

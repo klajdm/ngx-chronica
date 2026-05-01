@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
-import { RouterModule } from '@angular/router';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { MobileMenuComponent } from 'src/app/components/mobile-menu/mobile-menu.component';
 
@@ -10,7 +11,6 @@ import { MobileMenuComponent } from 'src/app/components/mobile-menu/mobile-menu.
   selector: 'app-main',
   standalone: true,
   imports: [
-    CommonModule,
     SidebarComponent,
     HeaderComponent,
     RouterModule,
@@ -20,20 +20,32 @@ import { MobileMenuComponent } from 'src/app/components/mobile-menu/mobile-menu.
   templateUrl: './main.component.html',
   styles: [],
 })
-export class MainComponent {
-  // mobile drawer state (controlled by component, not DOM)
+export class MainComponent implements OnInit, OnDestroy {
+  @ViewChild('scrollContainer') private scrollContainer!: ElementRef<HTMLElement>;
+
   mobileDrawerOpen = false;
   mobileDrawerVisible = false;
-
-  // back-to-top button visibility state
   showBackToTop = false;
 
-  // threshold in pixels when the Back to Top button appears
   private readonly backToTopThreshold = 200;
+  private routerSub?: Subscription;
 
-  // Toggle the mobile drawer
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.routerSub = this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => {
+        this.scrollContainer?.nativeElement.scrollTo({ top: 0 });
+        this.showBackToTop = false;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
+  }
+
   toggleMobileDrawer(): void {
-    console.log('Toggle mobile drawer called, current state:', this.mobileDrawerOpen);
     if (this.mobileDrawerOpen) {
       this.closeMobileDrawer();
     } else {
@@ -41,43 +53,27 @@ export class MainComponent {
     }
   }
 
-  // Open the mobile drawer
   openMobileDrawer(): void {
     this.mobileDrawerVisible = true;
-    // Small delay to ensure the element is rendered before starting animation
     setTimeout(() => {
       this.mobileDrawerOpen = true;
     }, 10);
   }
 
-  // Close the mobile drawer
   closeMobileDrawer(): void {
     this.mobileDrawerOpen = false;
-    // Hide after animation completes
     setTimeout(() => {
       this.mobileDrawerVisible = false;
     }, 300);
   }
 
-  // Called when the scrollable content container scrolls
   onContentScroll(event: Event): void {
     const target = event.target as HTMLElement;
-    const scrollTop = target.scrollTop ?? 0;
-    this.showBackToTop = scrollTop > this.backToTopThreshold;
+    this.showBackToTop = (target.scrollTop ?? 0) > this.backToTopThreshold;
   }
 
-  // Smoothly scroll the main content container to top
   scrollToTop(): void {
-    // find the scrollable container in the DOM by querying for the class used in template
-    const container = document.querySelector('.flex-1.overflow-auto') as HTMLElement | null;
-    if (!container) {
-      // fallback: scroll window
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    container.scrollTo({ top: 0, behavior: 'smooth' });
-    // immediately hide the button; it will reappear if user scrolls again
+    this.scrollContainer?.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
     this.showBackToTop = false;
   }
 }
