@@ -25,13 +25,15 @@
           (timeChange)="onBasicTimeChanged($event)"
         ></chronica-time-picker>
 
-        <div class="py-3" *ngIf="basicSelectedTime">
-          <strong>Selected: </strong>
-          <span>{{ formatTimeDisplay(basicSelectedTime, true, false) }}</span
-          ><br />
-          <strong>Minutes since midnight: </strong>
-          <span>{{ getTimeInMinutes(basicSelectedTime) }}</span>
-        </div>
+        @if (basicSelectedTime) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatTimeDisplay(basicSelectedTime, true, false) }}</span
+            ><br />
+            <strong>Minutes since midnight: </strong>
+            <span>{{ getTimeInMinutes(basicSelectedTime) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -64,13 +66,15 @@
           (timeChange)="onTwelveHourTimeChanged($event)"
         ></chronica-time-picker>
 
-        <div class="py-3" *ngIf="twelveHourTime">
-          <strong>Selected: </strong>
-          <span>{{ formatTimeDisplay(twelveHourTime, false, false) }}</span
-          ><br />
-          <strong>24-hour format: </strong>
-          <span>{{ formatTimeDisplay(twelveHourTime, true, false) }}</span>
-        </div>
+        @if (twelveHourTime) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatTimeDisplay(twelveHourTime, false, false) }}</span
+            ><br />
+            <strong>24-hour format: </strong>
+            <span>{{ formatTimeDisplay(twelveHourTime, true, false) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -101,13 +105,15 @@
           (timeChange)="onTimeWithSecondsChanged($event)"
         ></chronica-time-picker>
 
-        <div class="py-3" *ngIf="timeWithSeconds">
-          <strong>Selected: </strong>
-          <span>{{ formatTimeDisplay(timeWithSeconds, true, true) }}</span
-          ><br />
-          <strong>Total seconds since midnight: </strong>
-          <span>{{ getTimeInMinutes(timeWithSeconds) * 60 + (timeWithSeconds.seconds || 0) }}</span>
-        </div>
+        @if (timeWithSeconds) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatTimeDisplay(timeWithSeconds, true, true) }}</span
+            ><br />
+            <strong>Total seconds since midnight: </strong>
+            <span>{{ getTimeInMinutes(timeWithSeconds) * 60 + (timeWithSeconds.seconds || 0) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -141,13 +147,15 @@
           (timeChange)="onRestrictedTimeChanged($event)"
         ></chronica-time-picker>
 
-        <div class="py-3" *ngIf="restrictedTime">
-          <strong>Selected: </strong>
-          <span>{{ formatTimeDisplay(restrictedTime, true, false) }}</span
-          ><br />
-          <strong>Within business hours: </strong>
-          <span>✅ Valid</span>
-        </div>
+        @if (restrictedTime) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatTimeDisplay(restrictedTime, true, false) }}</span
+            ><br />
+            <strong>Within business hours: </strong>
+            <span>✅ Valid</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -223,13 +231,15 @@
           (timeChange)="onCustomStepTimeChanged($event)"
         ></chronica-time-picker>
 
-        <div class="py-3" *ngIf="customStepTime">
-          <strong>Selected: </strong>
-          <span>{{ formatTimeDisplay(customStepTime, true, true) }}</span
-          ><br />
-          <strong>Step intervals: </strong>
-          <span>15-minute, 30-second blocks</span>
-        </div>
+        @if (customStepTime) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatTimeDisplay(customStepTime, true, true) }}</span
+            ><br />
+            <strong>Step intervals: </strong>
+            <span>15-minute, 30-second blocks</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -261,13 +271,15 @@
           (timeChange)="onDarkThemeTimeChanged($event)"
         ></chronica-time-picker>
 
-        <div class="py-3" *ngIf="darkThemeTime">
-          <strong class="text-gray-300">Selected: </strong>
-          <span class="text-gray-300">{{ formatTimeDisplay(darkThemeTime, true, false) }}</span
-          ><br />
-          <strong class="text-gray-300">Theme: </strong>
-          <span class="text-gray-300">Dark mode</span>
-        </div>
+        @if (darkThemeTime) {
+          <div class="py-3">
+            <strong class="text-gray-300">Selected: </strong>
+            <span class="text-gray-300">{{ formatTimeDisplay(darkThemeTime, true, false) }}</span
+            ><br />
+            <strong class="text-gray-300">Theme: </strong>
+            <span class="text-gray-300">Dark mode</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">

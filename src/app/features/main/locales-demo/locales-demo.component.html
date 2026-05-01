@@ -21,16 +21,17 @@
       <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
         <!-- Locale buttons -->
         <div class="flex flex-wrap gap-2 mb-6">
-          <button
-            *ngFor="let info of localeInfo"
-            (click)="setLocale(info.code)"
-            class="px-3 py-2 rounded-lg border text-sm font-mono transition-colors"
-            [ngClass]="selectedLocaleCode() === info.code
-              ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'"
-          >
-            {{ info.code }}
-          </button>
+          @for (info of localeInfo; track info.code) {
+            <button
+              (click)="setLocale(info.code)"
+              class="px-3 py-2 rounded-lg border text-sm font-mono transition-colors"
+              [ngClass]="selectedLocaleCode() === info.code
+                ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'"
+            >
+              {{ info.code }}
+            </button>
+          }
         </div>
 
         <!-- Active locale info strip -->
@@ -234,8 +235,9 @@ const myLocale: ChronicaLocale = &#123;
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let info of localeInfo; let odd = odd"
-            [ngClass]="odd ? 'bg-gray-50' : 'bg-white'"
+          @for (info of localeInfo; track info.code) {
+          <tr
+            [ngClass]="$odd ? 'bg-gray-50' : 'bg-white'"
             class="border-b border-gray-100">
             <td class="p-3">
               <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{{ info.code }}</code>
@@ -247,6 +249,7 @@ const myLocale: ChronicaLocale = &#123;
             <td class="p-3 text-gray-600">{{ info.weekStart }}</td>
             <td class="p-3 text-gray-600">{{ localesMap[info.code].todayLabel }}</td>
           </tr>
+          }
         </tbody>
       </table>
     </div>
