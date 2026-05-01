@@ -110,7 +110,7 @@ export class ChronicaDatepickerComponent
 
     // Update year range first, then generate month without additional year range update
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.getLocaleConfig());
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -122,7 +122,7 @@ export class ChronicaDatepickerComponent
     // Ensure year range includes the target year before generating month
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
 
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.getLocaleConfig());
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -440,6 +440,10 @@ export class ChronicaDatepickerComponent
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
+  }
+
+  private getLocaleConfig(): ChronicaCalendarConfig {
+    return { ...this.config, locale: this.getCurrentLocale() };
   }
 
   // Get day names from locale, respecting firstDayOfWeek
