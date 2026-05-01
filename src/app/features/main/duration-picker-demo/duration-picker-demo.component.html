@@ -24,13 +24,15 @@
           (durationChange)="onDurationChange($event, 'Basic')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="basicDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(basicDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(basicDuration) }}</span>
-        </div>
+        @if (basicDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(basicDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(basicDuration) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -63,13 +65,15 @@
           (durationChange)="onDurationChange($event, 'Precision')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="precisionDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(precisionDuration) }}</span
-          ><br />
-          <strong>Total Seconds: </strong>
-          <span>{{ getTotalSeconds(precisionDuration) }}</span>
-        </div>
+        @if (precisionDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(precisionDuration) }}</span
+            ><br />
+            <strong>Total Seconds: </strong>
+            <span>{{ getTotalSeconds(precisionDuration) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -100,13 +104,15 @@
           (durationChange)="onDurationChange($event, 'Project')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="projectDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(projectDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(projectDuration) }}</span>
-        </div>
+        @if (projectDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(projectDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(projectDuration) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -185,13 +191,15 @@
           (durationChange)="onDurationChange($event, 'Interval')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="intervalDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(intervalDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(intervalDuration) }}</span>
-        </div>
+        @if (intervalDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(intervalDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(intervalDuration) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -224,13 +232,15 @@
           (durationChange)="onDurationChange($event, 'Tracking')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="trackingDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(trackingDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(trackingDuration) }}</span>
-        </div>
+        @if (trackingDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(trackingDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(trackingDuration) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -263,13 +273,15 @@
           (durationChange)="onDurationChange($event, 'Dark')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="darkDuration">
-          <strong class="text-gray-300">Selected: </strong>
-          <span class="text-gray-300">{{ formatDuration(darkDuration) }}</span
-          ><br />
-          <strong class="text-gray-300">Total Minutes: </strong>
-          <span class="text-gray-300">{{ getTotalMinutes(darkDuration) }}</span>
-        </div>
+        @if (darkDuration) {
+          <div class="py-3">
+            <strong class="text-gray-300">Selected: </strong>
+            <span class="text-gray-300">{{ formatDuration(darkDuration) }}</span
+            ><br />
+            <strong class="text-gray-300">Total Minutes: </strong>
+            <span class="text-gray-300">{{ getTotalMinutes(darkDuration) }}</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">

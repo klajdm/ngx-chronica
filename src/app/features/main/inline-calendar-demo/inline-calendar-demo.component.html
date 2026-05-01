@@ -38,10 +38,12 @@
             (monthChanged)="onMonthChanged($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="basicSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ basicSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (basicSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ basicSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -74,10 +76,12 @@
             (dateSelected)="onCompactDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="compactSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ compactSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (compactSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ compactSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -113,10 +117,12 @@
 
           <div class="py-3">
             <p class="text-sm">Only dates in 2024 are selectable</p>
-            <div *ngIf="restrictedSelectedDate">
-              <strong>Selected Date: </strong>
-              <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
-            </div>
+            @if (restrictedSelectedDate) {
+              <div>
+                <strong>Selected Date: </strong>
+                <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -152,10 +158,12 @@
 
           <div class="py-3">
             <p class="text-sm">Weekends are disabled</p>
-            <div *ngIf="weekendDisabledSelected">
-              <strong>Selected Date: </strong>
-              <span>{{ weekendDisabledSelected | date: 'mediumDate' }}</span>
-            </div>
+            @if (weekendDisabledSelected) {
+              <div>
+                <strong>Selected Date: </strong>
+                <span>{{ weekendDisabledSelected | date: 'mediumDate' }}</span>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -191,10 +199,12 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onPreSelectedDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="preSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ preSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (preSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ preSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -226,10 +236,12 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onDarkModeSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3 text-gray-300" *ngIf="darkModeSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ darkModeSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (darkModeSelectedDate) {
+            <div class="py-3 text-gray-300">
+              <strong>Selected Date: </strong>
+              <span>{{ darkModeSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -272,10 +284,12 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onDecadeViewDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="decadeViewSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ decadeViewSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (decadeViewSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ decadeViewSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
           <p class="text-xs text-gray-500 mt-2">
             Tip: click the header button to cycle - Month → Months → Year.
           </p>

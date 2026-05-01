@@ -143,19 +143,25 @@
           </div>
         </div>
 
-        <div class="py-3" *ngIf="restrictedSelectedDate || disabledDatesSelected">
-          <div *ngIf="restrictedSelectedDate">
-            <strong>Restricted Range: </strong>
-            <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span
-            ><br />
-            <strong>Restriction: </strong>
-            <span>✅ Within allowed range (2024)</span>
+        @if (restrictedSelectedDate || disabledDatesSelected) {
+          <div class="py-3">
+            @if (restrictedSelectedDate) {
+              <div>
+                <strong>Restricted Range: </strong>
+                <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span
+                ><br />
+                <strong>Restriction: </strong>
+                <span>✅ Within allowed range (2024)</span>
+              </div>
+            }
+            @if (disabledDatesSelected) {
+              <div class="mt-2">
+                <strong>Disabled Dates: </strong>
+                <span>{{ disabledDatesSelected | date: 'mediumDate' }}</span>
+              </div>
+            }
           </div>
-          <div *ngIf="disabledDatesSelected" class="mt-2">
-            <strong>Disabled Dates: </strong>
-            <span>{{ disabledDatesSelected | date: 'mediumDate' }}</span>
-          </div>
-        </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
@@ -251,13 +257,15 @@ disabledDatesConfig = &#123;
           (dateSelected)="onDarkThemeDateSelected($event)"
         ></chronica-datepicker>
 
-        <div class="py-3" *ngIf="darkThemeDate">
-          <strong class="text-gray-300">Selected Date: </strong>
-          <span class="text-gray-300">{{ darkThemeDate | date: 'mediumDate' }}</span
-          ><br />
-          <strong class="text-gray-300">Theme: </strong>
-          <span class="text-gray-300">Dark mode</span>
-        </div>
+        @if (darkThemeDate) {
+          <div class="py-3">
+            <strong class="text-gray-300">Selected Date: </strong>
+            <span class="text-gray-300">{{ darkThemeDate | date: 'mediumDate' }}</span
+            ><br />
+            <strong class="text-gray-300">Theme: </strong>
+            <span class="text-gray-300">Dark mode</span>
+          </div>
+        }
       </div>
 
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">

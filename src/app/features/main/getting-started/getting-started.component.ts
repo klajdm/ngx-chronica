@@ -1,5 +1,5 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ChronicaDatepickerComponent } from '../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component';
 import {
   ChronicaCalendarConfig,
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-getting-started',
   standalone: true,
-  imports: [CommonModule, ChronicaDatepickerComponent, RouterModule],
+  imports: [ChronicaDatepickerComponent, DatePipe, RouterModule],
   templateUrl: './getting-started.component.html',
 })
 export class GettingStartedComponent {

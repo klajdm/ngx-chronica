@@ -176,12 +176,11 @@
           />
         </chronica-datepicker>
 
-        <div
-          class="text-center text-sm text-gray-600 bg-gray-50 rounded p-3 mt-4"
-          *ngIf="exampleSelectedDate"
-        >
-          Selected: {{ exampleSelectedDate | date: 'mediumDate' }}
-        </div>
+        @if (exampleSelectedDate) {
+          <div class="text-center text-sm text-gray-600 bg-gray-50 rounded p-3 mt-4">
+            Selected: {{ exampleSelectedDate | date: 'mediumDate' }}
+          </div>
+        }
       </div>
     </div>
   </div>
