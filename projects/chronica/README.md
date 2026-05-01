@@ -177,7 +177,8 @@ export class InlineExample {
 interface ChronicaCalendarConfig {
   theme?: 'light' | 'dark' | 'auto';
   colorTheme?: 'blue' | 'green' | 'purple' | 'red' | 'orange' | 'teal' | 'pink' | 'indigo';
-  locale?: ChronicaLocale | string; // 'en-US', 'es-ES', 'fr-FR', etc.
+  locale?: ChronicaLocale; // full locale object
+  localeCode?: string; // 'en-US', 'es-ES', 'fr-FR', etc.
   firstDayOfWeek?: number; // 0 = Sunday, 1 = Monday
   minDate?: Date;
   maxDate?: Date;
@@ -425,16 +426,6 @@ export class AppModule {}
 | 18.x            | ✅ Supported         |
 | 19.x            | ✅ Supported         |
 | 20.x            | ✅ Supported         |
-
-## 🆕 What's New in v1.2.0
-
-- **DateTimePicker tabs layout** —  renders date and time in separate tabs with ARIA /- **DateTimePicker separate inputs** —  shows side-by-side date and time trigger buttons
-- **DateTimePicker ** —  emits a value even when only date or time is selected
-- **InlineCalendar multi-view** — click the month/year header to cycle: Month → Months (12-month grid) → Year (decade grid)
-- **InlineCalendar nav guards** — prev/next arrows disabled when / would be exceeded
-- ** input** — , , or  (default) in DatePicker and DateTimePicker
-- **Bug fixes** —  firstDayOfWeek, range highlight endpoints, backdrop memory leaks, and more
-- **Accessibility** — , , , , high-contrast support
 
 ## 🆕 What's New in v1.2.0
 
