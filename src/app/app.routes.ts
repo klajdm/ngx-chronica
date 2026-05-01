@@ -88,6 +88,14 @@ export const routes: Routes = [
         title: 'Inline Calendar | Angular Chronica',
       },
       {
+        path: 'components/locales',
+        loadComponent: () =>
+          import('./features/main/locales-demo/locales-demo.component').then(
+            (m) => m.LocalesDemoComponent
+          ),
+        title: 'Locales / i18n | Angular Chronica',
+      },
+      {
         path: 'development/contributing',
         loadComponent: () =>
           import('./features/main/contributing/contributing.component').then(
