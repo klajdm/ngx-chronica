@@ -86,7 +86,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.monthNames = currentLocale.monthNames;
 
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.getLocaleConfig());
 
     if (this.selectedDate) {
       this.updateSelectedDate();
@@ -131,7 +131,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       prev.year,
       prev.month,
-      this.config
+      this.getLocaleConfig()
     );
 
     if (this.selectedDate) {
@@ -156,7 +156,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       next.year,
       next.month,
-      this.config
+      this.getLocaleConfig()
     );
 
     if (this.selectedDate) {
@@ -184,7 +184,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
 
   selectMonth(monthIndex: number): void {
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
-      this.currentMonth.year, monthIndex, this.config
+      this.currentMonth.year, monthIndex, this.getLocaleConfig()
     );
     this.currentView = 'month';
     if (this.selectedDate) this.updateSelectedDate();
@@ -193,7 +193,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   selectYear(year: number): void {
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
-      year, this.currentMonth.month, this.config
+      year, this.currentMonth.month, this.getLocaleConfig()
     );
     this.currentView = 'months';
     if (this.selectedDate) this.updateSelectedDate();
@@ -220,7 +220,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
       todayYear,
       todayMonth,
-      this.config
+      this.getLocaleConfig()
     );
 
     this.selectedDate = new Date(today);
@@ -267,6 +267,10 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
+  }
+
+  private getLocaleConfig(): ChronicaCalendarConfig {
+    return { ...this.config, locale: this.getCurrentLocale() };
   }
 
   private getDayNamesFromLocale(locale: ChronicaLocale): string[] {

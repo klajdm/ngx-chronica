@@ -113,7 +113,7 @@ export class ChronicaDateRangeComponent
     this.monthNames = currentLocale.monthNames;
 
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.getLocaleConfig());
   }
 
   // ControlValueAccessor implementation
@@ -143,7 +143,7 @@ export class ChronicaDateRangeComponent
   // Calendar navigation
   private generateMonth(year: number, month: number): void {
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.getLocaleConfig());
   }
 
   getDaysInMonth(): number[] {
@@ -362,6 +362,10 @@ export class ChronicaDateRangeComponent
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
+  }
+
+  private getLocaleConfig(): ChronicaCalendarConfig {
+    return { ...this.config, locale: this.getCurrentLocale() };
   }
 
   private getDayNamesFromLocale(locale: ChronicaLocale): string[] {
