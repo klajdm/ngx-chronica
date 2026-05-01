@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { AppMenuItems } from '../models/menuItems';
@@ -14,7 +13,7 @@ interface MenuItem {
 @Component({
   selector: 'app-mobile-menu',
   templateUrl: './mobile-menu.component.html',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
   // Output event to close the mobile menu

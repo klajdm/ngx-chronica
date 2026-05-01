@@ -24,7 +24,6 @@ export class HeaderComponent {
   public readonly themeOptions = this.themeService.themeOptions;
 
   public onToggleMobileMenu(): void {
-    console.log('Hamburger clicked!'); // Debug log
     this.toggleMobileMenu.emit();
   }
 
