@@ -10,14 +10,26 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-time-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaTimePickerComponent],
+  imports: [CommonModule, FormsModule, ChronicaTimePickerComponent, KeyFeaturesComponent],
   templateUrl: './time-picker-demo.component.html',
 })
 export class TimePickerDemoComponent {
+  protected readonly features: string[] = [
+    '12-hour and 24-hour format support',
+    'Optional seconds selection for precision timing',
+    'Customizable minute/second step intervals',
+    'Min/max time restrictions for business hours',
+    'Popup-based time selection interface',
+    'Angular forms integration (ngModel & Reactive)',
+    'Multiple color themes & dark mode support',
+    'Quick actions (Now, Clear) for convenience',
+    'Responsive design for mobile and desktop',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   // Basic time picker (24-hour format)

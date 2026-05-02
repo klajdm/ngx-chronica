@@ -7,14 +7,26 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-datepicker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDatepickerComponent],
+  imports: [CommonModule, FormsModule, ChronicaDatepickerComponent, KeyFeaturesComponent],
   templateUrl: './datepicker-demo.component.html',
 })
 export class DatepickerDemoComponent {
+  protected readonly features: string[] = [
+    'Built-in styled input or custom trigger elements',
+    'Multiple color themes & dark mode support',
+    'Date range restrictions & disabled dates',
+    'Popup calendar with month/year navigation',
+    'Today button for quick date selection',
+    'Angular forms integration (ngModel & Reactive)',
+    'Focus states without hover effects',
+    'Customizable placeholder text',
+    'Configurable first day of week',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   // Default input datepicker

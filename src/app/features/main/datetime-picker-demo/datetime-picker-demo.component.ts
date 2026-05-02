@@ -8,14 +8,29 @@ import {
   DEFAULT_DATETIME_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-datetime-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent],
+  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent],
   templateUrl: './datetime-picker-demo.component.html',
 })
 export class DateTimePickerDemoComponent {
+  protected readonly features: string[] = [
+    'Combined date and time selection in one interface',
+    '24-hour and 12-hour time format support',
+    'Optional seconds precision for exact timing',
+    'Date-only mode with time picker disabled',
+    'Built-in input or custom trigger elements',
+    'Date range restrictions and validation',
+    'Multiple color themes & dark mode',
+    'Angular forms integration (ngModel & Reactive)',
+    'Responsive design for mobile and desktop',
+    'Keyboard navigation and accessibility',
+    'Tabs layout with ARIA tablist/tabpanel',
+    'Separate inputs and partial-value (requireBoth) modes',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   // Basic datetime picker (24-hour format)
