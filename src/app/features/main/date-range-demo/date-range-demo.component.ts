@@ -9,14 +9,28 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 
 @Component({
   selector: 'app-date-range-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateRangeComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaDateRangeComponent, KeyFeaturesComponent, ConfigOptionsComponent],
   templateUrl: './date-range-demo.component.html',
 })
 export class DateRangeDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'theme', type: "'light' | 'dark'", default: "'light'", description: 'Visual theme mode' },
+    { property: 'colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, purple, green, red, orange, teal, pink, indigo' },
+    { property: 'minDate', type: 'Date', default: 'null', description: 'Minimum selectable date' },
+    { property: 'maxDate', type: 'Date', default: 'null', description: 'Maximum selectable date' },
+    { property: 'disabledDates', type: 'Date[]', default: '[]', description: 'Array of disabled dates' },
+    { property: 'showPresets', type: 'boolean', default: 'false', description: 'Show quick select presets' },
+    { property: 'presets', type: 'PresetRange[]', default: '[]', description: 'Custom preset ranges' },
+    { property: 'showTime', type: 'boolean', default: 'false', description: 'Include time selection' },
+    { property: 'format', type: 'string', default: "'MM/dd/yyyy'", description: 'Date display format' },
+    { property: 'closeOnSelect', type: 'boolean', default: 'true', description: 'Close popup after range selection' },
+  ];
+
   protected readonly features: string[] = [
     'Date range selection with visual feedback',
     'Quick select presets for common ranges',

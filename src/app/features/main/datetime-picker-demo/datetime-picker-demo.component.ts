@@ -9,14 +9,33 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 
 @Component({
   selector: 'app-datetime-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent, ConfigOptionsComponent],
   templateUrl: './datetime-picker-demo.component.html',
 })
 export class DateTimePickerDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'dateTimeValue', type: 'DateTimeValue | null', default: 'null', description: 'Currently selected date and time' },
+    { property: 'enableTimePicker', type: 'boolean', default: 'true', description: 'Enable/disable time selection (date-only mode)' },
+    { property: 'format24Hour', type: 'boolean', default: 'true', description: 'Use 24-hour format or 12-hour with AM/PM' },
+    { property: 'showSeconds', type: 'boolean', default: 'false', description: 'Show seconds in time selection' },
+    { property: 'hideInput', type: 'boolean', default: 'false', description: 'Hide the default input and use custom trigger' },
+    { property: 'placeholder', type: 'string', default: "'Select date and time'", description: 'Placeholder text for the input' },
+    { property: 'config.theme', type: "'light' | 'dark'", default: "'light'", description: 'Light or dark theme' },
+    { property: 'config.colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, green, purple, red, orange, teal, pink, indigo' },
+    { property: 'config.minDate', type: 'Date', default: 'undefined', description: 'Minimum selectable date' },
+    { property: 'config.maxDate', type: 'Date', default: 'undefined', description: 'Maximum selectable date' },
+    { property: 'minuteStep', type: 'number', default: '1', description: 'Minute selection step interval' },
+    { property: 'secondStep', type: 'number', default: '1', description: 'Second selection step interval' },
+    { property: 'config.layout', type: "'inline' | 'tabs'", default: "'inline'", description: 'Display calendar and time picker side-by-side or in separate tabs' },
+    { property: 'config.showSeparateInputs', type: 'boolean', default: 'false', description: 'Render separate date and time trigger buttons side by side' },
+    { property: 'config.requireBoth', type: 'boolean', default: 'true', description: 'When false, emit form value even when only date or time is selected' },
+  ];
+
   protected readonly features: string[] = [
     'Combined date and time selection in one interface',
     '24-hour and 12-hour time format support',
