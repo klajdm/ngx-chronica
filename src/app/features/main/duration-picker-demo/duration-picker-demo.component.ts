@@ -8,14 +8,27 @@ import {
 } from '../../../../../projects/chronica/src/public-api';
 import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-duration-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDurationPickerComponent],
+  imports: [CommonModule, FormsModule, ChronicaDurationPickerComponent, KeyFeaturesComponent],
   templateUrl: './duration-picker-demo.component.html',
 })
 export class DurationPickerDemoComponent {
+  protected readonly features: string[] = [
+    'Multi-unit duration selection (days, hours, minutes, seconds)',
+    'Quick preset buttons for common durations',
+    'Customizable step intervals for precise control',
+    'Duration limits and validation support',
+    'Real-time duration summary and conversion',
+    'Angular forms integration (ngModel & Reactive)',
+    'Multiple color themes & dark mode support',
+    'Popup-based selection interface',
+    'Project planning and time tracking ready',
+    'Responsive design for mobile and desktop',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   // Demo 1: Basic duration picker (hours and minutes)

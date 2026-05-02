@@ -7,14 +7,21 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-inline-calendar-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent],
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, KeyFeaturesComponent],
   templateUrl: './inline-calendar-demo.component.html',
 })
 export class InlineCalendarDemoComponent {
+  protected readonly features: string[] = [
+    'Always visible calendar',
+    'No popup required',
+    'Compact design',
+    'Easy integration',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   // Basic inline calendar
