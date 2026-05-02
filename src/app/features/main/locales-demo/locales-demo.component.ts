@@ -10,14 +10,25 @@ import {
   CHRONICA_LOCALES,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-locales-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, ChronicaDatepickerComponent],
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, ChronicaDatepickerComponent, KeyFeaturesComponent],
   templateUrl: './locales-demo.component.html',
 })
 export class LocalesDemoComponent {
+  protected readonly features: string[] = [
+    '11 built-in locale configurations, zero setup',
+    'Pass a string code or a full ChronicaLocale object',
+    'Dynamic locale switching — change at runtime',
+    'Locale-aware date format in the input field',
+    'Localized month and day names in the calendar grid',
+    'Per-locale week-start day (Sunday vs Monday)',
+    'Localized "Today" button label',
+    'Custom locales: define any language with ChronicaLocale',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   readonly localesMap = CHRONICA_LOCALES;

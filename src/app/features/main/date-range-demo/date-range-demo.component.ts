@@ -8,14 +8,26 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 
 @Component({
   selector: 'app-date-range-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateRangeComponent],
+  imports: [CommonModule, FormsModule, ChronicaDateRangeComponent, KeyFeaturesComponent],
   templateUrl: './date-range-demo.component.html',
 })
 export class DateRangeDemoComponent {
+  protected readonly features: string[] = [
+    'Date range selection with visual feedback',
+    'Quick select presets for common ranges',
+    'Hover preview for range selection',
+    'Min/max date restrictions',
+    'Business day filtering (exclude weekends)',
+    'Angular forms integration (ngModel & Reactive)',
+    'Multiple color themes & dark mode support',
+    'Range highlighting with start/end markers',
+    'Customizable date format & localization',
+  ];
   private readonly _themeService = inject(ThemeService);
 
   // Basic date range
