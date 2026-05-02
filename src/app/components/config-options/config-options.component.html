@@ -1,0 +1,35 @@
+<div class="mb-12">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
+  <div class="overflow-x-auto mt-5">
+    <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+      <thead>
+        <tr class="bg-gray-50">
+          <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+            Property
+          </th>
+          <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
+          <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+            Default
+          </th>
+          <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
+            Description
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (option of options(); track option.property; let last = $last) {
+          <tr [class]="last ? '' : 'border-b border-gray-100'">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{{
+                option.property
+              }}</code>
+            </td>
+            <td class="p-3 text-gray-600">{{ option.type }}</td>
+            <td class="p-3 text-gray-600">{{ option.default }}</td>
+            <td class="p-3 text-gray-600">{{ option.description }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
