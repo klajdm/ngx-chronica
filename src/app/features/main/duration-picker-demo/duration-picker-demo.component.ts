@@ -9,14 +9,28 @@ import {
 import { DEFAULT_CALENDAR_CONFIG } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 
 @Component({
   selector: 'app-duration-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDurationPickerComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaDurationPickerComponent, KeyFeaturesComponent, ConfigOptionsComponent],
   templateUrl: './duration-picker-demo.component.html',
 })
 export class DurationPickerDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'showDays', type: 'boolean', default: 'false', description: 'Show days selector for long durations' },
+    { property: 'showHours', type: 'boolean', default: 'true', description: 'Show hours selector' },
+    { property: 'showMinutes', type: 'boolean', default: 'true', description: 'Show minutes selector' },
+    { property: 'showSeconds', type: 'boolean', default: 'false', description: 'Show seconds selector for precision' },
+    { property: 'maxDays', type: 'number', default: '365', description: 'Maximum selectable days' },
+    { property: 'maxHours', type: 'number', default: '23', description: 'Maximum selectable hours' },
+    { property: 'stepMinutes', type: 'number', default: '1', description: 'Step interval for minutes (e.g., 15 for 15-min blocks)' },
+    { property: 'allowZero', type: 'boolean', default: 'true', description: 'Allow zero duration selection' },
+    { property: 'colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, purple, green, red, orange, teal, pink, indigo' },
+    { property: 'theme', type: 'string', default: "'light'", description: 'UI theme: light or dark' },
+  ];
+
   protected readonly features: string[] = [
     'Multi-unit duration selection (days, hours, minutes, seconds)',
     'Quick preset buttons for common durations',

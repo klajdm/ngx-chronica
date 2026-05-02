@@ -8,14 +8,27 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 
 @Component({
   selector: 'app-inline-calendar-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, KeyFeaturesComponent, ConfigOptionsComponent],
   templateUrl: './inline-calendar-demo.component.html',
 })
 export class InlineCalendarDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'selectedDate', type: 'Date | null', default: 'null', description: 'Currently selected date' },
+    { property: 'theme', type: "'light' | 'dark'", default: "'light'", description: 'Visual theme mode' },
+    { property: 'colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, purple, green, red, orange, teal, pink, indigo' },
+    { property: 'minDate', type: 'Date', default: 'null', description: 'Minimum selectable date' },
+    { property: 'maxDate', type: 'Date', default: 'null', description: 'Maximum selectable date' },
+    { property: 'disabledDates', type: 'Date[]', default: '[]', description: 'Array of disabled dates' },
+    { property: 'showTodayButton', type: 'boolean', default: 'true', description: 'Show "Today" button for quick selection' },
+    { property: 'showWeekNumbers', type: 'boolean', default: 'false', description: 'Display week numbers in calendar' },
+    { property: 'firstDayOfWeek', type: 'number', default: '0', description: 'First day of week (0=Sunday, 1=Monday)' },
+  ];
+
   protected readonly features: string[] = [
     'Always visible calendar',
     'No popup required',
