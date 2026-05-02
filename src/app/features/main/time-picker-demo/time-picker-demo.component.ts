@@ -11,14 +11,27 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 
 @Component({
   selector: 'app-time-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaTimePickerComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaTimePickerComponent, KeyFeaturesComponent, ConfigOptionsComponent],
   templateUrl: './time-picker-demo.component.html',
 })
 export class TimePickerDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'format24Hour', type: 'boolean', default: 'true', description: 'Use 24-hour format (true) or 12-hour with AM/PM (false)' },
+    { property: 'showSeconds', type: 'boolean', default: 'false', description: 'Include seconds selection in the time picker' },
+    { property: 'minuteStep', type: 'number', default: '1', description: 'Step interval for minutes (e.g., 15 for 15-min blocks)' },
+    { property: 'secondStep', type: 'number', default: '1', description: 'Step interval for seconds' },
+    { property: 'minTime', type: 'TimeValue', default: 'null', description: 'Minimum selectable time' },
+    { property: 'maxTime', type: 'TimeValue', default: 'null', description: 'Maximum selectable time' },
+    { property: 'colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, purple, green, red, orange, teal, pink, indigo' },
+    { property: 'theme', type: 'string', default: "'light'", description: 'UI theme: light or dark' },
+    { property: 'placeholder', type: 'string', default: "'Select time'", description: 'Placeholder text for the time input field' },
+  ];
+
   protected readonly features: string[] = [
     '12-hour and 24-hour format support',
     'Optional seconds selection for precision timing',

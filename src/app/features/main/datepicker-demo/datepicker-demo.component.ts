@@ -8,14 +8,28 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 
 @Component({
   selector: 'app-datepicker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDatepickerComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaDatepickerComponent, KeyFeaturesComponent, ConfigOptionsComponent],
   templateUrl: './datepicker-demo.component.html',
 })
 export class DatepickerDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'selectedDate', type: 'Date | null', default: 'null', description: 'Currently selected date' },
+    { property: 'hideInput', type: 'boolean', default: 'false', description: 'Hide the default input and use custom trigger' },
+    { property: 'placeholder', type: 'string', default: "'Select date'", description: 'Placeholder text for the input' },
+    { property: 'config.theme', type: "'light' | 'dark'", default: "'light'", description: 'Light or dark theme' },
+    { property: 'config.colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, green, purple, red, orange, teal, pink, indigo' },
+    { property: 'config.minDate', type: 'Date', default: 'undefined', description: 'Minimum selectable date' },
+    { property: 'config.maxDate', type: 'Date', default: 'undefined', description: 'Maximum selectable date' },
+    { property: 'config.disabledDates', type: 'Date[]', default: '[]', description: 'Array of disabled dates' },
+    { property: 'config.showTodayButton', type: 'boolean', default: 'true', description: 'Show "Today" button in calendar' },
+    { property: 'config.firstDayOfWeek', type: 'number', default: '0', description: 'First day of week (0 = Sunday, 1 = Monday)' },
+  ];
+
   protected readonly features: string[] = [
     'Built-in styled input or custom trigger elements',
     'Multiple color themes & dark mode support',
