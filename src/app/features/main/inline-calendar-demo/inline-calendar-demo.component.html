@@ -18,17 +18,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="basicSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateSelected)="onBasicDateSelected($event)"
-  (monthChanged)="onMonthChanged($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.basic" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -57,17 +47,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="compactSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    showTodayButton: false
-  &#125;"
-  (dateSelected)="onCompactDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.compact" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -95,18 +75,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="restrictedSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    minDate: new Date(2024, 0, 1),
-    maxDate: new Date(2024, 11, 31)
-  &#125;"
-  (dateSelected)="onRestrictedDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.dateRestrictions" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -137,17 +106,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="weekendDisabledSelected"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    disabledDates: this.generateWeekendDates()
-  &#125;"
-  (dateSelected)="onWeekendDisabledSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.weekendDisabled" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -178,19 +137,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="preSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateSelected)="onPreSelectedDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;
-
-// Component initialization
-preSelectedDate: Date | null = new Date();</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.preSelected" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -218,16 +165,7 @@ preSelectedDate: Date | null = new Date();</code></pre>
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="darkModeSelectedDate"
-  [config]="&#123;
-    theme: 'dark',
-    colorTheme: 'blue'
-  &#125;"
-  (dateSelected)="onDarkModeSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.darkMode" />
 
         <div class="p-5 bg-gray-900 rounded-lg border border-gray-700">
           <chronica-inline-calendar
@@ -261,21 +199,7 @@ preSelectedDate: Date | null = new Date();</code></pre>
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="decadeViewSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    minDate: new Date(2020, 0, 1),
-    maxDate: new Date(2029, 11, 31)
-  &#125;"
-  (dateSelected)="onDecadeViewDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;
-
-&lt;!-- Click the month/year header to cycle:
-     Month view → Months grid → Year grid --&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.multiView" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar

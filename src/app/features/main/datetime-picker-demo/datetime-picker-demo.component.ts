@@ -10,11 +10,12 @@ import {
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
+import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
 
 @Component({
   selector: 'app-datetime-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent, ConfigOptionsComponent],
+  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent],
   templateUrl: './datetime-picker-demo.component.html',
 })
 export class DateTimePickerDemoComponent {
@@ -50,6 +51,105 @@ export class DateTimePickerDemoComponent {
     'Tabs layout with ARIA tablist/tabpanel',
     'Separate inputs and partial-value (requireBoth) modes',
   ];
+
+  protected readonly codeSnippets = {
+    basic: `<chronica-datetime-picker
+  [dateTimeValue]="basicSelectedDateTime"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: true,
+    showSeconds: false
+  }"
+  [placeholder]="'Select date and time'"
+  (dateTimeChange)="onBasicDateTimeChanged($event)">
+</chronica-datetime-picker>`,
+    twelveHour: `<chronica-datetime-picker
+  [dateTimeValue]="twelveHourDateTime"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: false,
+    showSeconds: false
+  }"
+  (dateTimeChange)="onTwelveHourDateTimeChanged($event)">
+</chronica-datetime-picker>`,
+    withSeconds: `<chronica-datetime-picker
+  [dateTimeValue]="dateTimeWithSeconds"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: true,
+    showSeconds: true
+  }"
+  (dateTimeChange)="onDateTimeWithSecondsChanged($event)">
+</chronica-datetime-picker>`,
+    customTrigger: `<chronica-datetime-picker
+  [dateTimeValue]="customTriggerDateTime"
+  [config]="config"
+  [hideInput]="true"
+  (dateTimeChange)="onCustomTriggerDateTimeChanged($event)">
+  <div class="custom-trigger">
+    <svg>...</svg>
+    {{ customTriggerDateTime ?
+        formatDateTimeDisplay(customTriggerDateTime) :
+        'Schedule Meeting' }}
+  </div>
+</chronica-datetime-picker>`,
+    restrictions: `restrictedConfig = {
+  theme: 'light',
+  colorTheme: 'blue',
+  format24Hour: true,
+  showSeconds: false,
+  minDate: new Date(2024, 0, 1),   // January 1, 2024
+  maxDate: new Date(2024, 11, 31)  // December 31, 2024
+};`,
+    formIntegration: `<chronica-datetime-picker
+  [(ngModel)]="formSelectedDateTime"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    format24Hour: false
+  }"
+  name="appointmentDateTime"
+  required>
+</chronica-datetime-picker>`,
+    tabsLayout: `<chronica-datetime-picker
+  [(ngModel)]="tabsDateTime"
+  [config]="{
+    layout: 'tabs',
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  (dateTimeChange)="onTabsDateTimeChanged($event)">
+</chronica-datetime-picker>`,
+    separateInputs: `<chronica-datetime-picker
+  [(ngModel)]="separateInputsDateTime"
+  [config]="{
+    showSeparateInputs: true,
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  (dateTimeChange)="onSeparateInputsDateTimeChanged($event)">
+</chronica-datetime-picker>`,
+    partialSelection: `<chronica-datetime-picker
+  [(ngModel)]="partialDateTime"
+  [config]="{
+    requireBoth: false,
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  (dateTimeChange)="onPartialDateTimeChanged($event)">
+</chronica-datetime-picker>`,
+    darkTheme: `<chronica-datetime-picker
+  [dateTimeValue]="darkThemeDateTime"
+  [config]="{
+    theme: 'dark',
+    colorTheme: 'blue'
+  }">
+</chronica-datetime-picker>`,
+  } as const;
+
   private readonly _themeService = inject(ThemeService);
 
   // Basic datetime picker (24-hour format)
