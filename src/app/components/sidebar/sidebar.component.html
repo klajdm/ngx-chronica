@@ -1,59 +1,55 @@
-<aside class="w-60 bg-white shadow-sm border-r border-gray-200 h-full">
+<div class="w-60 bg-white shadow-sm border-r border-gray-200 h-full">
   <div class="p-6">
-    <nav class="space-y-2">
+    <nav class="space-y-2" aria-label="Site navigation">
       <ul class="space-y-1">
-        <ng-container *ngFor="let item of menuItems">
-          <li *ngIf="!item.children">
-            <a
-              [routerLink]="item.route"
-              routerLinkActive="font-semibold text-primary"
-              [routerLinkActiveOptions]="item.route === '/' ? { exact: true } : { exact: false }"
-              class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
-            >
-              {{ item.label }}
-            </a>
-          </li>
-          <li *ngIf="item.children">
-            <button
-              type="button"
-              (click)="toggleGroup(item.label)"
-              class="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
-              [attr.aria-expanded]="isGroupOpen(item)"
-            >
-              <span class="flex-1 text-left">{{ item.label }}</span>
-              <svg
-                class="w-4 h-4 ml-2 text-gray-400 transition-transform duration-150"
-                [class.rotate-180]="isGroupOpen(item)"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        @for (item of menuItems; track item.label) {
+          @if (!item.children) {
+            <li>
+              <a
+                [routerLink]="item.route"
+                routerLinkActive="font-semibold text-primary"
+                #rla="routerLinkActive"
+                [routerLinkActiveOptions]="item.route === '/' ? { exact: true } : { exact: false }"
+                [attr.aria-current]="rla.isActive ? 'page' : null"
+                class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
+                {{ item.label }}
+              </a>
+            </li>
+          }
+          @if (item.children) {
+            <li>
+              <button
+                type="button"
+                (click)="toggleGroup(item.label)"
+                class="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
+                [attr.aria-expanded]="isGroupOpen(item)"
+              >
+                <span class="flex-1 text-left">{{ item.label }}</span>
+                <svg lucideChevronDown class="w-4 h-4 ml-2 text-gray-400 transition-transform duration-150" [class.rotate-180]="isGroupOpen(item)"></svg>
+              </button>
 
-            <ul
-              *ngIf="isGroupOpen(item)"
-              class="mt-1 space-y-1 rounded-lg bg-gray-50 shadow-sm p-2 mx-1"
-            >
-              <li *ngFor="let child of item.children">
-                <a
-                  [routerLink]="child.route"
-                  routerLinkActive="font-semibold text-primary"
-                  class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
-                >
-                  {{ child.label }}
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ng-container>
+              @if (isGroupOpen(item)) {
+                <ul class="mt-1 space-y-1 rounded-lg bg-gray-50 shadow-sm p-2 mx-1">
+                  @for (child of item.children; track child.label) {
+                    <li>
+                      <a
+                        [routerLink]="child.route"
+                        routerLinkActive="font-semibold text-primary"
+                        #crla="routerLinkActive"
+                        [attr.aria-current]="crla.isActive ? 'page' : null"
+                        class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
+                      >
+                        {{ child.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+            </li>
+          }
+        }
       </ul>
     </nav>
   </div>
-</aside>
+</div>

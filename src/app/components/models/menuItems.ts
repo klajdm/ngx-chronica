@@ -16,6 +16,7 @@ export class AppMenuItems {
           { label: 'DateTime Picker', route: '/components/datetime-picker' },
           { label: 'Duration Picker', route: '/components/duration-picker' },
           { label: 'Inline Calendar', route: '/components/inline-calendar' },
+          { label: 'Locales / i18n', route: '/components/locales' },
         ],
       },
       {

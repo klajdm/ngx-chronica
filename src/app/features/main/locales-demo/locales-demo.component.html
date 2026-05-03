@@ -1,0 +1,261 @@
+<div class="py-4 lg:py-8">
+  <div class="text-center pt-4 lg:pt-8 mb-10">
+    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Locales / Internationalization</h1>
+    <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+      NGX-Chronica ships with 11 built-in locale configurations covering month names, day names,
+      date formats, and week-start conventions. Pass a locale code string or a full
+      <code class="bg-gray-100 px-1 rounded text-sm font-mono">ChronicaLocale</code> object to any component.
+    </p>
+  </div>
+
+  <div class="mb-12">
+
+    <!-- Demo 1: Interactive Locale Switcher -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Interactive Locale Switcher</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Click any locale below to see month names, day names, and week-start change in real time.
+        All 11 built-in locales are available out of the box — no extra setup required.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <!-- Locale buttons -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          @for (info of localeInfo; track info.code) {
+            <button
+              (click)="setLocale(info.code)"
+              class="px-3 py-2 rounded-lg border text-sm font-mono transition-colors"
+              [ngClass]="selectedLocaleCode() === info.code
+                ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'"
+            >
+              {{ info.code }}
+            </button>
+          }
+        </div>
+
+        <!-- Active locale info strip -->
+        <div class="flex flex-wrap gap-4 mb-5 px-1">
+          <span class="text-sm text-gray-600">
+            <span class="font-medium text-gray-800">Language:</span>
+            {{ getLocaleName(selectedLocaleCode()) }}
+          </span>
+          <span class="text-sm text-gray-600">
+            <span class="font-medium text-gray-800">Format:</span>
+            <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono">
+              {{ localesMap[selectedLocaleCode()].dateFormat }}
+            </code>
+          </span>
+          <span class="text-sm text-gray-600">
+            <span class="font-medium text-gray-800">"Today" label:</span>
+            {{ localesMap[selectedLocaleCode()].todayLabel }}
+          </span>
+          <span class="text-sm text-gray-600">
+            <span class="font-medium text-gray-800">Week starts:</span>
+            {{ localesMap[selectedLocaleCode()].weekStartsOn === 0 ? 'Sunday' : 'Monday' }}
+          </span>
+        </div>
+
+        <!-- Live calendar -->
+        <div class="flex justify-center">
+          <chronica-inline-calendar
+            [selectedDate]="switcherDate"
+            [config]="switcherConfig()"
+            [locale]="selectedLocaleCode()"
+            (dateSelected)="onSwitcherDateSelected($event)"
+          ></chronica-inline-calendar>
+        </div>
+
+        @if (switcherDate) {
+          <p class="text-sm text-center text-gray-500 mt-3">
+            Selected: {{ switcherDate | date: 'mediumDate' }}
+          </p>
+        }
+      </div>
+
+      <app-code-preview [code]="codeSnippets.builtIn" />
+    </div>
+
+    <!-- Demo 2: Date Format Differences -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Date Format Differences</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Each locale carries its own <code class="bg-gray-100 px-1 rounded text-sm font-mono">dateFormat</code>
+        pattern. Pick a date in any of the four pickers below — all four share the same value but
+        display it formatted according to their locale.
+      </p>
+
+      <div class="mb-6 p-5 bg-gray-50 rounded-lg border border-gray-200">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div>
+            <p class="text-xs font-semibold text-gray-700 mb-0.5">English (US)</p>
+            <p class="text-xs text-gray-400 font-mono mb-2">MM/dd/yyyy</p>
+            <chronica-datepicker
+              [(ngModel)]="formatDemoDate"
+              [config]="formatConfig()"
+              [locale]="'en-US'"
+              (dateSelected)="onFormatDateSelected($event)"
+            ></chronica-datepicker>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-gray-700 mb-0.5">German</p>
+            <p class="text-xs text-gray-400 font-mono mb-2">dd.MM.yyyy</p>
+            <chronica-datepicker
+              [(ngModel)]="formatDemoDate"
+              [config]="formatConfig()"
+              [locale]="'de-DE'"
+              (dateSelected)="onFormatDateSelected($event)"
+            ></chronica-datepicker>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-gray-700 mb-0.5">Chinese (Simplified)</p>
+            <p class="text-xs text-gray-400 font-mono mb-2">yyyy/MM/dd</p>
+            <chronica-datepicker
+              [(ngModel)]="formatDemoDate"
+              [config]="formatConfig()"
+              [locale]="'zh-CN'"
+              (dateSelected)="onFormatDateSelected($event)"
+            ></chronica-datepicker>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-gray-700 mb-0.5">Japanese</p>
+            <p class="text-xs text-gray-400 font-mono mb-2">yyyy/MM/dd</p>
+            <chronica-datepicker
+              [(ngModel)]="formatDemoDate"
+              [config]="formatConfig()"
+              [locale]="'ja-JP'"
+              (dateSelected)="onFormatDateSelected($event)"
+            ></chronica-datepicker>
+          </div>
+        </div>
+
+        @if (formatDemoDate) {
+          <p class="text-xs text-gray-500 mt-4">
+            Raw JS Date: {{ formatDemoDate | date: 'yyyy-MM-dd' }} — each picker above formats this
+            value according to its locale's <code class="font-mono">dateFormat</code> pattern.
+          </p>
+        }
+      </div>
+
+      <app-code-preview [code]="codeSnippets.dateFormat" />
+    </div>
+
+    <!-- Demo 3: String Code Usage -->
+    <div class="bg-white rounded-xl p-6 mb-8 shadow-md border border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Using Locales in Code</h3>
+      <p class="text-gray-600 mb-5 leading-relaxed">
+        Pass a locale in one of two ways: a string code (simplest) or a full
+        <code class="bg-gray-100 px-1 rounded text-sm font-mono">ChronicaLocale</code> object
+        for full control. You can also import <code class="bg-gray-100 px-1 rounded text-sm font-mono">CHRONICA_LOCALES</code>
+        directly to reference a built-in locale object.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- String code -->
+        <div>
+          <p class="text-sm font-medium text-gray-700 mb-2">Option A — string code</p>
+          <app-code-preview [code]="codeSnippets.optionA" />
+        </div>
+
+        <!-- Custom locale object -->
+        <div>
+          <p class="text-sm font-medium text-gray-700 mb-2">Option B — custom locale object</p>
+          <app-code-preview [code]="codeSnippets.optionB" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Locale Reference Table -->
+  <div class="mb-12">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-2">Built-in Locale Reference</h2>
+    <p class="text-gray-600 mb-6">
+      All 11 locale configurations shipped with NGX-Chronica. Import
+      <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">CHRONICA_LOCALES</code> from
+      <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">ngx-chronica</code> to access them programmatically.
+    </p>
+
+    <div class="overflow-x-auto mt-5">
+      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Code</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Language</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Date Format</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Week Starts</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">"Today" Label</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (info of localeInfo; track info.code) {
+          <tr
+            [ngClass]="$odd ? 'bg-gray-50' : 'bg-white'"
+            class="border-b border-gray-100">
+            <td class="p-3">
+              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">{{ info.code }}</code>
+            </td>
+            <td class="p-3 text-gray-700">{{ info.name }}</td>
+            <td class="p-3">
+              <code class="text-sm font-mono text-gray-600">{{ info.format }}</code>
+            </td>
+            <td class="p-3 text-gray-600">{{ info.weekStart }}</td>
+            <td class="p-3 text-gray-600">{{ localesMap[info.code].todayLabel }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ChronicaLocale Interface -->
+  <div class="mb-12">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">ChronicaLocale Interface</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
+        <thead>
+          <tr class="bg-gray-50">
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Property</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
+            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">monthNames</code></td>
+            <td class="p-3 text-gray-600">string[] (12)</td>
+            <td class="p-3 text-gray-600">Full month names, January–December</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">dayNames</code></td>
+            <td class="p-3 text-gray-600">string[] (7)</td>
+            <td class="p-3 text-gray-600">Full day names, Sunday–Saturday</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">dayNamesShort</code></td>
+            <td class="p-3 text-gray-600">string[] (7)</td>
+            <td class="p-3 text-gray-600">Abbreviated day names shown in the calendar header</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">todayLabel</code></td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">Label for the "Today" button</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">weekStartsOn</code></td>
+            <td class="p-3 text-gray-600">0 | 1 | … | 6</td>
+            <td class="p-3 text-gray-600">First day of the week (0 = Sunday, 1 = Monday)</td>
+          </tr>
+          <tr>
+            <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">dateFormat</code></td>
+            <td class="p-3 text-gray-600">string</td>
+            <td class="p-3 text-gray-600">Date format pattern used in the input field (e.g. <code class="font-mono text-xs">dd/MM/yyyy</code>)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Key Features -->
+  <app-key-features [features]="features" />
+</div>

@@ -182,7 +182,7 @@
 .chronica-date.chronica-start-date,
 .chronica-date.chronica-end-date {
   background: var(--chronica-primary, #3b82f6);
-  color: white;
+  color: white !important;
   font-weight: 600;
   border-radius: 50%;
 }

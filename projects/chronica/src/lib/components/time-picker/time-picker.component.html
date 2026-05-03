@@ -46,14 +46,15 @@
         <div class="time-column">
           <label class="time-column-label">{{ isFormat24Hour ? 'Hours' : 'Hour' }}</label>
           <div class="time-scroll-container">
-            <div
-              *ngFor="let hour of hours"
-              class="time-option"
-              [class.selected]="hour === selectedHour"
-              (click)="onHourChange(hour)"
-            >
-              {{ isFormat24Hour ? hour.toString().padStart(2, '0') : hour }}
-            </div>
+            @for (hour of hours; track hour) {
+              <div
+                class="time-option"
+                [class.selected]="hour === selectedHour"
+                (click)="onHourChange(hour)"
+              >
+                {{ isFormat24Hour ? hour.toString().padStart(2, '0') : hour }}
+              </div>
+            }
           </div>
         </div>
 
@@ -61,52 +62,58 @@
         <div class="time-column">
           <label class="time-column-label">Minutes</label>
           <div class="time-scroll-container">
-            <div
-              *ngFor="let minute of minutes"
-              class="time-option"
-              [class.selected]="minute === selectedMinute"
-              (click)="onMinuteChange(minute)"
-            >
-              {{ minute.toString().padStart(2, '0') }}
-            </div>
+            @for (minute of minutes; track minute) {
+              <div
+                class="time-option"
+                [class.selected]="minute === selectedMinute"
+                (click)="onMinuteChange(minute)"
+              >
+                {{ minute.toString().padStart(2, '0') }}
+              </div>
+            }
           </div>
         </div>
 
         <!-- Seconds (if enabled) -->
-        <div class="time-column" *ngIf="config.showSeconds">
-          <label class="time-column-label">Seconds</label>
-          <div class="time-scroll-container">
-            <div
-              *ngFor="let second of seconds"
-              class="time-option"
-              [class.selected]="second === selectedSecond"
-              (click)="onSecondChange(second)"
-            >
-              {{ second.toString().padStart(2, '0') }}
+        @if (config.showSeconds) {
+          <div class="time-column">
+            <label class="time-column-label">Seconds</label>
+            <div class="time-scroll-container">
+              @for (second of seconds; track second) {
+                <div
+                  class="time-option"
+                  [class.selected]="second === selectedSecond"
+                  (click)="onSecondChange(second)"
+                >
+                  {{ second.toString().padStart(2, '0') }}
+                </div>
+              }
             </div>
           </div>
-        </div>
+        }
 
         <!-- AM/PM (if 12-hour format) -->
-        <div class="time-column" *ngIf="!isFormat24Hour">
-          <label class="time-column-label">Period</label>
-          <div class="time-scroll-container">
-            <div
-              class="time-option"
-              [class.selected]="selectedPeriod === 'AM'"
-              (click)="onPeriodChange('AM')"
-            >
-              AM
-            </div>
-            <div
-              class="time-option"
-              [class.selected]="selectedPeriod === 'PM'"
-              (click)="onPeriodChange('PM')"
-            >
-              PM
+        @if (!isFormat24Hour) {
+          <div class="time-column">
+            <label class="time-column-label">Period</label>
+            <div class="time-scroll-container">
+              <div
+                class="time-option"
+                [class.selected]="selectedPeriod === 'AM'"
+                (click)="onPeriodChange('AM')"
+              >
+                AM
+              </div>
+              <div
+                class="time-option"
+                [class.selected]="selectedPeriod === 'PM'"
+                (click)="onPeriodChange('PM')"
+              >
+                PM
+              </div>
             </div>
           </div>
-        </div>
+        }
       </div>
     </div>
 

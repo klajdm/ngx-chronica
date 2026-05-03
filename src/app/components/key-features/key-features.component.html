@@ -1,0 +1,53 @@
+@if (compact()) {
+  <div
+    [class]="color() === 'green' ? 'bg-green-50 rounded-lg p-6' : 'bg-blue-50 rounded-lg p-6'"
+  >
+    <h2
+      [class]="color() === 'green' ? 'text-xl font-semibold mb-4 text-green-900' : 'text-xl font-semibold mb-4 text-blue-900'"
+    >
+      Key Features
+    </h2>
+    <ul
+      [class]="color() === 'green' ? 'space-y-2 text-sm text-green-800' : 'space-y-2 text-sm text-blue-800'"
+    >
+      @for (feature of features(); track feature) {
+        <li class="flex items-center">
+          <svg lucideCheck [class]="color() === 'green' ? 'w-4 h-4 mr-2 text-green-600' : 'w-4 h-4 mr-2 text-blue-600'"></svg>
+          {{ feature }}
+        </li>
+      }
+    </ul>
+  </div>
+} @else {
+  <div
+    [class]="color() === 'green' ? 'bg-green-50 rounded-xl p-6 mb-6 lg:mb-12' : 'bg-blue-50 rounded-xl p-6 mb-6 lg:mb-12'"
+  >
+    <h2
+      [class]="color() === 'green' ? 'text-2xl font-semibold mb-6 text-green-900' : 'text-2xl font-semibold mb-6 text-blue-900'"
+    >
+      Key Features
+    </h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <ul
+        [class]="color() === 'green' ? 'space-y-3 text-sm text-green-800' : 'space-y-3 text-sm text-blue-800'"
+      >
+        @for (feature of leftColumn(); track feature) {
+          <li class="flex items-center">
+            <svg lucideCheck [class]="color() === 'green' ? 'w-5 h-5 mr-3 shrink-0 text-green-600' : 'w-5 h-5 mr-3 shrink-0 text-blue-600'"></svg>
+            <span class="font-medium">{{ feature }}</span>
+          </li>
+        }
+      </ul>
+      <ul
+        [class]="color() === 'green' ? 'space-y-3 text-sm text-green-800' : 'space-y-3 text-sm text-blue-800'"
+      >
+        @for (feature of rightColumn(); track feature) {
+          <li class="flex items-center">
+            <svg lucideCheck [class]="color() === 'green' ? 'w-5 h-5 mr-3 shrink-0 text-green-600' : 'w-5 h-5 mr-3 shrink-0 text-blue-600'"></svg>
+            <span class="font-medium">{{ feature }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+}

@@ -1,0 +1,134 @@
+import { Component, inject, computed, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ChronicaInlineCalendarComponent } from '../../../../../projects/chronica/src/lib/components/inline-calendar/inline-calendar.component';
+import { ChronicaDatepickerComponent } from '../../../../../projects/chronica/src/lib/components/datepicker/datepicker.component';
+import {
+  ChronicaCalendarConfig,
+  ChronicaLocale,
+  DEFAULT_CALENDAR_CONFIG,
+  CHRONICA_LOCALES,
+} from '../../../../../projects/chronica/src/lib/models/index';
+import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+
+@Component({
+  selector: 'app-locales-demo',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, ChronicaDatepickerComponent, KeyFeaturesComponent, CodePreviewComponent],
+  templateUrl: './locales-demo.component.html',
+})
+export class LocalesDemoComponent {
+  protected readonly features: string[] = [
+    '11 built-in locale configurations, zero setup',
+    'Pass a string code or a full ChronicaLocale object',
+    'Dynamic locale switching — change at runtime',
+    'Locale-aware date format in the input field',
+    'Localized month and day names in the calendar grid',
+    'Per-locale week-start day (Sunday vs Monday)',
+    'Localized "Today" button label',
+    'Custom locales: define any language with ChronicaLocale',
+  ];
+
+  protected readonly codeSnippets = {
+    builtIn: `<!-- Pass a built-in locale by string code -->
+<chronica-inline-calendar
+  [(ngModel)]="date"
+  [locale]="'es-ES'"
+/>
+
+<!-- Works the same on every component -->
+<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="'fr-FR'"
+/>`,
+    dateFormat: `<!-- All four share the same Date value; each formats it differently -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'en-US'" />  <!-- 01/15/2025 -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'de-DE'" />  <!-- 15.01.2025 -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'zh-CN'" />  <!-- 2025/01/15 -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'ja-JP'" />  <!-- 2025/01/15 -->`,
+    optionA: `<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="'es-ES'"
+/>
+
+<!-- Dynamic switching -->
+<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="selectedLocale"
+/>
+
+// In component:
+selectedLocale = 'fr-FR';`,
+    optionB: `import { ChronicaLocale } from 'ngx-chronica';
+
+const myLocale: ChronicaLocale = {
+  monthNames: ['Jan', 'Feb', 'Mar', ...],
+  dayNames: ['Sun', 'Mon', 'Tue', ...],
+  dayNamesShort: ['Su', 'Mo', 'Tu', ...],
+  todayLabel: 'Today',
+  weekStartsOn: 1, // 0 = Sunday
+  dateFormat: 'dd/MM/yyyy',
+};
+
+<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="myLocale"
+/>`,
+  } as const;
+
+  private readonly _themeService = inject(ThemeService);
+
+  readonly localesMap = CHRONICA_LOCALES;
+
+  readonly localeInfo: { code: string; name: string; format: string; weekStart: string }[] = [
+    { code: 'en-US', name: 'English (US)', format: 'MM/dd/yyyy', weekStart: 'Sunday' },
+    { code: 'en-GB', name: 'English (UK)', format: 'dd/MM/yyyy', weekStart: 'Monday' },
+    { code: 'es-ES', name: 'Spanish', format: 'dd/MM/yyyy', weekStart: 'Monday' },
+    { code: 'fr-FR', name: 'French', format: 'dd/MM/yyyy', weekStart: 'Monday' },
+    { code: 'de-DE', name: 'German', format: 'dd.MM.yyyy', weekStart: 'Monday' },
+    { code: 'it-IT', name: 'Italian', format: 'dd/MM/yyyy', weekStart: 'Monday' },
+    { code: 'pt-BR', name: 'Portuguese (BR)', format: 'dd/MM/yyyy', weekStart: 'Sunday' },
+    { code: 'zh-CN', name: 'Chinese (Simplified)', format: 'yyyy/MM/dd', weekStart: 'Monday' },
+    { code: 'ja-JP', name: 'Japanese', format: 'yyyy/MM/dd', weekStart: 'Sunday' },
+    { code: 'ko-KR', name: 'Korean', format: 'yyyy. MM. dd.', weekStart: 'Sunday' },
+    { code: 'ru-RU', name: 'Russian', format: 'dd.MM.yyyy', weekStart: 'Monday' },
+  ];
+
+  selectedLocaleCode = signal('en-US');
+  switcherDate: Date | null = new Date();
+  formatDemoDate: Date | null = new Date();
+
+  switcherConfig = computed((): ChronicaCalendarConfig => ({
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'light',
+    colorTheme: this._themeService.currentTheme(),
+  }));
+
+  formatConfig = computed((): ChronicaCalendarConfig => ({
+    ...DEFAULT_CALENDAR_CONFIG,
+    theme: 'light',
+    colorTheme: this._themeService.currentTheme(),
+  }));
+
+  setLocale(code: string): void {
+    this.selectedLocaleCode.set(code);
+  }
+
+  getLocale(code: string): ChronicaLocale {
+    return CHRONICA_LOCALES[code];
+  }
+
+  getLocaleName(code: string): string {
+    return this.localeInfo.find((l) => l.code === code)?.name ?? code;
+  }
+
+  onSwitcherDateSelected(date: Date): void {
+    this.switcherDate = date;
+  }
+
+  onFormatDateSelected(date: Date): void {
+    this.formatDemoDate = date;
+  }
+}

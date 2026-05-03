@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LucidePackage, LucideHeart } from '@lucide/angular';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [LucidePackage],
   templateUrl: './footer.component.html',
   styles: [],
 })

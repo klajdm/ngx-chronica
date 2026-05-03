@@ -194,12 +194,16 @@
 
 .date.selected {
   background: var(--chronica-primary-color, #3b82f6);
-  color: #fff;
+  color: #fff !important;
   font-weight: 700;
 }
 
 .date.disabled:hover {
   background: transparent;
+}
+
+.date.weekend {
+  color: var(--chronica-error, #ef4444);
 }
 
 /* Time Picker Section */

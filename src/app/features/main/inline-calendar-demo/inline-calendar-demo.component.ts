@@ -7,14 +7,109 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
+import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCheck } from '@lucide/angular';
 
 @Component({
   selector: 'app-inline-calendar-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent],
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent, LucideCheck],
   templateUrl: './inline-calendar-demo.component.html',
 })
 export class InlineCalendarDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    { property: 'selectedDate', type: 'Date | null', default: 'null', description: 'Currently selected date' },
+    { property: 'theme', type: "'light' | 'dark'", default: "'light'", description: 'Visual theme mode' },
+    { property: 'colorTheme', type: 'string', default: "'blue'", description: 'Color theme: blue, purple, green, red, orange, teal, pink, indigo' },
+    { property: 'minDate', type: 'Date', default: 'null', description: 'Minimum selectable date' },
+    { property: 'maxDate', type: 'Date', default: 'null', description: 'Maximum selectable date' },
+    { property: 'disabledDates', type: 'Date[]', default: '[]', description: 'Array of disabled dates' },
+    { property: 'showTodayButton', type: 'boolean', default: 'true', description: 'Show "Today" button for quick selection' },
+    { property: 'showWeekNumbers', type: 'boolean', default: 'false', description: 'Display week numbers in calendar' },
+    { property: 'firstDayOfWeek', type: 'number', default: '0', description: 'First day of week (0=Sunday, 1=Monday)' },
+  ];
+
+  protected readonly features: string[] = [
+    'Always visible calendar',
+    'No popup required',
+    'Compact design',
+    'Easy integration',
+  ];
+
+  protected readonly codeSnippets = {
+    basic: `<chronica-inline-calendar
+  [selectedDate]="basicSelectedDate"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  (dateSelected)="onBasicDateSelected($event)"
+  (monthChanged)="onMonthChanged($event)">
+</chronica-inline-calendar>`,
+    compact: `<chronica-inline-calendar
+  [selectedDate]="compactSelectedDate"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    showTodayButton: false
+  }"
+  (dateSelected)="onCompactDateSelected($event)">
+</chronica-inline-calendar>`,
+    dateRestrictions: `<chronica-inline-calendar
+  [selectedDate]="restrictedSelectedDate"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    minDate: new Date(2024, 0, 1),
+    maxDate: new Date(2024, 11, 31)
+  }"
+  (dateSelected)="onRestrictedDateSelected($event)">
+</chronica-inline-calendar>`,
+    weekendDisabled: `<chronica-inline-calendar
+  [selectedDate]="weekendDisabledSelected"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    disabledDates: this.generateWeekendDates()
+  }"
+  (dateSelected)="onWeekendDisabledSelected($event)">
+</chronica-inline-calendar>`,
+    preSelected: `<chronica-inline-calendar
+  [selectedDate]="preSelectedDate"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  (dateSelected)="onPreSelectedDateSelected($event)">
+</chronica-inline-calendar>
+
+// Component initialization
+preSelectedDate: Date | null = new Date();`,
+    darkMode: `<chronica-inline-calendar
+  [selectedDate]="darkModeSelectedDate"
+  [config]="{
+    theme: 'dark',
+    colorTheme: 'blue'
+  }"
+  (dateSelected)="onDarkModeSelected($event)">
+</chronica-inline-calendar>`,
+    multiView: `<chronica-inline-calendar
+  [selectedDate]="decadeViewSelectedDate"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    minDate: new Date(2020, 0, 1),
+    maxDate: new Date(2029, 11, 31)
+  }"
+  (dateSelected)="onDecadeViewDateSelected($event)">
+</chronica-inline-calendar>
+
+<!-- Click the month/year header to cycle:
+     Month view → Months grid → Year grid -->`,
+  } as const;
+
   private readonly _themeService = inject(ThemeService);
 
   // Basic inline calendar
