@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-05-03
+
+### Added
+
+- **InlineCalendar**: Smooth fade-slide animations when switching between day/month/year views with accessibility support (`prefers-reduced-motion`)
+- **All Calendar Components**: Weekend styling (Saturday/Sunday dates display in red color)
+- **UI**: Lucide icons integration replacing emoji icons across all components for better consistency and accessibility
+- **Interactive Elements**: Hover and active state animations with scale transforms and cubic-bezier easing
+- **Navigation**: Smooth transitions for month/year header and navigation buttons
+- **Demo**: CodePreviewComponent for displaying formatted code snippets with syntax highlighting
+- **Demo**: ConfigOptionsComponent for displaying configuration options in a structured format
+- **Demo**: KeyFeaturesComponent for feature listings with responsive layout
+- **Demo**: LocalesDemoComponent showcasing internationalization support with all 11 built-in locales
+
+### Fixed
+
+- **All Calendar Components**: Selected weekend dates now properly display white text (added `!important` to color rules to override weekend styling)
+- **DateTimePicker**: Added missing weekend styling to match other calendar components (red color for Saturday/Sunday)
+- **DateRange**: Added missing weekend styling to match other calendar components (red color for Saturday/Sunday)
+- **InlineCalendar**: Calendar width no longer contracts when switching between day/month/year views in introduction section
+- **Documentation**: Type definitions now display proper syntax highlighting with color-coded TypeScript
+
 ## [1.2.0] - 2026-04-28
 
 ### Added
