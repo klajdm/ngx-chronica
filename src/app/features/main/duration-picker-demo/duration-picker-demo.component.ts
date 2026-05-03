@@ -11,11 +11,12 @@ import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCircleCheck, LucideCircleX } from '@lucide/angular';
 
 @Component({
   selector: 'app-duration-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDurationPickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent],
+  imports: [CommonModule, FormsModule, ChronicaDurationPickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent, LucideCircleCheck, LucideCircleX],
   templateUrl: './duration-picker-demo.component.html',
 })
 export class DurationPickerDemoComponent {

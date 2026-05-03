@@ -7,11 +7,12 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { RouterModule } from '@angular/router';
+import { LucideBookOpen, LucidePalette } from '@lucide/angular';
 
 @Component({
   selector: 'app-getting-started',
   standalone: true,
-  imports: [ChronicaDatepickerComponent, DatePipe, RouterModule],
+  imports: [ChronicaDatepickerComponent, DatePipe, RouterModule, LucideBookOpen, LucidePalette],
   templateUrl: './getting-started.component.html',
 })
 export class GettingStartedComponent {

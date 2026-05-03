@@ -83,5 +83,8 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "8.59.1",
     "zone.js": "^0.16.1"
+  },
+  "dependencies": {
+    "@lucide/angular": "^1.14.0"
   }
 }

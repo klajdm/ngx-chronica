@@ -123,7 +123,7 @@
             <span>{{ formatTimeDisplay(restrictedTime, true, false) }}</span
             ><br />
             <strong>Within business hours: </strong>
-            <span>✅ Valid</span>
+            <span class="flex items-center gap-1"><svg lucideCircleCheck class="w-4 h-4 text-green-500"></svg>Valid</span>
           </div>
         }
       </div>
@@ -154,8 +154,12 @@
 
           <div class="py-3">
             <strong>Form Valid: </strong>
-            <span>{{ timeForm.valid ? '✅' : '❌' }}</span
-            ><br />
+            @if (timeForm.valid) {
+              <svg lucideCircleCheck class="w-4 h-4 inline align-middle text-green-500"></svg>
+            } @else {
+              <svg lucideCircleX class="w-4 h-4 inline align-middle text-red-500"></svg>
+            }
+            <br />
             <strong>Form Value: </strong>
             <span>{{ formSelectedTime | json }}</span>
           </div>

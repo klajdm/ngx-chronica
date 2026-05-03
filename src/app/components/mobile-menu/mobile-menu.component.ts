@@ -3,6 +3,7 @@ import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AppMenuItems } from '../models/menuItems';
+import { LucideX, LucideChevronDown, LucideExternalLink } from '@lucide/angular';
 
 interface MenuItem {
   label: string;
@@ -13,7 +14,7 @@ interface MenuItem {
 @Component({
   selector: 'app-mobile-menu',
   templateUrl: './mobile-menu.component.html',
-  imports: [RouterModule],
+  imports: [RouterModule, LucideX, LucideChevronDown, LucideExternalLink],
 })
 export class MobileMenuComponent implements OnInit, OnDestroy {
   // Output event to close the mobile menu

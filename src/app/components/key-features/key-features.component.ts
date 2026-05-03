@@ -1,9 +1,10 @@
 import { Component, computed, input } from '@angular/core';
+import { LucideCheck } from '@lucide/angular';
 
 @Component({
   selector: 'app-key-features',
   standalone: true,
-  imports: [],
+  imports: [LucideCheck],
   templateUrl: './key-features.component.html',
 })
 export class KeyFeaturesComponent {
