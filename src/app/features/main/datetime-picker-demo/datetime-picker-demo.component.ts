@@ -11,11 +11,12 @@ import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCalendarClock, LucideCircleCheck, LucideCircleX } from '@lucide/angular';
 
 @Component({
   selector: 'app-datetime-picker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent],
+  imports: [CommonModule, FormsModule, ChronicaDateTimePickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent, LucideCalendarClock, LucideCircleCheck, LucideCircleX],
   templateUrl: './datetime-picker-demo.component.html',
 })
 export class DateTimePickerDemoComponent {

@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output, signal, inject, HostListener } from '@
 
 import { RouterModule } from '@angular/router';
 import { ThemeService, ColorTheme } from '../../services/theme.service';
+import { LucideMenu, LucidePaintBucket, LucideChevronDown, LucideCheck, LucideExternalLink } from '@lucide/angular';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, LucideMenu, LucidePaintBucket, LucideChevronDown, LucideCheck, LucideExternalLink],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {

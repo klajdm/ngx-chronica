@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { LucidePackage, LucideHeart } from '@lucide/angular';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [LucidePackage],
   templateUrl: './footer.component.html',
   styles: [],
 })
