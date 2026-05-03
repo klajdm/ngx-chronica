@@ -248,7 +248,34 @@ refactor(utils): extract date utilities
 ci(github): add automated testing
 ```
 
-## 🆕 What's New in v1.2.0
+## 🆕 What's New in v1.2.1
+
+### UI/UX Enhancements
+
+- **Smooth animations** - InlineCalendar features fade-slide transitions when switching between day/month/year views
+- **Weekend styling** - All calendar components now display Saturday/Sunday dates in red for better visual distinction
+- **Interactive animations** - Hover and active state animations with scale transforms for a modern, polished feel
+- **Lucide icons** - Replaced emoji icons with professional Lucide icons for better consistency and accessibility
+
+### Bug Fixes
+
+- Fixed selected weekend dates not showing white text (added `!important` to override weekend styling)
+- Fixed DateTimePicker missing weekend styling to match other calendar components
+- Fixed DateRange missing weekend styling to match other calendar components
+- Fixed calendar width contracting when switching between views in introduction section
+- Fixed type definitions syntax highlighting in documentation
+
+### Developer Experience
+
+- Refactored documentation HTML templates reducing boilerplate by ~75% (899 → 221 lines)
+- Enhanced demo pages with improved responsive design and better code formatting
+- Added CodePreviewComponent, ConfigOptionsComponent, KeyFeaturesComponent, LocalesDemoComponent
+- Improved accessibility with better ARIA labels and keyboard navigation
+
+---
+
+<details>
+<summary><strong>Previous Updates (v1.2.0)</strong></summary>
 
 ### New Features
 
@@ -277,6 +304,8 @@ ci(github): add automated testing
 - Added `prefers-reduced-motion` support - all transitions disabled when requested
 - Added `prefers-contrast: more` high-contrast variable overrides
 - Added colorblind-safe weekend indicator (small dot below the date number)
+
+</details>
 
 ## 📊 Roadmap
 
