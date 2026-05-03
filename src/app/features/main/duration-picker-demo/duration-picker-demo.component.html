@@ -35,19 +35,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="basicDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    allowZero: true
-  &#125;"
-  placeholder="Select duration"
-  (durationChange)="onDurationChange($event)"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.basic" />
     </div>
 
     <!-- Demo 2: With Seconds -->
@@ -76,17 +64,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="precisionDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    showSeconds: true
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.withSeconds" />
     </div>
 
     <!-- Demo 3: Project Planning -->
@@ -115,19 +93,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="projectDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showDays: true,
-    showHours: true,
-    showMinutes: true,
-    maxDays: 30,
-    allowZero: false
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.projectPlanning" />
     </div>
 
     <!-- Demo 4: Form Integration -->
@@ -161,19 +127,7 @@
         </form>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  name="workDuration"
-  [(ngModel)]="formDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    allowZero: false
-  &#125;"
-  required&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.formIntegration" />
     </div>
 
     <!-- Demo 5: Custom Intervals -->
@@ -202,18 +156,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="intervalDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    stepHours: 1,
-    stepMinutes: 15
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.customIntervals" />
     </div>
 
     <!-- Demo 6: Time Tracking -->
@@ -243,19 +186,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="trackingDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    maxHours: 12,
-    allowZero: false
-  &#125;"
-  [maxDuration]="&#123; hours: 8, minutes: 0 &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.timeTracking" />
     </div>
 
     <!-- Demo 7: Dark Theme -->
@@ -284,17 +215,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="darkDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    theme: 'dark',
-    showHours: true,
-    showMinutes: true
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.darkTheme" />
     </div>
   </div>
 

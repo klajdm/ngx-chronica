@@ -42,19 +42,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [dateTimeValue]="basicSelectedDateTime"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    format24Hour: true,
-    showSeconds: false
-  &#125;"
-  [placeholder]="'Select date and time'"
-  (dateTimeChange)="onBasicDateTimeChanged($event)"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.basic" />
     </div>
 
     <!-- Demo 2: 12-Hour Format -->
@@ -97,18 +85,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [dateTimeValue]="twelveHourDateTime"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    format24Hour: false,
-    showSeconds: false
-  &#125;"
-  (dateTimeChange)="onTwelveHourDateTimeChanged($event)"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.twelveHour" />
     </div>
 
     <!-- Demo 3: With Seconds Display -->
@@ -141,18 +118,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [dateTimeValue]="dateTimeWithSeconds"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    format24Hour: true,
-    showSeconds: true
-  &#125;"
-  (dateTimeChange)="onDateTimeWithSecondsChanged($event)"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.withSeconds" />
     </div>
 
     <!-- Demo 4: Custom Trigger Element -->
@@ -207,20 +173,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [dateTimeValue]="customTriggerDateTime"
-  [config]="config"
-  [hideInput]="true"
-  (dateTimeChange)="onCustomTriggerDateTimeChanged($event)"&gt;
-  &lt;div class="custom-trigger"&gt;
-    &lt;svg&gt;...&lt;/svg&gt;
-    &#123;&#123; customTriggerDateTime ? 
-        formatDateTimeDisplay(customTriggerDateTime) : 
-        'Schedule Meeting' &#125;&#125;
-  &lt;/div&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.customTrigger" />
     </div>
 
     <!-- Demo 5: Date Restrictions -->
@@ -252,16 +205,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>restrictedConfig = &#123;
-  theme: 'light',
-  colorTheme: 'blue',
-  format24Hour: true,
-  showSeconds: false,
-  minDate: new Date(2024, 0, 1),   // January 1, 2024
-  maxDate: new Date(2024, 11, 31)  // December 31, 2024
-&#125;;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.restrictions" />
     </div>
 
     <!-- Demo 6: Form Integration -->
@@ -325,18 +269,7 @@
         </form>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [(ngModel)]="formSelectedDateTime"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    format24Hour: false
-  &#125;"
-  name="appointmentDateTime"
-  required&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.formIntegration" />
     </div>
 
     <!-- Demo 7: Tabs Layout -->
@@ -366,17 +299,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [(ngModel)]="tabsDateTime"
-  [config]="&#123;
-    layout: 'tabs',
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateTimeChange)="onTabsDateTimeChanged($event)"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.tabsLayout" />
     </div>
 
     <!-- Demo 8: Separate Inputs -->
@@ -404,17 +327,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [(ngModel)]="separateInputsDateTime"
-  [config]="&#123;
-    showSeparateInputs: true,
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateTimeChange)="onSeparateInputsDateTimeChanged($event)"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.separateInputs" />
     </div>
 
     <!-- Demo 9: Optional Date-Only / Time-Only (requireBoth: false) -->
@@ -447,17 +360,7 @@
         </div>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [(ngModel)]="partialDateTime"
-  [config]="&#123;
-    requireBoth: false,
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateTimeChange)="onPartialDateTimeChanged($event)"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.partialSelection" />
     </div>
 
     <!-- Demo 10: Dark Theme -->
@@ -487,15 +390,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datetime-picker
-  [dateTimeValue]="darkThemeDateTime"
-  [config]="&#123;
-    theme: 'dark',
-    colorTheme: 'blue'
-  &#125;"&gt;
-&lt;/chronica-datetime-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.darkTheme" />
     </div>
   </div>
 

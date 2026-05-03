@@ -33,17 +33,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="defaultSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  [placeholder]="'Choose a date'"
-  (dateSelected)="onDefaultDateSelected($event)"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.basic" />
     </div>
 
     <!-- Demo 2: Custom Trigger Element -->
@@ -90,23 +80,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="customSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  [hideInput]="true"
-  (dateSelected)="onCustomDateSelected($event)"&gt;
-  &lt;div class="custom-trigger"&gt;
-    &lt;svg&gt;...&lt;/svg&gt;
-    &#123;&#123; customSelectedDate ? 
-        (customSelectedDate | date: 'mediumDate') : 
-        'Select appointment date' &#125;&#125;
-  &lt;/div&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.customTrigger" />
     </div>
 
     <!-- Demo 3: Date Restrictions -->
@@ -164,26 +138,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>// Date range restriction
-restrictedConfig = &#123;
-  theme: 'light',
-  colorTheme: 'blue',
-  minDate: new Date(2024, 0, 1),
-  maxDate: new Date(2024, 11, 31)
-&#125;;
-
-// Disabled specific dates
-disabledDatesConfig = &#123;
-  theme: 'light',
-  colorTheme: 'blue',
-  disabledDates: [
-    new Date(2024, 11, 25), // Christmas
-    new Date(2024, 0, 1),   // New Year
-    new Date(2024, 6, 4)    // July 4th
-  ]
-&#125;;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.restrictions" />
     </div>
 
     <!-- Demo 4: Form Integration -->
@@ -228,17 +183,7 @@ disabledDatesConfig = &#123;
         </form>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [(ngModel)]="formSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  name="appointmentDate"
-  required&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.formIntegration" />
     </div>
 
     <!-- Demo 5: Dark Theme -->
@@ -268,15 +213,7 @@ disabledDatesConfig = &#123;
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="darkThemeDate"
-  [config]="&#123;
-    theme: 'dark',
-    colorTheme: 'blue'
-  &#125;"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.darkTheme" />
     </div>
 
     <!-- Demo 7: Popup Position -->
@@ -323,25 +260,7 @@ disabledDatesConfig = &#123;
         </div>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;!-- Always open below the input --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [popupPosition]="'bottom'"&gt;
-&lt;/chronica-datepicker&gt;
-
-&lt;!-- Always open above the input --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [popupPosition]="'top'"&gt;
-&lt;/chronica-datepicker&gt;
-
-&lt;!-- Auto-detect (default) --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [popupPosition]="'auto'"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.popupPosition" />
     </div>
   </div>
 

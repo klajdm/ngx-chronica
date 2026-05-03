@@ -38,17 +38,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
-  [(ngModel)]="basicSelectedRange"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  placeholder="Select date range"
-  (dateRangeChange)="onBasicRangeChanged($event)"&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.basic" />
     </div>
 
     <!-- Demo 2: Date Range Restrictions -->
@@ -82,17 +72,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
-  [(ngModel)]="restrictedSelectedRange"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  [minDate]="new Date(2024, 0, 1)"
-  [maxDate]="new Date(2024, 11, 31)"&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.restrictions" />
     </div>
 
     <!-- Demo 3: Form Integration -->
@@ -126,17 +106,7 @@
         </form>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
-  name="projectDuration"
-  [(ngModel)]="formSelectedRange"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  required&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.formIntegration" />
     </div>
 
     <!-- Demo 4: Business Days Only -->
@@ -168,16 +138,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
-  [(ngModel)]="businessDaysRange"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    disabledDates: this.generateWeekendDates()
-  &#125;"&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.businessDays" />
     </div>
 
     <!-- Demo 5: Quick Select Presets -->
@@ -209,21 +170,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre
-          class="text-gray-200 text-sm"
-        ><code>&lt;!-- Quick select buttons (This Week / Today / This Month)
-     are built into the component - no extra config needed --&gt;
-&lt;chronica-date-range
-  [(ngModel)]="presetRange"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  placeholder="Select or use presets"
-  (dateRangeChange)="onPresetRangeChanged($event)"&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.quickPresets" />
     </div>
 
     <!-- Demo 6: Dark Theme -->
@@ -254,15 +201,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-date-range
-  [(ngModel)]="darkThemeRange"
-  [config]="&#123;
-    theme: 'dark',
-    colorTheme: 'blue'
-  &#125;"&gt;
-&lt;/chronica-date-range&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.darkTheme" />
     </div>
   </div>
 
