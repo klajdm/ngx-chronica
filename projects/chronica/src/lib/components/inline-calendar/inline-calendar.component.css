@@ -105,6 +105,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--chronica-spacing-xs, 4px);
+  animation: fadeSlideIn 0.3s ease-out;
 }
 
 .chronica-day-header {
@@ -215,6 +216,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--chronica-spacing-xs, 4px);
   padding: var(--chronica-spacing-sm, 8px) 0;
+  animation: fadeSlideIn 0.3s ease-out;
 }
 
 .chronica-month-cell {
@@ -250,6 +252,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: var(--chronica-spacing-xs, 4px);
   padding: var(--chronica-spacing-sm, 8px) 0;
+  animation: fadeSlideIn 0.3s ease-out;
 }
 
 .chronica-year-cell {
@@ -277,6 +280,95 @@
 .chronica-year-cell:focus-visible {
   outline: 2px solid var(--chronica-primary);
   outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth transitions for interactive elements */
+.chronica-date-cell,
+.chronica-month-cell,
+.chronica-year-cell {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chronica-date-cell:hover:not(:disabled):not(.chronica-selected),
+.chronica-month-cell:hover,
+.chronica-year-cell:hover {
+  transform: scale(1.05);
+}
+
+.chronica-date-cell:active:not(:disabled),
+.chronica-month-cell:active,
+.chronica-year-cell:active {
+  transform: scale(0.95);
+}
+
+/* Month/Year header animation */
+.chronica-month-year {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chronica-month-year:hover {
+  transform: translateY(-1px);
+}
+
+.chronica-month-year:active {
+  transform: translateY(0);
+}
+
+/* Navigation button animations */
+.chronica-nav-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chronica-nav-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.chronica-nav-btn:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .chronica-calendar-grid,
+  .chronica-months-grid,
+  .chronica-year-grid,
+  .chronica-date-cell,
+  .chronica-month-cell,
+  .chronica-year-cell,
+  .chronica-month-year,
+  .chronica-nav-btn {
+    animation: none;
+    transition: none;
+  }
+  
+  .chronica-date-cell:hover:not(:disabled):not(.chronica-selected),
+  .chronica-month-cell:hover,
+  .chronica-year-cell:hover,
+  .chronica-nav-btn:hover:not(:disabled),
+  .chronica-month-year:hover {
+    transform: none;
+  }
 }
 
 /* Responsive adjustments */
