@@ -158,6 +158,7 @@
           [class.chronica-in-range]="isInRange(day)"
           [class.chronica-in-hover-range]="isInHoverRange(day)"
           [class.chronica-disabled]="isDayDisabled(day)"
+          [class.chronica-weekend]="isWeekend(day)"
           (click)="selectDate(day)"
           (mouseenter)="!isDayDisabled(day) && onDateHover(day)"
           (keydown.enter)="selectDate(day)"

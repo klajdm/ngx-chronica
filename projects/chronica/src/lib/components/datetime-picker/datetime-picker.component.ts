@@ -316,6 +316,11 @@ export class ChronicaDateTimePickerComponent
     );
   }
 
+  isWeekend(day: number): boolean {
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    return ChronicaCalendarUtils.isWeekend(date);
+  }
+
   isDateDisabled(day: number): boolean {
     if (this.disabled) return true;
 

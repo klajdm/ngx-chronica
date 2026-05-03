@@ -161,7 +161,7 @@
 }
 .chronica-date.chronica-selected {
   background: var(--chronica-primary);
-  color: #fff;
+  color: #fff !important;
   font-weight: var(--chronica-font-weight-bold, 700);
 }
 
