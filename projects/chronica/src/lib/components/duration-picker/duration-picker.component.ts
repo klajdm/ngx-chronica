@@ -14,7 +14,7 @@ import {
   ViewChild,
   TemplateRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -46,7 +46,7 @@ export interface DurationPickerConfig extends Partial<ChronicaBaseConfig> {
 @Component({
   selector: 'chronica-duration-picker',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -415,7 +415,8 @@ export class ChronicaDurationPickerComponent
     const portal = new TemplatePortal(this.durationPickerTemplate, this.viewContainerRef);
     this.overlayRef.attach(portal);
 
-    this.overlayRef.backdropClick()
+    this.overlayRef
+      .backdropClick()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.closePopup());
 

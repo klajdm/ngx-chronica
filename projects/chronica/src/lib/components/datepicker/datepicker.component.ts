@@ -14,7 +14,7 @@ import {
   ViewChild,
   TemplateRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -33,7 +33,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 @Component({
   selector: 'chronica-datepicker',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -110,7 +110,11 @@ export class ChronicaDatepickerComponent
 
     // Update year range first, then generate month without additional year range update
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+      year,
+      month,
+      this.getLocaleConfig()
+    );
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -122,7 +126,11 @@ export class ChronicaDatepickerComponent
     // Ensure year range includes the target year before generating month
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
 
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+      year,
+      month,
+      this.getLocaleConfig()
+    );
 
     // Mark selected date if it exists
     if (this.selectedDate) {
@@ -442,6 +450,10 @@ export class ChronicaDatepickerComponent
     return this.locale;
   }
 
+  private getLocaleConfig(): ChronicaCalendarConfig {
+    return { ...this.config, locale: this.getCurrentLocale() };
+  }
+
   // Get day names from locale, respecting firstDayOfWeek
   private getDayNamesFromLocale(locale: ChronicaLocale): string[] {
     const firstDayOfWeek = this.config.firstDayOfWeek ?? locale.weekStartsOn;
@@ -486,8 +498,20 @@ export class ChronicaDatepickerComponent
   }
 
   private getPositions(): ConnectedPosition[] {
-    const bottom: ConnectedPosition = { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 14 };
-    const top: ConnectedPosition = { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -14 };
+    const bottom: ConnectedPosition = {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'start',
+      overlayY: 'top',
+      offsetY: 14,
+    };
+    const top: ConnectedPosition = {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'bottom',
+      offsetY: -14,
+    };
     if (this.popupPosition === 'bottom') return [bottom];
     if (this.popupPosition === 'top') return [top];
     return [bottom, top];
@@ -522,7 +546,8 @@ export class ChronicaDatepickerComponent
       this.generateMonth(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
     }
 
-    this.overlayRef.backdropClick()
+    this.overlayRef
+      .backdropClick()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.closePopup());
   }

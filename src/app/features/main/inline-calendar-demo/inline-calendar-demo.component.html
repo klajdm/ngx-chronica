@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto">
+<div class="py-4 lg:py-8">
   <div class="text-center pt-4 lg:pt-8 mb-10">
     <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Inline Calendar Component</h1>
     <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
@@ -18,17 +18,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="basicSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateSelected)="onBasicDateSelected($event)"
-  (monthChanged)="onMonthChanged($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.basic" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -38,10 +28,12 @@
             (monthChanged)="onMonthChanged($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="basicSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ basicSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (basicSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ basicSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -55,17 +47,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="compactSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    showTodayButton: false
-  &#125;"
-  (dateSelected)="onCompactDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.compact" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -74,10 +56,12 @@
             (dateSelected)="onCompactDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="compactSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ compactSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (compactSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ compactSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -91,18 +75,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="restrictedSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    minDate: new Date(2024, 0, 1),
-    maxDate: new Date(2024, 11, 31)
-  &#125;"
-  (dateSelected)="onRestrictedDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.dateRestrictions" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -113,10 +86,12 @@
 
           <div class="py-3">
             <p class="text-sm">Only dates in 2024 are selectable</p>
-            <div *ngIf="restrictedSelectedDate">
-              <strong>Selected Date: </strong>
-              <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
-            </div>
+            @if (restrictedSelectedDate) {
+              <div>
+                <strong>Selected Date: </strong>
+                <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -131,17 +106,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="weekendDisabledSelected"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    disabledDates: this.generateWeekendDates()
-  &#125;"
-  (dateSelected)="onWeekendDisabledSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.weekendDisabled" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -152,10 +117,12 @@
 
           <div class="py-3">
             <p class="text-sm">Weekends are disabled</p>
-            <div *ngIf="weekendDisabledSelected">
-              <strong>Selected Date: </strong>
-              <span>{{ weekendDisabledSelected | date: 'mediumDate' }}</span>
-            </div>
+            @if (weekendDisabledSelected) {
+              <div>
+                <strong>Selected Date: </strong>
+                <span>{{ weekendDisabledSelected | date: 'mediumDate' }}</span>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -170,19 +137,7 @@
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="preSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  (dateSelected)="onPreSelectedDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;
-
-// Component initialization
-preSelectedDate: Date | null = new Date();</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.preSelected" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -191,10 +146,12 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onPreSelectedDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="preSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ preSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (preSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ preSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -208,16 +165,7 @@ preSelectedDate: Date | null = new Date();</code></pre>
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="darkModeSelectedDate"
-  [config]="&#123;
-    theme: 'dark',
-    colorTheme: 'blue'
-  &#125;"
-  (dateSelected)="onDarkModeSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.darkMode" />
 
         <div class="p-5 bg-gray-900 rounded-lg border border-gray-700">
           <chronica-inline-calendar
@@ -226,10 +174,12 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onDarkModeSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3 text-gray-300" *ngIf="darkModeSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ darkModeSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (darkModeSelectedDate) {
+            <div class="py-3 text-gray-300">
+              <strong>Selected Date: </strong>
+              <span>{{ darkModeSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -249,21 +199,7 @@ preSelectedDate: Date | null = new Date();</code></pre>
       </p>
 
       <div class="grid lg:grid-cols-2 gap-8">
-        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-          <pre class="text-gray-200 text-sm"><code>&lt;chronica-inline-calendar
-  [selectedDate]="decadeViewSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue',
-    minDate: new Date(2020, 0, 1),
-    maxDate: new Date(2029, 11, 31)
-  &#125;"
-  (dateSelected)="onDecadeViewDateSelected($event)"&gt;
-&lt;/chronica-inline-calendar&gt;
-
-&lt;!-- Click the month/year header to cycle:
-     Month view → Months grid → Year grid --&gt;</code></pre>
-        </div>
+        <app-code-preview [code]="codeSnippets.multiView" />
 
         <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
           <chronica-inline-calendar
@@ -272,10 +208,12 @@ preSelectedDate: Date | null = new Date();</code></pre>
             (dateSelected)="onDecadeViewDateSelected($event)"
           ></chronica-inline-calendar>
 
-          <div class="py-3" *ngIf="decadeViewSelectedDate">
-            <strong>Selected Date: </strong>
-            <span>{{ decadeViewSelectedDate | date: 'mediumDate' }}</span>
-          </div>
+          @if (decadeViewSelectedDate) {
+            <div class="py-3">
+              <strong>Selected Date: </strong>
+              <span>{{ decadeViewSelectedDate | date: 'mediumDate' }}</span>
+            </div>
+          }
           <p class="text-xs text-gray-500 mt-2">
             Tip: click the header button to cycle - Month → Months → Year.
           </p>
@@ -285,122 +223,7 @@ preSelectedDate: Date | null = new Date();</code></pre>
   </div>
 
   <!-- Configuration Options -->
-  <div class="mb-12">
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
-
-    <div class="overflow-x-auto mt-5">
-      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
-        <thead>
-          <tr class="bg-gray-50">
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Property
-            </th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Default
-            </th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >selectedDate</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date | null</td>
-            <td class="p-3 text-gray-600">null</td>
-            <td class="p-3 text-gray-600">Currently selected date</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >theme</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">'light' | 'dark'</td>
-            <td class="p-3 text-gray-600">'light'</td>
-            <td class="p-3 text-gray-600">Visual theme mode</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >colorTheme</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">string</td>
-            <td class="p-3 text-gray-600">'blue'</td>
-            <td class="p-3 text-gray-600">
-              Color theme: blue, purple, green, red, orange, teal, pink, indigo
-            </td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >minDate</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date</td>
-            <td class="p-3 text-gray-600">null</td>
-            <td class="p-3 text-gray-600">Minimum selectable date</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >maxDate</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date</td>
-            <td class="p-3 text-gray-600">null</td>
-            <td class="p-3 text-gray-600">Maximum selectable date</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >disabledDates</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date[]</td>
-            <td class="p-3 text-gray-600">[]</td>
-            <td class="p-3 text-gray-600">Array of disabled dates</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >showTodayButton</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">true</td>
-            <td class="p-3 text-gray-600">Show "Today" button for quick selection</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >showWeekNumbers</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">false</td>
-            <td class="p-3 text-gray-600">Display week numbers in calendar</td>
-          </tr>
-          <tr>
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >firstDayOfWeek</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">number</td>
-            <td class="p-3 text-gray-600">0</td>
-            <td class="p-3 text-gray-600">First day of week (0=Sunday, 1=Monday)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <app-config-options [options]="options" />
 
   <!-- Use Cases -->
   <div class="grid md:grid-cols-2 gap-8 mb-6 lg:mb-12">
@@ -408,92 +231,24 @@ preSelectedDate: Date | null = new Date();</code></pre>
       <h2 class="text-xl font-semibold mb-4 text-green-900">Perfect For</h2>
       <ul class="space-y-2 text-sm text-green-800">
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
+          <svg lucideCheck class="w-4 h-4 mr-2 text-green-600"></svg>
           Dashboard widgets
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
+          <svg lucideCheck class="w-4 h-4 mr-2 text-green-600"></svg>
           Booking interfaces
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
+          <svg lucideCheck class="w-4 h-4 mr-2 text-green-600"></svg>
           Event planning forms
         </li>
         <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
+          <svg lucideCheck class="w-4 h-4 mr-2 text-green-600"></svg>
           Sidebar date selectors
         </li>
       </ul>
     </div>
 
-    <div class="bg-blue-50 rounded-lg p-6">
-      <h2 class="text-xl font-semibold mb-4 text-blue-900">Key Features</h2>
-      <ul class="space-y-2 text-sm text-blue-800">
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          Always visible calendar
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          No popup required
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          Compact design
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          Easy integration
-        </li>
-      </ul>
-    </div>
+    <app-key-features [features]="features" [compact]="true" />
   </div>
 </div>

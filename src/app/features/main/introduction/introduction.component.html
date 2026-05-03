@@ -4,9 +4,13 @@
     <h1 class="text-3xl font-bold text-gray-900 mb-2">NGX-Chronica</h1>
     <p class="text-lg text-gray-600 leading-relaxed">
       A comprehensive suite of <strong>6 specialized date and time picker components</strong> for
-      <a href="https://angular.io" target="_blank" rel="noopener noreferrer"
-        class="font-semibold text-primary hover:underline">Angular</a>. Fill critical gaps in the Angular ecosystem with
-      production-ready components.
+      <a
+        href="https://angular.io"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-semibold text-primary hover:underline"
+        >Angular</a
+      >. Fill critical gaps in the Angular ecosystem with production-ready components.
     </p>
   </div>
 
@@ -29,68 +33,21 @@
   <div class="mb-10">
     <h2 class="text-2xl font-semibold text-gray-900 mb-4">Features</h2>
     <ul class="space-y-2 text-gray-700">
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">🗓️</span>
-        <span><strong>6 Specialized Components</strong> - DatePicker, Date Range, Inline Calendar, Time Picker, DateTime
-          Picker, and Duration Picker.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">🎨</span>
-        <span><strong>8 Beautiful Themes</strong> - Light and dark mode with Blue, Green, Purple, Red, Orange, Teal,
-          Pink, or Indigo.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">📝</span>
-        <span><strong>Seamless Form Integration</strong> - Full ControlValueAccessor for Reactive and Template-driven
-          forms.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">🌍</span>
-        <span><strong>Internationalization</strong> - 11 built-in locales (EN, ES, FR, DE, IT, PT, ZH, JA, KO, RU, AR)
-          plus custom support.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">🚫</span>
-        <span><strong>Smart Validation</strong> - Min/max constraints, disabled dates, time restrictions, and business
-          day filtering.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">♿</span>
-        <span><strong>Accessibility</strong> - WCAG 2.1 AA compliant with keyboard navigation and screen reader
-          support.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">⚡</span>
-        <span><strong>Standalone Components</strong> - Modern Angular with zero setup for standalone or NgModule
-          apps.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">🎯</span>
-        <span><strong>TypeScript First</strong> - Comprehensive type definitions and strict mode compliance.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">📱</span>
-        <span><strong>Mobile Responsive</strong> - Touch-friendly with optimized layouts and gesture support.</span>
-      </li>
-
-      <li class="flex items-start gap-2.5">
-        <span class="text-xl flex-shrink-0">🔧</span>
-        <span><strong>Highly Customizable</strong> - Extensive options, CSS variables, and flexible APIs.</span>
-      </li>
+      @for (feature of features; track feature.label) {
+        <li class="flex items-start gap-2.5">
+          <svg lucideCheck class="w-5 h-5 shrink-0 text-green-500 mt-0.5"></svg>
+          <span
+            ><strong>{{ feature.label }}</strong> - {{ feature.description }}</span
+          >
+        </li>
+      }
     </ul>
 
     <div class="mt-6 p-3 bg-blue-50 border border-blue-200 rounded-lg">
       <p class="text-gray-700">
-        <strong>Built with Angular CDK</strong> for robust overlay positioning. <strong>Zero external
-          dependencies</strong>-no Moment.js or date-fns. Compiled to CommonJS and ESM.
+        <strong>Built with Angular CDK</strong> for robust overlay positioning.
+        <strong>Zero external dependencies</strong>-no Moment.js or date-fns. Compiled to CommonJS
+        and ESM.
       </p>
     </div>
   </div>
@@ -102,7 +59,9 @@
       <!-- Code Example -->
       <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
         <div class="text-xs text-gray-400 mb-2">./MyCalendar.component.ts</div>
-        <pre class="text-sm"><code class="text-gray-100"><span class="text-purple-400">import</span> <span class="text-yellow-300">&#123;</span> Component <span class="text-yellow-300">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'@angular/core'</span>;
+        <pre
+          class="text-sm"
+        ><code class="text-gray-100"><span class="text-purple-400">import</span> <span class="text-yellow-300">&#123;</span> Component <span class="text-yellow-300">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'@angular/core'</span>;
 <span class="text-purple-400">import</span> <span class="text-yellow-300">&#123;</span> ChronicaInlineCalendarComponent <span class="text-yellow-300">&#125;</span> <span class="text-purple-400">from</span> <span class="text-green-400">'ngx-chronica'</span>;
 
 <span class="text-blue-400">@Component</span>(<span class="text-yellow-300">&#123;</span>
@@ -125,15 +84,19 @@
 <span class="text-yellow-300">&#125;</span></code></pre>
       </div>
 
-      <!-- Calendar Preview: centered -->
+      <!-- Calendar Preview -->
       <div class="flex justify-center mt-6">
-        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
-          <chronica-inline-calendar [selectedDate]="previewSelectedDate"  [config]="previewBasicConfig()"
-            (dateSelected)="onPreviewDateSelected($event)"></chronica-inline-calendar>
-
-          <p class="text-xs text-gray-500 mt-3 text-center" *ngIf="previewSelectedDate">
-            Selected: {{ previewSelectedDate | date: 'mediumDate' }}
-          </p>
+        <div class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm w-full max-w-[352px]">
+          <chronica-inline-calendar
+            [selectedDate]="previewSelectedDate"
+            [config]="previewBasicConfig()"
+            (dateSelected)="onPreviewDateSelected($event)"
+          />
+          @if (previewSelectedDate) {
+            <p class="text-xs text-gray-500 mt-3 text-center">
+              Selected: {{ previewSelectedDate | date: 'mediumDate' }}
+            </p>
+          }
         </div>
       </div>
     </div>

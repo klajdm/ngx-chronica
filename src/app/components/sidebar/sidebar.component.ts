@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import type { MenuItem } from '../models/menu-item.model';
 import { AppMenuItems } from '../models/menuItems';
+import { LucideChevronDown } from '@lucide/angular';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule, LucideChevronDown],
   templateUrl: './sidebar.component.html',
   styles: [],
 })

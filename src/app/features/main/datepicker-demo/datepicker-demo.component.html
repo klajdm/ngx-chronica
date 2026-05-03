@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto">
+<div class="py-4 lg:py-8">
   <div class="text-center pt-4 lg:pt-8 mb-10">
     <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Datepicker Component</h1>
     <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
@@ -33,17 +33,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="defaultSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  [placeholder]="'Choose a date'"
-  (dateSelected)="onDefaultDateSelected($event)"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.basic" />
     </div>
 
     <!-- Demo 2: Custom Trigger Element -->
@@ -64,13 +54,7 @@
           <div
             class="inline-flex items-center px-4 py-2 bg-white text-zinc-800 rounded-lg cursor-pointer hover:bg-zinc-100 transition-colors shadow-sm"
           >
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <svg lucideCalendar class="w-4 h-4 mr-2"></svg>
             {{
               customSelectedDate
                 ? (customSelectedDate | date: 'longDate')
@@ -90,23 +74,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="customSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  [hideInput]="true"
-  (dateSelected)="onCustomDateSelected($event)"&gt;
-  &lt;div class="custom-trigger"&gt;
-    &lt;svg&gt;...&lt;/svg&gt;
-    &#123;&#123; customSelectedDate ? 
-        (customSelectedDate | date: 'mediumDate') : 
-        'Select appointment date' &#125;&#125;
-  &lt;/div&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.customTrigger" />
     </div>
 
     <!-- Demo 3: Date Restrictions -->
@@ -143,41 +111,28 @@
           </div>
         </div>
 
-        <div class="py-3" *ngIf="restrictedSelectedDate || disabledDatesSelected">
-          <div *ngIf="restrictedSelectedDate">
-            <strong>Restricted Range: </strong>
-            <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span
-            ><br />
-            <strong>Restriction: </strong>
-            <span>✅ Within allowed range (2024)</span>
+        @if (restrictedSelectedDate || disabledDatesSelected) {
+          <div class="py-3">
+            @if (restrictedSelectedDate) {
+              <div>
+                <strong>Restricted Range: </strong>
+                <span>{{ restrictedSelectedDate | date: 'mediumDate' }}</span
+                ><br />
+                <strong>Restriction: </strong>
+                <span class="flex items-center gap-1"><svg lucideCircleCheck class="w-4 h-4 text-green-500"></svg>Within allowed range (2024)</span>
+              </div>
+            }
+            @if (disabledDatesSelected) {
+              <div class="mt-2">
+                <strong>Disabled Dates: </strong>
+                <span>{{ disabledDatesSelected | date: 'mediumDate' }}</span>
+              </div>
+            }
           </div>
-          <div *ngIf="disabledDatesSelected" class="mt-2">
-            <strong>Disabled Dates: </strong>
-            <span>{{ disabledDatesSelected | date: 'mediumDate' }}</span>
-          </div>
-        </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>// Date range restriction
-restrictedConfig = &#123;
-  theme: 'light',
-  colorTheme: 'blue',
-  minDate: new Date(2024, 0, 1),
-  maxDate: new Date(2024, 11, 31)
-&#125;;
-
-// Disabled specific dates
-disabledDatesConfig = &#123;
-  theme: 'light',
-  colorTheme: 'blue',
-  disabledDates: [
-    new Date(2024, 11, 25), // Christmas
-    new Date(2024, 0, 1),   // New Year
-    new Date(2024, 6, 4)    // July 4th
-  ]
-&#125;;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.restrictions" />
     </div>
 
     <!-- Demo 4: Form Integration -->
@@ -214,25 +169,19 @@ disabledDatesConfig = &#123;
 
           <div class="py-3">
             <strong>Form Valid: </strong>
-            <span>{{ dateForm.valid ? '✅' : '❌' }}</span
-            ><br />
+            @if (dateForm.valid) {
+              <svg lucideCircleCheck class="w-4 h-4 inline align-middle text-green-500"></svg>
+            } @else {
+              <svg lucideCircleX class="w-4 h-4 inline align-middle text-red-500"></svg>
+            }
+            <br />
             <strong>Form Value: </strong>
             <span>{{ formSelectedDate | date: 'mediumDate' }}</span>
           </div>
         </form>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [(ngModel)]="formSelectedDate"
-  [config]="&#123;
-    theme: 'light',
-    colorTheme: 'blue'
-  &#125;"
-  name="appointmentDate"
-  required&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.formIntegration" />
     </div>
 
     <!-- Demo 5: Dark Theme -->
@@ -251,24 +200,18 @@ disabledDatesConfig = &#123;
           (dateSelected)="onDarkThemeDateSelected($event)"
         ></chronica-datepicker>
 
-        <div class="py-3" *ngIf="darkThemeDate">
-          <strong class="text-gray-300">Selected Date: </strong>
-          <span class="text-gray-300">{{ darkThemeDate | date: 'mediumDate' }}</span
-          ><br />
-          <strong class="text-gray-300">Theme: </strong>
-          <span class="text-gray-300">Dark mode</span>
-        </div>
+        @if (darkThemeDate) {
+          <div class="py-3">
+            <strong class="text-gray-300">Selected Date: </strong>
+            <span class="text-gray-300">{{ darkThemeDate | date: 'mediumDate' }}</span
+            ><br />
+            <strong class="text-gray-300">Theme: </strong>
+            <span class="text-gray-300">Dark mode</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [selectedDate]="darkThemeDate"
-  [config]="&#123;
-    theme: 'dark',
-    colorTheme: 'blue'
-  &#125;"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.darkTheme" />
     </div>
 
     <!-- Demo 7: Popup Position -->
@@ -315,254 +258,13 @@ disabledDatesConfig = &#123;
         </div>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;!-- Always open below the input --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [popupPosition]="'bottom'"&gt;
-&lt;/chronica-datepicker&gt;
-
-&lt;!-- Always open above the input --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [popupPosition]="'top'"&gt;
-&lt;/chronica-datepicker&gt;
-
-&lt;!-- Auto-detect (default) --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [popupPosition]="'auto'"&gt;
-&lt;/chronica-datepicker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.popupPosition" />
     </div>
   </div>
 
   <!-- Configuration Options -->
-  <div class="mb-12">
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
-
-    <div class="overflow-x-auto mt-5">
-      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
-        <thead>
-          <tr class="bg-gray-50">
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Property
-            </th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Default
-            </th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >selectedDate</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date | null</td>
-            <td class="p-3 text-gray-600">null</td>
-            <td class="p-3 text-gray-600">Currently selected date</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >hideInput</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">false</td>
-            <td class="p-3 text-gray-600">Hide the default input and use custom trigger</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >placeholder</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">string</td>
-            <td class="p-3 text-gray-600">'Select date'</td>
-            <td class="p-3 text-gray-600">Placeholder text for the input</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.theme</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">'light' | 'dark'</td>
-            <td class="p-3 text-gray-600">'light'</td>
-            <td class="p-3 text-gray-600">Light or dark theme</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.colorTheme</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">string</td>
-            <td class="p-3 text-gray-600">'blue'</td>
-            <td class="p-3 text-gray-600">
-              Color theme: blue, green, purple, red, orange, teal, pink, indigo
-            </td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.minDate</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date</td>
-            <td class="p-3 text-gray-600">undefined</td>
-            <td class="p-3 text-gray-600">Minimum selectable date</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.maxDate</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date</td>
-            <td class="p-3 text-gray-600">undefined</td>
-            <td class="p-3 text-gray-600">Maximum selectable date</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.disabledDates</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">Date[]</td>
-            <td class="p-3 text-gray-600">[]</td>
-            <td class="p-3 text-gray-600">Array of disabled dates</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.showTodayButton</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">true</td>
-            <td class="p-3 text-gray-600">Show "Today" button in calendar</td>
-          </tr>
-          <tr>
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >config.firstDayOfWeek</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">number</td>
-            <td class="p-3 text-gray-600">0</td>
-            <td class="p-3 text-gray-600">First day of week (0 = Sunday, 1 = Monday)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <app-config-options [options]="options" />
 
   <!-- Key Features -->
-  <div class="bg-blue-50 rounded-xl p-6 mb-6 lg:mb-12">
-    <h2 class="text-2xl font-semibold mb-6 text-blue-900">Key Features</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      <ul class="space-y-3 text-sm text-blue-800">
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Built-in styled input or custom trigger elements</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Multiple color themes & dark mode support</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Date range restrictions & disabled dates</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Popup calendar with month/year navigation</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Today button for quick date selection</span>
-        </li>
-      </ul>
-      <ul class="space-y-3 text-sm text-blue-800">
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Angular forms integration (ngModel & Reactive)</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Focus states without hover effects</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Customizable placeholder text</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Configurable first day of week</span>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <app-key-features [features]="features" />
 </div>
