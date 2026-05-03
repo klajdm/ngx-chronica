@@ -88,13 +88,11 @@
           (change)="changeMonth(+$any($event.target).value)"
           aria-label="Select month"
         >
-          <option
-            *ngFor="let monthName of monthNames; let i = index"
-            [value]="i"
-            [selected]="i === currentMonth.month"
-          >
-            {{ monthName }}
-          </option>
+          @for (monthName of monthNames; track monthName; let i = $index) {
+            <option [value]="i" [selected]="i === currentMonth.month">
+              {{ monthName }}
+            </option>
+          }
         </select>
 
         <select
@@ -103,13 +101,11 @@
           (change)="changeYear(+$any($event.target).value)"
           aria-label="Select year"
         >
-          <option
-            *ngFor="let year of yearRange"
-            [value]="year"
-            [selected]="year === currentMonth.year"
-          >
-            {{ year }}
-          </option>
+          @for (year of yearRange; track year) {
+            <option [value]="year" [selected]="year === currentMonth.year">
+              {{ year }}
+            </option>
+          }
         </select>
       </div>
 
@@ -138,67 +134,80 @@
 
     <!-- Day names header -->
     <div class="chronica-day-names">
-      <div class="chronica-day-name" *ngFor="let dayName of dayNames">
-        {{ dayName }}
-      </div>
+      @for (dayName of dayNames; track dayName) {
+        <div class="chronica-day-name">
+          {{ dayName }}
+        </div>
+      }
     </div>
 
     <!-- Calendar grid -->
     <div class="chronica-calendar-grid" (mouseleave)="onDateLeave()">
       <!-- Empty cells for days before the first day of month -->
-      <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty"></div>
+      @for (_ of getFirstDayOffset(); track _) {
+        <div class="chronica-date chronica-empty"></div>
+      }
 
       <!-- Days of month -->
-      <div
-        *ngFor="let day of getDaysInMonth()"
-        class="chronica-date chronica-clickable"
-        [class.chronica-today]="isToday(day)"
-        [class.chronica-start-date]="isStartDate(day)"
-        [class.chronica-end-date]="isEndDate(day)"
-        [class.chronica-in-range]="isInRange(day)"
-        [class.chronica-in-hover-range]="isInHoverRange(day)"
-        [class.chronica-disabled]="isDayDisabled(day)"
-        (click)="selectDate(day)"
-        (mouseenter)="!isDayDisabled(day) && onDateHover(day)"
-        (keydown.enter)="selectDate(day)"
-        (keydown.space)="selectDate(day)"
-        [tabindex]="isDayDisabled(day) ? -1 : 0"
-        role="button"
-        [attr.aria-label]="
-          'Select date ' +
-          day +
-          (isDayDisabled(day) ? ' (disabled)' : '') +
-          (isStartDate(day) ? ' (start date)' : '') +
-          (isEndDate(day) ? ' (end date)' : '')
-        "
-        [attr.aria-disabled]="isDayDisabled(day)"
-      >
-        {{ day }}
-      </div>
+      @for (day of getDaysInMonth(); track day) {
+        <div
+          class="chronica-date chronica-clickable"
+          [class.chronica-today]="isToday(day)"
+          [class.chronica-start-date]="isStartDate(day)"
+          [class.chronica-end-date]="isEndDate(day)"
+          [class.chronica-in-range]="isInRange(day)"
+          [class.chronica-in-hover-range]="isInHoverRange(day)"
+          [class.chronica-disabled]="isDayDisabled(day)"
+          (click)="selectDate(day)"
+          (mouseenter)="!isDayDisabled(day) && onDateHover(day)"
+          (keydown.enter)="selectDate(day)"
+          (keydown.space)="selectDate(day)"
+          [tabindex]="isDayDisabled(day) ? -1 : 0"
+          role="button"
+          [attr.aria-label]="
+            'Select date ' +
+            day +
+            (isDayDisabled(day) ? ' (disabled)' : '') +
+            (isStartDate(day) ? ' (start date)' : '') +
+            (isEndDate(day) ? ' (end date)' : '')
+          "
+          [attr.aria-disabled]="isDayDisabled(day)"
+        >
+          {{ day }}
+        </div>
+      }
     </div>
 
     <!-- Selected Range Footer -->
-    <div *ngIf="dateRange.startDate || dateRange.endDate" class="chronica-range-footer">
-      <!-- Date Range Display -->
-      <div class="chronica-range-display">
-        <div class="chronica-range-dates">
-          <span *ngIf="dateRange.startDate">
-            {{ formatDate(dateRange.startDate) }}
-          </span>
-          <span *ngIf="dateRange.startDate && dateRange.endDate"> - </span>
-          <span *ngIf="dateRange.endDate">
-            {{ formatDate(dateRange.endDate) }}
-          </span>
+    @if (dateRange.startDate || dateRange.endDate) {
+      <div class="chronica-range-footer">
+        <!-- Date Range Display -->
+        <div class="chronica-range-display">
+          <div class="chronica-range-dates">
+            @if (dateRange.startDate) {
+              <span>
+                {{ formatDate(dateRange.startDate) }}
+              </span>
+            }
+            @if (dateRange.startDate && dateRange.endDate) {
+              <span> - </span>
+            }
+            @if (dateRange.endDate) {
+              <span>
+                {{ formatDate(dateRange.endDate) }}
+              </span>
+            }
+          </div>
+          <!-- Days Count -->
+          @if (dateRange.startDate && dateRange.endDate) {
+            <div class="chronica-days-count">
+              {{ getDaysDifference() }} day{{ getDaysDifference() === 1 ? '' : 's' }}
+            </div>
+          }
         </div>
-
-        <!-- Days Count -->
-        <div *ngIf="dateRange.startDate && dateRange.endDate" class="chronica-days-count">
-          {{ getDaysDifference() }} day{{ getDaysDifference() === 1 ? '' : 's' }}
-        </div>
+        <!-- Clear Button -->
+        <button class="chronica-clear-btn" (click)="clearRange()" type="button">Clear range</button>
       </div>
-
-      <!-- Clear Button -->
-      <button class="chronica-clear-btn" (click)="clearRange()" type="button">Clear range</button>
-    </div>
+    }
   </div>
 </ng-template>
