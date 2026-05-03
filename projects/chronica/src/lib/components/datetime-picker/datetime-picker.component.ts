@@ -14,7 +14,7 @@ import {
   ChangeDetectorRef,
   forwardRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -37,7 +37,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 @Component({
   selector: 'chronica-datetime-picker',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -316,6 +316,11 @@ export class ChronicaDateTimePickerComponent
     );
   }
 
+  isWeekend(day: number): boolean {
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    return ChronicaCalendarUtils.isWeekend(date);
+  }
+
   isDateDisabled(day: number): boolean {
     if (this.disabled) return true;
 
@@ -531,8 +536,20 @@ export class ChronicaDateTimePickerComponent
   }
 
   private getPositions(): ConnectedPosition[] {
-    const bottom: ConnectedPosition = { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 14 };
-    const top: ConnectedPosition = { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -14 };
+    const bottom: ConnectedPosition = {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'start',
+      overlayY: 'top',
+      offsetY: 14,
+    };
+    const top: ConnectedPosition = {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'bottom',
+      offsetY: -14,
+    };
     if (this.popupPosition === 'bottom') return [bottom];
     if (this.popupPosition === 'top') return [top];
     return [bottom, top];
@@ -558,7 +575,8 @@ export class ChronicaDateTimePickerComponent
     const portal = new TemplatePortal(this.datetimePickerTemplate, this.viewContainerRef);
     this.overlayRef.attach(portal);
 
-    this.overlayRef.backdropClick()
+    this.overlayRef
+      .backdropClick()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.closePopup());
 

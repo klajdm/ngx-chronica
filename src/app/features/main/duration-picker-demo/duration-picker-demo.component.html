@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto">
+<div class="py-4 lg:py-8">
   <div class="text-center pt-4 lg:pt-8 mb-10">
     <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Duration Picker Component</h1>
     <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
@@ -24,28 +24,18 @@
           (durationChange)="onDurationChange($event, 'Basic')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="basicDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(basicDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(basicDuration) }}</span>
-        </div>
+        @if (basicDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(basicDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(basicDuration) }}</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="basicDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    allowZero: true
-  &#125;"
-  placeholder="Select duration"
-  (durationChange)="onDurationChange($event)"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.basic" />
     </div>
 
     <!-- Demo 2: With Seconds -->
@@ -63,26 +53,18 @@
           (durationChange)="onDurationChange($event, 'Precision')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="precisionDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(precisionDuration) }}</span
-          ><br />
-          <strong>Total Seconds: </strong>
-          <span>{{ getTotalSeconds(precisionDuration) }}</span>
-        </div>
+        @if (precisionDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(precisionDuration) }}</span
+            ><br />
+            <strong>Total Seconds: </strong>
+            <span>{{ getTotalSeconds(precisionDuration) }}</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="precisionDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    showSeconds: true
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.withSeconds" />
     </div>
 
     <!-- Demo 3: Project Planning -->
@@ -100,28 +82,18 @@
           (durationChange)="onDurationChange($event, 'Project')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="projectDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(projectDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(projectDuration) }}</span>
-        </div>
+        @if (projectDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(projectDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(projectDuration) }}</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="projectDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showDays: true,
-    showHours: true,
-    showMinutes: true,
-    maxDays: 30,
-    allowZero: false
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.projectPlanning" />
     </div>
 
     <!-- Demo 4: Form Integration -->
@@ -147,27 +119,19 @@
 
           <div class="py-3">
             <strong>Form Valid: </strong>
-            <span>{{ durationForm.valid ? '✅' : '❌' }}</span
-            ><br />
+            @if (durationForm.valid) {
+              <svg lucideCircleCheck class="w-4 h-4 inline align-middle text-green-500"></svg>
+            } @else {
+              <svg lucideCircleX class="w-4 h-4 inline align-middle text-red-500"></svg>
+            }
+            <br />
             <strong>Form Value: </strong>
             <span>{{ formDuration | json }}</span>
           </div>
         </form>
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  name="workDuration"
-  [(ngModel)]="formDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    allowZero: false
-  &#125;"
-  required&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.formIntegration" />
     </div>
 
     <!-- Demo 5: Custom Intervals -->
@@ -185,27 +149,18 @@
           (durationChange)="onDurationChange($event, 'Interval')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="intervalDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(intervalDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(intervalDuration) }}</span>
-        </div>
+        @if (intervalDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(intervalDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(intervalDuration) }}</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="intervalDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    stepHours: 1,
-    stepMinutes: 15
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.customIntervals" />
     </div>
 
     <!-- Demo 6: Time Tracking -->
@@ -224,28 +179,18 @@
           (durationChange)="onDurationChange($event, 'Tracking')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="trackingDuration">
-          <strong>Selected: </strong>
-          <span>{{ formatDuration(trackingDuration) }}</span
-          ><br />
-          <strong>Total Minutes: </strong>
-          <span>{{ getTotalMinutes(trackingDuration) }}</span>
-        </div>
+        @if (trackingDuration) {
+          <div class="py-3">
+            <strong>Selected: </strong>
+            <span>{{ formatDuration(trackingDuration) }}</span
+            ><br />
+            <strong>Total Minutes: </strong>
+            <span>{{ getTotalMinutes(trackingDuration) }}</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="trackingDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    showHours: true,
-    showMinutes: true,
-    maxHours: 12,
-    allowZero: false
-  &#125;"
-  [maxDuration]="&#123; hours: 8, minutes: 0 &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.timeTracking" />
     </div>
 
     <!-- Demo 7: Dark Theme -->
@@ -263,269 +208,24 @@
           (durationChange)="onDurationChange($event, 'Dark')"
         ></chronica-duration-picker>
 
-        <div class="py-3" *ngIf="darkDuration">
-          <strong class="text-gray-300">Selected: </strong>
-          <span class="text-gray-300">{{ formatDuration(darkDuration) }}</span
-          ><br />
-          <strong class="text-gray-300">Total Minutes: </strong>
-          <span class="text-gray-300">{{ getTotalMinutes(darkDuration) }}</span>
-        </div>
+        @if (darkDuration) {
+          <div class="py-3">
+            <strong class="text-gray-300">Selected: </strong>
+            <span class="text-gray-300">{{ formatDuration(darkDuration) }}</span
+            ><br />
+            <strong class="text-gray-300">Total Minutes: </strong>
+            <span class="text-gray-300">{{ getTotalMinutes(darkDuration) }}</span>
+          </div>
+        }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;chronica-duration-picker
-  [(ngModel)]="darkDuration"
-  [config]="&#123;
-    colorTheme: 'blue',
-    theme: 'dark',
-    showHours: true,
-    showMinutes: true
-  &#125;"&gt;
-&lt;/chronica-duration-picker&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.darkTheme" />
     </div>
   </div>
 
   <!-- Configuration Options -->
-  <div class="mb-12">
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Configuration Options</h2>
-
-    <div class="overflow-x-auto mt-5">
-      <table class="w-full bg-white border-collapse rounded-lg overflow-hidden shadow-md">
-        <thead>
-          <tr class="bg-gray-50">
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Property
-            </th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">Type</th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Default
-            </th>
-            <th class="p-3 text-left font-semibold text-gray-800 border-b border-gray-200">
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >showDays</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">false</td>
-            <td class="p-3 text-gray-600">Show days selector for long durations</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >showHours</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">true</td>
-            <td class="p-3 text-gray-600">Show hours selector</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >showMinutes</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">true</td>
-            <td class="p-3 text-gray-600">Show minutes selector</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >showSeconds</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">false</td>
-            <td class="p-3 text-gray-600">Show seconds selector for precision</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >maxDays</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">number</td>
-            <td class="p-3 text-gray-600">365</td>
-            <td class="p-3 text-gray-600">Maximum selectable days</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >maxHours</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">number</td>
-            <td class="p-3 text-gray-600">23</td>
-            <td class="p-3 text-gray-600">Maximum selectable hours</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >stepMinutes</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">number</td>
-            <td class="p-3 text-gray-600">1</td>
-            <td class="p-3 text-gray-600">
-              Step interval for minutes (e.g., 15 for 15-min blocks)
-            </td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >allowZero</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">boolean</td>
-            <td class="p-3 text-gray-600">true</td>
-            <td class="p-3 text-gray-600">Allow zero duration selection</td>
-          </tr>
-          <tr class="border-b border-gray-100">
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >colorTheme</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">string</td>
-            <td class="p-3 text-gray-600">'blue'</td>
-            <td class="p-3 text-gray-600">
-              Color theme: blue, purple, green, red, orange, teal, pink, indigo
-            </td>
-          </tr>
-          <tr>
-            <td class="p-3">
-              <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800"
-                >theme</code
-              >
-            </td>
-            <td class="p-3 text-gray-600">string</td>
-            <td class="p-3 text-gray-600">'light'</td>
-            <td class="p-3 text-gray-600">UI theme: light or dark</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <app-config-options [options]="options" />
 
   <!-- Key Features -->
-  <div class="bg-green-50 rounded-xl p-6 mb-6 lg:mb-12">
-    <h2 class="text-2xl font-semibold mb-6 text-green-900">Key Features</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      <ul class="space-y-3 text-sm text-green-800">
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium"
-            >Multi-unit duration selection (days, hours, minutes, seconds)</span
-          >
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Quick preset buttons for common durations</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Customizable step intervals for precise control</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Duration limits and validation support</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Real-time duration summary and conversion</span>
-        </li>
-      </ul>
-      <ul class="space-y-3 text-sm text-green-800">
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Angular forms integration (ngModel & Reactive)</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Multiple color themes & dark mode support</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Popup-based selection interface</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Project planning and time tracking ready</span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-5 h-5 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="font-medium">Responsive design for mobile and desktop</span>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <app-key-features [features]="features" color="green" />
 </div>

@@ -1,54 +1,56 @@
 <div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- Default input element -->
-  <div
-    *ngIf="!hideInput"
-    class="chronica-input-trigger"
-    (click)="openPopup()"
-    (keydown.enter)="openPopup()"
-    (keydown.space)="openPopup(); $event.preventDefault()"
-    tabindex="0"
-    role="button"
-    [attr.aria-expanded]="isPopupOpen"
-    aria-haspopup="true"
-    [attr.aria-label]="'Date picker: ' + formattedDate"
-    [class.chronica-disabled]="disabled"
-  >
-    <span class="chronica-input-display" [class.chronica-placeholder]="!selectedDate">
-      {{ formattedDate }}
-    </span>
-    <svg
-      class="chronica-input-icon"
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+  @if (!hideInput) {
+    <div
+      class="chronica-input-trigger"
+      (click)="openPopup()"
+      (keydown.enter)="openPopup()"
+      (keydown.space)="openPopup(); $event.preventDefault()"
+      tabindex="0"
+      role="button"
+      [attr.aria-expanded]="isPopupOpen"
+      aria-haspopup="true"
+      [attr.aria-label]="'Date picker: ' + formattedDate"
+      [class.chronica-disabled]="disabled"
     >
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
-  </div>
+      <span class="chronica-input-display" [class.chronica-placeholder]="!selectedDate">
+        {{ formattedDate }}
+      </span>
+      <svg
+        class="chronica-input-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    </div>
+  }
 
   <!-- Custom trigger element for popup mode (when hideInput is true) -->
-  <div
-    *ngIf="hideInput"
-    class="chronica-manual-trigger"
-    (click)="openPopup()"
-    (keydown.enter)="openPopup()"
-    (keydown.space)="openPopup(); $event.preventDefault()"
-    tabindex="0"
-    role="button"
-    [attr.aria-expanded]="isPopupOpen"
-    aria-haspopup="true"
-  >
-    <ng-content></ng-content>
-  </div>
+  @if (hideInput) {
+    <div
+      class="chronica-manual-trigger"
+      (click)="openPopup()"
+      (keydown.enter)="openPopup()"
+      (keydown.space)="openPopup(); $event.preventDefault()"
+      tabindex="0"
+      role="button"
+      [attr.aria-expanded]="isPopupOpen"
+      aria-haspopup="true"
+    >
+      <ng-content></ng-content>
+    </div>
+  }
 </div>
 
 <!-- Calendar popup template -->
@@ -91,13 +93,11 @@
             (change)="changeMonth(+$any($event.target).value)"
             aria-label="Select month"
           >
-            <option
-              *ngFor="let monthName of monthNames; let i = index"
-              [value]="i"
-              [selected]="i === currentMonth.month"
-            >
-              {{ monthName }}
-            </option>
+            @for (monthName of monthNames; track monthName; let i = $index) {
+              <option [value]="i" [selected]="i === currentMonth.month">
+                {{ monthName }}
+              </option>
+            }
           </select>
 
           <select
@@ -106,13 +106,11 @@
             (change)="changeYear(+$any($event.target).value)"
             aria-label="Select year"
           >
-            <option
-              *ngFor="let year of yearRange"
-              [value]="year"
-              [selected]="year === currentMonth.year"
-            >
-              {{ year }}
-            </option>
+            @for (year of yearRange; track year) {
+              <option [value]="year" [selected]="year === currentMonth.year">
+                {{ year }}
+              </option>
+            }
           </select>
         </div>
 
@@ -142,43 +140,50 @@
 
       <!-- Day names header -->
       <div class="chronica-day-names" role="row">
-        <div class="chronica-day-name" role="columnheader" *ngFor="let dayName of dayNames">
-          {{ dayName }}
-        </div>
+        @for (dayName of dayNames; track dayName) {
+          <div class="chronica-day-name" role="columnheader">
+            {{ dayName }}
+          </div>
+        }
       </div>
 
       <!-- Calendar grid -->
       <div class="chronica-calendar-grid" role="grid" aria-label="Calendar">
         <!-- Empty cells for days before the first day of month -->
-        <div *ngFor="let _ of getFirstDayOffset()" class="chronica-date chronica-empty" role="gridcell" aria-hidden="true"></div>
+        @for (_ of getFirstDayOffset(); track _) {
+          <div class="chronica-date chronica-empty" role="gridcell" aria-hidden="true"></div>
+        }
 
         <!-- Days of month -->
-        <div
-          *ngFor="let day of getDaysInMonth()"
-          class="chronica-date chronica-clickable"
-          [class.chronica-today]="isToday(day)"
-          [class.chronica-selected]="isSelectedDate(day)"
-          [class.chronica-disabled]="isDateDisabled(day)"
-          [class.chronica-weekend]="isWeekend(day)"
-          (click)="selectDate(day)"
-          (keydown.enter)="selectDate(day)"
-          (keydown.space)="selectDate(day)"
-          tabindex="0"
-          role="gridcell"
-          [attr.aria-label]="getDateLabel(day)"
-          [attr.aria-selected]="isSelectedDate(day)"
-          [attr.aria-disabled]="isDateDisabled(day)"
-        >
-          {{ day }}
-        </div>
+        @for (day of getDaysInMonth(); track day) {
+          <div
+            class="chronica-date chronica-clickable"
+            [class.chronica-today]="isToday(day)"
+            [class.chronica-selected]="isSelectedDate(day)"
+            [class.chronica-disabled]="isDateDisabled(day)"
+            [class.chronica-weekend]="isWeekend(day)"
+            (click)="selectDate(day)"
+            (keydown.enter)="selectDate(day)"
+            (keydown.space)="selectDate(day)"
+            tabindex="0"
+            role="gridcell"
+            [attr.aria-label]="getDateLabel(day)"
+            [attr.aria-selected]="isSelectedDate(day)"
+            [attr.aria-disabled]="isDateDisabled(day)"
+          >
+            {{ day }}
+          </div>
+        }
       </div>
     </div>
 
     <!-- Popup Footer -->
-    <div class="chronica-popup-footer" *ngIf="config.showTodayButton !== false">
-      <button type="button" class="action-button" (click)="goToToday()">
-        {{ getCurrentLocale().todayLabel }}
-      </button>
-    </div>
+    @if (config.showTodayButton !== false) {
+      <div class="chronica-popup-footer">
+        <button type="button" class="action-button" (click)="goToToday()">
+          {{ getCurrentLocale().todayLabel }}
+        </button>
+      </div>
+    }
   </div>
 </ng-template>

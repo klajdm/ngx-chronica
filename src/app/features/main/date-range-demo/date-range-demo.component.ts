@@ -8,14 +8,151 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
+import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import {
+  ConfigOptionsComponent,
+  ConfigOption,
+} from '../../../components/config-options/config-options.component';
+import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCircleCheck, LucideCircleX } from '@lucide/angular';
 
 @Component({
   selector: 'app-date-range-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDateRangeComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ChronicaDateRangeComponent,
+    KeyFeaturesComponent,
+    ConfigOptionsComponent,
+    CodePreviewComponent,
+    LucideCircleCheck,
+    LucideCircleX,
+  ],
   templateUrl: './date-range-demo.component.html',
 })
 export class DateRangeDemoComponent {
+  protected readonly options: ConfigOption[] = [
+    {
+      property: 'theme',
+      type: "'light' | 'dark'",
+      default: "'light'",
+      description: 'Visual theme mode',
+    },
+    {
+      property: 'colorTheme',
+      type: 'string',
+      default: "'blue'",
+      description: 'Color theme: blue, purple, green, red, orange, teal, pink, indigo',
+    },
+    { property: 'minDate', type: 'Date', default: 'null', description: 'Minimum selectable date' },
+    { property: 'maxDate', type: 'Date', default: 'null', description: 'Maximum selectable date' },
+    {
+      property: 'disabledDates',
+      type: 'Date[]',
+      default: '[]',
+      description: 'Array of disabled dates',
+    },
+    {
+      property: 'showPresets',
+      type: 'boolean',
+      default: 'false',
+      description: 'Show quick select presets',
+    },
+    {
+      property: 'presets',
+      type: 'PresetRange[]',
+      default: '[]',
+      description: 'Custom preset ranges',
+    },
+    {
+      property: 'showTime',
+      type: 'boolean',
+      default: 'false',
+      description: 'Include time selection',
+    },
+    {
+      property: 'format',
+      type: 'string',
+      default: "'MM/dd/yyyy'",
+      description: 'Date display format',
+    },
+    {
+      property: 'closeOnSelect',
+      type: 'boolean',
+      default: 'true',
+      description: 'Close popup after range selection',
+    },
+  ];
+
+  protected readonly features: string[] = [
+    'Date range selection with visual feedback',
+    'Quick select presets for common ranges',
+    'Hover preview for range selection',
+    'Min/max date restrictions',
+    'Business day filtering (exclude weekends)',
+    'Angular forms integration (ngModel & Reactive)',
+    'Multiple color themes & dark mode support',
+    'Range highlighting with start/end markers',
+    'Customizable date format & localization',
+  ];
+
+  protected readonly codeSnippets = {
+    basic: `<chronica-date-range
+  [(ngModel)]="basicSelectedRange"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  placeholder="Select date range"
+  (dateRangeChange)="onBasicRangeChanged($event)">
+</chronica-date-range>`,
+    restrictions: `<chronica-date-range
+  [(ngModel)]="restrictedSelectedRange"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  [minDate]="new Date(2024, 0, 1)"
+  [maxDate]="new Date(2024, 11, 31)">
+</chronica-date-range>`,
+    formIntegration: `<chronica-date-range
+  name="projectDuration"
+  [(ngModel)]="formSelectedRange"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  required>
+</chronica-date-range>`,
+    businessDays: `<chronica-date-range
+  [(ngModel)]="businessDaysRange"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue',
+    disabledDates: this.generateWeekendDates()
+  }">
+</chronica-date-range>`,
+    quickPresets: `<!-- Quick select buttons (This Week / Today / This Month)
+     are built into the component - no extra config needed -->
+<chronica-date-range
+  [(ngModel)]="presetRange"
+  [config]="{
+    theme: 'light',
+    colorTheme: 'blue'
+  }"
+  placeholder="Select or use presets"
+  (dateRangeChange)="onPresetRangeChanged($event)">
+</chronica-date-range>`,
+    darkTheme: `<chronica-date-range
+  [(ngModel)]="darkThemeRange"
+  [config]="{
+    theme: 'dark',
+    colorTheme: 'blue'
+  }">
+</chronica-date-range>`,
+  } as const;
+
   private readonly _themeService = inject(ThemeService);
 
   // Basic date range

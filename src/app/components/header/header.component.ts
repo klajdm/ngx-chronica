@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Output, signal, inject, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { ThemeService, ColorTheme } from '../../services/theme.service';
+import { LucideMenu, LucidePaintBucket, LucideChevronDown, LucideCheck, LucideExternalLink } from '@lucide/angular';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule, LucideMenu, LucidePaintBucket, LucideChevronDown, LucideCheck, LucideExternalLink],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
@@ -24,7 +25,6 @@ export class HeaderComponent {
   public readonly themeOptions = this.themeService.themeOptions;
 
   public onToggleMobileMenu(): void {
-    console.log('Hamburger clicked!'); // Debug log
     this.toggleMobileMenu.emit();
   }
 

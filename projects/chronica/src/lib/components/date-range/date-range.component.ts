@@ -113,7 +113,11 @@ export class ChronicaDateRangeComponent
     this.monthNames = currentLocale.monthNames;
 
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+      year,
+      month,
+      this.getLocaleConfig()
+    );
   }
 
   // ControlValueAccessor implementation
@@ -143,7 +147,11 @@ export class ChronicaDateRangeComponent
   // Calendar navigation
   private generateMonth(year: number, month: number): void {
     this.yearRange = ChronicaCalendarUtils.updateYearRange(year);
-    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(year, month, this.config);
+    this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+      year,
+      month,
+      this.getLocaleConfig()
+    );
   }
 
   getDaysInMonth(): number[] {
@@ -304,6 +312,11 @@ export class ChronicaDateRangeComponent
     return this.isDateDisabled(date);
   }
 
+  isWeekend(day: number): boolean {
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    return ChronicaCalendarUtils.isWeekend(date);
+  }
+
   // Quick select presets
   selectToday(): void {
     const today = new Date();
@@ -362,6 +375,10 @@ export class ChronicaDateRangeComponent
       return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
     }
     return this.locale;
+  }
+
+  private getLocaleConfig(): ChronicaCalendarConfig {
+    return { ...this.config, locale: this.getCurrentLocale() };
   }
 
   private getDayNamesFromLocale(locale: ChronicaLocale): string[] {
@@ -465,7 +482,8 @@ export class ChronicaDateRangeComponent
     this.generateMonth(dateToShow.getFullYear(), dateToShow.getMonth());
     this._selectingStartDate = !this._dateRange.startDate || !this._dateRange.endDate;
 
-    this.overlayRef.backdropClick()
+    this.overlayRef
+      .backdropClick()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.closePopup());
 

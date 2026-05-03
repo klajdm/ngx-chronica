@@ -4,74 +4,63 @@
     <img src="assets/images/logo.png" alt="ngx-chronica" class="h-8 w-8 mr-2" />
     <div class="font-semibold text-lg text-primary">NGX-CHRONICA</div>
     <button class="ml-auto p-2" (click)="onCloseClick()" aria-label="Close menu">
-      <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
+      <svg lucideX class="w-5 h-5 text-gray-600"></svg>
     </button>
   </div>
 
   <!-- Navigation menu -->
   <div class="flex-1 overflow-y-auto p-6">
-    <nav class="space-y-2">
+    <nav class="space-y-2" aria-label="Mobile site navigation">
       <ul class="space-y-1">
-        <ng-container *ngFor="let item of menuItems">
-          <li *ngIf="!item.children">
-            <a
-              [routerLink]="item.route"
-              routerLinkActive="font-semibold text-primary"
-              [routerLinkActiveOptions]="item.route === '/' ? { exact: true } : { exact: false }"
-              class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
-              (click)="onMenuItemClick()"
-            >
-              {{ item.label }}
-            </a>
-          </li>
-          <li *ngIf="item.children">
-            <button
-              type="button"
-              (click)="toggleGroup(item.label)"
-              class="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
-              [attr.aria-expanded]="isGroupOpen(item)"
-            >
-              <span class="flex-1 text-left">{{ item.label }}</span>
-              <svg
-                class="w-4 h-4 ml-2 text-gray-400 transition-transform duration-150"
-                [class.rotate-180]="isGroupOpen(item)"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        @for (item of menuItems; track item.label) {
+          @if (!item.children) {
+            <li>
+              <a
+                [routerLink]="item.route"
+                routerLinkActive="font-semibold text-primary"
+                #rla="routerLinkActive"
+                [routerLinkActiveOptions]="item.route === '/' ? { exact: true } : { exact: false }"
+                [attr.aria-current]="rla.isActive ? 'page' : null"
+                class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                (click)="onMenuItemClick()"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
+                {{ item.label }}
+              </a>
+            </li>
+          }
+          @if (item.children) {
+            <li>
+              <button
+                type="button"
+                (click)="toggleGroup(item.label)"
+                class="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
+                [attr.aria-expanded]="isGroupOpen(item)"
+              >
+                <span class="flex-1 text-left">{{ item.label }}</span>
+                <svg lucideChevronDown class="w-4 h-4 ml-2 text-gray-400 transition-transform duration-150" [class.rotate-180]="isGroupOpen(item)"></svg>
+              </button>
 
-            <ul
-              *ngIf="isGroupOpen(item)"
-              class="mt-1 space-y-1 rounded-lg bg-gray-50 shadow-sm p-2 mx-1"
-            >
-              <li *ngFor="let child of item.children">
-                <a
-                  [routerLink]="child.route"
-                  routerLinkActive="font-semibold text-primary"
-                  class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900"
-                  (click)="onMenuItemClick()"
-                >
-                  {{ child.label }}
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ng-container>
+              @if (isGroupOpen(item)) {
+                <ul class="mt-1 space-y-1 rounded-lg bg-gray-50 shadow-sm p-2 mx-1">
+                  @for (child of item.children; track child.label) {
+                    <li>
+                      <a
+                        [routerLink]="child.route"
+                        routerLinkActive="font-semibold text-primary"
+                        #crla="routerLinkActive"
+                        [attr.aria-current]="crla.isActive ? 'page' : null"
+                        class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                        (click)="onMenuItemClick()"
+                      >
+                        {{ child.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+            </li>
+          }
+        }
       </ul>
     </nav>
   </div>
@@ -84,14 +73,7 @@
         class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
       >
         Support
-        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          />
-        </svg>
+        <svg lucideExternalLink class="w-3 h-3 ml-1"></svg>
       </a>
       <a
         href="https://github.com/klajdm/ngx-chronica"
@@ -99,14 +81,7 @@
         class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
       >
         GitHub
-        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          />
-        </svg>
+        <svg lucideExternalLink class="w-3 h-3 ml-1"></svg>
       </a>
     </div>
   </div>

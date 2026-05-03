@@ -12,84 +12,21 @@
   <div class="mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Core Features</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- 6 Specialized Components -->
-      <div class="border border-gray-200 rounded-lg p-6">
-        <div class="flex items-start">
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-2">6 Specialized Components</h3>
-            <p class="text-gray-700 text-sm mb-3">
-              Complete toolkit covering all date/time selection scenarios: Datepicker, Date Range,
-              Inline Calendar, Time Picker, DateTime Picker, and Duration Picker.
-            </p>
-            <ul class="text-sm text-gray-600 space-y-1">
-              <li>• Single date selection</li>
-              <li>• Date range selection</li>
-              <li>• Time selection (12h/24h)</li>
-              <li>• Combined date + time</li>
-              <li>• Duration/time span selection</li>
-              <li>• Always-visible calendar</li>
-            </ul>
+      @for (feature of coreFeatures; track feature.title) {
+        <div class="border border-gray-200 rounded-lg p-6">
+          <div class="flex items-start">
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">{{ feature.title }}</h3>
+              <p class="text-gray-700 text-sm mb-3">{{ feature.description }}</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                @for (item of feature.items; track item) {
+                  <li>• {{ item }}</li>
+                }
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Forms Integration -->
-      <div class="border border-gray-200 rounded-lg p-6">
-        <div class="flex items-start">
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-2">Full Forms Integration</h3>
-            <p class="text-gray-700 text-sm mb-3">
-              Seamless integration with Angular forms through ControlValueAccessor implementation.
-            </p>
-            <ul class="text-sm text-gray-600 space-y-1">
-              <li>• Reactive Forms support</li>
-              <li>• Template-driven Forms support</li>
-              <li>• Two-way binding with [(ngModel)]</li>
-              <li>• Form validation support</li>
-              <li>• Disabled state handling</li>
-              <li>• Touch/dirty state tracking</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Theming System -->
-      <div class="border border-gray-200 rounded-lg p-6">
-        <div class="flex items-start">
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-2">Advanced Theming</h3>
-            <p class="text-gray-700 text-sm mb-3">
-              8 built-in color themes with light/dark mode support and CSS custom properties.
-            </p>
-            <ul class="text-sm text-gray-600 space-y-1">
-              <li>• 8 color themes (Blue, Green, Purple, Red, etc.)</li>
-              <li>• Light/Dark mode auto-detection</li>
-              <li>• CSS custom properties for customization</li>
-              <li>• Consistent design system</li>
-              <li>• Easy theme switching</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Internationalization -->
-      <div class="border border-gray-200 rounded-lg p-6">
-        <div class="flex items-start">
-          <div>
-            <h3 class="font-semibold text-gray-900 mb-2">Internationalization</h3>
-            <p class="text-gray-700 text-sm mb-3">
-              11 built-in locales with support for custom locales and RTL languages.
-            </p>
-            <ul class="text-sm text-gray-600 space-y-1">
-              <li>• 11 built-in locales (EN, ES, FR, DE, IT, PT, ZH, JA, KO, RU, AR)</li>
-              <li>• Custom locale support</li>
-              <li>• Configurable first day of week</li>
-              <li>• Localized month/day names</li>
-              <li>• Date format customization</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      }
     </div>
   </div>
 
@@ -97,65 +34,21 @@
   <div class="mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Date & Time Features</h2>
     <div class="space-y-4">
-      <div class="border border-gray-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <span>Smart Date Restrictions</span>
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Min/Max Dates</p>
-            <p class="text-gray-600">Set minimum and maximum selectable dates</p>
-          </div>
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Disabled Dates</p>
-            <p class="text-gray-600">Disable specific dates or date ranges</p>
-          </div>
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Highlighted Dates</p>
-            <p class="text-gray-600">Highlight important dates visually</p>
+      @for (section of dateTimeFeatures; track section.title) {
+        <div class="border border-gray-200 rounded-lg p-5">
+          <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <span>{{ section.title }}</span>
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            @for (feature of section.features; track feature.title) {
+              <div>
+                <p class="font-medium text-gray-700 mb-1">{{ feature.title }}</p>
+                <p class="text-gray-600">{{ feature.description }}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
-
-      <div class="border border-gray-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <span>Time Selection Options</span>
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <p class="font-medium text-gray-700 mb-1">12h/24h Format</p>
-            <p class="text-gray-600">Support for both time formats with AM/PM</p>
-          </div>
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Step Intervals</p>
-            <p class="text-gray-600">Customizable minute/second step intervals</p>
-          </div>
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Time Restrictions</p>
-            <p class="text-gray-600">Min/max time limits for business hours</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="border border-gray-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <span>Calendar Display Options</span>
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Week Numbers</p>
-            <p class="text-gray-600">Optional week number display</p>
-          </div>
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Adjacent Months</p>
-            <p class="text-gray-600">Show/hide dates from adjacent months</p>
-          </div>
-          <div>
-            <p class="font-medium text-gray-700 mb-1">Today Button</p>
-            <p class="text-gray-600">Quick navigation to current date</p>
-          </div>
-        </div>
-      </div>
+      }
     </div>
   </div>
 
@@ -163,41 +56,24 @@
   <div class="mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Display Modes</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="border border-gray-200 rounded-lg p-6">
-        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <span>🔽</span>
-          <span>Popup Mode</span>
-        </h3>
-        <p class="text-gray-700 text-sm mb-4">
-          Calendar appears in an overlay popup when triggered, perfect for forms and
-          space-constrained layouts.
-        </p>
-        <ul class="text-sm text-gray-600 space-y-2">
-          <li>• Angular CDK Overlay positioning</li>
-          <li>• Custom trigger elements</li>
-          <li>• Backdrop click to close</li>
-          <li>• Keyboard navigation (Escape to close)</li>
-          <li>• Smart positioning (auto-flip)</li>
-        </ul>
-      </div>
-
-      <div class="border border-gray-200 rounded-lg p-6">
-        <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <span>📌</span>
-          <span>Inline Mode</span>
-        </h3>
-        <p class="text-gray-700 text-sm mb-4">
-          Calendar is always visible inline with your content, ideal for dashboards and dedicated
-          date selection pages.
-        </p>
-        <ul class="text-sm text-gray-600 space-y-2">
-          <li>• Always visible</li>
-          <li>• No trigger required</li>
-          <li>• Embeddable in any layout</li>
-          <li>• Perfect for dashboards</li>
-          <li>• Customizable size</li>
-        </ul>
-      </div>
+      @for (mode of displayModes; track mode.title) {
+        <div class="border border-gray-200 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            @if (mode.icon === 'chevronDown') {
+              <svg lucideChevronDown class="w-5 h-5 text-gray-700"></svg>
+            } @else if (mode.icon === 'pin') {
+              <svg lucidePin class="w-5 h-5 inline align-middle"></svg>
+            }
+            <span>{{ mode.title }}</span>
+          </h3>
+          <p class="text-gray-700 text-sm mb-4">{{ mode.description }}</p>
+          <ul class="text-sm text-gray-600 space-y-2">
+            @for (feature of mode.features; track feature) {
+              <li>• {{ feature }}</li>
+            }
+          </ul>
+        </div>
+      }
     </div>
   </div>
 
@@ -208,630 +84,113 @@
       Complete reference for all component inputs, outputs, and configuration interfaces.
     </p>
 
-    <!-- Datepicker API -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold text-gray-900 mb-4">Datepicker Component</h3>
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">Inputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">selectedDate</td>
-                <td class="px-4 py-2 font-mono text-xs">Date | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Currently selected date</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaCalendarConfig</td>
-                <td class="px-4 py-2 text-xs">DEFAULT_CALENDAR_CONFIG</td>
-                <td class="px-4 py-2 text-xs text-gray-600">
-                  Configuration object for calendar behavior
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
-                <td class="px-4 py-2 text-xs">'en-US'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">initialMonth</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs">-</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Initial month to display (0-11)</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">initialYear</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs">-</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Initial year to display</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">popupPosition</td>
-                <td class="px-4 py-2 font-mono text-xs">'bottom' | 'top' | 'auto'</td>
-                <td class="px-4 py-2 text-xs">'auto'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Position of the popup calendar</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">hideInput</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">
-                  Hide the input field (custom trigger)
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
-                <td class="px-4 py-2 font-mono text-xs">string</td>
-                <td class="px-4 py-2 text-xs">'Select date'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text for input</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
-          <h4 class="font-semibold text-gray-900">Outputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">dateSelected</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;Date&gt;</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted when a date is selected</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">monthChanged</td>
-                <td class="px-4 py-2 font-mono text-xs">
-                  EventEmitter&lt;&#123;month: number; year: number&#125;&gt;
-                </td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted when month/year changes</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">calendarEvent</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaEvent&gt;</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted for calendar-related events</td>
-              </tr>
-            </tbody>
-          </table>
+    @for (api of componentApis; track api.name) {
+      <div class="mb-8">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ api.name }}</h3>
+        <div class="border border-gray-200 rounded-lg overflow-hidden">
+          <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+            <h4 class="font-semibold text-gray-900">Inputs</h4>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                @for (input of api.inputs; track input.property) {
+                  <tr>
+                    <td class="px-4 py-2 font-mono text-xs text-purple-600">
+                      {{ input.property }}
+                    </td>
+                    <td class="px-4 py-2 font-mono text-xs">{{ input.type }}</td>
+                    <td class="px-4 py-2 text-xs">{{ input.default }}</td>
+                    <td class="px-4 py-2 text-xs text-gray-600">{{ input.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
+            <h4 class="font-semibold text-gray-900">Outputs</h4>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                @for (output of api.outputs; track output.event) {
+                  <tr>
+                    <td class="px-4 py-2 font-mono text-xs text-blue-600">{{ output.event }}</td>
+                    <td class="px-4 py-2 font-mono text-xs">{{ output.type }}</td>
+                    <td class="px-4 py-2 text-xs text-gray-600">{{ output.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Date Range API -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold text-gray-900 mb-4">Date Range Component</h3>
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">Inputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaCalendarConfig</td>
-                <td class="px-4 py-2 text-xs">DEFAULT_CALENDAR_CONFIG</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Configuration object</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
-                <td class="px-4 py-2 text-xs">'en-US'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
-                <td class="px-4 py-2 font-mono text-xs">string</td>
-                <td class="px-4 py-2 text-xs">'Select date range'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">minDate</td>
-                <td class="px-4 py-2 font-mono text-xs">Date | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Minimum selectable date</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxDate</td>
-                <td class="px-4 py-2 font-mono text-xs">Date | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Maximum selectable date</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabled</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Disable the component</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">required</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Mark as required field</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
-          <h4 class="font-semibold text-gray-900">Outputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">dateRangeChange</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaDateRange&gt;</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted when date range changes</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">calendarEvent</td>
-                <td class="px-4 py-2 font-mono text-xs">EventEmitter&lt;ChronicaEvent&gt;</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted for calendar events</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Time Picker API -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold text-gray-900 mb-4">Time Picker Component</h3>
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">Inputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
-                <td class="px-4 py-2 font-mono text-xs">TimePickerConfig</td>
-                <td class="px-4 py-2 text-xs">DEFAULT_TIME_CONFIG</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Configuration object</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
-                <td class="px-4 py-2 text-xs">'en-US'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
-                <td class="px-4 py-2 font-mono text-xs">string</td>
-                <td class="px-4 py-2 text-xs">'Select time'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">minTime</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaTimeValue | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Minimum selectable time</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxTime</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaTimeValue | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Maximum selectable time</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabled</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Disable the component</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">required</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Mark as required field</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
-          <h4 class="font-semibold text-gray-900">Outputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">timeChange</td>
-                <td class="px-4 py-2 font-mono text-xs">
-                  EventEmitter&lt;ChronicaTimeValue | null&gt;
-                </td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted when time changes</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Duration Picker API -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold text-gray-900 mb-4">Duration Picker Component</h3>
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">Inputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Default</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">config</td>
-                <td class="px-4 py-2 font-mono text-xs">DurationPickerConfig</td>
-                <td class="px-4 py-2 text-xs">-</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Configuration object</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">locale</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaLocale | string</td>
-                <td class="px-4 py-2 text-xs">'en-US'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Locale for internationalization</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">placeholder</td>
-                <td class="px-4 py-2 font-mono text-xs">string</td>
-                <td class="px-4 py-2 text-xs">'Select duration'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Placeholder text</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">minDuration</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaDurationValue | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Minimum duration</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxDuration</td>
-                <td class="px-4 py-2 font-mono text-xs">ChronicaDurationValue | null</td>
-                <td class="px-4 py-2 text-xs">null</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Maximum duration</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabled</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Disable the component</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">required</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs">false</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Mark as required field</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="bg-gray-50 px-4 py-2 border-t border-gray-200">
-          <h4 class="font-semibold text-gray-900">Outputs</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Event</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-blue-600">durationChange</td>
-                <td class="px-4 py-2 font-mono text-xs">
-                  EventEmitter&lt;ChronicaDurationValue | null&gt;
-                </td>
-                <td class="px-4 py-2 text-xs text-gray-600">Emitted when duration changes</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    }
 
     <!-- Configuration Interfaces -->
     <div class="mb-8">
       <h3 class="text-xl font-semibold text-gray-900 mb-4">Configuration Interfaces</h3>
 
-      <!-- ChronicaCalendarConfig -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden mb-6">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">ChronicaCalendarConfig</h4>
+      @for (config of configInterfaces; track config.name) {
+        <div class="border border-gray-200 rounded-lg overflow-hidden mb-6">
+          <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+            <h4 class="font-semibold text-gray-900">{{ config.name }}</h4>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
+                  <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                @for (prop of config.properties; track prop.property) {
+                  <tr>
+                    <td class="px-4 py-2 font-mono text-xs text-purple-600">{{ prop.property }}</td>
+                    <td class="px-4 py-2 font-mono text-xs">{{ prop.type }}</td>
+                    <td class="px-4 py-2 text-xs text-gray-600">{{ prop.description }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">theme</td>
-                <td class="px-4 py-2 font-mono text-xs">'light' | 'dark' | 'auto'</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Visual theme mode</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">colorTheme</td>
-                <td class="px-4 py-2 font-mono text-xs">
-                  'blue' | 'green' | 'purple' | 'red' | 'orange' | 'teal' | 'pink' | 'indigo'
-                </td>
-                <td class="px-4 py-2 text-xs text-gray-600">Color theme for primary colors</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">minDate</td>
-                <td class="px-4 py-2 font-mono text-xs">Date</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Minimum selectable date</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">maxDate</td>
-                <td class="px-4 py-2 font-mono text-xs">Date</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Maximum selectable date</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">disabledDates</td>
-                <td class="px-4 py-2 font-mono text-xs">Date[]</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Array of disabled dates</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">firstDayOfWeek</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">
-                  First day of week (0=Sunday, 1=Monday)
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showTodayButton</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show today button</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showNavigation</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show navigation arrows</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">closeAfterSelection</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Close popup after date selection</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TimePickerConfig -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden mb-6">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">TimePickerConfig</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">format24Hour</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">
-                  Use 24-hour format (true) or 12-hour with AM/PM (false)
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showSeconds</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show seconds selector</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">minuteStep</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">
-                  Minute step increment (e.g., 15 for 15-minute intervals)
-                </td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">secondStep</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Second step increment</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- DurationPickerConfig -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">DurationPickerConfig</h4>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Property</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Type</th>
-                <th class="px-4 py-2 text-left font-medium text-gray-700">Description</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showDays</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show days selector</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showHours</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show hours selector</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showMinutes</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show minutes selector</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">showSeconds</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Show seconds selector</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">stepDays</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Day step increment</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">stepHours</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Hour step increment</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">stepMinutes</td>
-                <td class="px-4 py-2 font-mono text-xs">number</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Minute step increment</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2 font-mono text-xs text-purple-600">allowZero</td>
-                <td class="px-4 py-2 font-mono text-xs">boolean</td>
-                <td class="px-4 py-2 text-xs text-gray-600">Allow zero duration</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      }
     </div>
 
     <!-- Type Definitions -->
     <div class="mb-8">
       <h3 class="text-xl font-semibold text-gray-900 mb-4">Type Definitions</h3>
 
-      <!-- ChronicaTimeValue -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">ChronicaTimeValue</h4>
+      @for (typeDef of typeDefinitions; track typeDef.name) {
+        <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
+          <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
+            <h4 class="font-semibold text-gray-900">{{ typeDef.name }}</h4>
+          </div>
+          <div class="p-4">
+            <pre
+              class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
+            ><code [innerHTML]="typeDef.code"></code></pre>
+          </div>
         </div>
-        <div class="p-4">
-          <pre
-            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
-          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaTimeValue</span> &#123;
-  <span class="text-cyan-300">hours</span>: <span class="text-blue-300">number</span>;      <span class="text-gray-500">// 0-23</span>
-  <span class="text-cyan-300">minutes</span>: <span class="text-blue-300">number</span>;    <span class="text-gray-500">// 0-59</span>
-  <span class="text-cyan-300">seconds</span>?: <span class="text-blue-300">number</span>;   <span class="text-gray-500">// 0-59 (optional)</span>
-  <span class="text-cyan-300">period</span>?: <span class="text-green-400">'AM'</span> | <span class="text-green-400">'PM'</span>; <span class="text-gray-500">// For 12h format</span>
-&#125;</code></pre>
-        </div>
-      </div>
-
-      <!-- ChronicaDurationValue -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">ChronicaDurationValue</h4>
-        </div>
-        <div class="p-4">
-          <pre
-            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
-          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDurationValue</span> &#123;
-  <span class="text-cyan-300">days</span>?: <span class="text-blue-300">number</span>;
-  <span class="text-cyan-300">hours</span>?: <span class="text-blue-300">number</span>;
-  <span class="text-cyan-300">minutes</span>?: <span class="text-blue-300">number</span>;
-  <span class="text-cyan-300">seconds</span>?: <span class="text-blue-300">number</span>;
-&#125;</code></pre>
-        </div>
-      </div>
-
-      <!-- ChronicaDateRange -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">ChronicaDateRange</h4>
-        </div>
-        <div class="p-4">
-          <pre
-            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
-          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateRange</span> &#123;
-  <span class="text-cyan-300">startDate</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
-  <span class="text-cyan-300">endDate</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
-&#125;</code></pre>
-        </div>
-      </div>
-
-      <!-- ChronicaDateTimeValue -->
-      <div class="border border-gray-200 rounded-lg overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 border-b border-gray-200">
-          <h4 class="font-semibold text-gray-900">ChronicaDateTimeValue</h4>
-        </div>
-        <div class="p-4">
-          <pre
-            class="bg-gray-900 text-gray-100 p-4 rounded text-xs overflow-x-auto"
-          ><code><span class="text-purple-400">interface</span> <span class="text-blue-300">ChronicaDateTimeValue</span> &#123;
-  <span class="text-cyan-300">date</span>: <span class="text-blue-300">Date</span> | <span class="text-orange-400">null</span>;
-  <span class="text-cyan-300">time</span>: <span class="text-blue-300">ChronicaTimeValue</span> | <span class="text-orange-400">null</span>;
-&#125;</code></pre>
-        </div>
-      </div>
+      }
     </div>
   </div>
 
@@ -839,47 +198,27 @@
   <div class="mb-12">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Common Use Cases</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-2">📅 Booking Systems</h3>
-        <p class="text-sm text-gray-600">
-          Date range selection for hotel reservations, appointment scheduling, and event booking
-        </p>
-      </div>
-
-      <div class="bg-purple-50 border border-purple-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-2">📊 Analytics Dashboards</h3>
-        <p class="text-sm text-gray-600">
-          Date range filters for reports, data visualization, and time-based analytics
-        </p>
-      </div>
-
-      <div class="bg-green-50 border border-green-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-2">⏰ Scheduling Apps</h3>
-        <p class="text-sm text-gray-600">
-          Time selection for meetings, appointments, and calendar events
-        </p>
-      </div>
-
-      <div class="bg-orange-50 border border-orange-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-2">📝 Task Management</h3>
-        <p class="text-sm text-gray-600">
-          Due dates, duration estimation, and time tracking for project management
-        </p>
-      </div>
-
-      <div class="bg-red-50 border border-red-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-2">🏥 Healthcare Systems</h3>
-        <p class="text-sm text-gray-600">
-          Patient appointment scheduling with time slots and duration selection
-        </p>
-      </div>
-
-      <div class="bg-teal-50 border border-teal-200 rounded-lg p-5">
-        <h3 class="font-semibold text-gray-900 mb-2">🎓 Education Platforms</h3>
-        <p class="text-sm text-gray-600">
-          Class scheduling, exam dates, and academic calendar management
-        </p>
-      </div>
+      @for (useCase of useCases; track useCase.title) {
+        <div class="{{ useCase.bgColor }} border {{ useCase.borderColor }} rounded-lg p-5">
+          <h3 class="font-semibold text-gray-900 mb-2">
+            @if (useCase.icon === 'calendarDays') {
+              <svg lucideCalendarDays class="w-5 h-5 inline align-middle mr-1"></svg>
+            } @else if (useCase.icon === 'barChart2') {
+              <svg lucideBarChart2 class="w-5 h-5 inline align-middle mr-1"></svg>
+            } @else if (useCase.icon === 'clock') {
+              <svg lucideClock class="w-5 h-5 inline align-middle mr-1"></svg>
+            } @else if (useCase.icon === 'fileText') {
+              <svg lucideFileText class="w-5 h-5 inline align-middle mr-1"></svg>
+            } @else if (useCase.icon === 'hospital') {
+              <svg lucideHospital class="w-5 h-5 inline align-middle mr-1"></svg>
+            } @else if (useCase.icon === 'graduationCap') {
+              <svg lucideGraduationCap class="w-5 h-5 inline align-middle mr-1"></svg>
+            }
+            {{ useCase.title }}
+          </h3>
+          <p class="text-sm text-gray-600">{{ useCase.description }}</p>
+        </div>
+      }
     </div>
   </div>
 </div>
