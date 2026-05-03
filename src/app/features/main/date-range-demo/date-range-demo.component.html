@@ -67,7 +67,7 @@
               {{ restrictedSelectedRange.endDate | date: 'mediumDate' }}</span
             ><br />
             <strong>Restriction: </strong>
-            <span>✅ Within allowed range (2024)</span>
+            <span class="flex items-center gap-1"><svg lucideCircleCheck class="w-4 h-4 text-green-500"></svg>Within allowed range (2024)</span>
           </div>
         }
       </div>
@@ -98,8 +98,12 @@
 
           <div class="py-3">
             <strong>Form Valid: </strong>
-            <span>{{ rangeForm.valid ? '✅' : '❌' }}</span
-            ><br />
+            @if (rangeForm.valid) {
+              <svg lucideCircleCheck class="w-4 h-4 inline align-middle text-green-500"></svg>
+            } @else {
+              <svg lucideCircleX class="w-4 h-4 inline align-middle text-red-500"></svg>
+            }
+            <br />
             <strong>Form Value: </strong>
             <span>{{ formSelectedRange | json }}</span>
           </div>

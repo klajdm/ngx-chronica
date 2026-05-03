@@ -14,6 +14,7 @@ import {
   ConfigOption,
 } from '../../../components/config-options/config-options.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCircleCheck, LucideCircleX } from '@lucide/angular';
 
 @Component({
   selector: 'app-date-range-demo',
@@ -25,6 +26,8 @@ import { CodePreviewComponent } from '../../../components/code-preview/code-prev
     KeyFeaturesComponent,
     ConfigOptionsComponent,
     CodePreviewComponent,
+    LucideCircleCheck,
+    LucideCircleX,
   ],
   templateUrl: './date-range-demo.component.html',
 })

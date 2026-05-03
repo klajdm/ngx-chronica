@@ -10,11 +10,12 @@ import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCheck } from '@lucide/angular';
 
 @Component({
   selector: 'app-inline-calendar-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent],
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent, LucideCheck],
   templateUrl: './inline-calendar-demo.component.html',
 })
 export class InlineCalendarDemoComponent {

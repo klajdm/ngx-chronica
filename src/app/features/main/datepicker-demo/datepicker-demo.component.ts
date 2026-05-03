@@ -10,11 +10,12 @@ import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
 import { ConfigOptionsComponent, ConfigOption } from '../../../components/config-options/config-options.component';
 import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
+import { LucideCalendar, LucideCircleCheck, LucideCircleX } from '@lucide/angular';
 
 @Component({
   selector: 'app-datepicker-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaDatepickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent],
+  imports: [CommonModule, FormsModule, ChronicaDatepickerComponent, KeyFeaturesComponent, ConfigOptionsComponent, CodePreviewComponent, LucideCalendar, LucideCircleCheck, LucideCircleX],
   templateUrl: './datepicker-demo.component.html',
 })
 export class DatepickerDemoComponent {

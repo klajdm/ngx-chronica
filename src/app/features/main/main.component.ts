@@ -6,6 +6,7 @@ import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { MobileMenuComponent } from 'src/app/components/mobile-menu/mobile-menu.component';
+import { LucideChevronUp } from '@lucide/angular';
 
 @Component({
   selector: 'app-main',
@@ -16,6 +17,7 @@ import { MobileMenuComponent } from 'src/app/components/mobile-menu/mobile-menu.
     RouterModule,
     FooterComponent,
     MobileMenuComponent,
+    LucideChevronUp,
   ],
   templateUrl: './main.component.html',
   styles: [],

@@ -6,11 +6,12 @@ import {
   DEFAULT_CALENDAR_CONFIG,
 } from '../../../../../projects/chronica/src/public-api';
 import { ThemeService } from '../../../services/theme.service';
+import { LucideCheck } from '@lucide/angular';
 
 @Component({
   selector: 'app-introduction',
   standalone: true,
-  imports: [ChronicaInlineCalendarComponent, DatePipe],
+  imports: [ChronicaInlineCalendarComponent, DatePipe, LucideCheck],
   templateUrl: './introduction.component.html',
   styleUrls: ['./introduction.component.css'],
 })
