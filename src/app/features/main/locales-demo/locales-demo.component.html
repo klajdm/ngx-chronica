@@ -73,18 +73,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;!-- Pass a built-in locale by string code --&gt;
-&lt;chronica-inline-calendar
-  [(ngModel)]="date"
-  [locale]="'es-ES'"
-/&gt;
-
-&lt;!-- Works the same on every component --&gt;
-&lt;chronica-datepicker    [(ngModel)]="date"
-  [locale]="'fr-FR'"
-/&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.builtIn" />
     </div>
 
     <!-- Demo 2: Date Format Differences -->
@@ -148,13 +137,7 @@
         }
       </div>
 
-      <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-        <pre class="text-gray-200 text-sm"><code>&lt;!-- All four share the same Date value; each formats it differently --&gt;
-&lt;chronica-datepicker [(ngModel)]="date" [locale]="'en-US'" /&gt;  &lt;!-- 01/15/2025 --&gt;
-&lt;chronica-datepicker [(ngModel)]="date" [locale]="'de-DE'" /&gt;  &lt;!-- 15.01.2025 --&gt;
-&lt;chronica-datepicker [(ngModel)]="date" [locale]="'zh-CN'" /&gt;  &lt;!-- 2025/01/15 --&gt;
-&lt;chronica-datepicker [(ngModel)]="date" [locale]="'ja-JP'" /&gt;  &lt;!-- 2025/01/15 --&gt;</code></pre>
-      </div>
+      <app-code-preview [code]="codeSnippets.dateFormat" />
     </div>
 
     <!-- Demo 3: String Code Usage -->
@@ -171,43 +154,13 @@
         <!-- String code -->
         <div>
           <p class="text-sm font-medium text-gray-700 mb-2">Option A — string code</p>
-          <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto h-full">
-            <pre class="text-gray-200 text-sm"><code>&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [locale]="'es-ES'"
-/&gt;
-
-&lt;!-- Dynamic switching --&gt;
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [locale]="selectedLocale"
-/&gt;
-
-// In component:
-selectedLocale = 'fr-FR';</code></pre>
-          </div>
+          <app-code-preview [code]="codeSnippets.optionA" />
         </div>
 
         <!-- Custom locale object -->
         <div>
           <p class="text-sm font-medium text-gray-700 mb-2">Option B — custom locale object</p>
-          <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto h-full">
-            <pre class="text-gray-200 text-sm"><code>import &#123; ChronicaLocale &#125; from 'ngx-chronica';
-
-const myLocale: ChronicaLocale = &#123;
-  monthNames: ['Jan', 'Feb', 'Mar', ...],
-  dayNames: ['Sun', 'Mon', 'Tue', ...],
-  dayNamesShort: ['Su', 'Mo', 'Tu', ...],
-  todayLabel: 'Today',
-  weekStartsOn: 1, // 0 = Sunday
-  dateFormat: 'dd/MM/yyyy',
-&#125;;
-
-&lt;chronica-datepicker
-  [(ngModel)]="date"
-  [locale]="myLocale"
-/&gt;</code></pre>
-          </div>
+          <app-code-preview [code]="codeSnippets.optionB" />
         </div>
       </div>
     </div>

@@ -11,11 +11,12 @@ import {
 } from '../../../../../projects/chronica/src/lib/models/index';
 import { ThemeService } from '../../../services/theme.service';
 import { KeyFeaturesComponent } from '../../../components/key-features/key-features.component';
+import { CodePreviewComponent } from '../../../components/code-preview/code-preview.component';
 
 @Component({
   selector: 'app-locales-demo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, ChronicaDatepickerComponent, KeyFeaturesComponent],
+  imports: [CommonModule, FormsModule, ChronicaInlineCalendarComponent, ChronicaDatepickerComponent, KeyFeaturesComponent, CodePreviewComponent],
   templateUrl: './locales-demo.component.html',
 })
 export class LocalesDemoComponent {
@@ -29,6 +30,54 @@ export class LocalesDemoComponent {
     'Localized "Today" button label',
     'Custom locales: define any language with ChronicaLocale',
   ];
+
+  protected readonly codeSnippets = {
+    builtIn: `<!-- Pass a built-in locale by string code -->
+<chronica-inline-calendar
+  [(ngModel)]="date"
+  [locale]="'es-ES'"
+/>
+
+<!-- Works the same on every component -->
+<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="'fr-FR'"
+/>`,
+    dateFormat: `<!-- All four share the same Date value; each formats it differently -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'en-US'" />  <!-- 01/15/2025 -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'de-DE'" />  <!-- 15.01.2025 -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'zh-CN'" />  <!-- 2025/01/15 -->
+<chronica-datepicker [(ngModel)]="date" [locale]="'ja-JP'" />  <!-- 2025/01/15 -->`,
+    optionA: `<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="'es-ES'"
+/>
+
+<!-- Dynamic switching -->
+<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="selectedLocale"
+/>
+
+// In component:
+selectedLocale = 'fr-FR';`,
+    optionB: `import { ChronicaLocale } from 'ngx-chronica';
+
+const myLocale: ChronicaLocale = {
+  monthNames: ['Jan', 'Feb', 'Mar', ...],
+  dayNames: ['Sun', 'Mon', 'Tue', ...],
+  dayNamesShort: ['Su', 'Mo', 'Tu', ...],
+  todayLabel: 'Today',
+  weekStartsOn: 1, // 0 = Sunday
+  dateFormat: 'dd/MM/yyyy',
+};
+
+<chronica-datepicker
+  [(ngModel)]="date"
+  [locale]="myLocale"
+/>`,
+  } as const;
+
   private readonly _themeService = inject(ThemeService);
 
   readonly localesMap = CHRONICA_LOCALES;
