@@ -26,6 +26,7 @@ import {
   ChronicaTimeValue,
   DEFAULT_TIME_CONFIG,
   ChronicaLocale,
+  CHRONICA_LOCALES,
 } from '../../models/index';
 import { ChronicaTimeUtils } from '../../utils/time.utils';
 
@@ -309,6 +310,13 @@ export class ChronicaTimePickerComponent
 
   get themeClass(): string {
     return `chronica-${this.config.theme || 'light'}`;
+  }
+
+  getCurrentLocale(): ChronicaLocale {
+    if (typeof this.locale === 'string') {
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
+    }
+    return this.locale;
   }
 
   //#region Popup management

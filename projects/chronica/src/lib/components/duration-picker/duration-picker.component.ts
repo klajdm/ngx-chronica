@@ -26,6 +26,7 @@ import {
   ChronicaDurationValue,
   ChronicaLocale,
   DEFAULT_CHRONICA_CONFIG,
+  CHRONICA_LOCALES,
 } from '../../models/index';
 
 export interface DurationPickerConfig extends Partial<ChronicaBaseConfig> {
@@ -379,6 +380,13 @@ export class ChronicaDurationPickerComponent
 
   get themeClass(): string {
     return `chronica-${this.config.theme || 'light'}`;
+  }
+
+  getCurrentLocale(): ChronicaLocale {
+    if (typeof this.locale === 'string') {
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
+    }
+    return this.locale;
   }
 
   //#region Popup management
