@@ -5,6 +5,7 @@ import {
   EventEmitter,
   OnInit,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
   forwardRef,
 } from '@angular/core';
@@ -36,7 +37,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   templateUrl: './inline-calendar.component.html',
   styleUrl: './inline-calendar.component.css',
 })
-export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
@@ -232,6 +233,8 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
 
     this.monthChanged.emit({ month: todayMonth, year: todayYear });
   }
+
+  ngOnDestroy(): void {}
 
   // ControlValueAccessor implementation
   writeValue(value: Date | null): void {
