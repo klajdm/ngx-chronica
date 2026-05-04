@@ -233,3 +233,20 @@
     transform: translateY(0);
   }
 }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .duration-picker-popup,
+  .duration-column,
+  .duration-item,
+  .action-btn,
+  .duration-input-trigger {
+    animation: none;
+    transition: none;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 1; transform: none; }
+    to { opacity: 1; transform: none; }
+  }
+}

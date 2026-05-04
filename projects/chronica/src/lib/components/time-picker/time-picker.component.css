@@ -195,3 +195,20 @@
     transform: translateY(0);
   }
 }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .time-picker-popup,
+  .time-column,
+  .time-item,
+  .action-btn,
+  .time-input-trigger {
+    animation: none;
+    transition: none;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 1; transform: none; }
+    to { opacity: 1; transform: none; }
+  }
+}

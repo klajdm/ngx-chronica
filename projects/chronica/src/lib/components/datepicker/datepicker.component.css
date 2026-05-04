@@ -248,4 +248,18 @@
   }
 }
 
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .chronica-datepicker-popup,
+  .chronica-datepicker-popup .chronica-calendar-grid,
+  .chronica-date,
+  .chronica-nav-button,
+  .chronica-month-select,
+  .chronica-year-select,
+  .action-button {
+    animation: none;
+    transition: none;
+  }
+}
+
 

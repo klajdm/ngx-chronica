@@ -85,7 +85,7 @@
         <select
           class="chronica-month-select"
           [value]="currentMonth.month"
-          (change)="changeMonth(+$any($event.target).value)"
+          (change)="onMonthChange($event)"
           aria-label="Select month"
         >
           @for (monthName of monthNames; track monthName; let i = $index) {
@@ -98,7 +98,7 @@
         <select
           class="chronica-year-select"
           [value]="currentMonth.year"
-          (change)="changeYear(+$any($event.target).value)"
+          (change)="onYearChange($event)"
           aria-label="Select year"
         >
           @for (year of yearRange; track year) {
