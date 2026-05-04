@@ -5,8 +5,11 @@ import {
   EventEmitter,
   OnInit,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
   forwardRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -35,8 +38,9 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   ],
   templateUrl: './inline-calendar.component.html',
   styleUrl: './inline-calendar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
@@ -59,7 +63,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
   currentView: ChronicaCalendarView = 'month';
   yearGridYears: number[] = [];
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     this.yearRange = ChronicaCalendarUtils.updateYearRange(new Date().getFullYear());
   }
 
@@ -233,12 +237,15 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
     this.monthChanged.emit({ month: todayMonth, year: todayYear });
   }
 
+  ngOnDestroy(): void {}
+
   // ControlValueAccessor implementation
   writeValue(value: Date | null): void {
     this.selectedDate = value;
     if (this.currentMonth) {
       this.updateSelectedDate();
     }
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: Date | null) => void): void {
@@ -251,6 +258,7 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, Contr
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   // Utility methods for template
