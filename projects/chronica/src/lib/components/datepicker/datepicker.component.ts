@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
@@ -43,6 +44,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   ],
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDatepickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
@@ -436,6 +438,7 @@ export class ChronicaDatepickerComponent
     if (this.currentMonth) {
       this.updateSelectedDate();
     }
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: Date | null) => void): void {
@@ -448,6 +451,7 @@ export class ChronicaDatepickerComponent
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   // Get current locale configuration

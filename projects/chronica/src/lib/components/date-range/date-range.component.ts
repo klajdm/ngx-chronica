@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
@@ -44,6 +45,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   ],
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDateRangeComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
@@ -99,7 +101,7 @@ export class ChronicaDateRangeComponent
       this.initializeCalendar();
     }
     if (changes['minDate'] || changes['maxDate']) {
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     }
   }
 
@@ -130,6 +132,7 @@ export class ChronicaDateRangeComponent
     } else {
       this._dateRange = { startDate: null, endDate: null };
     }
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: ChronicaDateRange | null) => void): void {
@@ -142,6 +145,7 @@ export class ChronicaDateRangeComponent
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   // Calendar navigation
