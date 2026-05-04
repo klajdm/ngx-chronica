@@ -82,6 +82,8 @@ export class ChronicaDateTimePickerComponent
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
+  focusedDay: number | null = null;
+  liveAnnouncement = '';
 
   // Time selection state
   selectedHour = 0;
@@ -295,6 +297,8 @@ export class ChronicaDateTimePickerComponent
     const selectedDate = new Date(this.currentMonth.year, this.currentMonth.month, day);
     this._value.date = selectedDate;
 
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${selectedDate.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[selectedDate.getMonth()]} ${day}, ${selectedDate.getFullYear()} selected`;
     this.dateSelected.emit(new Date(selectedDate));
     this.updateValue();
   }
@@ -347,6 +351,42 @@ export class ChronicaDateTimePickerComponent
     }
 
     return false;
+  }
+
+  onDayKeydown(event: KeyboardEvent, day: number): void {
+    const navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (!navKeys.includes(event.key)) return;
+    event.preventDefault();
+
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const weekStartsOn = this.getCurrentLocale().weekStartsOn;
+
+    switch (event.key) {
+      case 'ArrowLeft': date.setDate(date.getDate() - 1); break;
+      case 'ArrowRight': date.setDate(date.getDate() + 1); break;
+      case 'ArrowUp': date.setDate(date.getDate() - 7); break;
+      case 'ArrowDown': date.setDate(date.getDate() + 7); break;
+      case 'PageUp': date.setMonth(date.getMonth() - 1); break;
+      case 'PageDown': date.setMonth(date.getMonth() + 1); break;
+      case 'Home': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() - dow); break; }
+      case 'End': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() + (6 - dow)); break; }
+    }
+
+    const targetYear = date.getFullYear();
+    const targetMonth = date.getMonth();
+    const targetDay = date.getDate();
+    if (targetYear !== this.currentMonth.year || targetMonth !== this.currentMonth.month) {
+      this.currentMonth = { year: targetYear, month: targetMonth };
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(targetYear);
+      this.cdr.markForCheck();
+    }
+    this.focusedDay = targetDay;
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${date.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[targetMonth]} ${targetDay}, ${targetYear}`;
+    setTimeout(() => {
+      const container = this.overlayRef?.overlayElement ?? this.elementRef.nativeElement;
+      (container.querySelector(`[data-day="${targetDay}"]`) as HTMLElement | null)?.focus();
+    });
   }
 
   previousMonth(): void {
