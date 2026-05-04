@@ -1,3 +1,4 @@
+<div aria-live="polite" aria-atomic="true" class="chronica-sr-only">{{ liveAnnouncement }}</div>
 <div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- Trigger element for popup mode -->
   <div
@@ -163,6 +164,8 @@
           (mouseenter)="!isDayDisabled(day) && onDateHover(day)"
           (keydown.enter)="selectDate(day)"
           (keydown.space)="selectDate(day)"
+          (keydown)="onDayKeydown($event, day)"
+          [attr.data-day]="day"
           [tabindex]="isDayDisabled(day) ? -1 : 0"
           role="button"
           [attr.aria-label]="
