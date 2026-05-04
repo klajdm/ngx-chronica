@@ -107,7 +107,7 @@ export class ChronicaCalendarUtils {
       const week: ChronicaDate[] = [];
 
       for (let i = 0; i < 7; i++) {
-        const calendarDate = this.createCalendarDate(currentDate, year, month, config);
+        const calendarDate = this.createCalendarDate(currentDate, month, year, config);
         week.push(calendarDate);
         dates.push(calendarDate);
         currentDate.setDate(currentDate.getDate() + 1);
