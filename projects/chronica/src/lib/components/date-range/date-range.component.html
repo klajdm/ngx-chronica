@@ -49,11 +49,11 @@
     <!-- Quick Select Buttons -->
     <div class="chronica-quick-select">
       <button class="chronica-quick-select-btn" (click)="selectThisWeek()" type="button">
-        This Week
+        {{ getCurrentLocale().labels.thisWeek }}
       </button>
-      <button class="chronica-quick-select-btn" (click)="selectToday()" type="button">Today</button>
+      <button class="chronica-quick-select-btn" (click)="selectToday()" type="button">{{ getCurrentLocale().todayLabel }}</button>
       <button class="chronica-quick-select-btn" (click)="selectThisMonth()" type="button">
-        This Month
+        {{ getCurrentLocale().labels.thisMonth }}
       </button>
     </div>
 
@@ -207,7 +207,7 @@
           }
         </div>
         <!-- Clear Button -->
-        <button class="chronica-clear-btn" (click)="clearRange()" type="button">Clear range</button>
+        <button class="chronica-clear-btn" (click)="clearRange()" type="button">{{ getCurrentLocale().labels.clearRange }}</button>
       </div>
     }
   </div>
