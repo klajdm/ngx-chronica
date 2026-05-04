@@ -236,6 +236,14 @@ export class ChronicaDatepickerComponent
     });
   }
 
+  onMonthChange(event: Event): void {
+    this.changeMonth(+(event.target as HTMLSelectElement).value);
+  }
+
+  onYearChange(event: Event): void {
+    this.changeYear(+(event.target as HTMLSelectElement).value);
+  }
+
   // Get days in the current month for the calendar
   getDaysInMonth(): number[] {
     const year = this.currentMonth.year;
