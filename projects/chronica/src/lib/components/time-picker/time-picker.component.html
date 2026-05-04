@@ -44,7 +44,7 @@
       <div class="time-controls">
         <!-- Hours -->
         <div class="time-column">
-          <label class="time-column-label">{{ isFormat24Hour ? 'Hours' : 'Hour' }}</label>
+          <label class="time-column-label">{{ isFormat24Hour ? getCurrentLocale().labels.hours : getCurrentLocale().labels.hour }}</label>
           <div class="time-scroll-container">
             @for (hour of hours; track hour) {
               <div
@@ -60,7 +60,7 @@
 
         <!-- Minutes -->
         <div class="time-column">
-          <label class="time-column-label">Minutes</label>
+          <label class="time-column-label">{{ getCurrentLocale().labels.minutes }}</label>
           <div class="time-scroll-container">
             @for (minute of minutes; track minute) {
               <div
@@ -77,7 +77,7 @@
         <!-- Seconds (if enabled) -->
         @if (config.showSeconds) {
           <div class="time-column">
-            <label class="time-column-label">Seconds</label>
+            <label class="time-column-label">{{ getCurrentLocale().labels.seconds }}</label>
             <div class="time-scroll-container">
               @for (second of seconds; track second) {
                 <div
@@ -119,9 +119,9 @@
 
     <!-- Popup Footer -->
     <div class="chronica-popup-footer">
-      <button type="button" class="action-button secondary" (click)="setCurrentTime()">Now</button>
-      <button type="button" class="action-button secondary" (click)="clearTime()">Clear</button>
-      <button type="button" class="action-button primary" (click)="closePopup()">OK</button>
+      <button type="button" class="action-button secondary" (click)="setCurrentTime()">{{ getCurrentLocale().labels.now }}</button>
+      <button type="button" class="action-button secondary" (click)="clearTime()">{{ getCurrentLocale().labels.clear }}</button>
+      <button type="button" class="action-button primary" (click)="closePopup()">{{ getCurrentLocale().labels.ok }}</button>
     </div>
   </div>
 </ng-template>
