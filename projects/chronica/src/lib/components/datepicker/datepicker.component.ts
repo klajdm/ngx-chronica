@@ -74,6 +74,8 @@ export class ChronicaDatepickerComponent
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
   private destroy$ = new Subject<void>();
+  focusedDay: number | null = null;
+  liveAnnouncement = '';
 
   @ViewChild('calendarTemplate', { static: true }) calendarTemplate!: TemplateRef<any>;
 
@@ -177,6 +179,7 @@ export class ChronicaDatepickerComponent
       timestamp: Date.now(),
     });
 
+    this.liveAnnouncement = `${this.getDateLabel(validDay)} selected`;
     // Close popup after date selection
     this.closePopup();
   }
@@ -319,6 +322,43 @@ export class ChronicaDatepickerComponent
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
     const monthName = locale.monthNames[date.getMonth()];
     return `${dayName}, ${monthName} ${day}, ${date.getFullYear()}`;
+  }
+
+  onDayKeydown(event: KeyboardEvent, day: number): void {
+    const navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (!navKeys.includes(event.key)) return;
+    event.preventDefault();
+
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const weekStartsOn = this.getCurrentLocale().weekStartsOn;
+
+    switch (event.key) {
+      case 'ArrowLeft': date.setDate(date.getDate() - 1); break;
+      case 'ArrowRight': date.setDate(date.getDate() + 1); break;
+      case 'ArrowUp': date.setDate(date.getDate() - 7); break;
+      case 'ArrowDown': date.setDate(date.getDate() + 7); break;
+      case 'PageUp': date.setMonth(date.getMonth() - 1); break;
+      case 'PageDown': date.setMonth(date.getMonth() + 1); break;
+      case 'Home': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() - dow); break; }
+      case 'End': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() + (6 - dow)); break; }
+    }
+    this.navigateToDay(date);
+  }
+
+  private navigateToDay(date: Date): void {
+    const targetYear = date.getFullYear();
+    const targetMonth = date.getMonth();
+    const targetDay = date.getDate();
+    if (targetYear !== this.currentMonth.year || targetMonth !== this.currentMonth.month) {
+      this.generateMonth(targetYear, targetMonth);
+      this.cdr.markForCheck();
+    }
+    this.focusedDay = targetDay;
+    this.liveAnnouncement = this.getDateLabel(targetDay);
+    setTimeout(() => {
+      const container = this.overlayRef?.overlayElement ?? this.elementRef.nativeElement;
+      (container.querySelector(`[data-day="${targetDay}"]`) as HTMLElement | null)?.focus();
+    });
   }
 
   previousMonth(): void {
