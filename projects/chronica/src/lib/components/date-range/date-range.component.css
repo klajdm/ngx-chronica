@@ -302,10 +302,24 @@
     min-width: 280px;
     max-width: 300px;
   }
-  
+
   .chronica-date {
     width: 32px;
     height: 32px;
     font-size: 11px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .chronica-date-range-popup,
+  .chronica-date,
+  .chronica-nav-button,
+  .chronica-month-select,
+  .chronica-year-select,
+  .quick-select-btn,
+  .action-button {
+    animation: none;
+    transition: none;
   }
 }
