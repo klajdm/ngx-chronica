@@ -1,3 +1,4 @@
+<div aria-live="polite" aria-atomic="true" class="chronica-sr-only">{{ liveAnnouncement }}</div>
 <div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- DateTime Input Trigger (single combined input) -->
   @if (!hideInput && !config.showSeparateInputs) {
@@ -249,9 +250,13 @@
                   (click)="selectDate(day)"
                   (keydown.enter)="selectDate(day)"
                   (keydown.space)="selectDate(day)"
+                  (keydown)="onDayKeydown($event, day)"
                   tabindex="0"
-                  role="button"
+                  role="gridcell"
+                  [attr.data-day]="day"
                   [attr.aria-label]="'Select date ' + day"
+                  [attr.aria-selected]="isSelectedDate(day)"
+                  [attr.aria-disabled]="isDateDisabled(day)"
                 >
                   {{ day }}
                 </div>
@@ -423,8 +428,10 @@
                   (click)="selectDate(day)"
                   (keydown.enter)="selectDate(day)"
                   (keydown.space)="selectDate(day)"
+                  (keydown)="onDayKeydown($event, day)"
                   tabindex="0"
                   role="gridcell"
+                  [attr.data-day]="day"
                   [attr.aria-label]="'Select date ' + day"
                   [attr.aria-selected]="isSelectedDate(day)"
                   [attr.aria-disabled]="isDateDisabled(day)"
