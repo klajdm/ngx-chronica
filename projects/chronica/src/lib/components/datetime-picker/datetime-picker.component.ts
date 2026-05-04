@@ -381,6 +381,14 @@ export class ChronicaDateTimePickerComponent
     this.cdr.detectChanges();
   }
 
+  onMonthChange(event: Event): void {
+    this.changeMonth(+(event.target as HTMLSelectElement).value);
+  }
+
+  onYearChange(event: Event): void {
+    this.changeYear(+(event.target as HTMLSelectElement).value);
+  }
+
   goToToday(): void {
     const today = new Date();
     this.currentMonth = { year: today.getFullYear(), month: today.getMonth() };

@@ -204,6 +204,14 @@ export class ChronicaDateRangeComponent
     this.generateMonth(numericYear, this.currentMonth.month);
   }
 
+  onMonthChange(event: Event): void {
+    this.changeMonth(+(event.target as HTMLSelectElement).value);
+  }
+
+  onYearChange(event: Event): void {
+    this.changeYear(+(event.target as HTMLSelectElement).value);
+  }
+
   isPreviousMonthDisabled(): boolean {
     if (!this.minDate) return false;
     const firstDayOfPreviousMonth = new Date(
