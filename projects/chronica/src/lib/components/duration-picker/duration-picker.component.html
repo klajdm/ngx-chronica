@@ -75,7 +75,7 @@
       <!-- Days selector -->
       @if (config.showDays) {
         <div class="duration-column">
-          <label class="duration-label">Days</label>
+          <label class="duration-label">{{ getCurrentLocale().labels.days }}</label>
           <div class="duration-scroll-container">
             @for (day of days; track day) {
               <div
@@ -93,7 +93,7 @@
       <!-- Hours selector -->
       @if (config.showHours) {
         <div class="duration-column">
-          <label class="duration-label">Hours</label>
+          <label class="duration-label">{{ getCurrentLocale().labels.hours }}</label>
           <div class="duration-scroll-container">
             @for (hour of hours; track hour) {
               <div
@@ -111,7 +111,7 @@
       <!-- Minutes selector -->
       @if (config.showMinutes) {
         <div class="duration-column">
-          <label class="duration-label">Minutes</label>
+          <label class="duration-label">{{ getCurrentLocale().labels.minutes }}</label>
           <div class="duration-scroll-container">
             @for (minute of minutes; track minute) {
               <div
@@ -129,7 +129,7 @@
       <!-- Seconds selector -->
       @if (config.showSeconds) {
         <div class="duration-column">
-          <label class="duration-label">Seconds</label>
+          <label class="duration-label">{{ getCurrentLocale().labels.seconds }}</label>
           <div class="duration-scroll-container">
             @for (second of seconds; track second) {
               <div
@@ -170,10 +170,10 @@
     <!-- Popup Footer -->
     <div class="chronica-popup-footer">
       <button type="button" class="action-button clear-button" (click)="clearDuration()">
-        Clear
+        {{ getCurrentLocale().labels.clear }}
       </button>
       <button type="button" class="action-button confirm-button" (click)="closePopup()">
-        Confirm
+        {{ getCurrentLocale().labels.ok }}
       </button>
     </div>
   </div>

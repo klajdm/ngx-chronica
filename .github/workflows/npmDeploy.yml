@@ -25,6 +25,8 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
       - run: npm ci
+      - name: Security audit
+        run: npm audit --audit-level=high
       - name: Build library
         run: npm run build:lib
       - name: Verify build output
