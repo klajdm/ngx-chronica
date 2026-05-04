@@ -27,6 +27,38 @@ export interface ChronicaBaseConfig {
 }
 
 /**
+ * Translatable UI labels for Chronica components
+ */
+export interface ChronicaLocaleLabels {
+  /** "Clear" button */
+  clear: string;
+  /** "Clear range" button */
+  clearRange: string;
+  /** "OK" confirmation button */
+  ok: string;
+  /** "Now" button (set current time) */
+  now: string;
+  /** "Hours" column header (24h) */
+  hours: string;
+  /** "Hour" column header (12h) */
+  hour: string;
+  /** "Minutes" column header */
+  minutes: string;
+  /** "Seconds" column header */
+  seconds: string;
+  /** "Days" column header */
+  days: string;
+  /** "Date" tab label */
+  date: string;
+  /** "Time" tab label */
+  time: string;
+  /** "This Week" quick-select */
+  thisWeek: string;
+  /** "This Month" quick-select */
+  thisMonth: string;
+}
+
+/**
  * Locale configuration for internationalization
  */
 export interface ChronicaLocale {
@@ -42,6 +74,8 @@ export interface ChronicaLocale {
   weekStartsOn: number;
   /** Default date format pattern */
   dateFormat: string;
+  /** Translatable UI labels */
+  labels: ChronicaLocaleLabels;
 }
 
 /**

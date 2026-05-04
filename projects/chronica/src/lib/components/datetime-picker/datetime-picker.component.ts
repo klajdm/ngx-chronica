@@ -12,6 +12,7 @@ import {
   ElementRef,
   ViewContainerRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   forwardRef,
 } from '@angular/core';
 
@@ -47,6 +48,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   ],
   templateUrl: './datetime-picker.component.html',
   styleUrls: ['./datetime-picker.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDateTimePickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
@@ -226,7 +228,7 @@ export class ChronicaDateTimePickerComponent
       this._value = { date: null, time: null };
       this.resetToCurrentDateTime();
     }
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: ChronicaDateTimeValue | null) => void): void {
@@ -239,7 +241,7 @@ export class ChronicaDateTimePickerComponent
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   private formatDate(date: Date): string {
@@ -354,7 +356,7 @@ export class ChronicaDateTimePickerComponent
     } else {
       this.currentMonth = { ...this.currentMonth, month: this.currentMonth.month - 1 };
     }
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   nextMonth(): void {
@@ -364,12 +366,12 @@ export class ChronicaDateTimePickerComponent
     } else {
       this.currentMonth = { ...this.currentMonth, month: this.currentMonth.month + 1 };
     }
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   changeMonth(monthIndex: number): void {
     this.currentMonth = { ...this.currentMonth, month: monthIndex };
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   changeYear(year: number | string): void {
@@ -378,7 +380,15 @@ export class ChronicaDateTimePickerComponent
 
     this.currentMonth = { ...this.currentMonth, year: numericYear };
     this.yearRange = ChronicaCalendarUtils.updateYearRange(numericYear);
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
+  }
+
+  onMonthChange(event: Event): void {
+    this.changeMonth(+(event.target as HTMLSelectElement).value);
+  }
+
+  onYearChange(event: Event): void {
+    this.changeYear(+(event.target as HTMLSelectElement).value);
   }
 
   goToToday(): void {
@@ -468,7 +478,7 @@ export class ChronicaDateTimePickerComponent
     this.timeSelected.emit(currentTime);
 
     this.updateValue();
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   clearDateTime(): void {
@@ -582,7 +592,7 @@ export class ChronicaDateTimePickerComponent
 
     this.isPopupOpen = true;
     this.calendarOpened.emit();
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   closePopup(): void {
@@ -593,7 +603,7 @@ export class ChronicaDateTimePickerComponent
     this.isPopupOpen = false;
     this.onTouched();
     this.calendarClosed.emit();
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   //#region Cleanup

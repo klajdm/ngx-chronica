@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
@@ -43,6 +44,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   ],
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDatepickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
@@ -234,6 +236,14 @@ export class ChronicaDatepickerComponent
       payload: { month: this.currentMonth.month, year: numericYear },
       timestamp: Date.now(),
     });
+  }
+
+  onMonthChange(event: Event): void {
+    this.changeMonth(+(event.target as HTMLSelectElement).value);
+  }
+
+  onYearChange(event: Event): void {
+    this.changeYear(+(event.target as HTMLSelectElement).value);
   }
 
   // Get days in the current month for the calendar
@@ -428,6 +438,7 @@ export class ChronicaDatepickerComponent
     if (this.currentMonth) {
       this.updateSelectedDate();
     }
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: Date | null) => void): void {
@@ -440,6 +451,7 @@ export class ChronicaDatepickerComponent
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   // Get current locale configuration

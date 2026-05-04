@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   forwardRef,
   ChangeDetectorRef,
+  ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
   OnDestroy,
@@ -25,6 +26,7 @@ import {
   ChronicaTimeValue,
   DEFAULT_TIME_CONFIG,
   ChronicaLocale,
+  CHRONICA_LOCALES,
 } from '../../models/index';
 import { ChronicaTimeUtils } from '../../utils/time.utils';
 
@@ -50,6 +52,7 @@ export interface TimePickerConfig extends Partial<ChronicaTimeConfig> {
   ],
   templateUrl: './time-picker.component.html',
   styleUrls: ['./time-picker.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaTimePickerComponent
   implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
@@ -109,7 +112,7 @@ export class ChronicaTimePickerComponent
       this.initializeTimeLists();
     }
     if (changes['minTime'] || changes['maxTime']) {
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     }
   }
 
@@ -149,7 +152,7 @@ export class ChronicaTimePickerComponent
       this._timeValue = null;
       this.resetToCurrentTime();
     }
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: ChronicaTimeValue | null) => void): void {
@@ -162,7 +165,7 @@ export class ChronicaTimePickerComponent
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   private updateSelectedTime(time: ChronicaTimeValue): void {
@@ -309,6 +312,13 @@ export class ChronicaTimePickerComponent
     return `chronica-${this.config.theme || 'light'}`;
   }
 
+  getCurrentLocale(): ChronicaLocale {
+    if (typeof this.locale === 'string') {
+      return CHRONICA_LOCALES[this.locale] || CHRONICA_LOCALES['en-US'];
+    }
+    return this.locale;
+  }
+
   //#region Popup management
   openPopup(): void {
     if (this.disabled || this.isPopupOpen) return;
@@ -350,7 +360,7 @@ export class ChronicaTimePickerComponent
       .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   closePopup(): void {
@@ -360,7 +370,7 @@ export class ChronicaTimePickerComponent
     }
     this.isPopupOpen = false;
     this.onTouched();
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   //#region Cleanup

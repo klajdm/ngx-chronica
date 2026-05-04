@@ -138,7 +138,7 @@
             id="dt-tab-date"
             (click)="switchTab('date')"
           >
-            Date
+            {{ getCurrentLocale().labels.date }}
           </button>
           <button
             type="button"
@@ -150,7 +150,7 @@
             id="dt-tab-time"
             (click)="switchTab('time')"
           >
-            Time
+            {{ getCurrentLocale().labels.time }}
           </button>
         </div>
       }
@@ -160,7 +160,7 @@
         <div class="datetime-controls">
           <!-- Date Picker Section -->
           <div class="date-picker-section">
-            <h4 class="section-title">Date</h4>
+            <h4 class="section-title">{{ getCurrentLocale().labels.date }}</h4>
             <!-- Calendar Header with navigation and dropdowns -->
             <div class="calendar-header">
               <button
@@ -184,7 +184,7 @@
                 <select
                   class="month-select"
                   [value]="currentMonth.month"
-                  (change)="changeMonth(+$any($event.target).value)"
+                  (change)="onMonthChange($event)"
                   aria-label="Select month"
                 >
                   @for (monthName of monthNames; track monthName; let i = $index) {
@@ -196,7 +196,7 @@
                 <select
                   class="year-select"
                   [value]="currentMonth.year"
-                  (change)="changeYear(+$any($event.target).value)"
+                  (change)="onYearChange($event)"
                   aria-label="Select year"
                 >
                   @for (year of yearRange; track year) {
@@ -260,11 +260,11 @@
           </div>
           <!-- Time Picker Section -->
           <div class="time-picker-section">
-            <h4 class="section-title">Time</h4>
+            <h4 class="section-title">{{ getCurrentLocale().labels.time }}</h4>
             <div class="time-controls">
               <!-- Hours -->
               <div class="time-column">
-                <label class="time-column-label">{{ format24Hour ? 'Hours' : 'Hour' }}</label>
+                <label class="time-column-label">{{ format24Hour ? getCurrentLocale().labels.hours : getCurrentLocale().labels.hour }}</label>
                 <div class="time-scroll-container">
                   @for (hour of hours; track hour) {
                     <div
@@ -279,7 +279,7 @@
               </div>
               <!-- Minutes -->
               <div class="time-column">
-                <label class="time-column-label">Minutes</label>
+                <label class="time-column-label">{{ getCurrentLocale().labels.minutes }}</label>
                 <div class="time-scroll-container">
                   @for (minute of minutes; track minute) {
                     <div
@@ -295,7 +295,7 @@
               <!-- Seconds (if enabled) -->
               @if (showSeconds) {
                 <div class="time-column">
-                  <label class="time-column-label">Seconds</label>
+                  <label class="time-column-label">{{ getCurrentLocale().labels.seconds }}</label>
                   <div class="time-scroll-container">
                     @for (second of seconds; track second) {
                       <div
@@ -363,7 +363,7 @@
                 <select
                   class="month-select"
                   [value]="currentMonth.month"
-                  (change)="changeMonth(+$any($event.target).value)"
+                  (change)="onMonthChange($event)"
                   aria-label="Select month"
                 >
                   @for (monthName of monthNames; track monthName; let i = $index) {
@@ -375,7 +375,7 @@
                 <select
                   class="year-select"
                   [value]="currentMonth.year"
-                  (change)="changeYear(+$any($event.target).value)"
+                  (change)="onYearChange($event)"
                   aria-label="Select year"
                 >
                   @for (year of yearRange; track year) {
@@ -443,7 +443,7 @@
           <div class="time-picker-section">
             <div class="time-controls">
               <div class="time-column">
-                <label class="time-column-label">{{ format24Hour ? 'Hours' : 'Hour' }}</label>
+                <label class="time-column-label">{{ format24Hour ? getCurrentLocale().labels.hours : getCurrentLocale().labels.hour }}</label>
                 <div class="time-scroll-container">
                   @for (hour of hours; track hour) {
                     <div
@@ -457,7 +457,7 @@
                 </div>
               </div>
               <div class="time-column">
-                <label class="time-column-label">Minutes</label>
+                <label class="time-column-label">{{ getCurrentLocale().labels.minutes }}</label>
                 <div class="time-scroll-container">
                   @for (minute of minutes; track minute) {
                     <div
@@ -472,7 +472,7 @@
               </div>
               @if (showSeconds) {
                 <div class="time-column">
-                  <label class="time-column-label">Seconds</label>
+                  <label class="time-column-label">{{ getCurrentLocale().labels.seconds }}</label>
                   <div class="time-scroll-container">
                     @for (second of seconds; track second) {
                       <div
@@ -516,10 +516,10 @@
     <!-- Popup Footer -->
     <div class="chronica-popup-footer">
       <button type="button" class="action-button secondary" (click)="setCurrentDateTime()">
-        Now
+        {{ getCurrentLocale().labels.now }}
       </button>
-      <button type="button" class="action-button secondary" (click)="clearDateTime()">Clear</button>
-      <button type="button" class="action-button primary" (click)="closePopup()">OK</button>
+      <button type="button" class="action-button secondary" (click)="clearDateTime()">{{ getCurrentLocale().labels.clear }}</button>
+      <button type="button" class="action-button primary" (click)="closePopup()">{{ getCurrentLocale().labels.ok }}</button>
     </div>
   </div>
 </ng-template>
