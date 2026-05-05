@@ -2,10 +2,7 @@ import {
   Component,
   OnInit,
   OnChanges,
-  OnDestroy,
   Input,
-  Output,
-  EventEmitter,
   SimpleChanges,
   ViewChild,
   TemplateRef,
@@ -14,13 +11,15 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   forwardRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChronicaDateTimeConfig,
   ChronicaDateTimeValue,
@@ -51,7 +50,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDateTimePickerComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() config: ChronicaDateTimeConfig = DEFAULT_DATETIME_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
@@ -61,11 +60,11 @@ export class ChronicaDateTimePickerComponent
   @Input() hideInput = false;
   @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
 
-  @Output() dateTimeChange = new EventEmitter<ChronicaDateTimeValue>();
-  @Output() dateSelected = new EventEmitter<Date>();
-  @Output() timeSelected = new EventEmitter<ChronicaTimeValue>();
-  @Output() calendarOpened = new EventEmitter<void>();
-  @Output() calendarClosed = new EventEmitter<void>();
+  readonly dateTimeChange = output<ChronicaDateTimeValue>();
+  readonly dateSelected = output<Date>();
+  readonly timeSelected = output<ChronicaTimeValue>();
+  readonly calendarOpened = output<void>();
+  readonly calendarClosed = output<void>();
 
   // ControlValueAccessor properties
   private onChange = (_value: ChronicaDateTimeValue | null) => {};
@@ -75,7 +74,7 @@ export class ChronicaDateTimePickerComponent
   private _value: ChronicaDateTimeValue = { date: null, time: null };
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Calendar state
   currentMonth!: { year: number; month: number };
@@ -627,7 +626,7 @@ export class ChronicaDateTimePickerComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
@@ -644,14 +643,5 @@ export class ChronicaDateTimePickerComponent
     this.onTouched();
     this.calendarClosed.emit();
     this.cdr.markForCheck();
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }

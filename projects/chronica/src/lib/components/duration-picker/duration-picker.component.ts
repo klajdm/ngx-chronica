@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -11,16 +9,17 @@ import {
   ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
-  OnDestroy,
   ViewChild,
   TemplateRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChronicaBaseConfig,
   ChronicaDurationValue,
@@ -61,7 +60,7 @@ export interface DurationPickerConfig extends Partial<ChronicaBaseConfig> {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDurationPickerComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   // Use DEFAULT_CHRONICA_CONFIG spread as base for the duration picker config
   @Input() config: DurationPickerConfig = {
@@ -89,7 +88,7 @@ export class ChronicaDurationPickerComponent
   @Input() minDuration: ChronicaDurationValue | null = null;
   @Input() maxDuration: ChronicaDurationValue | null = null;
 
-  @Output() durationChange = new EventEmitter<ChronicaDurationValue | null>();
+  readonly durationChange = output<ChronicaDurationValue | null>();
 
   // ControlValueAccessor properties
   private onChange = (value: ChronicaDurationValue | null) => {};
@@ -99,7 +98,7 @@ export class ChronicaDurationPickerComponent
   private _durationValue: ChronicaDurationValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Duration selection state
   selectedDays = 0;
@@ -427,7 +426,7 @@ export class ChronicaDurationPickerComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
@@ -442,14 +441,5 @@ export class ChronicaDurationPickerComponent
     this.isPopupOpen = false;
     this.onTouched();
     this.cdr.markForCheck();
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }
