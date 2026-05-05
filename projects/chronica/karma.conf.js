@@ -27,7 +27,15 @@ module.exports = function (config) {
     coverageReporter: {
       dir: require('path').join(__dirname, '../../coverage/ngx-chronica'),
       subdir: '.',
-      reporters: [{ type: 'html' }, { type: 'text-summary' }],
+      reporters: [{ type: 'html' }, { type: 'lcovonly' }, { type: 'text-summary' }],
+      check: {
+        global: {
+          statements: 60,
+          branches: 55,
+          functions: 70,
+          lines: 62,
+        },
+      },
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['ChromeHeadless'],
