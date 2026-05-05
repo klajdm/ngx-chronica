@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -11,16 +9,17 @@ import {
   ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
-  OnDestroy,
   ViewChild,
   TemplateRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChronicaTimeConfig,
   ChronicaTimeValue,
@@ -55,7 +54,7 @@ export interface TimePickerConfig extends Partial<ChronicaTimeConfig> {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaTimePickerComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() config: TimePickerConfig = {
     ...DEFAULT_TIME_CONFIG,
@@ -71,7 +70,7 @@ export class ChronicaTimePickerComponent
   @Input() minTime: ChronicaTimeValue | null = null;
   @Input() maxTime: ChronicaTimeValue | null = null;
 
-  @Output() timeChange = new EventEmitter<ChronicaTimeValue | null>();
+  readonly timeChange = output<ChronicaTimeValue | null>();
 
   // ControlValueAccessor properties
   private onChange = (value: ChronicaTimeValue | null) => {};
@@ -81,7 +80,7 @@ export class ChronicaTimePickerComponent
   private _timeValue: ChronicaTimeValue | null = null;
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Time selection state
   selectedHour = 0;
@@ -356,7 +355,7 @@ export class ChronicaTimePickerComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
@@ -371,14 +370,5 @@ export class ChronicaTimePickerComponent
     this.isPopupOpen = false;
     this.onTouched();
     this.cdr.markForCheck();
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }

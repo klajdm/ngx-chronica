@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { ChronicaDatepickerComponent } from './datepicker.component';
 import { CHRONICA_LOCALES } from '../../models';
 
@@ -146,7 +147,7 @@ describe('ChronicaDatepickerComponent', () => {
   describe('dateSelected output', () => {
     it('emits the selected date when selectDate is called', () => {
       const emitted: Date[] = [];
-      component.dateSelected.subscribe((d: Date) => emitted.push(d));
+      outputToObservable(component.dateSelected).subscribe((d: Date) => emitted.push(d));
       component.writeValue(d(2024, 4, 1));
       fixture.detectChanges();
       component.selectDate(15);
