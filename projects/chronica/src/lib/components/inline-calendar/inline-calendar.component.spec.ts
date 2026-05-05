@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { ChronicaInlineCalendarComponent } from './inline-calendar.component';
 import { CHRONICA_LOCALES } from '../../models';
 
@@ -166,7 +167,7 @@ describe('ChronicaInlineCalendarComponent', () => {
   describe('dateSelected output', () => {
     it('emits a Date when a cell is selected', () => {
       const emitted: Date[] = [];
-      component.dateSelected.subscribe((d: Date) => emitted.push(d));
+      outputToObservable(component.dateSelected).subscribe((d: Date) => emitted.push(d));
       const cell = component.currentMonth.dates.find((c) => c.inCurrentMonth && !c.disabled);
       if (cell) {
         component.selectDate(cell);
@@ -177,7 +178,7 @@ describe('ChronicaInlineCalendarComponent', () => {
 
     it('does not emit for a disabled cell', () => {
       const emitted: Date[] = [];
-      component.dateSelected.subscribe((d: Date) => emitted.push(d));
+      outputToObservable(component.dateSelected).subscribe((d: Date) => emitted.push(d));
       const disabledCell = { ...component.currentMonth.dates[0], disabled: true };
       component.selectDate(disabledCell);
       expect(emitted.length).toBe(0);

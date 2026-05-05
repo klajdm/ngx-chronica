@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -11,16 +9,17 @@ import {
   ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
-  OnDestroy,
   ViewChild,
   TemplateRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChronicaMonth,
   ChronicaCalendarConfig,
@@ -47,7 +46,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDatepickerComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() selectedDate: Date | null = null;
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
@@ -58,9 +57,9 @@ export class ChronicaDatepickerComponent
   @Input() hideInput: boolean = false;
   @Input() placeholder: string = 'Select date';
 
-  @Output() dateSelected = new EventEmitter<Date>();
-  @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
-  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
+  readonly dateSelected = output<Date>();
+  readonly monthChanged = output<{ month: number; year: number }>();
+  readonly calendarEvent = output<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (value: Date | null) => {};
@@ -73,7 +72,7 @@ export class ChronicaDatepickerComponent
   yearRange: number[] = [];
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
   focusedDay: number | null = null;
   liveAnnouncement = '';
 
@@ -600,7 +599,7 @@ export class ChronicaDatepickerComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
   }
 
@@ -610,14 +609,5 @@ export class ChronicaDatepickerComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }
