@@ -1,16 +1,14 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
-  OnDestroy,
   SimpleChanges,
   forwardRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   ElementRef,
+  output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -41,16 +39,16 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   styleUrl: './inline-calendar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
-  @Output() dateSelected = new EventEmitter<Date>();
-  @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
-  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
+  readonly dateSelected = output<Date>();
+  readonly monthChanged = output<{ month: number; year: number }>();
+  readonly calendarEvent = output<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (_value: Date | null) => {};
@@ -278,8 +276,6 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDes
 
     this.monthChanged.emit({ month: todayMonth, year: todayYear });
   }
-
-  ngOnDestroy(): void {}
 
   // ControlValueAccessor implementation
   writeValue(value: Date | null): void {

@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -11,16 +9,17 @@ import {
   ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
-  OnDestroy,
   ViewChild,
   TemplateRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
@@ -48,7 +47,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDateRangeComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
@@ -60,8 +59,8 @@ export class ChronicaDateRangeComponent
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
-  @Output() dateRangeChange = new EventEmitter<ChronicaDateRange>();
-  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
+  readonly dateRangeChange = output<ChronicaDateRange>();
+  readonly calendarEvent = output<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (_value: ChronicaDateRange | null) => {};
@@ -74,7 +73,7 @@ export class ChronicaDateRangeComponent
   yearRange: number[] = [];
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
   focusedDay: number | null = null;
   liveAnnouncement = '';
 
@@ -538,7 +537,7 @@ export class ChronicaDateRangeComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
 
     this.onTouched();
@@ -550,14 +549,5 @@ export class ChronicaDateRangeComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }
