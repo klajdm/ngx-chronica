@@ -1,15 +1,14 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
-  OnDestroy,
   SimpleChanges,
   forwardRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  ElementRef,
+  output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -40,16 +39,16 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   styleUrl: './inline-calendar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() selectedDate: Date | null = null;
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
-  @Output() dateSelected = new EventEmitter<Date>();
-  @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
-  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
+  readonly dateSelected = output<Date>();
+  readonly monthChanged = output<{ month: number; year: number }>();
+  readonly calendarEvent = output<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (_value: Date | null) => {};
@@ -62,8 +61,9 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDes
   yearRange: number[] = [];
   currentView: ChronicaCalendarView = 'month';
   yearGridYears: number[] = [];
+  liveAnnouncement = '';
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
     this.yearRange = ChronicaCalendarUtils.updateYearRange(new Date().getFullYear());
   }
 
@@ -122,6 +122,8 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDes
       timestamp: Date.now(),
     });
 
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${date.date.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[date.date.getMonth()]} ${date.date.getDate()}, ${date.date.getFullYear()} selected`;
     this.updateSelectedDate();
   }
 
@@ -172,6 +174,44 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDes
       type: 'monthChange',
       payload: { month: next.month, year: next.year },
       timestamp: Date.now(),
+    });
+  }
+
+  onDayKeydown(event: KeyboardEvent, date: Date): void {
+    const navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (!navKeys.includes(event.key)) return;
+    event.preventDefault();
+
+    const target = new Date(date);
+    const weekStartsOn = this.getCurrentLocale().weekStartsOn;
+
+    switch (event.key) {
+      case 'ArrowLeft': target.setDate(target.getDate() - 1); break;
+      case 'ArrowRight': target.setDate(target.getDate() + 1); break;
+      case 'ArrowUp': target.setDate(target.getDate() - 7); break;
+      case 'ArrowDown': target.setDate(target.getDate() + 7); break;
+      case 'PageUp': target.setMonth(target.getMonth() - 1); break;
+      case 'PageDown': target.setMonth(target.getMonth() + 1); break;
+      case 'Home': { const dow = (target.getDay() - weekStartsOn + 7) % 7; target.setDate(target.getDate() - dow); break; }
+      case 'End': { const dow = (target.getDay() - weekStartsOn + 7) % 7; target.setDate(target.getDate() + (6 - dow)); break; }
+    }
+    this.navigateToDay(target);
+  }
+
+  private navigateToDay(date: Date): void {
+    if (date.getMonth() !== this.currentMonth.month || date.getFullYear() !== this.currentMonth.year) {
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(date.getFullYear());
+      this.currentMonth = ChronicaCalendarUtils.generateCalendarMonth(
+        date.getFullYear(), date.getMonth(), this.getLocaleConfig()
+      );
+      if (this.selectedDate) this.updateSelectedDate();
+      this.cdr.markForCheck();
+    }
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${date.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    setTimeout(() => {
+      (this.elementRef.nativeElement.querySelector(`[data-date="${key}"]`) as HTMLElement | null)?.focus();
     });
   }
 
@@ -236,8 +276,6 @@ export class ChronicaInlineCalendarComponent implements OnInit, OnChanges, OnDes
 
     this.monthChanged.emit({ month: todayMonth, year: todayYear });
   }
-
-  ngOnDestroy(): void {}
 
   // ControlValueAccessor implementation
   writeValue(value: Date | null): void {

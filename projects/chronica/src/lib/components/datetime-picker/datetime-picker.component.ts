@@ -2,10 +2,7 @@ import {
   Component,
   OnInit,
   OnChanges,
-  OnDestroy,
   Input,
-  Output,
-  EventEmitter,
   SimpleChanges,
   ViewChild,
   TemplateRef,
@@ -14,13 +11,16 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   forwardRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChronicaDateTimeConfig,
   ChronicaDateTimeValue,
@@ -38,7 +38,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
 @Component({
   selector: 'chronica-datetime-picker',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgTemplateOutlet],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -51,7 +51,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDateTimePickerComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() config: ChronicaDateTimeConfig = DEFAULT_DATETIME_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
@@ -61,11 +61,11 @@ export class ChronicaDateTimePickerComponent
   @Input() hideInput = false;
   @Input() popupPosition: 'bottom' | 'top' | 'auto' = 'auto';
 
-  @Output() dateTimeChange = new EventEmitter<ChronicaDateTimeValue>();
-  @Output() dateSelected = new EventEmitter<Date>();
-  @Output() timeSelected = new EventEmitter<ChronicaTimeValue>();
-  @Output() calendarOpened = new EventEmitter<void>();
-  @Output() calendarClosed = new EventEmitter<void>();
+  readonly dateTimeChange = output<ChronicaDateTimeValue>();
+  readonly dateSelected = output<Date>();
+  readonly timeSelected = output<ChronicaTimeValue>();
+  readonly calendarOpened = output<void>();
+  readonly calendarClosed = output<void>();
 
   // ControlValueAccessor properties
   private onChange = (_value: ChronicaDateTimeValue | null) => {};
@@ -75,13 +75,15 @@ export class ChronicaDateTimePickerComponent
   private _value: ChronicaDateTimeValue = { date: null, time: null };
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Calendar state
   currentMonth!: { year: number; month: number };
   dayNames: string[] = [];
   monthNames: string[] = [];
   yearRange: number[] = [];
+  focusedDay: number | null = null;
+  liveAnnouncement = '';
 
   // Time selection state
   selectedHour = 0;
@@ -295,6 +297,8 @@ export class ChronicaDateTimePickerComponent
     const selectedDate = new Date(this.currentMonth.year, this.currentMonth.month, day);
     this._value.date = selectedDate;
 
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${selectedDate.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[selectedDate.getMonth()]} ${day}, ${selectedDate.getFullYear()} selected`;
     this.dateSelected.emit(new Date(selectedDate));
     this.updateValue();
   }
@@ -347,6 +351,42 @@ export class ChronicaDateTimePickerComponent
     }
 
     return false;
+  }
+
+  onDayKeydown(event: KeyboardEvent, day: number): void {
+    const navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (!navKeys.includes(event.key)) return;
+    event.preventDefault();
+
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const weekStartsOn = this.getCurrentLocale().weekStartsOn;
+
+    switch (event.key) {
+      case 'ArrowLeft': date.setDate(date.getDate() - 1); break;
+      case 'ArrowRight': date.setDate(date.getDate() + 1); break;
+      case 'ArrowUp': date.setDate(date.getDate() - 7); break;
+      case 'ArrowDown': date.setDate(date.getDate() + 7); break;
+      case 'PageUp': date.setMonth(date.getMonth() - 1); break;
+      case 'PageDown': date.setMonth(date.getMonth() + 1); break;
+      case 'Home': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() - dow); break; }
+      case 'End': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() + (6 - dow)); break; }
+    }
+
+    const targetYear = date.getFullYear();
+    const targetMonth = date.getMonth();
+    const targetDay = date.getDate();
+    if (targetYear !== this.currentMonth.year || targetMonth !== this.currentMonth.month) {
+      this.currentMonth = { year: targetYear, month: targetMonth };
+      this.yearRange = ChronicaCalendarUtils.updateYearRange(targetYear);
+      this.cdr.markForCheck();
+    }
+    this.focusedDay = targetDay;
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${date.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[targetMonth]} ${targetDay}, ${targetYear}`;
+    setTimeout(() => {
+      const container = this.overlayRef?.overlayElement ?? this.elementRef.nativeElement;
+      (container.querySelector(`[data-day="${targetDay}"]`) as HTMLElement | null)?.focus();
+    });
   }
 
   previousMonth(): void {
@@ -587,7 +627,7 @@ export class ChronicaDateTimePickerComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
 
     this.isPopupOpen = true;
@@ -604,14 +644,5 @@ export class ChronicaDateTimePickerComponent
     this.onTouched();
     this.calendarClosed.emit();
     this.cdr.markForCheck();
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }

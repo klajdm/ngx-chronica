@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -11,16 +9,17 @@ import {
   ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
-  OnDestroy,
   ViewChild,
   TemplateRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ChronicaMonth,
   ChronicaCalendarConfig,
@@ -47,7 +46,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDatepickerComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() selectedDate: Date | null = null;
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
@@ -58,9 +57,9 @@ export class ChronicaDatepickerComponent
   @Input() hideInput: boolean = false;
   @Input() placeholder: string = 'Select date';
 
-  @Output() dateSelected = new EventEmitter<Date>();
-  @Output() monthChanged = new EventEmitter<{ month: number; year: number }>();
-  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
+  readonly dateSelected = output<Date>();
+  readonly monthChanged = output<{ month: number; year: number }>();
+  readonly calendarEvent = output<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (value: Date | null) => {};
@@ -73,7 +72,9 @@ export class ChronicaDatepickerComponent
   yearRange: number[] = [];
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
+  focusedDay: number | null = null;
+  liveAnnouncement = '';
 
   @ViewChild('calendarTemplate', { static: true }) calendarTemplate!: TemplateRef<any>;
 
@@ -177,6 +178,7 @@ export class ChronicaDatepickerComponent
       timestamp: Date.now(),
     });
 
+    this.liveAnnouncement = `${this.getDateLabel(validDay)} selected`;
     // Close popup after date selection
     this.closePopup();
   }
@@ -319,6 +321,43 @@ export class ChronicaDatepickerComponent
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
     const monthName = locale.monthNames[date.getMonth()];
     return `${dayName}, ${monthName} ${day}, ${date.getFullYear()}`;
+  }
+
+  onDayKeydown(event: KeyboardEvent, day: number): void {
+    const navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (!navKeys.includes(event.key)) return;
+    event.preventDefault();
+
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const weekStartsOn = this.getCurrentLocale().weekStartsOn;
+
+    switch (event.key) {
+      case 'ArrowLeft': date.setDate(date.getDate() - 1); break;
+      case 'ArrowRight': date.setDate(date.getDate() + 1); break;
+      case 'ArrowUp': date.setDate(date.getDate() - 7); break;
+      case 'ArrowDown': date.setDate(date.getDate() + 7); break;
+      case 'PageUp': date.setMonth(date.getMonth() - 1); break;
+      case 'PageDown': date.setMonth(date.getMonth() + 1); break;
+      case 'Home': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() - dow); break; }
+      case 'End': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() + (6 - dow)); break; }
+    }
+    this.navigateToDay(date);
+  }
+
+  private navigateToDay(date: Date): void {
+    const targetYear = date.getFullYear();
+    const targetMonth = date.getMonth();
+    const targetDay = date.getDate();
+    if (targetYear !== this.currentMonth.year || targetMonth !== this.currentMonth.month) {
+      this.generateMonth(targetYear, targetMonth);
+      this.cdr.markForCheck();
+    }
+    this.focusedDay = targetDay;
+    this.liveAnnouncement = this.getDateLabel(targetDay);
+    setTimeout(() => {
+      const container = this.overlayRef?.overlayElement ?? this.elementRef.nativeElement;
+      (container.querySelector(`[data-day="${targetDay}"]`) as HTMLElement | null)?.focus();
+    });
   }
 
   previousMonth(): void {
@@ -560,7 +599,7 @@ export class ChronicaDatepickerComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
   }
 
@@ -570,14 +609,5 @@ export class ChronicaDatepickerComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }

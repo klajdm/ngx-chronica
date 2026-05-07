@@ -1,8 +1,6 @@
 import {
   Component,
   Input,
-  Output,
-  EventEmitter,
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -11,16 +9,17 @@ import {
   ChangeDetectionStrategy,
   ViewContainerRef,
   ElementRef,
-  OnDestroy,
   ViewChild,
   TemplateRef,
+  output,
+  DestroyRef,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   CHRONICA_LOCALES,
   ChronicaCalendarConfig,
@@ -48,7 +47,7 @@ import { ChronicaCalendarUtils } from '../../utils/calendar.utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChronicaDateRangeComponent
-  implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+  implements OnInit, OnChanges, ControlValueAccessor
 {
   @Input() config: ChronicaCalendarConfig = DEFAULT_CALENDAR_CONFIG;
   @Input() locale: ChronicaLocale | string = 'en-US';
@@ -60,8 +59,8 @@ export class ChronicaDateRangeComponent
   @Input() initialMonth?: number;
   @Input() initialYear?: number;
 
-  @Output() dateRangeChange = new EventEmitter<ChronicaDateRange>();
-  @Output() calendarEvent = new EventEmitter<ChronicaEvent>();
+  readonly dateRangeChange = output<ChronicaDateRange>();
+  readonly calendarEvent = output<ChronicaEvent>();
 
   // ControlValueAccessor properties
   private onChange = (_value: ChronicaDateRange | null) => {};
@@ -74,7 +73,9 @@ export class ChronicaDateRangeComponent
   yearRange: number[] = [];
   isPopupOpen = false;
   private overlayRef: OverlayRef | null = null;
-  private destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
+  focusedDay: number | null = null;
+  liveAnnouncement = '';
 
   // Date range state
   private _dateRange: ChronicaDateRange = { startDate: null, endDate: null };
@@ -174,6 +175,44 @@ export class ChronicaDateRangeComponent
     return Array.from({ length: offset }, (_, i) => i);
   }
 
+  onDayKeydown(event: KeyboardEvent, day: number): void {
+    const navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (!navKeys.includes(event.key)) return;
+    event.preventDefault();
+
+    const date = new Date(this.currentMonth.year, this.currentMonth.month, day);
+    const weekStartsOn = this.getCurrentLocale().weekStartsOn;
+
+    switch (event.key) {
+      case 'ArrowLeft': date.setDate(date.getDate() - 1); break;
+      case 'ArrowRight': date.setDate(date.getDate() + 1); break;
+      case 'ArrowUp': date.setDate(date.getDate() - 7); break;
+      case 'ArrowDown': date.setDate(date.getDate() + 7); break;
+      case 'PageUp': date.setMonth(date.getMonth() - 1); break;
+      case 'PageDown': date.setMonth(date.getMonth() + 1); break;
+      case 'Home': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() - dow); break; }
+      case 'End': { const dow = (date.getDay() - weekStartsOn + 7) % 7; date.setDate(date.getDate() + (6 - dow)); break; }
+    }
+    this.navigateToDay(date);
+  }
+
+  private navigateToDay(date: Date): void {
+    const targetYear = date.getFullYear();
+    const targetMonth = date.getMonth();
+    const targetDay = date.getDate();
+    if (targetYear !== this.currentMonth.year || targetMonth !== this.currentMonth.month) {
+      this.generateMonth(targetYear, targetMonth);
+      this.cdr.markForCheck();
+    }
+    this.focusedDay = targetDay;
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${date.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[targetMonth]} ${targetDay}, ${targetYear}`;
+    setTimeout(() => {
+      const container = this.overlayRef?.overlayElement ?? this.elementRef.nativeElement;
+      (container.querySelector(`[data-day="${targetDay}"]`) as HTMLElement | null)?.focus();
+    });
+  }
+
   previousMonth(): void {
     if (this.isPreviousMonthDisabled()) return;
 
@@ -255,6 +294,8 @@ export class ChronicaDateRangeComponent
       this.closePopup();
     }
 
+    const locale = this.getCurrentLocale();
+    this.liveAnnouncement = `${selectedDate.toLocaleDateString('en-US', { weekday: 'long' })}, ${locale.monthNames[selectedDate.getMonth()]} ${day}, ${selectedDate.getFullYear()} selected`;
     this.onChange(this._dateRange);
     this.dateRangeChange.emit(this._dateRange);
     this.calendarEvent.emit({
@@ -496,7 +537,7 @@ export class ChronicaDateRangeComponent
 
     this.overlayRef
       .backdropClick()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.closePopup());
 
     this.onTouched();
@@ -508,14 +549,5 @@ export class ChronicaDateRangeComponent
       this.overlayRef = null;
     }
     this.isPopupOpen = false;
-  }
-
-  //#region Cleanup
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-    }
   }
 }

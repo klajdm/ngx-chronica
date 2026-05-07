@@ -1,3 +1,4 @@
+<div aria-live="polite" aria-atomic="true" class="chronica-sr-only">{{ liveAnnouncement }}</div>
 <div class="chronica-input-container" [class]="themeClass + ' ' + colorThemeClass">
   <!-- Default input element -->
   @if (!hideInput) {
@@ -165,8 +166,10 @@
             (click)="selectDate(day)"
             (keydown.enter)="selectDate(day)"
             (keydown.space)="selectDate(day)"
+            (keydown)="onDayKeydown($event, day)"
             tabindex="0"
             role="gridcell"
+            [attr.data-day]="day"
             [attr.aria-label]="getDateLabel(day)"
             [attr.aria-selected]="isSelectedDate(day)"
             [attr.aria-disabled]="isDateDisabled(day)"
