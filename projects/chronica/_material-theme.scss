@@ -1,0 +1,174 @@
+///
+/// ngx-chronica – Angular Material Theme Bridge (SCSS)
+/// ═══════════════════════════════════════════════════════════════════════════
+///
+/// Provides two SCSS mixins for integrating ngx-chronica with Angular Material:
+///
+///   1. `apply()` — reads Angular Material M3 CSS custom properties already set
+///      on :root and maps them to ngx-chronica variables.  Equivalent to
+///      importing the plain `material-theme.css` file, but usable inside SCSS.
+///
+///   2. `apply-colors(...)` — accepts explicit SCSS color arguments (Sass
+///      Color objects). Use this for Angular Material M2 themes, or any custom
+///      palette, where the M3 CSS tokens are not available.
+///
+/// REQUIREMENTS FOR `apply()`
+///   - Angular Material 17+ with M3 theme (--mat-app-* tokens on :root)
+///   - Must be called AFTER Angular Material's stylesheet is loaded
+///
+/// REQUIREMENTS FOR `apply-colors()`
+///   - Sass 1.23+ (dart-sass)  — uses `sass:color`
+///   - No Angular Material dependency required
+///
+/// ─── Quick-start ────────────────────────────────────────────────────────────
+///
+///   // In your global styles.scss:
+///
+///   @use 'ngx-chronica/material-theme' as chronica-mat;
+///
+///   // Option A — M3 CSS token bridge (Material 17+ with M3 theme):
+///   :root { @include chronica-mat.apply(); }
+///
+///   // Option B — explicit SCSS colors (M2 theme or custom palette):
+///   :root {
+///     @include chronica-mat.apply-colors(
+///       $primary:             #3b82f6,
+///       $on-primary:          #ffffff,
+///       $surface:             #ffffff,
+///       $on-surface:          #1f2937,
+///       $surface-variant:     #f1f5f9,
+///       $on-surface-variant:  #6b7280,
+///       $outline:             #9ca3af
+///     );
+///   }
+///
+/// ═══════════════════════════════════════════════════════════════════════════
+
+@use 'sass:color';
+
+// ── Mixin 1: apply() ─────────────────────────────────────────────────────────
+// Maps Angular Material M3 CSS custom properties to ngx-chronica CSS variables.
+// Generates the same output as importing `material-theme.css`.
+@mixin apply() {
+  // ── Primary palette ────────────────────────────────────────────────────────
+  --chronica-primary:             var(--mat-app-primary,              #3b82f6);
+  --chronica-primary-hover:       color-mix(in srgb, var(--mat-app-primary, #3b82f6) 85%, black);
+  --chronica-primary-light:       var(--mat-app-primary-container,    #dbeafe);
+  --chronica-primary-dark:        color-mix(in srgb, var(--mat-app-primary, #3b82f6) 70%, black);
+  --chronica-accent:              var(--mat-app-secondary,            var(--mat-app-primary, #60a5fa));
+  --chronica-focus:               color-mix(in srgb, var(--mat-app-primary, #3b82f6) 20%, transparent);
+
+  // ── Surfaces & backgrounds ─────────────────────────────────────────────────
+  --chronica-background:          var(--mat-app-surface,              #ffffff);
+  --chronica-bg-color:            var(--mat-app-surface,              #ffffff);
+  --chronica-bg-secondary:        var(--mat-app-surface-container-low, var(--mat-app-surface, #f8fafc));
+  --chronica-bg-tertiary:         var(--mat-app-surface-container,    var(--mat-app-surface-variant, #f1f5f9));
+  --chronica-hover-background:    var(--mat-app-surface-container-highest, var(--mat-app-surface-variant, #f3f4f6));
+  --chronica-active-background:   var(--mat-app-surface-container-high, var(--mat-app-surface-variant, #e5e7eb));
+  --chronica-selected-background: var(--mat-app-primary,              #3b82f6);
+  --chronica-selected-text:       var(--mat-app-on-primary,           #ffffff);
+
+  // ── Scrollbar ──────────────────────────────────────────────────────────────
+  --chronica-scrollbar-track:         var(--mat-app-surface-container-low,  #f1f5f9);
+  --chronica-scrollbar-thumb:         var(--mat-app-outline-variant,         #cbd5e1);
+  --chronica-scrollbar-thumb-hover:   var(--mat-app-outline,                 #94a3b8);
+
+  // ── Text ──────────────────────────────────────────────────────────────────
+  --chronica-text-color:          var(--mat-app-on-surface,            #1f2937);
+  --chronica-text-color-primary:  var(--mat-app-on-surface,            #1f2937);
+  --chronica-text-color-secondary:var(--mat-app-on-surface-variant,    #374151);
+  --chronica-text-color-light:    var(--mat-app-on-surface-variant,    #6b7280);
+  --chronica-text-color-muted:    color-mix(in srgb, var(--mat-app-on-surface-variant, #9ca3af) 60%, transparent);
+  --chronica-text-color-inverse:  var(--mat-app-on-primary,            #ffffff);
+
+  // ── Borders ────────────────────────────────────────────────────────────────
+  --chronica-border-color:        var(--mat-app-outline-variant,       #e5e7eb);
+  --chronica-border-color-light:  var(--mat-app-outline-variant,       #f1f5f9);
+  --chronica-border-color-medium: var(--mat-app-outline,               #d1d5db);
+  --chronica-border-color-dark:   var(--mat-app-outline,               #9ca3af);
+  --chronica-border-color-hover:  var(--mat-app-outline,               #9ca3af);
+  --chronica-border-color-focus:  var(--mat-app-primary,               #3b82f6);
+
+  // ── Typography ────────────────────────────────────────────────────────────
+  --chronica-font-family:
+    var(--mat-app-body-medium-font,
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif);
+
+  // ── Shape / border radius ─────────────────────────────────────────────────
+  --chronica-border-radius-md: var(--mdc-outlined-text-field-container-shape, 6px);
+  --chronica-border-radius-lg: var(--mat-card-outlined-container-shape, 8px);
+
+  // ── Status ────────────────────────────────────────────────────────────────
+  --chronica-error: var(--mat-app-error, #ef4444);
+}
+
+
+// ── Mixin 2: apply-colors(...) ───────────────────────────────────────────────
+// Accepts explicit Sass color values and computes derived tokens at build time.
+// Compatible with Angular Material M2 themes and any custom color palette.
+//
+// Parameters
+//   $primary             – main brand/action color
+//   $on-primary          – text/icon color on primary surfaces
+//   $surface             – default background color
+//   $on-surface          – default text color on surfaces
+//   $surface-variant     – secondary/muted surface color
+//   $on-surface-variant  – secondary/muted text color
+//   $outline             – border and divider color
+//   $error               – error/destructive action color
+@mixin apply-colors(
+  $primary:             #3b82f6,
+  $on-primary:          #ffffff,
+  $surface:             #ffffff,
+  $on-surface:          #1f2937,
+  $surface-variant:     #f1f5f9,
+  $on-surface-variant:  #6b7280,
+  $outline:             #9ca3af,
+  $error:               #ef4444
+) {
+  // ── Primary palette ────────────────────────────────────────────────────────
+  --chronica-primary:             #{$primary};
+  --chronica-primary-hover:       #{color.mix(black, $primary, 15%)};
+  --chronica-primary-light:       #{color.mix(white, $primary, 80%)};
+  --chronica-primary-dark:        #{color.mix(black, $primary, 30%)};
+  --chronica-accent:              #{color.adjust($primary, $lightness: 10%)};
+  --chronica-focus:               #{color.change($primary, $alpha: 0.2)};
+
+  // ── Surfaces & backgrounds ─────────────────────────────────────────────────
+  --chronica-background:          #{$surface};
+  --chronica-bg-color:            #{$surface};
+  --chronica-bg-secondary:        #{color.mix($surface-variant, $surface, 40%)};
+  --chronica-bg-tertiary:         #{$surface-variant};
+  --chronica-hover-background:    #{color.mix(black, $surface, 4%)};
+  --chronica-active-background:   #{color.mix(black, $surface, 9%)};
+  --chronica-selected-background: #{$primary};
+  --chronica-selected-text:       #{$on-primary};
+
+  // ── Scrollbar ──────────────────────────────────────────────────────────────
+  --chronica-scrollbar-track:         #{color.mix($surface-variant, $surface, 50%)};
+  --chronica-scrollbar-thumb:         #{color.mix($outline, $surface, 50%)};
+  --chronica-scrollbar-thumb-hover:   #{$outline};
+
+  // ── Text ──────────────────────────────────────────────────────────────────
+  --chronica-text-color:           #{$on-surface};
+  --chronica-text-color-primary:   #{$on-surface};
+  --chronica-text-color-secondary: #{color.mix($on-surface, $surface, 80%)};
+  --chronica-text-color-light:     #{$on-surface-variant};
+  --chronica-text-color-muted:     #{color.change($on-surface-variant, $alpha: 0.6)};
+  --chronica-text-color-inverse:   #{$on-primary};
+
+  // ── Borders ────────────────────────────────────────────────────────────────
+  --chronica-border-color:         #{color.mix($outline, $surface, 40%)};
+  --chronica-border-color-light:   #{color.mix($outline, $surface, 20%)};
+  --chronica-border-color-medium:  #{color.mix($outline, $surface, 60%)};
+  --chronica-border-color-dark:    #{$outline};
+  --chronica-border-color-hover:   #{$outline};
+  --chronica-border-color-focus:   #{$primary};
+
+  // ── Shape / border radius (fixed — no SCSS equivalent for MDC tokens) ─────
+  --chronica-border-radius-md: 6px;
+  --chronica-border-radius-lg: 8px;
+
+  // ── Status ────────────────────────────────────────────────────────────────
+  --chronica-error: #{$error};
+}
